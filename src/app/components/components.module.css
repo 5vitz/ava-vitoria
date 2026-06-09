@@ -1,0 +1,387 @@
+/* Estilos do Header e do CartDrawer — Estética da Subtração AVA Vitória */
+
+/* HEADER STYLES */
+.header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  border-bottom: none; /* Sem linha divisória no topo */
+  background: transparent; /* Cabeçalho totalmente transparente no teste de tela */
+  backdrop-filter: none;
+  z-index: 90;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+    height: 70px;
+  }
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logoText {
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.logoImage {
+  object-fit: contain;
+  /* Removido o filtro inverter para permitir a exibição do logo preto */
+}
+
+.cartButton {
+  background: transparent;
+  border: none;
+  color: #1F080F; /* Vinho Escuro em vez de branco para se destacar no fundo claro */
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 0;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.cartButton:hover {
+  color: var(--color-accent);
+}
+
+.cartIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.cartCountBadge {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -2px;
+  right: -12px;
+}
+
+/* DRAWER STYLES */
+.drawerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.drawerOverlayActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 450px;
+  max-width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9); /* Fundo preto translúcido de teste */
+  backdrop-filter: blur(var(--backdrop-blur));
+  border-left: 1px solid var(--color-border);
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.drawerActive {
+  transform: translateX(0);
+}
+
+.drawerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.drawerTitle {
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+  transition: color 0.3s ease;
+}
+
+.closeButton:hover {
+  color: var(--color-accent);
+}
+
+.cartList {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Scrollbar para a lista do carrinho */
+.cartList::-webkit-scrollbar {
+  width: 4px;
+}
+.cartList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.cartList::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  gap: 15px;
+  color: var(--color-text-secondary);
+}
+
+.emptyStateMessage {
+  font-family: var(--font-body);
+  font-weight: var(--font-body-weight);
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+.emptyStateButton {
+  background: transparent;
+  border: 1px solid var(--color-text-primary);
+  color: var(--color-text-primary);
+  padding: 12px 30px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.emptyStateButton:hover {
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+}
+
+.cartItem {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 25px;
+}
+
+.itemImageContainer {
+  position: relative;
+  width: 90px;
+  aspect-ratio: 9 / 16; /* 9:16 Balenciaga no carrinho também */
+  background: #000;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.itemImage {
+  object-fit: cover;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 6px;
+}
+
+.itemName {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.itemMeta {
+  font-family: var(--font-body);
+  font-weight: var(--font-body-weight);
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
+  display: flex;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.itemMetaLabel {
+  color: var(--color-accent);
+}
+
+.itemPrice {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  margin-top: 4px;
+}
+
+.itemActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.quantitySelector {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+}
+
+.qtyButton {
+  background: transparent;
+  border: none;
+  color: var(--color-text-primary);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.qtyButton:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.qtyValue {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  width: 25px;
+  text-align: center;
+}
+
+.removeButton {
+  background: transparent;
+  border: none;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 5px;
+}
+
+.removeButton:hover {
+  color: #FF5A5A;
+}
+
+.drawerFooter {
+  padding: 30px;
+  border-top: 1px solid var(--color-border);
+  background: rgba(0, 0, 0, 0.95); /* Fundo preto sólido de teste */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-title);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.totalLabel {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+.totalValue {
+  font-size: 1.15rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.checkoutButton {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border: 1px solid var(--color-accent);
+  padding: 16px;
+  width: 100%;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkoutButton:hover {
+  background: transparent;
+  color: var(--color-accent);
+}

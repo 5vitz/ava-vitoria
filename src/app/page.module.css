@@ -1,142 +1,240 @@
+/* Estilos da Página Inicial (Home) — Estética da Subtração AVA Vitória */
+
 .page {
-  --background: #fafafa;
-  --foreground: #fff;
-
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
   display: flex;
-  flex: 1;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+  min-height: 100vh;
+  background-color: #C9C9CB; /* Cinza concreto extraído da logo Gemini no banner */
+  background-image: 
+    /* Fios verticais da trama da tela */
+    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    /* Fios horizontais da trama da tela */
+    linear-gradient(0deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+    /* Rugosidade orgânica (ruído fractal SVG) */
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.035 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 5px 5px, 5px 5px, auto; /* 5px cria uma trama de fios compacta e luxuosa */
 }
 
 .main {
   display: flex;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+  flex-grow: 1;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
-}
-
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
-}
-
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
-}
-
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.ctas {
-  display: flex;
-  flex-direction: row;
+/* HERO / BANNER PRINCIPAL (Tela cheia com proporção widescreen) */
+.hero {
+  position: relative;
   width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
-}
-
-.ctas a {
+  aspect-ratio: 21 / 9;  /* Proporção ultra-wide 21:9 */
+  background: #000000;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border); /* Separação sutil na base */
+  margin-top: 0;         /* Encosta exatamente na base do header, sem vão */
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center;     /* Centralização perfeita (mantém o skatista em foco) */
+  opacity: 0.95;               
+}
+
+/* Selo de Atitude no Banner */
+.heroSeal {
+  position: absolute;
+  top: 60px;
+  right: 60px;
+  width: 160px;
+  height: 160px;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.3)); /* Sombra para destacar */
+}
+
+.sealImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    aspect-ratio: 16 / 8;      /* Um pouco mais alto em tablets */
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile, focando no centro da imagem */
+    min-height: 250px;
+    margin-top: 0;             /* Encosta exatamente na base do header mobile */
+  }
+  .heroSeal {
+    top: 20px;
+    right: 20px;
+    width: 90px;
+    height: 90px;              /* Selo menor no celular */
+  }
+}
+
+.heroContent {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 20px;
+  max-width: 700px;
+}
+
+.heroSubtitle {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 15px;
+}
+
+.heroTitle {
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-size: 2.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  line-height: 1.1;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 1.8rem;
+  }
+  .heroSubtitle {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+  }
+}
+
+/* SEÇÃO DE PRODUTOS */
+.collectionSection {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media (max-width: 768px) {
+  .collectionSection {
+    padding: 40px 20px;
+    gap: 30px;
+  }
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 15px;
+  max-width: 100%;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: var(--font-title);
+  font-weight: var(--font-title-weight);
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #1F080F; /* Vinho Escuro em vez de branco para contraste */
+}
+
+.sectionCount {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #333333; /* Cinza escuro para alto contraste no cinza concreto */
+  text-transform: uppercase;
+}
+
+.sectionCountBtn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  color: #555555;
+  text-transform: uppercase;
   cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
+  padding: 0;
+  transition: all 0.3s ease;
+  border-bottom: 1px dashed transparent;
 }
 
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
+.sectionCountBtn:hover {
+  color: var(--color-accent);
+  border-bottom: 1px dashed var(--color-accent);
 }
 
-a.secondary {
-  border-color: var(--button-secondary-border);
+/* GRID BALENCIAGA DE 3 COLUNAS - LARGURA TOTAL COM ALINHAMENTO EDITORIAL */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 100%;
+  width: 100%;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+/* Alinhamento dos cards nas extremidades e centro para espalhar uniformemente */
+@media (min-width: 1025px) {
+  .grid > *:nth-child(3n+1) {
+    justify-self: start;
   }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  .grid > *:nth-child(3n+2) {
+    justify-self: center;
   }
-}
-
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
+  .grid > *:nth-child(3n) {
+    justify-self: end;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
   }
+  .grid > *:nth-child(2n+1) {
+    justify-self: start;
+  }
+  .grid > *:nth-child(2n) {
+    justify-self: end;
+  }
+}
 
-  .page {
-    --background: #000;
-    --foreground: #000;
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    justify-items: center; /* Centraliza no mobile */
+  }
+}
 
-    --text-primary: #ededed;
-    --text-secondary: #999;
+/* RODAPÉ MINIMALISTA */
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.15); /* Borda escura ajustada para contraste */
+  padding: 40px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #333333; /* Cinza escuro para contraste */
+}
 
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 20px;
   }
 }

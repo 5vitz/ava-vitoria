@@ -84,14 +84,18 @@ async function main() {
       },
     });
 
-    // Vincular imagem 9:16 da pasta static
-    await prisma.productImage.create({
-      data: {
-        product_id: product.id,
-        image_url: `/imagens/COLECAO/${numStr}.jpg`,
-        display_order: 0,
-      },
-    });
+    // Vincular 3 imagens 9:16 da pasta static de forma rotativa para testar o hover carrossel
+    for (let j = 0; j < 3; j++) {
+      const imgIndex = ((i - 1 + j) % 18) + 1;
+      const imgNumStr = imgIndex.toString().padStart(2, "0");
+      await prisma.productImage.create({
+        data: {
+          product_id: product.id,
+          image_url: `/imagens/COLECAO/${imgNumStr}.jpg`,
+          display_order: j,
+        },
+      });
+    }
 
     // Gerar as variantes de estoque por cor e tamanho
     for (const color of colors) {

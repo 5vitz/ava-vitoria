@@ -1,0 +1,142 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #000000; /* Fundo alterado para preto de teste */
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 320px; /* Mantém o tamanho original da foto */
+}
+
+.card:hover {
+  border-color: var(--color-accent); /* Borda dourada no hover */
+}
+
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16; /* Proporção estrita Balenciaga 9:16 */
+  background: #000000; /* Fundo alterado para preto */
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.02); /* Zoom sutil e elegante */
+}
+
+/* Setas do Carrossel */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(31, 8, 15, 0.4); /* Fundo Vinho translúcido */
+  backdrop-filter: blur(var(--backdrop-blur));
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  opacity: 0; /* Invisível por padrão */
+  pointer-events: none;
+}
+
+/* Exibir setas no Hover do Card */
+.card:hover .arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.arrow:hover {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-color: var(--color-accent);
+}
+
+.arrowLeft {
+  left: 15px;
+}
+
+.arrowRight {
+  right: 15px;
+}
+
+/* Indicadores (Bolinhas) no rodapé do card */
+.indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover .indicators {
+  opacity: 1;
+}
+
+/* Em mobile, exibe os indicadores de forma sutil sem hover */
+@media (max-width: 768px) {
+  .indicators {
+    opacity: 1;
+  }
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.2s ease;
+}
+
+.dotActive {
+  background: var(--color-accent);
+  transform: scale(1.25);
+}
+
+/* Informações do Produto */
+.info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: #000000; /* Fundo alterado para preto */
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.name {
+  font-family: var(--font-title);
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.price {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  margin: 0;
+}

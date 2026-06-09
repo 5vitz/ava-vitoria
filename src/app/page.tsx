@@ -1,66 +1,79 @@
+import React from "react";
 import Image from "next/image";
+import { prisma } from "@/lib/db";
+import ProductCard from "@/app/components/ProductCard";
+import CartStatus from "@/app/components/CartStatus";
 import styles from "./page.module.css";
 
-export default function Home() {
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  // Buscar os produtos ativos e suas respectivas imagens no banco PostgreSQL
+  let products: any[] = [];
+  try {
+    products = await prisma.product.findMany({
+      where: {
+        is_active: true,
+      },
+      include: {
+        images: {
+          orderBy: {
+            display_order: "asc",
+          },
+        },
+      },
+      orderBy: {
+        created_at: "desc",
+      },
+    });
+  } catch (error) {
+    console.error("Erro ao buscar produtos do PostgreSQL:", error);
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        {/* Banner Hero Conceitual Limpo */}
+        <section className={styles.hero}>
+          <Image
+            src="/imagens/CAPA/CAPA_IA.png"
+            alt="AVA Vitória Streetwear"
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroImage}
+          />
+          {/* Selo circular de atitude no canto superior direito */}
+          <div className={styles.heroSeal}>
             <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/imagens/LOGO/selo_preto.png"
+              alt="Selo AVA Vitória"
+              width={160}
+              height={160}
+              className={styles.sealImage}
             />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+          </div>
+        </section>
+
+        {/* Seção da Vitrine de Produtos */}
+        <section className={styles.collectionSection}>
+          <div className={styles.sectionHeader}>
+            <h3 className={styles.sectionTitle}>Coleção de Outono - 2026</h3>
+            <span className={styles.sectionCount}>{products.length} peças</span>
+          </div>
+
+          {/* Grid de 3 colunas Balenciaga */}
+          <div className={styles.grid}>
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
       </main>
+
+      <footer className={styles.footer}>
+        © {new Date().getFullYear()} AVA VITÓRIA. Todos os direitos reservados.
+      </footer>
     </div>
   );
 }

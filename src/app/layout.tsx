@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { prisma } from "@/lib/db";
+import { CartProvider } from "@/lib/cartContext";
+import CartDrawer from "@/app/components/CartDrawer";
 
 export const metadata: Metadata = {
   title: "AVA Vitória — Streetwear de Luxo",
@@ -85,7 +87,10 @@ export default async function RootLayout({
         `}} />
       </head>
       <body>
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );
