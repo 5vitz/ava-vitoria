@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/Documentos/Antigravity/Ava-Vitoria/src/middleware.ts"],"sourcesContent":["import { withAuth } from \"next-auth/middleware\";\n\nexport default withAuth({\n  pages: {\n    signIn: \"/admin/login\",\n  },\n});\n\nexport const config = {\n  // Proteger qualquer subrota de /admin, mas garantir que a página de login fique pública\n  // O next-auth/middleware exclui automaticamente a página de signIn configurada para evitar loops\n  matcher: [\n    \"/admin/:path*\",\n  ],\n};\n"],"names":["pages","signIn","config","matcher"],"mappings":";;;;;;AAAA;;uCAEe,IAAA,6MAAQ,EAAC;IACtBA,OAAO;QACLC,QAAQ;IACV;AACF;AAEO,MAAMC,SAAS;IACpB,wFAAwF;IACxF,iGAAiG;IACjGC,SAAS;QACP;KACD;AACH"}}]
-}
