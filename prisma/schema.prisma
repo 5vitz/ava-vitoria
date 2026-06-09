@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model SiteSettings {
+  id           String   @id @default(uuid()) @db.Uuid
+  config_key   String   @unique @db.VarChar(100)
+  config_value Json     @db.JsonB
+  updated_at   DateTime @default(now()) @updatedAt
+
+  @@map("site_settings")
+}
+
+model Product {
+  id          String         @id @default(uuid()) @db.Uuid
+  name        String         @db.VarChar(255)
+  slug        String         @unique @db.VarChar(255)
+  description String?        @db.Text
+  price       Decimal        @db.Decimal(10, 2)
+  is_active   Boolean        @default(true)
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @default(now()) @updatedAt
+  images      ProductImage[]
+  variants    StockVariant[]
+
+  @@map("products")
+}
+
+model ProductImage {
+  id            String  @id @default(uuid()) @db.Uuid
+  product_id    String  @db.Uuid
+  product       Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  image_url     String  @db.VarChar(512)
+  display_order Int     @default(0)
+
+  @@map("product_images")
+}
+
+model StockVariant {
+  id         String      @id @default(uuid()) @db.Uuid
+  product_id String      @db.Uuid
+  product    Product     @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  size       String      @db.VarChar(50)
+  color      String      @db.VarChar(100)
+  quantity   Int         @default(0)
+  order_items OrderItem[]
+
+  @@unique([product_id, size, color])
+  @@map("stock_variants")
+}
+
+model Order {
+  id             String      @id @default(uuid()) @db.Uuid
+  status         String      @default("pending") @db.VarChar(50)
+  total_amount   Decimal     @db.Decimal(10, 2)
+  customer_email String      @db.VarChar(255)
+  customer_name  String      @db.VarChar(255)
+  payment_id     String?     @unique @db.VarChar(255)
+  created_at     DateTime    @default(now())
+  updated_at     DateTime    @default(now()) @updatedAt
+  items          OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id         String       @id @default(uuid()) @db.Uuid
+  order_id   String       @db.Uuid
+  order      Order        @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  variant_id String       @db.Uuid
+  variant    StockVariant @relation(fields: [variant_id], references: [id], onDelete: Restrict)
+  quantity   Int
+  unit_price Decimal      @db.Decimal(10, 2)
+
+  @@map("order_items")
+}
+
+model User {
+  id         String   @id @default(uuid()) @db.Uuid
+  username   String   @unique @db.VarChar(100)
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now()) @updatedAt
+
+  @@map("users")
+}

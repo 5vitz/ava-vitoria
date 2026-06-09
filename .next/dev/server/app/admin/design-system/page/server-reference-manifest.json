@@ -1,0 +1,17 @@
+{
+  "node": {
+    "4042f24b643790e42c4c5cb748544ea79fc925a7b9": {
+      "workers": {
+        "app/admin/design-system/page": {
+          "moduleId": "[project]/Documentos/Antigravity/Ava-Vitoria/.next-internal/server/app/admin/design-system/page/actions.js { ACTIONS_MODULE0 => \"[project]/Documentos/Antigravity/Ava-Vitoria/src/app/admin/design-system/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "saveDesignSystem",
+          "filename": "Documentos/Antigravity/Ava-Vitoria/src/app/admin/design-system/actions.ts"
+        }
+      },
+      "exportedName": "saveDesignSystem",
+      "filename": "Documentos/Antigravity/Ava-Vitoria/src/app/admin/design-system/actions.ts"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,308 @@
+.adminContainer {
+  min-height: 100vh;
+  background-color: #120408; /* Um tom de vinho ainda mais escuro para o admin */
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  display: flex;
+  flex-direction: column;
+}
+
+.adminHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(31, 8, 15, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.adminTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #D4AF37;
+}
+
+.adminBadge {
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #D4AF37;
+  padding: 4px 8px;
+  font-weight: 400;
+}
+
+.adminNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navLink {
+  font-size: 0.85rem;
+  color: #A0A0A0;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #D4AF37;
+}
+
+.logoutButton {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logoutButton:hover {
+  background: #FFFFFF;
+  color: #120408;
+  border-color: #FFFFFF;
+}
+
+.adminMain {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.introCard {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.02);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.introCard h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.introCard p {
+  font-size: 0.9rem;
+  color: #A0A0A0;
+  line-height: 1.5;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 900px) {
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panelSection {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(31, 8, 15, 0.4);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.sectionTitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #D4AF37;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #A0A0A0;
+  font-weight: 400;
+}
+
+.colorPickerWrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.colorPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.colorPicker::-webkit-color-swatch {
+  border: none;
+}
+
+.colorInput {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 10px 15px;
+  font-size: 0.9rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  flex-grow: 1;
+}
+
+.colorInput:focus {
+  border-color: #D4AF37;
+}
+
+.select {
+  background: rgba(31, 8, 15, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.select:focus {
+  border-color: #D4AF37;
+}
+
+.inputNumber {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  padding: 12px 15px;
+  font-size: 0.95rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.3s ease;
+  width: 100%;
+}
+
+.inputNumber:focus {
+  border-color: #D4AF37;
+}
+
+.previewBox {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 250px;
+  transition: all 0.3s ease;
+}
+
+.previewTitle {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.previewBody {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 450px;
+}
+
+.actionsSection {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.saveButton {
+  background: #D4AF37;
+  color: #120408;
+  border: 1px solid #D4AF37;
+  padding: 16px 40px;
+  font-size: 0.9rem;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.saveButton:hover:not(:disabled) {
+  background: transparent;
+  color: #D4AF37;
+}
+
+.saveButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.statusMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 1px solid transparent;
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
+
+.statusSuccess {
+  background: rgba(46, 204, 113, 0.1);
+  border-color: rgba(46, 204, 113, 0.2);
+  color: #2ECC71;
+}
+
+.statusError {
+  background: rgba(231, 76, 60, 0.1);
+  border-color: rgba(231, 76, 60, 0.2);
+  color: #E74C3C;
+}

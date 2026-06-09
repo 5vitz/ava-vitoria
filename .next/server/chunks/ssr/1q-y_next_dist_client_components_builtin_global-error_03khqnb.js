@@ -1,0 +1,3 @@
+module.exports=[70279,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(17959);a.n(d("[project]/Documentos/Antigravity/Ava-Vitoria/node_modules/next/dist/client/components/builtin/global-error.js <module evaluation>"))},33849,(a,b,c)=>{let{createClientModuleProxy:d}=a.r(17959);a.n(d("[project]/Documentos/Antigravity/Ava-Vitoria/node_modules/next/dist/client/components/builtin/global-error.js"))},22254,a=>{"use strict";a.i(70279);var b=a.i(33849);a.n(b)},45699,a=>{a.n(a.i(22254))}];
+
+//# sourceMappingURL=1q-y_next_dist_client_components_builtin_global-error_03khqnb.js.map
