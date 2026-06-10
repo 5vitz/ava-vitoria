@@ -30,6 +30,17 @@ export default async function Home() {
     console.error("Erro ao buscar produtos do PostgreSQL:", error);
   }
 
+  // Serializar os produtos para converter objetos Decimal do Prisma em numbers simples (evitando quebras de hidratação)
+  const serializedProducts = products.map((product) => ({
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    price: Number(product.price),
+    images: product.images.map((img: any) => ({
+      image_url: img.image_url,
+    })),
+  }));
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -59,12 +70,11 @@ export default async function Home() {
         <section className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
             <h3 className={styles.sectionTitle}>Coleção de Outono - 2026</h3>
-            <span className={styles.sectionCount}>{products.length} peças</span>
           </div>
 
           {/* Grid de 3 colunas Balenciaga */}
           <div className={styles.grid}>
-            {products.map((product) => (
+            {serializedProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

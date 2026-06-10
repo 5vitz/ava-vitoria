@@ -37,8 +37,20 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const serializedProduct = {
-    ...product,
+    id: product.id,
+    name: product.name,
+    slug: product.slug,
+    description: product.description,
     price: Number(product.price),
+    images: product.images.map((img) => ({
+      image_url: img.image_url,
+    })),
+    variants: product.variants.map((v) => ({
+      id: v.id,
+      size: v.size,
+      color: v.color,
+      quantity: v.quantity,
+    })),
   };
 
   return (

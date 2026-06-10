@@ -3,9 +3,11 @@
 import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { useCart } from "@/lib/cartContext";
+import { useRouter } from "next/navigation";
 import styles from "./components.module.css";
 
 export default function CartDrawer() {
+  const router = useRouter();
   const {
     cart,
     isOpen,
@@ -32,14 +34,14 @@ export default function CartDrawer() {
       const timer = setTimeout(() => {
         setIsCheckoutMode(false);
         setErrorMessage(null);
+        setOrderId(null);
       }, 400);
       return () => clearTimeout(timer);
     } else {
-      if (orderId) {
-        setOrderId(null);
-      }
+      setOrderId(null);
+      setIsCheckoutMode(false);
     }
-  }, [isOpen, orderId]);
+  }, [isOpen]);
 
   // Fechar o drawer ao clicar na tecla Esc
   useEffect(() => {
@@ -154,6 +156,7 @@ export default function CartDrawer() {
                   setOrderId(null);
                   setIsCheckoutMode(false);
                   setCartOpen(false);
+                  router.push("/");
                 }}
                 className={styles.emptyStateButton}
               >
@@ -219,7 +222,10 @@ export default function CartDrawer() {
               <div className={styles.emptyState}>
                 <p className={styles.emptyStateMessage}>Sua sacola está vazia.</p>
                 <button
-                  onClick={() => setCartOpen(false)}
+                  onClick={() => {
+                    setCartOpen(false);
+                    router.push("/");
+                  }}
                   className={styles.emptyStateButton}
                 >
                   Voltar à Loja

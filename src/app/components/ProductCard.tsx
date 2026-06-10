@@ -22,6 +22,41 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
+  // Registrar listener no document para resetar o estado hover no celular ao tocar fora
+  React.useEffect(() => {
+    if (!isHovered) return;
+
+    const handleOutsideClick = () => {
+      setIsHovered(false);
+      setCurrentIndex(0);
+    };
+
+    const timer = setTimeout(() => {
+      window.addEventListener("click", handleOutsideClick);
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("click", handleOutsideClick);
+    };
+  }, [isHovered]);
+
+  const handleImageClick = (e: React.MouseEvent) => {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (isMobile) {
+      // Se ainda não estiver em modo hover, ativa o modo hover e muda a imagem, impedindo a navegação imediata
+      if (!isHovered) {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsHovered(true);
+        if (images.length > 1) {
+          setCurrentIndex(1);
+        }
+      }
+      // Se já estiver em modo hover, o clique prossegue normalmente abrindo a página de detalhes
+    }
+  };
+
   const images = product.images.length > 0 
     ? product.images.map((img) => img.image_url) 
     : ["/imagens/COLECAO/01.jpg"]; // Fallback de imagem de coleção
@@ -53,6 +88,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     // Se o arraste de tela foi maior que 50 pixels
     if (Math.abs(diffX) > 50) {
+      setIsHovered(true); // Exibe setas/indicadores ao interagir por swipe no celular
       if (diffX > 0) {
         // Swipe para a esquerda (próximo slide)
         setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -67,7 +103,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div 
-      className={styles.card}
+      className={`${styles.card} ${isHovered ? styles.cardHovered : ""}`}
       onMouseEnter={() => {
         setIsHovered(true);
         // Ao colocar o mouse, muda para a segunda foto se houver mais de uma
@@ -88,6 +124,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           className={styles.imageContainer}
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
+          onClick={handleImageClick}
         >
           <Image
             src={images[currentIndex]}
@@ -135,6 +172,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               ))}
             </div>
           )}
+
         </div>
 
         {/* Informações do Produto (Nome e Preço) */}

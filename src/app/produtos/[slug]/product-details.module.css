@@ -152,7 +152,7 @@
   padding: 0 10px;
 }
 
-.sizeButton:hover:not(:disabled) {
+.sizeButton:hover:not(.sizeButtonActive):not(:disabled) {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
@@ -188,7 +188,7 @@
   letter-spacing: 0.5px;
 }
 
-.colorButton:hover:not(:disabled) {
+.colorButton:hover:not(.colorButtonActive):not(:disabled) {
   border-color: var(--color-accent);
   color: var(--color-accent);
 }
