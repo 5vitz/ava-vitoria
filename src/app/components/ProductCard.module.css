@@ -1,13 +1,14 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: #000000; /* Fundo alterado para preto de teste */
+  background: #000000;
   border: 1px solid var(--color-border);
   transition: border-color 0.3s ease;
   overflow: hidden;
   position: relative;
   width: 100%;
-  max-width: 320px; /* Mantém o tamanho original da foto */
+  max-width: 360px;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -18,123 +19,50 @@
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16; /* Proporção estrita Balenciaga 9:16 */
-  background: #000000; /* Fundo alterado para preto */
+  background: #000000;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .image {
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: grayscale(100%); /* Preto e branco por padrão */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card:hover .image {
   transform: scale(1.02); /* Zoom sutil e elegante */
-}
-
-/* Setas do Carrossel */
-.arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(31, 8, 15, 0.4); /* Fundo Vinho translúcido */
-  backdrop-filter: blur(var(--backdrop-blur));
-  color: var(--color-text-primary);
-  border: 1px solid var(--color-border);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  z-index: 10;
-  opacity: 0; /* Invisível por padrão */
-  pointer-events: none;
-}
-
-/* Exibir setas no Hover do Card */
-.card:hover .arrow,
-.cardHovered .arrow {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.arrow:hover {
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border-color: var(--color-accent);
-}
-
-.arrowLeft {
-  left: 15px;
-}
-
-.arrowRight {
-  right: 15px;
-}
-
-/* Indicadores (Bolinhas) no rodapé do card */
-.indicators {
-  position: absolute;
-  bottom: 8px; /* Movido para 8px do rodapé do card */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 6px;
-  z-index: 10;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.card:hover .indicators,
-.cardHovered .indicators {
-  opacity: 1;
-}
-
-/* Em mobile, exibe os indicadores de forma sutil sem hover e esconde as setas */
-@media (max-width: 768px) {
-  .indicators {
-    opacity: 1;
-  }
-  .arrow {
-    display: none !important; /* Esconde as setinhas no celular */
-  }
-}
-
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid #000000; /* Borda preta para contraste em qualquer fundo */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  transition: all 0.2s ease;
-}
-
-.dotActive {
-  background: var(--color-accent);
-  border-color: #000000;
-  transform: scale(1.25);
+  filter: grayscale(0%); /* Fica colorido no hover */
 }
 
 /* Informações do Produto */
 .info {
-  padding: 20px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 15px 20px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background: #000000; /* Fundo alterado para preto */
-  border-top: 1px solid rgba(255, 255, 255, 0.02);
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.55); /* Fundo Preto translúcido */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 5;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.card:hover .info {
+  background: rgba(0, 0, 0, 0.75); /* Fundo mais visível e escuro no hover */
+  border-top-color: rgba(255, 77, 28, 0.25); /* Leve toque laranja na borda superior */
 }
 
 .name {
   font-family: var(--font-title);
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-text-primary);
+  color: #FFFFFF;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin: 0;
