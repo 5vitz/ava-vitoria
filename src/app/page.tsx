@@ -49,7 +49,7 @@ export default async function Home() {
           videoSrc="/imagens/IA/Skateboarder_video.mp4"
           posterSrc="/imagens/IA/Frame_Inicial.jpeg"
           sealSrc="/imagens/LOGO/selo_preto.png"
-          interruptDelta={0.25} // Ajuste experimental de margem antes do final
+          interruptDelta={0.55} // Ajuste experimental de margem antes do final (aumentado para cortar mais do fim)
         />
 
         {/* Seção da Vitrine de Produtos */}
