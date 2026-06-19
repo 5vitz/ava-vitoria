@@ -11,4 +11,9 @@ Este diretório contém os arquivos de especificação de tarefas que ainda prec
 
 ## 📂 Lista de Tarefas Ativas
 *   [TASK-001: Criar ícone/script para deploy completo](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/001-deploy-completo.md)
+*   [TASK-002: Seletor de Cores Dinâmico via Filtros SVG](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/002-seletor-cores-dinamico.md)
+*   [TASK-003: Pipeline de Produção de Imagens de Vitrine por IA](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/003-pipeline-imagens-ia.md)
+*   [TASK-004: Corrigir Esquema de Cores do Biquíni (Manchas e Iluminação)](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/004-corrigir-esquema-cores-biquini.md)
+*   [TASK-005: Vitrine Dinâmica via Vídeo Loop e Hero do Skatista Animado (Parte 1 Concluída)](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/005-vitrine-dinamica-video-e-hero-animado.md)
+
 

@@ -1,8 +1,8 @@
 import React from "react";
-import Image from "next/image";
 import { prisma } from "@/lib/db";
 import ProductCard from "@/app/components/ProductCard";
 import CartStatus from "@/app/components/CartStatus";
+import HeroVideo from "@/app/components/HeroVideo";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -44,27 +44,13 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {/* Banner Hero Conceitual Limpo */}
-        <section className={styles.hero}>
-          <Image
-            src="/imagens/CAPA/CAPA_IA.png"
-            alt="AVA Vitória Streetwear"
-            fill
-            priority
-            sizes="100vw"
-            className={styles.heroImage}
-          />
-          {/* Selo circular de atitude no canto superior direito */}
-          <div className={styles.heroSeal}>
-            <Image
-              src="/imagens/LOGO/selo_preto.png"
-              alt="Selo AVA Vitória"
-              width={160}
-              height={160}
-              className={styles.sealImage}
-            />
-          </div>
-        </section>
+        {/* Banner Hero Conceitual Limpo com Vídeo Animado */}
+        <HeroVideo
+          videoSrc="/imagens/IA/Skateboarder_video.mp4"
+          posterSrc="/imagens/IA/Frame_Inicial.jpeg"
+          sealSrc="/imagens/LOGO/selo_preto.png"
+          interruptDelta={0.25} // Ajuste experimental de margem antes do final
+        />
 
         {/* Seção da Vitrine de Produtos */}
         <section className={styles.collectionSection}>
