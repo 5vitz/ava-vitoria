@@ -1,7 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 21 / 9;  /* Proporção ultra-wide 21:9 */
+  aspect-ratio: 16 / 9;  /* Proporção padrão 16:9 da animação */
   background: #000000;
   display: flex;
   align-items: center;
@@ -42,18 +42,18 @@
 
 @media (max-width: 1024px) {
   .hero {
-    aspect-ratio: 16 / 8;      /* Um pouco mais alto em tablets */
+    aspect-ratio: 16 / 9;      /* Mantém a proporção em tablets */
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile, focando no centro da imagem */
-    min-height: 250px;
+    aspect-ratio: 16 / 9;      /* Mantém a proporção exata no mobile */
+    min-height: auto;          /* Remove altura mínima rígida para evitar distorção da proporção */
     margin-top: 0;             /* Encosta exatamente na base do header mobile */
   }
   .heroVideo {
-    object-position: 15% top;  /* Foca no skatista (superior esquerdo) evitando cortes */
+    object-position: center;   /* Centralizado no mobile já que está em 16:9 exato */
   }
   .heroSeal {
     top: 20px;
