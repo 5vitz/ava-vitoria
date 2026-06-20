@@ -39,8 +39,8 @@ async function main() {
   const designSystemConfig = {
     theme: "dark",
     colors: {
-      bg: "#1F080F",          // Vinho Escuro
-      accent: "#D4AF37",      // Dourado
+      bg: "#000000",          // Preto
+      accent: "#FF4D1C",      // Laranja Ferrugem
       text_primary: "#FFFFFF",
       text_secondary: "#A0A0A0",
       border: "rgba(255, 255, 255, 0.1)",

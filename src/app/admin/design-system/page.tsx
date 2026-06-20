@@ -18,8 +18,8 @@ export default async function DesignSystemPage() {
   const defaultSettings = {
     theme: "dark",
     colors: {
-      bg: "#1F080F",
-      accent: "#D4AF37",
+      bg: "#000000",
+      accent: "#FF4D1C",
       text_primary: "#FFFFFF",
       text_secondary: "#A0A0A0",
       border: "rgba(255, 255, 255, 0.1)",

@@ -1,6 +1,6 @@
 .adminContainer {
   min-height: 100vh;
-  background-color: #120408; /* Um tom de vinho ainda mais escuro para o admin */
+  background-color: #000000; /* Preto para o fundo do admin */
   color: #FFFFFF;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-weight: 300;
@@ -14,7 +14,7 @@
   align-items: center;
   padding: 20px 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(31, 8, 15, 0.8);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
 }
 
@@ -30,15 +30,15 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #FF4D1C;
 }
 
 .adminBadge {
   font-size: 0.7rem;
   letter-spacing: 1px;
   text-transform: uppercase;
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  color: #D4AF37;
+  border: 1px solid rgba(255, 77, 28, 0.3);
+  color: #FF4D1C;
   padding: 4px 8px;
   font-weight: 400;
 }
@@ -56,7 +56,7 @@
 }
 
 .navLink:hover {
-  color: #D4AF37;
+  color: #FF4D1C;
 }
 
 .logoutButton {
@@ -123,7 +123,7 @@
 
 .panelSection {
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(31, 8, 15, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   padding: 30px;
   display: flex;
   flex-direction: column;
@@ -136,7 +136,7 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #D4AF37;
+  color: #FF4D1C;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 10px;
 }
@@ -190,11 +190,11 @@
 }
 
 .colorInput:focus {
-  border-color: #D4AF37;
+  border-color: #FF4D1C;
 }
 
 .select {
-  background: rgba(31, 8, 15, 0.9);
+  background: rgba(0, 0, 0, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #FFFFFF;
   padding: 12px 15px;
@@ -208,7 +208,7 @@
 }
 
 .select:focus {
-  border-color: #D4AF37;
+  border-color: #FF4D1C;
 }
 
 .inputNumber {
@@ -224,7 +224,7 @@
 }
 
 .inputNumber:focus {
-  border-color: #D4AF37;
+  border-color: #FF4D1C;
 }
 
 .previewBox {
@@ -262,9 +262,9 @@
 }
 
 .saveButton {
-  background: #D4AF37;
+  background: #FF4D1C;
   color: #120408;
-  border: 1px solid #D4AF37;
+  border: 1px solid #FF4D1C;
   padding: 16px 40px;
   font-size: 0.9rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -277,7 +277,7 @@
 
 .saveButton:hover:not(:disabled) {
   background: transparent;
-  color: #D4AF37;
+  color: #FF4D1C;
 }
 
 .saveButton:disabled {

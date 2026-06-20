@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #1F080F; /* Vinho escuro padrão */
+  background-color: #000000; /* Preto padrão */
   color: #FFFFFF;
   font-family: 'Plus Jakarta Sans', sans-serif;
   padding: 20px;
@@ -12,7 +12,7 @@
 .loginCard {
   width: 100%;
   max-width: 400px;
-  background: rgba(31, 8, 15, 0.6); /* Efeito glassmorphism */
+  background: rgba(0, 0, 0, 0.6); /* Efeito glassmorphism */
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 40px 30px;
@@ -31,7 +31,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #D4AF37; /* Dourado padrão */
+  color: #FF4D1C; /* Laranja Ferrugem padrão */
   margin-bottom: 8px;
 }
 
@@ -76,13 +76,13 @@
 }
 
 .input:focus {
-  border-color: #D4AF37;
+  border-color: #FF4D1C;
 }
 
 .button {
-  background: #D4AF37;
-  color: #1F080F;
-  border: 1px solid #D4AF37;
+  background: #FF4D1C;
+  color: #000000;
+  border: 1px solid #FF4D1C;
   padding: 14px;
   font-size: 0.9rem;
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -96,7 +96,7 @@
 
 .button:hover:not(:disabled) {
   background: transparent;
-  color: #D4AF37;
+  color: #FF4D1C;
 }
 
 .button:disabled {

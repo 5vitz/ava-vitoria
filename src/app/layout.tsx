@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 const defaultSettings = {
   theme: "dark",
   colors: {
-    bg: "#1F080F",
-    accent: "#D4AF37",
+    bg: "#000000",
+    accent: "#FF4D1C",
     text_primary: "#FFFFFF",
     text_secondary: "#A0A0A0",
     border: "rgba(255, 255, 255, 0.1)",
@@ -59,6 +59,11 @@ export default async function RootLayout({
   const bodyFontUrl = bodyFontFamily.replace(/ /g, "+");
   const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${titleFontUrl}:wght@400;600;700;800&family=${bodyFontUrl}:wght@200;300;400;500&display=swap`;
 
+  // Construção da textura Halftone de retícula clássica em 45 graus (staggered 8x8 grid)
+  const dotColor = config.colors.text_primary || "#000000";
+  const encodedDotColor = dotColor.replace("#", "%23");
+  const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='1' fill='${encodedDotColor}' opacity='0.12'/%3E%3Ccircle cx='8' cy='0' r='1' fill='${encodedDotColor}' opacity='0.12'/%3E%3Ccircle cx='0' cy='8' r='1' fill='${encodedDotColor}' opacity='0.12'/%3E%3Ccircle cx='8' cy='8' r='1' fill='${encodedDotColor}' opacity='0.12'/%3E%3Ccircle cx='4' cy='4' r='1' fill='${encodedDotColor}' opacity='0.12'/%3E%3C/svg%3E`;
+
   return (
     <html lang="pt-BR">
       <head>
@@ -83,6 +88,13 @@ export default async function RootLayout({
             --font-body-weight: ${config.fonts.body_weight || "300"};
             --backdrop-blur: ${config.effects.backdrop_blur || "12px"};
             --border-width: ${config.effects.border_width || "1px"};
+          }
+          
+          body {
+            background-image: url("${svgHalftone}");
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+            background-attachment: fixed;
           }
         `}} />
       </head>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useCart } from "@/lib/cartContext";
 import styles from "./product-details.module.css";
 import Link from "next/link";
@@ -36,6 +36,11 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
   // Estados locais para a seleção do usuário
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [selectedColor, setSelectedColor] = useState<string>("");
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Encontrar a variante exata com base na seleção
   const selectedVariant = product.variants.find(
@@ -64,7 +69,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
   };
 
   // Desabilitar o botão se tamanho/cor não foram selecionados ou se está sem estoque
-  const isButtonDisabled = !selectedSize || !selectedColor || isOutOfStock;
+  const isButtonDisabled = !mounted || !selectedSize || !selectedColor || isOutOfStock;
 
   return (
     <div className={styles.detailsColumn}>

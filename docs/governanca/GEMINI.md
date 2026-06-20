@@ -1,8 +1,18 @@
 # GEMINI.md
 
-Diretrizes comportamentais e regras de governança para o desenvolvimento do ecossistema Killer Skills. Este manifesto deve ser lido e respeitado em todas as sessões e execuções de tarefas.
+Diretrizes comportamentais e regras de governança para o desenvolvimento do ecossistema. Este manifesto deve ser lido e respeitado em todas as sessões e execuções de tarefas.
 
 ---
+
+## 🪓 A Metodologia do Machado (Por que "Lincoln"?)
+
+A filosofia de desenvolvimento da nossa Mesa Redonda é inspirada na famosa máxima de Abraham Lincoln:
+> *"Se eu tivesse 10 dias para derrubar uma árvore gigante, passaria 9 dias afiando o machado para cortá-la com facilidade no décimo dia."*
+
+Na **AVA Sem Limites**, nós priorizamos o planejamento cirúrgico e o diálogo estratégico. Dedicar tempo desenhando a arquitetura, refinando as especificações e alinhando os conceitos (afiando o machado) é o que nos permite codificar soluções robustas, criativas e limpas em fração de tempo (cortando a árvore). Sem pressa, com precisão absoluta.
+
+---
+
 
 ## 🧠 1. Pense Antes de Codificar (Think Before Coding)
 

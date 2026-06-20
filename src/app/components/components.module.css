@@ -10,7 +10,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  padding: 0 20px; /* Reduzido de 40px para 20px para alinhar o logo e carrinho com as bordas externas dos cards */
   border-bottom: none; /* Sem linha divisória no topo */
   background: transparent; /* Cabeçalho totalmente transparente no teste de tela */
   backdrop-filter: none;
@@ -48,7 +48,7 @@
 .cartButton {
   background: transparent;
   border: none;
-  color: #1F080F; /* Vinho Escuro em vez de branco para se destacar no fundo claro */
+  color: #000000; /* Preto em vez de vinho para se destacar no fundo claro */
   font-family: var(--font-body);
   font-weight: 500;
   font-size: 0.85rem;
@@ -117,7 +117,7 @@
   width: 450px;
   max-width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.9); /* Fundo preto translúcido de teste */
+  background: var(--color-bg);
   backdrop-filter: blur(var(--backdrop-blur));
   border-left: 1px solid var(--color-border);
   z-index: 101;
@@ -340,7 +340,7 @@
 .drawerFooter {
   padding: 30px;
   border-top: 1px solid var(--color-border);
-  background: rgba(0, 0, 0, 0.95); /* Fundo preto sólido de teste */
+  background: var(--color-bg);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -410,7 +410,7 @@
 }
 
 .formInput {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(0, 0, 0, 0.03);
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
   padding: 12px;
@@ -424,7 +424,7 @@
 .formInput:focus {
   outline: none;
   border-color: var(--color-accent);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 .backToCartBtn {
