@@ -41,7 +41,7 @@
   object-fit: contain;
 }
 
-/* Barra de Controles Customizados do Player */
+/* Barra de Controles Customizados do Player (Estética da Subtração Altamente Discreta) */
 .controlsBar {
   position: absolute;
   bottom: 20px;
@@ -51,17 +51,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(15, 15, 15, 0.6); /* Cinza escuro translúcido */
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.25); /* Fundo extremamente translúcido e discreto */
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.06); /* Borda quase imperceptível */
+  padding: 6px 14px;
   border-radius: 30px;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  opacity: 0.6; /* Fica semi-transparente quando fora de foco */
 }
 
 .controlsBar:hover {
-  background: rgba(10, 10, 10, 0.75);
-  border-color: var(--color-accent);
+  opacity: 1; /* Revela-se totalmente ao passar o mouse */
+  background: rgba(10, 10, 10, 0.65);
+  border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -74,12 +77,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
   outline: none;
+  opacity: 0.5; /* Botões discretos por padrão */
 }
 
 .controlButton:hover {
   color: var(--color-accent);
+  opacity: 1;
 }
 
 .controlIcon {
@@ -90,7 +95,7 @@
 .separator {
   width: 1px;
   height: 16px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08); /* Divisor mais suave */
 }
 
 .volumeContainer {
@@ -104,9 +109,15 @@
   width: 80px;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12); /* Fundo do slider bem sutil */
   outline: none;
   cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+
+.volumeSlider:hover {
+  opacity: 1;
 }
 
 .volumeSlider::-webkit-slider-thumb {

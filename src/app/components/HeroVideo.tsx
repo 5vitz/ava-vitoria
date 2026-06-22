@@ -29,9 +29,10 @@ export default function HeroVideo({
     const video = videoRef.current;
     if (!video) return;
 
-    // Configura o estado inicial do som no elemento de vídeo físico (mutado com volume zero para fade-in)
+    // Configura o estado inicial do som e do tempo no elemento de vídeo físico
     video.muted = true;
     video.volume = 0;
+    video.currentTime = 0;
 
     // Autoplay garantido por estar mutado (Chrome, Firefox, Safari, etc.)
     const playPromise = video.play();
@@ -63,6 +64,8 @@ export default function HeroVideo({
     setIsFading(true);
     const video = videoRef.current;
     if (video) {
+      // Reinicia o vídeo para o início ao entrar na loja
+      video.currentTime = 0;
       // Garante que o vídeo está rodando e desmuta
       video.play().catch((err) => console.log("Play failed on enter:", err));
       video.muted = false;
