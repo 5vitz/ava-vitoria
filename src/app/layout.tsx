@@ -14,7 +14,7 @@ const defaultSettings = {
   theme: "dark",
   colors: {
     bg: "#000000",
-    accent: "#FF4D1C",
+    accent: "#D1D1D6",
     text_primary: "#FFFFFF",
     text_secondary: "#A0A0A0",
     border: "rgba(255, 255, 255, 0.1)",
@@ -90,9 +90,11 @@ export default async function RootLayout({
             --border-width: ${config.effects.border_width || "1px"};
           }
           
-          /* Efeito de retícula desativado temporariamente para teste de fundo preto sólido */
           body {
-            background-image: none;
+            background-image: url("${svgHalftone}");
+            background-size: 8px 8px;
+            background-position: 0 0, 4px 4px;
+            background-attachment: fixed;
           }
         `}} />
       </head>

@@ -55,7 +55,7 @@
 
 .card:hover .info {
   background: rgba(0, 0, 0, 0.75); /* Fundo mais visível e escuro no hover */
-  border-top-color: rgba(255, 77, 28, 0.25); /* Leve toque laranja na borda superior */
+  border-top-color: rgba(209, 209, 214, 0.25); /* Leve toque prata na borda superior */
 }
 
 .name {

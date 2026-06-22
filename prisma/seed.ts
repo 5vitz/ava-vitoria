@@ -40,7 +40,7 @@ async function main() {
     theme: "dark",
     colors: {
       bg: "#000000",          // Preto
-      accent: "#FF4D1C",      // Laranja Ferrugem
+      accent: "#D1D1D6",      // Prata / Silver
       text_primary: "#FFFFFF",
       text_secondary: "#A0A0A0",
       border: "rgba(255, 255, 255, 0.1)",
