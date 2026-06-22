@@ -1,8 +1,7 @@
 .hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  max-height: 70vh; /* Garante que cabe na tela útil de notebooks de 768px de altura */
+  height: 100vh; /* Ocupa exatamente a tela útil inteira em computadores */
   background: #000000;
   display: flex;
   align-items: center;
@@ -126,13 +125,14 @@
 /* Responsividade */
 @media (max-width: 1024px) {
   .hero {
-    aspect-ratio: 16 / 9;
+    height: 100vh;
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    aspect-ratio: 16 / 9;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Mantém enquadrado em telas verticais de celular */
     min-height: auto;
     margin-top: 0;
   }

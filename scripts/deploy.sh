@@ -15,14 +15,25 @@ git add .
 COMMIT_MSG="auto-deploy: $(date '+%d/%m/%Y %H:%M:%S')"
 git commit -m "$COMMIT_MSG"
 
-# Fazer o push para o branch main
-git push origin main
+# Extrair token do arquivo .env
+TOKEN=$(sed -n 's/^GITHUB_TOKEN=//p' .env | tr -d '\r\n ')
 
-# Enviar notificação de resultado
+# Fallback se não achar no .env, tenta na pasta pai
+if [ -z "$TOKEN" ] && [ -f "../Token_GitHub.txt" ]; then
+  TOKEN=$(cat ../Token_GitHub.txt | tr -d '\r\n ')
+fi
+
+# Faz o push autenticado de forma transparente
+if [ -n "$TOKEN" ]; then
+  git push "https://$TOKEN@github.com/5vitz/ava-vitoria.git" main
+else
+  git push origin main
+fi
+
+# Abre no Firefox após conclusão e envia notificação
 if [ $? -eq 0 ]; then
   notify-send "AVA Sem Limites" "Deploy enviado com sucesso para o GitHub/Vercel!"
-  # Abre a URL em produção
-  xdg-open "https://www.avasemlimites.com.br"
+  firefox "https://www.avasemlimites.com.br" &
 else
   notify-send "AVA Sem Limites" "Erro ao realizar o git push. Verifique o terminal."
 fi
