@@ -17,18 +17,23 @@ export default function HeroVideo({
 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [volume, setVolume] = useState(0.2); // Inicializado com 20% de volume
+  const [isMuted, setIsMuted] = useState(true); // Inicializado como mutado para permitir autoplay garantido
+  const [volume, setVolume] = useState(0.2); // Volume alvo final (20%)
+  const [showSplash, setShowSplash] = useState(true);
+  const [isFading, setIsFading] = useState(false);
+
+  // Referência para limpar o intervalo de fade-in caso o componente seja desmontado
+  const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Configura o estado inicial do som no elemento de vídeo físico
-    video.volume = volume;
-    video.muted = isMuted;
+    // Configura o estado inicial do som no elemento de vídeo físico (mutado com volume zero para fade-in)
+    video.muted = true;
+    video.volume = 0;
 
-    // Tenta iniciar a reprodução automática com áudio ativo
+    // Autoplay garantido por estar mutado (Chrome, Firefox, Safari, etc.)
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
@@ -36,7 +41,7 @@ export default function HeroVideo({
           setIsPlaying(true);
         })
         .catch((error) => {
-          console.log("Autoplay unmuted blocked by browser. Awaiting user interaction:", error);
+          console.log("Autoplay blocked by browser policy:", error);
           setIsPlaying(false);
         });
     }
@@ -49,9 +54,48 @@ export default function HeroVideo({
     video.addEventListener('ended', handleEnded);
 
     return () => {
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       video.removeEventListener('ended', handleEnded);
     };
   }, []);
+
+  const handleEnterStore = () => {
+    setIsFading(true);
+    const video = videoRef.current;
+    if (video) {
+      // Garante que o vídeo está rodando e desmuta
+      video.play().catch((err) => console.log("Play failed on enter:", err));
+      video.muted = false;
+      setIsMuted(false);
+
+      // Fade-in gradual do áudio (de 0% até 20%)
+      let currentVol = 0;
+      const targetVol = 0.2; // 20%
+      video.volume = currentVol;
+
+      if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+
+      fadeIntervalRef.current = setInterval(() => {
+        currentVol += 0.02; // Aumenta 2% a cada 50ms
+        if (currentVol >= targetVol) {
+          video.volume = targetVol;
+          setVolume(targetVol);
+          if (fadeIntervalRef.current) {
+            clearInterval(fadeIntervalRef.current);
+            fadeIntervalRef.current = null;
+          }
+        } else {
+          video.volume = currentVol;
+          setVolume(currentVol);
+        }
+      }, 50); // Fade-in total de ~500ms
+    }
+
+    // Aguarda o término da animação de desvanecimento (fade-out) no CSS para remover o overlay
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 800);
+  };
 
   const togglePlay = () => {
     const video = videoRef.current;
@@ -98,6 +142,21 @@ export default function HeroVideo({
 
   return (
     <section className={styles.hero}>
+      {showSplash && (
+        <div className={`${styles.splashOverlay} ${isFading ? styles.fadeOut : ''}`}>
+          <button onClick={handleEnterStore} className={styles.splashButton} aria-label="Entrar na loja">
+            <Image
+              src="/imagens/LOGO/SELO_AVA_ENTRE.jpg"
+              alt="Selo AVA Vitória - Entre na Loja"
+              width={280}
+              height={280}
+              className={styles.splashLogo}
+              priority
+            />
+          </button>
+        </div>
+      )}
+
       <video
         ref={videoRef}
         src={videoSrc}
