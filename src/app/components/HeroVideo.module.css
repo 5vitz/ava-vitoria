@@ -21,6 +21,36 @@
   object-position: center;
   opacity: 0.95;
   pointer-events: none; /* Evita que o navegador mostre ícones de captura (câmera) ou PiP ao passar o mouse */
+  z-index: 2; /* Fica por cima da imagem de capa */
+  transition: opacity 0.3s ease-in-out; /* Transição de fade ultra curta (0.3s) */
+}
+
+.heroVideo.fadeActive {
+  opacity: 0;
+}
+
+/* Imagem de Capa Estática */
+.coverImageContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* Fica por trás do vídeo */
+  overflow: hidden;
+  opacity: 0; /* Oculta enquanto o vídeo está ativo */
+  transition: opacity 2.2s ease-in-out; /* Transição mais lenta de entrada (2.2s) */
+}
+
+.coverImageContainer.coverVisible {
+  opacity: 1; /* Aparece no cross-fade */
+}
+
+.coverImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Preenche tudo sem distorcer */
+  object-position: center;
 }
 
 /* Selo de Atitude no Banner */
@@ -66,6 +96,19 @@
   background: rgba(10, 10, 10, 0.65);
   border-color: rgba(255, 255, 255, 0.15);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.controlsBar.controlsHidden {
+  opacity: 0;
+  pointer-events: auto; /* Mantém ativo para capturar hover direto */
+  transition: opacity 0.25s ease-out; /* Desaparece muito rápido (0.25s) */
+}
+
+.controlsBar.controlsHidden:hover {
+  opacity: 0.95;
+  background: rgba(10, 10, 10, 0.85);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
 }
 
 .controlButton {

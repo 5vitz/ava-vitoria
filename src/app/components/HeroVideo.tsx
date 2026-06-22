@@ -21,10 +21,10 @@ export default function HeroVideo({
   const [volume, setVolume] = useState(0.2); // Volume alvo final (20%)
   const [showSplash, setShowSplash] = useState(true);
   const [isFading, setIsFading] = useState(false);
+  const [isTransitionActive, setIsTransitionActive] = useState(false);
 
   // Referência para limpar o intervalo de fade-in caso o componente seja desmontado
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
-  const hasAutoPaused = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -51,6 +51,7 @@ export default function HeroVideo({
     // Monitora quando o vídeo chegar ao fim
     const handleEnded = () => {
       setIsPlaying(false);
+      setIsTransitionActive(true);
     };
 
     video.addEventListener('ended', handleEnded);
@@ -67,6 +68,7 @@ export default function HeroVideo({
     if (video) {
       // Reinicia o vídeo para o início ao entrar na loja
       video.currentTime = 0;
+      setIsTransitionActive(false);
       // Garante que o vídeo está rodando e desmuta
       video.play().catch((err) => console.log("Play failed on enter:", err));
       video.muted = false;
@@ -105,11 +107,10 @@ export default function HeroVideo({
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
-      // Se o vídeo foi congelado próximo ao fim, reinicia do início ao dar play
-      const pauseOffset = 1.0;
-      if (hasAutoPaused.current || (video.duration && video.currentTime >= video.duration - pauseOffset)) {
+      // Se o vídeo terminou ou está perto do fim, reinicia do início ao dar play
+      if (isTransitionActive || (video.duration && video.currentTime >= video.duration - 0.5)) {
         video.currentTime = 0;
-        hasAutoPaused.current = false;
+        setIsTransitionActive(false);
       }
       video.play().catch((err) => console.log("Play failed:", err));
       setIsPlaying(true);
@@ -125,6 +126,7 @@ export default function HeroVideo({
     video.pause();
     video.currentTime = 0;
     setIsPlaying(false);
+    setIsTransitionActive(false);
   };
 
   const toggleMute = () => {
@@ -149,19 +151,22 @@ export default function HeroVideo({
       setIsMuted(true);
     }
   };
+
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (!video) return;
 
-    const pauseOffset = 1.0; // Pausa 1 segundo antes do fim do vídeo (ajustável experimentalmente)
-    if (video.duration && video.currentTime >= video.duration - pauseOffset) {
-      if (!hasAutoPaused.current) {
-        video.pause();
-        setIsPlaying(false);
-        hasAutoPaused.current = true;
+    // Gatilho: Inicia a transição de fade 3 segundos antes do final do vídeo
+    // para encobrir o frame da logo e do player nativo embutidos
+    const fadeTriggerOffset = 3.0; 
+    if (video.duration && video.currentTime >= video.duration - fadeTriggerOffset) {
+      if (!isTransitionActive) {
+        setIsTransitionActive(true);
       }
-    } else if (video.duration && video.currentTime < video.duration - pauseOffset - 0.5) {
-      hasAutoPaused.current = false;
+    } else {
+      if (isTransitionActive) {
+        setIsTransitionActive(false);
+      }
     }
   };
 
@@ -182,24 +187,41 @@ export default function HeroVideo({
         </div>
       )}
 
+      {/* Imagem de Capa Estática (revelada quando o vídeo esmaece) */}
+      <div className={`${styles.coverImageContainer} ${isTransitionActive ? styles.coverVisible : ''}`}>
+        <Image
+          src="/imagens/CAPA/CAPA.webp"
+          alt="AVA Vitória Capa"
+          fill
+          sizes="100vw"
+          className={styles.coverImage}
+          priority
+        />
+      </div>
+
       <video
         ref={videoRef}
         src={videoSrc}
         poster={posterSrc}
         playsInline
         onTimeUpdate={handleTimeUpdate}
-        className={styles.heroVideo}
+        className={`${styles.heroVideo} ${isTransitionActive ? styles.fadeActive : ''}`}
       />
 
       {/* Painel de Controles do Player com Estética da Subtração */}
-      <div className={styles.controlsBar}>
-        {/* Play / Pause */}
+      <div className={`${styles.controlsBar} ${isTransitionActive ? styles.controlsHidden : ''}`}>
+        {/* Play / Pause / Replay */}
         <button 
           onClick={togglePlay} 
           className={styles.controlButton} 
-          title={isPlaying ? "Pausar" : "Reproduzir"}
+          title={isTransitionActive ? "Repetir Vídeo" : (isPlaying ? "Pausar" : "Reproduzir")}
         >
-          {isPlaying ? (
+          {isTransitionActive ? (
+            <svg viewBox="0 0 24 24" className={styles.controlIcon} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+          ) : isPlaying ? (
             <svg viewBox="0 0 24 24" className={styles.controlIcon} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <rect x="6" y="4" width="4" height="16"></rect>
               <rect x="14" y="4" width="4" height="16"></rect>
