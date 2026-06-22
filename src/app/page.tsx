@@ -46,11 +46,9 @@ export default async function Home() {
       <main className={styles.main}>
         {/* Banner Hero Conceitual Limpo com Vídeo Animado */}
         <HeroVideo
-          videoSrc="/imagens/IA/Skateboarder_video.mp4"
+          videoSrc="/imagens/IA/Skateboarder_video_otimizado.mp4"
           posterSrc="/imagens/IA/Frame_Inicial_16_9.jpeg"
-          freezeSrc="/imagens/IA/Frame_final_16_9.jpeg"
           sealSrc="/imagens/LOGO/selo_preto.png"
-          interruptDelta={0.3} // Ajuste experimental de margem para acionar o congelamento via overlay
         />
 
         {/* Seção da Vitrine de Produtos */}
