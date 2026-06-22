@@ -128,18 +128,19 @@
   justify-content: space-between;
   align-items: flex-end;
   border-bottom: 1px solid var(--color-border);
-  padding: 0 20px 15px 20px; /* Adicionado padding lateral de 20px para manter o alinhamento com o header */
-  max-width: 100%;
+  padding: 0 0 15px 0; /* Alinhamento estrito com a borda lateral da primeira coluna */
+  max-width: 1128px; /* Largura idêntica à do grid no desktop (3 * 360px + 2 * 24px) */
   width: 100%;
+  margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
 }
 
 .sectionTitle {
-  font-family: var(--font-title);
-  font-weight: var(--font-title-weight);
-  font-size: 1.2rem;
-  letter-spacing: 2px;
+  font-family: 'Gruppo', sans-serif;
+  font-weight: 400; /* Estilo fino e elegante da fonte Gruppo */
+  font-size: 48px; /* Requisito de tamanho do usuário */
+  letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--color-text-primary);
+  color: var(--color-accent); /* Tom de ferrugem padrão do site */
 }
 
 .sectionCount {
@@ -180,6 +181,12 @@
 }
 
 @media (max-width: 1024px) {
+  .sectionHeader {
+    max-width: 744px; /* Ajusta largura do cabeçalho para coincidir com 2 colunas */
+  }
+  .sectionTitle {
+    font-size: 38px; /* Reduz tamanho do texto para telas médias */
+  }
   .grid {
     grid-template-columns: repeat(2, minmax(0, 360px));
     gap: 24px;
@@ -195,6 +202,13 @@
   }
   .heroImage {
     object-position: 15% top;  /* Foca no skatista (superior esquerdo) evitando cortes no capacete e lateral */
+  }
+  .sectionHeader {
+    max-width: 360px; /* Ajusta largura do cabeçalho para coincidir com 1 coluna */
+    padding: 0 10px 15px 10px; /* Pequeno respiro lateral no mobile */
+  }
+  .sectionTitle {
+    font-size: 28px; /* Tamanho adaptado e legível para tela de celular */
   }
   .grid {
     grid-template-columns: repeat(1, minmax(0, 360px));
