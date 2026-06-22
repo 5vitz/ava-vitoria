@@ -20,6 +20,7 @@
   object-fit: contain; /* Mantém a proporção quadrada 1:1 do vídeo com tarjas pretas */
   object-position: center;
   opacity: 0.95;
+  pointer-events: none; /* Evita que o navegador mostre ícones de captura (câmera) ou PiP ao passar o mouse */
 }
 
 /* Selo de Atitude no Banner */

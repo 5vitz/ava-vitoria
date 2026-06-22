@@ -48,7 +48,6 @@ export default async function Home() {
         <HeroVideo
           videoSrc="/imagens/IA/Skateboarder_video_otimizado.mp4"
           posterSrc="/imagens/IA/Frame_Inicial_16_9.jpeg"
-          sealSrc="/imagens/LOGO/selo_preto.png"
         />
 
         {/* Seção da Vitrine de Produtos */}
