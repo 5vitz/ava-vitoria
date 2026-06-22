@@ -90,11 +90,9 @@ export default async function RootLayout({
             --border-width: ${config.effects.border_width || "1px"};
           }
           
+          /* Efeito de retícula desativado temporariamente para teste de fundo preto sólido */
           body {
-            background-image: url("${svgHalftone}");
-            background-size: 8px 8px;
-            background-position: 0 0, 4px 4px;
-            background-attachment: fixed;
+            background-image: none;
           }
         `}} />
       </head>
