@@ -6,6 +6,10 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 1. Onde Paramos (Estado Atual)
 
+*   **Ajuste de Responsividade e Enquadramento do Hero ✅:**
+    *   Limitada a altura máxima do contêiner `.hero` a no máximo `70vh` para garantir que o vídeo e os controles do player caibam inteiros e fiquem 100% visíveis na tela de notebooks com resolução `1366x768` (sem necessidade de scroll).
+    *   Definida a propriedade `object-fit: contain` no elemento de vídeo, preservando a proporção nativa `1:1` com duas tarjas pretas verticais nas laterais e impedindo cortes no topo ou na base da animação.
+    *   **Controles Centralizados:** A barra de controle do player foi centralizada horizontalmente na base da caixa (`left: 50%` e `transform: translateX(-50%)`), garantindo simetria perfeita e acessibilidade tanto no desktop quanto no mobile.
 *   **Script de Deploy em 1 Clique ✅:** 
     *   Criado o script [/scripts/deploy.sh](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/deploy.sh) para automatizar o `git add`, `git commit` e `git push origin main`.
     *   Criado o lançador visual executável `/home/artz/Área de trabalho/AVA_Deploy.desktop` na sua Área de Trabalho com o logo da AVA para rodar o deploy sem abrir o terminal.
@@ -29,7 +33,7 @@ Mapeamento da vitrine de 5 linhas com 3 colunas cada, cruzando os designs aprese
 | **Linha 2** | **Camisa Baby Look 01**<br>**Camisa Baby Look 02**<br>**Camisa Baby Look 03** | "Sem Limites" (Rosa)<br>"Fiz com Amor / O que faz sentido" (Branca)<br>"Avanowers / Brasil" (Amarela/Marrom) | Feminino | 4 ângulos | 12 |
 | **Linha 3** | **Boné Aba Reta 01**<br>**Boné Aba Reta 02**<br>**Boné Aba Reta 03** | "Sem Limites"<br>"Swell Dealer / Surf"<br>"Altinha Addict" | Unissex | 4 ângulos | 12 |
 | **Linha 4** | **Biquíni 01**<br>**Biquíni 02**<br>**Biquíni 03** | Bikini001 (Tanga / Cortininha)<br>Bikini002 (Asa Delta)<br>Bikini003 (Esportivo / Conceitual) | Feminino | 4 ângulos | 12 |
-| **Linha 5** | **Sunga 01**<br>**Sunga 02**<br>**Sunga 03** | Sunga001 (Anatômica Clássica)<br>Sunga002 (Lateral Larga)<br>Sunga003 (Lateral Estreita) | Masculino | 4 ângulos | 12 |
+| **Linha 5** | **Sunga 01**<br>**Sunga 02**<br>**Sunga 03** | Sunga001 (Anatômica Clássica)<br>Sunga002 (Lateral Larga)<br>Sunga003 (Lateral Estreita) | Masculine | 4 ângulos | 12 |
 | **Total** | **15 Peças** | **—** | **—** | **—** | **60 imagens** |
 
 ---
