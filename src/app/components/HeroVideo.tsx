@@ -24,6 +24,7 @@ export default function HeroVideo({
 
   // Referência para limpar o intervalo de fade-in caso o componente seja desmontado
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const hasAutoPaused = useRef(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -104,6 +105,12 @@ export default function HeroVideo({
     const video = videoRef.current;
     if (!video) return;
     if (video.paused) {
+      // Se o vídeo foi congelado próximo ao fim, reinicia do início ao dar play
+      const pauseOffset = 1.0;
+      if (hasAutoPaused.current || (video.duration && video.currentTime >= video.duration - pauseOffset)) {
+        video.currentTime = 0;
+        hasAutoPaused.current = false;
+      }
       video.play().catch((err) => console.log("Play failed:", err));
       setIsPlaying(true);
     } else {
@@ -142,6 +149,21 @@ export default function HeroVideo({
       setIsMuted(true);
     }
   };
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const pauseOffset = 1.0; // Pausa 1 segundo antes do fim do vídeo (ajustável experimentalmente)
+    if (video.duration && video.currentTime >= video.duration - pauseOffset) {
+      if (!hasAutoPaused.current) {
+        video.pause();
+        setIsPlaying(false);
+        hasAutoPaused.current = true;
+      }
+    } else if (video.duration && video.currentTime < video.duration - pauseOffset - 0.5) {
+      hasAutoPaused.current = false;
+    }
+  };
 
   return (
     <section className={styles.hero}>
@@ -165,6 +187,7 @@ export default function HeroVideo({
         src={videoSrc}
         poster={posterSrc}
         playsInline
+        onTimeUpdate={handleTimeUpdate}
         className={styles.heroVideo}
       />
 
