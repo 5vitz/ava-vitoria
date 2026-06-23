@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { prisma } from "@/lib/db";
 import { CartProvider } from "@/lib/cartContext";
+import { AudioProvider } from "@/lib/audioContext";
 import CartDrawer from "@/app/components/CartDrawer";
 
 export const metadata: Metadata = {
@@ -99,10 +100,12 @@ export default async function RootLayout({
         `}} />
       </head>
       <body>
-        <CartProvider>
-          {children}
-          <CartDrawer />
-        </CartProvider>
+        <AudioProvider>
+          <CartProvider>
+            {children}
+            <CartDrawer />
+          </CartProvider>
+        </AudioProvider>
       </body>
     </html>
   );

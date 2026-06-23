@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import styles from './HeroVideo.module.css';
+import { useAudio } from '@/lib/audioContext';
 
 interface HeroVideoProps {
   videoSrc: string;
@@ -16,19 +17,58 @@ export default function HeroVideo({
   sealSrc,
 }: HeroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true); // Inicializado como mutado para permitir autoplay garantido
-  const [volume, setVolume] = useState(0.2); // Volume alvo final (20%)
+  
+  // Consome a API de áudio global
+  const {
+    isPlaying: isGlobalPlaying,
+    isMuted: isGlobalMuted,
+    volume: globalVolume,
+    hasEnteredStore,
+    setHasEnteredStore,
+    playAudio,
+    pauseAudio,
+    stopAudio,
+    setAudioVolume,
+    setAudioMuted
+  } = useAudio();
+
+  const [isPlaying, setIsPlaying] = useState(false); // Reprodução local do vídeo
+  const [isMuted, setIsMuted] = useState(true); // Mudo local do vídeo
+  const [volume, setVolume] = useState(0.2); // Volume local do vídeo
   const [showSplash, setShowSplash] = useState(true);
   const [isFading, setIsFading] = useState(false);
   const [isTransitionActive, setIsTransitionActive] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const initialHasEntered = useRef(hasEnteredStore);
+  const isUnmounted = useRef(false);
 
   // Referência para limpar o intervalo de fade-in caso o componente seja desmontado
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Mapeamento dinâmico do estado ativo dependendo do vídeo estar rolando ou já ter acabado
+  const activePlaying = isTransitionActive ? isGlobalPlaying : isPlaying;
+  const activeMuted = isTransitionActive ? isGlobalMuted : isMuted;
+  const activeVolume = isTransitionActive ? globalVolume : volume;
+
+  useEffect(() => {
+    setMounted(true);
+    if (initialHasEntered.current) {
+      setShowSplash(false);
+      setIsTransitionActive(true);
+    }
+  }, []);
+
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+
+    if (initialHasEntered.current) {
+      // Se já entrou na loja anteriormente, não queremos rodar o vídeo principal de novo, apenas mostramos a capa
+      setIsPlaying(false);
+      setIsTransitionActive(true);
+      return;
+    }
 
     // Configura o estado inicial do som e do tempo no elemento de vídeo físico
     video.muted = true;
@@ -52,11 +92,22 @@ export default function HeroVideo({
     const handleEnded = () => {
       setIsPlaying(false);
       setIsTransitionActive(true);
+      
+      // Sincroniza o volume e mudo global com o do vídeo no momento do fim
+      const currentVideo = videoRef.current;
+      if (currentVideo) {
+        setAudioVolume(currentVideo.volume);
+        setAudioMuted(currentVideo.muted);
+      }
+      
+      // Toca o áudio de fundo global
+      playAudio();
     };
 
     video.addEventListener('ended', handleEnded);
 
     return () => {
+      isUnmounted.current = true;
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
       video.removeEventListener('ended', handleEnded);
     };
@@ -64,17 +115,23 @@ export default function HeroVideo({
 
   const handleEnterStore = () => {
     setIsFading(true);
+    setHasEnteredStore(true); // Persiste o estado de entrada globalmente
     const video = videoRef.current;
     if (video) {
       // Reinicia o vídeo para o início ao entrar na loja
       video.currentTime = 0;
       setIsTransitionActive(false);
+      
+      // Para e reseta a trilha sonora global
+      stopAudio();
+
       // Garante que o vídeo está rodando e desmuta
       video.play().catch((err) => console.log("Play failed on enter:", err));
       video.muted = false;
       setIsMuted(false);
+      setAudioMuted(false); // Sincroniza áudio global
 
-      // Fade-in gradual do áudio (de 0% até 20%)
+      // Fade-in gradual do áudio local (de 0% até 20%)
       let currentVol = 0;
       const targetVol = 0.2; // 20%
       video.volume = currentVol;
@@ -86,6 +143,7 @@ export default function HeroVideo({
         if (currentVol >= targetVol) {
           video.volume = targetVol;
           setVolume(targetVol);
+          setAudioVolume(targetVol); // Sincroniza áudio global
           if (fadeIntervalRef.current) {
             clearInterval(fadeIntervalRef.current);
             fadeIntervalRef.current = null;
@@ -93,6 +151,7 @@ export default function HeroVideo({
         } else {
           video.volume = currentVol;
           setVolume(currentVol);
+          setAudioVolume(currentVol); // Sincroniza áudio global
         }
       }, 50); // Fade-in total de ~500ms
     }
@@ -106,66 +165,96 @@ export default function HeroVideo({
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
-    if (video.paused) {
-      // Se o vídeo terminou ou está perto do fim, reinicia do início ao dar play
-      if (isTransitionActive || (video.duration && video.currentTime >= video.duration - 0.5)) {
-        video.currentTime = 0;
-        setIsTransitionActive(false);
+
+    if (isTransitionActive) {
+      // Controla a reprodução do áudio de fundo global
+      if (isGlobalPlaying) {
+        pauseAudio();
+      } else {
+        playAudio();
       }
-      video.play().catch((err) => console.log("Play failed:", err));
-      setIsPlaying(true);
     } else {
-      video.pause();
-      setIsPlaying(false);
+      // Controla a reprodução do vídeo
+      if (video.paused) {
+        // Se o vídeo terminou ou está perto do fim, reinicia do início ao dar play
+        if (video.duration && video.currentTime >= video.duration - 0.5) {
+          video.currentTime = 0;
+        }
+        video.play().catch((err) => console.log("Play failed:", err));
+        setIsPlaying(true);
+      } else {
+        video.pause();
+        setIsPlaying(false);
+      }
     }
   };
 
   const handleStop = () => {
     const video = videoRef.current;
-    if (!video) return;
-    video.pause();
-    video.currentTime = 0;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+    stopAudio(); // Para e reseta a música global
     setIsPlaying(false);
     setIsTransitionActive(false);
   };
 
   const toggleMute = () => {
     const video = videoRef.current;
-    if (!video) return;
-    const nextMuted = !video.muted;
-    video.muted = nextMuted;
-    setIsMuted(nextMuted);
+    const nextMuted = !activeMuted;
+    if (video) {
+      video.muted = nextMuted;
+    }
+    setAudioMuted(nextMuted); // Sincroniza global
+    setIsMuted(nextMuted); // Sincroniza local
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const video = videoRef.current;
-    if (!video) return;
     const nextVolume = parseFloat(e.target.value);
-    video.volume = nextVolume;
-    setVolume(nextVolume);
-    if (nextVolume > 0) {
-      video.muted = false;
-      setIsMuted(false);
-    } else {
-      video.muted = true;
-      setIsMuted(true);
+    const nextMuted = nextVolume === 0;
+
+    if (video) {
+      video.volume = nextVolume;
+      video.muted = nextMuted;
     }
+    setAudioVolume(nextVolume); // Sincroniza global
+    setAudioMuted(nextMuted); // Sincroniza global
+    setVolume(nextVolume); // Sincroniza local
+    setIsMuted(nextMuted); // Sincroniza local
   };
 
   const handleTimeUpdate = () => {
+    if (isUnmounted.current) return;
     const video = videoRef.current;
     if (!video) return;
+
+    const duration = video.duration;
+    if (!duration) return;
 
     // Gatilho: Inicia a transição de fade 3 segundos antes do final do vídeo
     // para encobrir o frame da logo e do player nativo embutidos
     const fadeTriggerOffset = 3.0; 
-    if (video.duration && video.currentTime >= video.duration - fadeTriggerOffset) {
+    if (video.currentTime >= duration - fadeTriggerOffset) {
       if (!isTransitionActive) {
         setIsTransitionActive(true);
+      }
+
+      // Gatilho antecipado para a música de fundo (0.8s antes do final do vídeo)
+      // Isso compensa qualquer latência de carregamento do browser e conecta perfeitamente os áudios
+      const audioStartOffset = 0.8;
+      if (video.currentTime >= duration - audioStartOffset) {
+        if (!isGlobalPlaying) {
+          setAudioVolume(video.volume);
+          setAudioMuted(video.muted);
+          playAudio();
+        }
       }
     } else {
       if (isTransitionActive) {
         setIsTransitionActive(false);
+        stopAudio(); // Para a música de fundo se o usuário retroceder o tempo no vídeo
       }
     }
   };
@@ -208,20 +297,15 @@ export default function HeroVideo({
         className={`${styles.heroVideo} ${isTransitionActive ? styles.fadeActive : ''}`}
       />
 
-      {/* Painel de Controles do Player com Estética da Subtração */}
-      <div className={`${styles.controlsBar} ${isTransitionActive ? styles.controlsHidden : ''}`}>
-        {/* Play / Pause / Replay */}
+      {/* Painel de Controles do Player com Estética da Subtração (Sempre Visível) */}
+      <div className={styles.controlsBar}>
+        {/* Play / Pause */}
         <button 
           onClick={togglePlay} 
           className={styles.controlButton} 
-          title={isTransitionActive ? "Repetir Vídeo" : (isPlaying ? "Pausar" : "Reproduzir")}
+          title={activePlaying ? "Pausar" : "Reproduzir"}
         >
-          {isTransitionActive ? (
-            <svg viewBox="0 0 24 24" className={styles.controlIcon} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
-              <polyline points="23 4 23 10 17 10"></polyline>
-              <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-            </svg>
-          ) : isPlaying ? (
+          {activePlaying ? (
             <svg viewBox="0 0 24 24" className={styles.controlIcon} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <rect x="6" y="4" width="4" height="16"></rect>
               <rect x="14" y="4" width="4" height="16"></rect>
@@ -251,9 +335,9 @@ export default function HeroVideo({
         <button 
           onClick={toggleMute} 
           className={styles.controlButton} 
-          title={isMuted ? "Ativar som" : "Desativar som"}
+          title={activeMuted ? "Ativar som" : "Desativar som"}
         >
-          {isMuted ? (
+          {activeMuted ? (
             <svg viewBox="0 0 24 24" className={styles.controlIcon} stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <line x1="23" y1="9" x2="17" y2="15"></line>
@@ -274,7 +358,7 @@ export default function HeroVideo({
             min="0"
             max="1"
             step="0.05"
-            value={isMuted ? 0 : volume}
+            value={activeMuted ? 0 : activeVolume}
             onChange={handleVolumeChange}
             className={styles.volumeSlider}
           />
