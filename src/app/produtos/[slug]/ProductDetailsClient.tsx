@@ -80,11 +80,11 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
 
       {/* Informações Principais */}
       <h1 className={styles.name}>{product.name}</h1>
-      {Number(product.price) > 0 && (
-        <span className={styles.price}>
-          R$ {Number(product.price).toFixed(2)}
-        </span>
-      )}
+      <span className={styles.price}>
+        {Number(product.price) > 0 
+          ? `R$ ${Number(product.price).toFixed(2)}` 
+          : "No Price"}
+      </span>
 
       <hr className={styles.divider} />
 
