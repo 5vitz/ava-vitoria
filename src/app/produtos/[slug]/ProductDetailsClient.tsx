@@ -80,9 +80,11 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
 
       {/* Informações Principais */}
       <h1 className={styles.name}>{product.name}</h1>
-      <span className={styles.price}>
-        R$ {Number(product.price).toFixed(2)}
-      </span>
+      {Number(product.price) > 0 && (
+        <span className={styles.price}>
+          R$ {Number(product.price).toFixed(2)}
+        </span>
+      )}
 
       <hr className={styles.divider} />
 
@@ -94,77 +96,83 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
       <hr className={styles.divider} />
 
       {/* Opções de Compra */}
-      <div className={styles.optionsSection}>
-        
-        {/* Seletor de Cores */}
-        <div className={styles.optionGroup}>
-          <span className={styles.optionLabel}>Cor</span>
-          <div className={styles.selectorGrid}>
-            {availableColors.map((color) => {
-              // Verificar se a cor tem alguma variante em estoque (opcional, para usabilidade)
-              const hasColorInStock = product.variants.some(
-                (v) => v.color === color && v.quantity > 0
-              );
-              
-              return (
-                <button
-                  key={color}
-                  type="button"
-                  onClick={() => setSelectedColor(color)}
-                  className={`${styles.colorButton} ${selectedColor === color ? styles.colorButtonActive : ""}`}
-                >
-                  {color} {!hasColorInStock && "(Esgotado)"}
-                </button>
-              );
-            })}
+      {Number(product.price) > 0 ? (
+        <div className={styles.optionsSection}>
+          
+          {/* Seletor de Cores */}
+          <div className={styles.optionGroup}>
+            <span className={styles.optionLabel}>Cor</span>
+            <div className={styles.selectorGrid}>
+              {availableColors.map((color) => {
+                // Verificar se a cor tem alguma variante em estoque (opcional, para usabilidade)
+                const hasColorInStock = product.variants.some(
+                  (v) => v.color === color && v.quantity > 0
+                );
+                
+                return (
+                  <button
+                    key={color}
+                    type="button"
+                    onClick={() => setSelectedColor(color)}
+                    className={`${styles.colorButton} ${selectedColor === color ? styles.colorButtonActive : ""}`}
+                  >
+                    {color} {!hasColorInStock && "(Esgotado)"}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        {/* Seletor de Tamanhos */}
-        <div className={styles.optionGroup}>
-          <span className={styles.optionLabel}>Tamanho</span>
-          <div className={styles.selectorGrid}>
-            {availableSizes.map((size) => {
-              // Verificar se este tamanho está disponível na cor selecionada
-              const variantForSize = product.variants.find(
-                (v) => v.size === size && (selectedColor ? v.color === selectedColor : true)
-              );
-              const isSizeDisabled = variantForSize ? variantForSize.quantity <= 0 : true;
+          {/* Seletor de Tamanhos */}
+          <div className={styles.optionGroup}>
+            <span className={styles.optionLabel}>Tamanho</span>
+            <div className={styles.selectorGrid}>
+              {availableSizes.map((size) => {
+                // Verificar se este tamanho está disponível na cor selecionada
+                const variantForSize = product.variants.find(
+                  (v) => v.size === size && (selectedColor ? v.color === selectedColor : true)
+                );
+                const isSizeDisabled = variantForSize ? variantForSize.quantity <= 0 : true;
 
-              return (
-                <button
-                  key={size}
-                  type="button"
-                  onClick={() => setSelectedSize(size)}
-                  disabled={selectedColor ? isSizeDisabled : false}
-                  className={`${styles.sizeButton} ${selectedSize === size ? styles.sizeButtonActive : ""}`}
-                >
-                  {size}
-                </button>
-              );
-            })}
+                return (
+                  <button
+                    key={size}
+                    type="button"
+                    onClick={() => setSelectedSize(size)}
+                    disabled={selectedColor ? isSizeDisabled : false}
+                    className={`${styles.sizeButton} ${selectedSize === size ? styles.sizeButtonActive : ""}`}
+                  >
+                    {size}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+
+          {/* Alerta de Estoque Insuficiente */}
+          {selectedSize && selectedColor && isOutOfStock && (
+            <span className={styles.stockAlert}>
+              Esta combinação de tamanho e cor encontra-se indisponível no momento.
+            </span>
+          )}
+
+          {/* Botão de Adicionar ao Carrinho */}
+          <button
+            onClick={handleAddToCart}
+            disabled={isButtonDisabled}
+            className={styles.addToCartButton}
+          >
+            {isButtonDisabled 
+              ? (!selectedSize || !selectedColor ? "Selecione tamanho & cor" : "Indisponível") 
+              : "Adicionar à Sacola"
+            }
+          </button>
         </div>
-
-        {/* Alerta de Estoque Insuficiente */}
-        {selectedSize && selectedColor && isOutOfStock && (
-          <span className={styles.stockAlert}>
-            Esta combinação de tamanho e cor encontra-se indisponível no momento.
-          </span>
-        )}
-
-        {/* Botão de Adicionar ao Carrinho */}
-        <button
-          onClick={handleAddToCart}
-          disabled={isButtonDisabled}
-          className={styles.addToCartButton}
-        >
-          {isButtonDisabled 
-            ? (!selectedSize || !selectedColor ? "Selecione tamanho & cor" : "Indisponível") 
-            : "Adicionar à Sacola"
-          }
-        </button>
-      </div>
+      ) : (
+        <div style={{ padding: "15px 0", fontSize: "0.9rem", color: "var(--color-text-secondary)" }}>
+          Peça de exibição (Costas). Para adquirir este produto, selecione a versão correspondente no catálogo.
+        </div>
+      )}
     </div>
   );
 }

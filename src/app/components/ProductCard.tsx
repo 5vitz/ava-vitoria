@@ -55,9 +55,11 @@ export default function ProductCard({ product }: ProductCardProps) {
       {/* Informações do Produto (Nome e Preço) */}
       <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
-        <span className={styles.price}>
-          R$ {Number(product.price).toFixed(2)}
-        </span>
+        {Number(product.price) > 0 && (
+          <span className={styles.price}>
+            R$ {Number(product.price).toFixed(2)}
+          </span>
+        )}
       </div>
     </Link>
   );
