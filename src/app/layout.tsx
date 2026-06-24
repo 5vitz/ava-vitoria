@@ -63,7 +63,7 @@ export default async function RootLayout({
   // Construção da textura Halftone de retícula clássica em 45 graus (staggered 8x8 grid)
   const dotColor = config.colors.text_primary || "#000000";
   const encodedDotColor = dotColor.replace("#", "%23");
-  const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='1' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='8' cy='0' r='1' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='0' cy='8' r='1' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='8' cy='8' r='1' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='4' cy='4' r='1' fill='${encodedDotColor}' opacity='0.25'/%3E%3C/svg%3E`;
+  const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='0.25'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='0.25'/%3E%3C/svg%3E`;
 
   return (
     <html lang="pt-BR">
