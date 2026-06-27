@@ -161,27 +161,6 @@ export default function MediaLibraryClient({
 
   return (
     <div className={styles.mediaContainer}>
-      
-      {/* Banner de Modo de Seleção Ativa */}
-      {selectingForProduct && (
-        <div className={styles.selectionBanner}>
-          <div className={styles.selectionBannerText}>
-            <span>Modo Seleção Ativo:</span> Vinculando mídia para o produto <strong>{targetProductName || "Carregando..."}</strong>. Dê um duplo clique na mídia para vincular.
-          </div>
-          <button
-            type="button"
-            className={styles.cancelSelectionBtn}
-            onClick={() => {
-              const activeColId = filterCollectionId !== "Todos" ? filterCollectionId : (collectionsList.length > 0 ? collectionsList[0].id : "");
-              router.push(`/admin/grid-manager?collection=${activeColId}`);
-            }}
-          >
-            Cancelar Seleção
-          </button>
-        </div>
-      )}
-      
-      {/* Controles do Painel: Filtro e Upload */}
       <section className={styles.controlsSection}>
         <div className={styles.controlBox}>
           <h3 className={styles.controlTitle}>Filtro de Visualização</h3>

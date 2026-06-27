@@ -71,22 +71,12 @@ export default function GridManagerClient({
   const [prodPrice, setProdPrice] = useState("");
   const [prodDesc, setProdDesc] = useState("");
 
-  // Estados para Variações e Estoque
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [productColors, setProductColors] = useState<string[]>([]);
-  const [newColorInput, setNewColorInput] = useState("");
-  const [variantsStock, setVariantsStock] = useState<{ [key: string]: number }>({});
-
   // Controladores de UI
   const [loading, setLoading] = useState(false);
-  const [playerHidden, setPlayerHidden] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
     type: null,
     message: "",
   });
-
-  // Lista estática de tamanhos disponíveis
-  const sizeOptions = ["P", "M", "G", "GG", "XG"];
 
   // Mostrar mensagens temporárias
   const triggerFeedback = (type: "success" | "error", message: string) => {
@@ -116,20 +106,6 @@ export default function GridManagerClient({
       setProdPrice(selectedProduct.price.toString());
       setProdDesc(selectedProduct.description || "");
 
-      // Carregar as variações (sizes, colors, stock)
-      const chart = selectedProduct.size_chart;
-      const sizes = chart?.sizes || Array.from(new Set(selectedProduct.variants.map((v) => v.size)));
-      const colors = chart?.colors || Array.from(new Set(selectedProduct.variants.map((v) => v.color)));
-
-      const stockMap: { [key: string]: number } = {};
-      selectedProduct.variants.forEach((v) => {
-        stockMap[`${v.size}:${v.color}`] = v.quantity;
-      });
-
-      setSelectedSizes(sizes);
-      setProductColors(colors);
-      setVariantsStock(stockMap);
-
       // Sincronizar imagens vinculadas
       const current = products.find((p) => p.id === selectedProduct.id);
       if (current && JSON.stringify(current.images) !== JSON.stringify(selectedProduct.images)) {
@@ -139,18 +115,8 @@ export default function GridManagerClient({
       setProdName("");
       setProdPrice("");
       setProdDesc("");
-      setSelectedSizes([]);
-      setProductColors([]);
-      setVariantsStock({});
     }
   }, [selectedProduct, products]);
-
-  // 3. Esconder player ao retornar do redirect se novas mídias foram vinculadas
-  useEffect(() => {
-    if (newMediaAdded) {
-      setPlayerHidden(true);
-    }
-  }, [newMediaAdded]);
 
   // Redirecionamento para biblioteca de mídia (fluxo de seleção de página inteira)
   const handleRedirectToMediaLibrary = () => {
@@ -158,39 +124,6 @@ export default function GridManagerClient({
     router.push(
       `/admin/media?selectingForProduct=${selectedProduct.id}&collection=${currentCollection.id}`
     );
-  };
-
-  // Alternar tamanho
-  const handleToggleSize = (size: string) => {
-    if (selectedSizes.includes(size)) {
-      setSelectedSizes(selectedSizes.filter((s) => s !== size));
-    } else {
-      setSelectedSizes([...selectedSizes, size]);
-    }
-  };
-
-  // Adicionar cor
-  const handleAddColor = (e: React.FormEvent) => {
-    e.preventDefault();
-    const color = newColorInput.trim();
-    if (color && !productColors.includes(color)) {
-      setProductColors([...productColors, color]);
-      setNewColorInput("");
-    }
-  };
-
-  // Remover cor
-  const handleRemoveColor = (colorToRemove: string) => {
-    setProductColors(productColors.filter((c) => c !== colorToRemove));
-  };
-
-  // Alterar estoque de combinação
-  const handleStockChange = (size: string, color: string, val: string) => {
-    const qty = parseInt(val) || 0;
-    setVariantsStock({
-      ...variantsStock,
-      [`${size}:${color}`]: qty,
-    });
   };
 
   // Criar novo card vazio
@@ -218,7 +151,7 @@ export default function GridManagerClient({
     }
   };
 
-  // Salvar detalhes do produto (nome, preço, descrição, sizes, colors, variantsStock)
+  // Salvar detalhes do produto (apenas metadados de apresentação)
   const handleSaveDetails = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedProduct) return;
@@ -230,43 +163,24 @@ export default function GridManagerClient({
         name: prodName,
         price: parsedPrice,
         description: prodDesc,
-        sizes: selectedSizes,
-        colors: productColors,
-        variantsStock: variantsStock,
       });
 
       if (result.success) {
         const updatedProducts = products.map((p) => {
           if (p.id === selectedProduct.id) {
-            const fakeVariants = [];
-            for (const size of selectedSizes) {
-              for (const color of productColors) {
-                const key = `${size}:${color}`;
-                fakeVariants.push({
-                  id: `${size}-${color}-${Date.now()}`,
-                  size,
-                  color,
-                  quantity: variantsStock[key] || 0,
-                });
-              }
-            }
             return {
               ...p,
               name: prodName,
               price: parsedPrice,
               description: prodDesc,
-              size_chart: { sizes: selectedSizes, colors: productColors },
-              variants: fakeVariants,
             };
           }
           return p;
         });
         setProducts(updatedProducts);
 
-        // Restaura player e limpa a URL
-        setPlayerHidden(false);
-        router.replace(`/admin/grid-manager?collection=${currentCollection.id}`);
-        triggerFeedback("success", "Variações e metadados salvos com sucesso.");
+        // Direcionar imediatamente para a página de estoque focando este produto
+        router.push(`/admin/stock?collection=${currentCollection.id}&focusProduct=${selectedProduct.id}`);
       }
     } catch (err: any) {
       triggerFeedback("error", "Erro ao salvar: " + err.message);
@@ -360,7 +274,6 @@ export default function GridManagerClient({
 
   return (
     <div className={styles.gridManagerGrid2Panel}>
-      {/* PAINEL ESQUERDO: GRID DA VITRINE (Thumbnails menores) */}
       <section className={styles.gridPreview}>
         <div className={styles.sectionHeaderFlex}>
           <div>
@@ -434,59 +347,41 @@ export default function GridManagerClient({
 
       {/* PAINEL DIREITO: PLAYER 9:16 EDITOR (Coluna mais larga, player fixado no topo) */}
       <section className={styles.editorPanel}>
-        <div className={styles.editorHeaderFlex}>
-          <div>
-            <h2 className={styles.sectionTitle}>Editor do Card</h2>
-            <p className={styles.sectionSubtitle}>Defina metadados, variações e mídias.</p>
-          </div>
-          {selectedProduct && (
-            <button
-              type="button"
-              className={styles.togglePlayerBtn}
-              onClick={() => setPlayerHidden(!playerHidden)}
-            >
-              {playerHidden ? "🎦 Ver Player" : "🙈 Ocultar Player"}
-            </button>
-          )}
-        </div>
-
         {selectedProduct ? (
           <div className={styles.editorContentFixed}>
             {/* Player Físico 9:16 (Fixo no topo da coluna) */}
-            {!playerHidden && (
-              <div className={styles.playerFrameFixed}>
-                <div
-                  className={styles.playerScreen}
-                  onClick={handleRedirectToMediaLibrary}
-                  title="Clique para gerenciar/vincular mídias"
-                  style={{ cursor: "pointer" }}
-                >
-                  {selectedProduct.images.length > 0 ? (
-                    selectedProduct.images[0].image_url.toLowerCase().endsWith(".mp4") ? (
-                      <video
-                        src={selectedProduct.images[0].image_url}
-                        className={styles.playerMedia}
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                      />
-                    ) : (
-                      <img
-                        src={selectedProduct.images[0].image_url}
-                        alt={selectedProduct.name}
-                        className={styles.playerMedia}
-                      />
-                    )
+            <div className={styles.playerFrameFixed}>
+              <div
+                className={styles.playerScreen}
+                onClick={handleRedirectToMediaLibrary}
+                title="Clique para gerenciar/vincular mídias"
+                style={{ cursor: "pointer" }}
+              >
+                {selectedProduct.images.length > 0 ? (
+                  selectedProduct.images[0].image_url.toLowerCase().endsWith(".mp4") ? (
+                    <video
+                      src={selectedProduct.images[0].image_url}
+                      className={styles.playerMedia}
+                      controls
+                      autoPlay
+                      muted
+                      loop
+                    />
                   ) : (
-                    <div className={styles.playerScreenEmpty}>
-                      <p>Card Vazio</p>
-                      <span>Clique aqui para selecionar mídia da biblioteca</span>
-                    </div>
-                  )}
-                </div>
+                    <img
+                      src={selectedProduct.images[0].image_url}
+                      alt={selectedProduct.name}
+                      className={styles.playerMedia}
+                    />
+                  )
+                ) : (
+                  <div className={styles.playerScreenEmpty}>
+                    <p>Card Vazio</p>
+                    <span>Clique aqui para selecionar mídia da biblioteca</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
 
             {/* Conteúdo rolável do formulário */}
             <div className={styles.editorScrollableForm}>
@@ -505,9 +400,9 @@ export default function GridManagerClient({
 
               <form onSubmit={handleSaveDetails} className={styles.editorForm}>
                 <div className={styles.fieldGroup}>
-                  <label className={styles.label}>Nome da Peça</label>
                   <input
                     type="text"
+                    placeholder="Nome da Peça"
                     value={prodName}
                     onChange={(e) => setProdName(e.target.value)}
                     className={styles.textInput}
@@ -516,10 +411,10 @@ export default function GridManagerClient({
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label className={styles.label}>Preço (R$)</label>
                   <input
                     type="number"
                     step="0.01"
+                    placeholder="Preço (R$)"
                     value={prodPrice}
                     onChange={(e) => setProdPrice(e.target.value)}
                     className={styles.textInput}
@@ -528,112 +423,13 @@ export default function GridManagerClient({
                 </div>
 
                 <div className={styles.fieldGroup}>
-                  <label className={styles.label}>Descrição / Manifesto</label>
                   <textarea
+                    placeholder="Descrição / Manifesto"
                     value={prodDesc}
                     onChange={(e) => setProdDesc(e.target.value)}
                     className={styles.textarea}
                     rows={3}
                   />
-                </div>
-
-                {/* Seleção de Tamanhos (Checkboxes) */}
-                <div className={styles.formSection}>
-                  <label className={styles.label}>Tamanhos Disponíveis</label>
-                  <div className={styles.checkboxSizesGrid}>
-                    {sizeOptions.map((size) => {
-                      const isChecked = selectedSizes.includes(size);
-                      return (
-                        <label key={size} className={styles.checkboxLabel}>
-                          <input
-                            type="checkbox"
-                            checked={isChecked}
-                            onChange={() => handleToggleSize(size)}
-                            className={styles.checkboxInput}
-                          />
-                          <span className={styles.checkboxText}>{size}</span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Seleção de Cores (Tags dinâmicas) */}
-                <div className={styles.formSection}>
-                  <label className={styles.label}>Cores do Produto</label>
-                  <div className={styles.colorInputRow}>
-                    <input
-                      type="text"
-                      placeholder="Adicione uma cor (ex: Vinho)"
-                      value={newColorInput}
-                      onChange={(e) => setNewColorInput(e.target.value)}
-                      className={styles.textInputColor}
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddColor}
-                      className={styles.addColorBtn}
-                    >
-                      + Add
-                    </button>
-                  </div>
-
-                  <div className={styles.colorsTagList}>
-                    {productColors.map((color) => (
-                      <span key={color} className={styles.colorTag}>
-                        {color}
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveColor(color)}
-                          className={styles.removeColorBtn}
-                        >
-                          ×
-                        </button>
-                      </span>
-                    ))}
-                    {productColors.length === 0 && (
-                      <span className={styles.noColorsMsg}>Nenhuma cor adicionada.</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Grade de Estoque por Combinação */}
-                <div className={styles.formSection}>
-                  <label className={styles.label}>Quantidade de Estoque por Combinação</label>
-                  {selectedSizes.length > 0 && productColors.length > 0 ? (
-                    <div className={styles.variantsStockGrid}>
-                      <div className={styles.variantsHeader}>
-                        <span>Variação</span>
-                        <span>Estoque (unidades)</span>
-                      </div>
-                      {selectedSizes.map((size) =>
-                        productColors.map((color) => {
-                          const key = `${size}:${color}`;
-                          const qty = typeof variantsStock[key] === "number" ? variantsStock[key] : 0;
-                          return (
-                            <div key={key} className={styles.variantRow}>
-                              <span className={styles.variantLabel}>
-                                {size} / {color}
-                              </span>
-                              <input
-                                type="number"
-                                min="0"
-                                value={qty}
-                                onChange={(e) =>
-                                  handleStockChange(size, color, e.target.value)
-                                }
-                                className={styles.variantInput}
-                              />
-                            </div>
-                          );
-                        })
-                      )}
-                    </div>
-                  ) : (
-                    <div className={styles.emptyStockAlert}>
-                      Marque pelo menos um tamanho e adicione uma cor acima para habilitar o controle de estoque.
-                    </div>
-                  )}
                 </div>
 
                 <div className={styles.btnRow}>

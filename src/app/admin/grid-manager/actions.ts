@@ -91,16 +91,13 @@ export async function reorderProductCards(orderedIds: string[]) {
   return { success: true };
 }
 
-// 4. Salvar detalhes editados do produto, incluindo variação e estoque
+// 4. Salvar detalhes editados do produto (metadados apenas para o Grid Manager)
 export async function saveProductDetails(
   productId: string,
   data: {
     name: string;
     price: number;
     description: string;
-    sizes: string[];
-    colors: string[];
-    variantsStock: { [key: string]: number }; // chave "tamanho:cor" -> quantidade
   }
 ) {
   await requireAuth();
@@ -125,6 +122,33 @@ export async function saveProductDetails(
     slug = `${slug}-${Date.now().toString().slice(-4)}`;
   }
 
+  await prisma.product.update({
+    where: { id: productId },
+    data: {
+      name: data.name,
+      price: data.price,
+      description: data.description,
+      slug,
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/admin/grid-manager");
+  revalidatePath("/admin/stock");
+  return { success: true };
+}
+
+// 4b. Salvar estoque e configurações de variações (página dedicada /admin/stock)
+export async function saveProductStockAndVariants(
+  productId: string,
+  data: {
+    sizes: string[];
+    colors: string[];
+    variantsStock: { [key: string]: number }; // chave "tamanho:cor" -> quantidade
+  }
+) {
+  await requireAuth();
+
   // Armazenar os tamanhos e cores ativos no campo JSONB size_chart para facilidade de carregamento
   const sizeChartConfig = {
     sizes: data.sizes,
@@ -134,10 +158,6 @@ export async function saveProductDetails(
   await prisma.product.update({
     where: { id: productId },
     data: {
-      name: data.name,
-      price: data.price,
-      description: data.description,
-      slug,
       size_chart: sizeChartConfig as any,
     },
   });
@@ -193,6 +213,7 @@ export async function saveProductDetails(
 
   revalidatePath("/");
   revalidatePath("/admin/grid-manager");
+  revalidatePath("/admin/stock");
   return { success: true };
 }
 
