@@ -7,9 +7,9 @@ export default withAuth({
 });
 
 export const config = {
-  // Proteger qualquer subrota de /admin, mas garantir que a página de login fique pública
-  // O next-auth/middleware exclui automaticamente a página de signIn configurada para evitar loops
+  // Proteger a rota principal e qualquer subrota de /admin, mas garantir que a página de login fique pública
   matcher: [
+    "/admin",
     "/admin/:path*",
   ],
 };
