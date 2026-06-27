@@ -22,6 +22,8 @@ async function main() {
   await prisma.stockVariant.deleteMany();
   await prisma.productImage.deleteMany();
   await prisma.product.deleteMany();
+  await prisma.mediaAsset.deleteMany();
+  await prisma.collection.deleteMany();
   await prisma.siteSettings.deleteMany();
   await prisma.user.deleteMany();
 
@@ -65,14 +67,44 @@ async function main() {
   });
   console.log("Configurações padrão do Design System inseridas com sucesso.");
 
-  // 3. Cadastrar 18 produtos baseados nas imagens da pasta COLECAO (01.jpg a 18.jpg)
+  // 3. Inserir Coleções de Teste (Projetos)
+  const collectionSemLimites = await prisma.collection.create({
+    data: {
+      name: "Sem Limites",
+      slug: "sem-limites",
+      year: 2026,
+      season: "Outono",
+    },
+  });
+
+  const collectionNoGame = await prisma.collection.create({
+    data: {
+      name: "No Game No Drama",
+      slug: "no-game-no-drama",
+      year: 2026,
+      season: "Inverno",
+    },
+  });
+  console.log("Coleções de teste criadas.");
+
+  // Tabela de medidas padrão (Camisa)
+  const defaultSizeChart = [
+    { size: "P", metrics: { Largura: "53 cm", Comprimento: "72,05 cm" } },
+    { size: "M", metrics: { Largura: "56 cm", Comprimento: "76 cm" } },
+    { size: "G", metrics: { Largura: "58 cm", Comprimento: "78 cm" } },
+    { size: "GG", metrics: { Largura: "62 cm", Comprimento: "82 cm" } },
+    { size: "XG", metrics: { Largura: "64 cm", Comprimento: "84 cm" } }
+  ];
+
+  // 4. Cadastrar 18 produtos baseados nas imagens da pasta COLECAO (01.jpg a 18.jpg)
   const colors = ["Vinho", "Preto", "Branco"];
-  const sizes = ["P", "M", "G", "GG"];
+  const sizes = ["P", "M", "G", "GG", "XG"];
 
   for (let i = 1; i <= 18; i++) {
     const numStr = i.toString().padStart(2, "0");
     const productName = `AVA Streetwear Piece ${numStr}`;
     const productSlug = `ava-streetwear-piece-${numStr}`;
+    const isOdd = i % 2 === 1;
 
     const product = await prisma.product.create({
       data: {
@@ -81,6 +113,9 @@ async function main() {
         description: `Peça conceitual exclusiva da marca AVA Vitória. Desenvolvida sob o manifesto da alta-costura streetwear com corte oversized e algodão premium de alta gramatura.`,
         price: 399.00 + (i * 20), // Preços variando de R$419,00 a R$759,00
         is_active: true,
+        display_order: i - 1,
+        size_chart: defaultSizeChart as any,
+        collection_id: isOdd ? collectionSemLimites.id : collectionNoGame.id,
       },
     });
 
@@ -114,7 +149,21 @@ async function main() {
     }
   }
 
-  console.log("18 produtos e suas variantes de tamanho/cor foram inseridos com sucesso.");
+  // 5. Inserir Mídias de Teste na Biblioteca de Mídias
+  for (let i = 1; i <= 18; i++) {
+    const numStr = i.toString().padStart(2, "0");
+    const isOdd = i % 2 === 1;
+    await prisma.mediaAsset.create({
+      data: {
+        filename: `${numStr}.jpg`,
+        file_url: `/imagens/COLECAO/${numStr}.jpg`,
+        mime_type: "image/jpeg",
+        collection_id: isOdd ? collectionSemLimites.id : collectionNoGame.id,
+      },
+    });
+  }
+
+  console.log("18 produtos e 18 mídias de biblioteca cadastrados nas coleções com sucesso.");
   console.log("Semeadura concluída!");
 }
 

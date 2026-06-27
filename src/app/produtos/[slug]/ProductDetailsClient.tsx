@@ -19,6 +19,7 @@ interface ProductDetailsClientProps {
     slug: string;
     price: number;
     description: string | null;
+    size_chart?: any;
     images: {
       image_url: string;
     }[];

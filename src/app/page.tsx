@@ -23,7 +23,7 @@ export default async function Home() {
         },
       },
       orderBy: {
-        created_at: "desc",
+        display_order: "asc",
       },
     });
   } catch (error) {

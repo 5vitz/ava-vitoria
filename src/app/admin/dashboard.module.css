@@ -1,0 +1,381 @@
+.adminContainer {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body), sans-serif;
+  font-weight: var(--body-weight);
+}
+
+.adminHeader {
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px;
+  border-bottom: 1px solid var(--color-border);
+  background-color: rgba(31, 8, 15, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+.headerTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.adminTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.adminBadge {
+  background-color: rgba(212, 175, 55, 0.1);
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.adminNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navLink {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+}
+
+.adminMain {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Dashboard Container */
+.dashboardContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Banner do Modo de Seleção */
+.selectionModeBanner {
+  background-color: rgba(212, 175, 55, 0.08);
+  border: 1px solid var(--color-accent);
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  animation: slideDown 0.3s ease-out;
+}
+
+.bannerInfo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.bannerIcon {
+  font-size: 1.5rem;
+}
+
+.bannerInfo strong {
+  font-family: var(--font-title), sans-serif;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.bannerInfo p {
+  margin: 2px 0 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-primary);
+}
+
+.bannerCancelBtn {
+  background-color: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bannerCancelBtn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Intro Section */
+.introSection {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 15px;
+}
+
+.dashboardTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+}
+
+.dashboardSubtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Search Bar Row */
+.searchBarRow {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.searchContainer {
+  flex: 1;
+}
+
+.searchInput {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 15px;
+  font-size: 0.95rem;
+  font-family: var(--font-body), sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.searchInput:focus {
+  border-color: var(--color-accent);
+}
+
+.newProjectBtn {
+  background-color: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 15px 25px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.newProjectBtn:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+/* Create Form */
+.createForm {
+  background-color: rgba(31, 8, 15, 0.3);
+  border: 1px solid var(--color-border);
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.formTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 0 0 5px 0;
+  letter-spacing: 1px;
+}
+
+.formGridFields {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 20px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-text-secondary);
+}
+
+.textInput,
+.select {
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 12px;
+  font-size: 0.9rem;
+  font-family: var(--font-body), sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.textInput:focus,
+.select:focus {
+  border-color: var(--color-accent);
+}
+
+.saveBtn {
+  align-self: flex-start;
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  color: var(--color-bg);
+  padding: 12px 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveBtn:hover {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+.formError {
+  background-color: rgba(255, 77, 77, 0.1);
+  border: 1px solid #ff4d4d;
+  color: #ff4d4d;
+  padding: 10px;
+  font-size: 0.8rem;
+}
+
+/* Projects Grid */
+.projectsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.emptyGridMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 0;
+  color: var(--color-text-secondary);
+  font-size: 0.9rem;
+  border: 1px dashed var(--color-border);
+}
+
+.projectCard {
+  background-color: rgba(31, 8, 15, 0.2);
+  border: 1px solid var(--color-border);
+  padding: 25px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.projectCard:hover {
+  border-color: var(--color-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.colYear {
+  font-family: var(--font-title), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.colSeason {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 3px 8px;
+  color: var(--color-text-secondary);
+}
+
+.colName {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.openCardLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--color-accent);
+  font-weight: 600;
+  margin-top: auto;
+  transition: transform 0.2s ease;
+}
+
+.projectCard:hover .openCardLabel {
+  transform: translateX(5px);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

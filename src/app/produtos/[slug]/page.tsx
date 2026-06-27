@@ -42,6 +42,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     slug: product.slug,
     description: product.description,
     price: Number(product.price),
+    size_chart: product.size_chart,
     images: product.images.map((img) => ({
       image_url: img.image_url,
     })),
