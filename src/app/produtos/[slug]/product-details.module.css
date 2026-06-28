@@ -1,4 +1,9 @@
-/* Estilos da Página de Detalhes do Produto (PDP) — Estética da Subtração AVA Vitória */
+.pageWrapper {
+  background-color: #000000;
+  width: 100%;
+  min-height: 100vh;
+  color: #FFFFFF;
+}
 
 .container {
   max-width: 1200px;
@@ -31,7 +36,7 @@
   width: 100%;
   aspect-ratio: 9 / 16; /* 9:16 vertical alta */
   background: #090204;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
@@ -64,7 +69,7 @@
 .backLink {
   font-family: var(--font-body);
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
   letter-spacing: 1px;
   display: inline-block;
@@ -73,7 +78,7 @@
 }
 
 .backLink:hover {
-  color: var(--color-accent);
+  color: #FFFFFF;
 }
 
 .name {
@@ -81,7 +86,7 @@
   font-weight: var(--font-title-weight);
   font-size: 1.8rem;
   text-transform: uppercase;
-  color: var(--color-text-primary);
+  color: #FFFFFF;
   letter-spacing: 1.5px;
   margin: 0;
   line-height: 1.2;
@@ -90,14 +95,14 @@
 .price {
   font-family: var(--font-body);
   font-size: 1.2rem;
-  color: var(--color-accent);
+  color: #FFFFFF;
   font-weight: 500;
   margin: 0;
 }
 
 .divider {
   border: 0;
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   margin: 5px 0;
 }
 
@@ -105,7 +110,7 @@
   font-family: var(--font-body);
   font-weight: var(--font-body-weight);
   font-size: 0.9rem;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
 }
 
@@ -126,7 +131,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .selectorGrid {
@@ -137,8 +142,8 @@
 
 .sizeButton {
   background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
   min-width: 45px;
   height: 45px;
   display: flex;
@@ -153,14 +158,14 @@
 }
 
 .sizeButton:hover:not(.sizeButtonActive):not(:disabled) {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
 }
 
 .sizeButtonActive {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-bg);
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -172,8 +177,8 @@
 
 .colorButton {
   background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
   height: 45px;
   display: flex;
   align-items: center;
@@ -189,14 +194,14 @@
 }
 
 .colorButton:hover:not(.colorButtonActive):not(:disabled) {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  border-color: #FFFFFF;
+  color: #FFFFFF;
 }
 
 .colorButtonActive {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-bg);
+  background: #FFFFFF;
+  border-color: #FFFFFF;
+  color: #000000;
   font-weight: 600;
 }
 
@@ -206,9 +211,9 @@
 }
 
 .addToCartButton {
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border: 1px solid var(--color-accent);
+  background: #FFFFFF;
+  color: #000000;
+  border: 1px solid #FFFFFF;
   padding: 16px;
   font-family: var(--font-body);
   font-weight: 600;
@@ -223,7 +228,7 @@
 
 .addToCartButton:hover:not(:disabled) {
   background: transparent;
-  color: var(--color-accent);
+  color: #FFFFFF;
 }
 
 .addToCartButton:disabled {
@@ -250,7 +255,7 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .sizeChartTableWrapper {
@@ -263,7 +268,7 @@
   border-collapse: collapse;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  color: var(--color-text-primary);
+  color: #FFFFFF;
   text-align: left;
 }
 
@@ -271,19 +276,19 @@
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--color-text-secondary);
+  color: rgba(255, 255, 255, 0.6);
   padding: 10px 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font-weight: 500;
 }
 
 .sizeChartTable td {
   padding: 12px 0;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   font-weight: 300;
 }
 
 .sizeCell {
   font-weight: 600 !important;
-  color: var(--color-accent);
+  color: #FFFFFF;
 }

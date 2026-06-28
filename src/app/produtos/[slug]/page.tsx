@@ -55,14 +55,27 @@ export default async function ProductPage({ params }: ProductPageProps) {
   };
 
   return (
-    <div className={styles.container}>
-      {/* Coluna da Esquerda: Fotos da peça empilhadas (Estilo Balenciaga) */}
-      <div className={styles.mediaColumn}>
-        {product.images.length > 0 ? (
-          product.images.map((img) => (
-            <div key={img.id} className={styles.imageWrapper}>
+    <div className={styles.pageWrapper}>
+      <div className={styles.container}>
+        {/* Coluna da Esquerda: Fotos da peça empilhadas (Estilo Balenciaga) */}
+        <div className={styles.mediaColumn}>
+          {product.images.length > 0 ? (
+            product.images.map((img) => (
+              <div key={img.id} className={styles.imageWrapper}>
+                <Image
+                  src={img.image_url}
+                  alt={product.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className={styles.productImage}
+                  priority
+                />
+              </div>
+            ))
+          ) : (
+            <div className={styles.imageWrapper}>
               <Image
-                src={img.image_url}
+                src="/imagens/COLECAO/01.jpg"
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 55vw"
@@ -70,23 +83,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 priority
               />
             </div>
-          ))
-        ) : (
-          <div className={styles.imageWrapper}>
-            <Image
-              src="/imagens/COLECAO/01.jpg"
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 55vw"
-              className={styles.productImage}
-              priority
-            />
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      {/* Coluna da Direita: Detalhes, Seletores e Compra (Client Component) */}
-      <ProductDetailsClient product={serializedProduct} />
+        {/* Coluna da Direita: Detalhes, Seletores e Compra (Client Component) */}
+        <ProductDetailsClient product={serializedProduct} />
+      </div>
     </div>
   );
 }
