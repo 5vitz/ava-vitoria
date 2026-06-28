@@ -13,38 +13,58 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  console.log("Iniciando migração de dados locais (JS)...");
+  console.log("Iniciando migração de dados...");
 
-  // 1. Achar a coleção Sem Limites
-  const semLimites = await prisma.collection.findFirst({
+  // 1. Achar ou criar a coleção Sem Limites
+  let semLimites = await prisma.collection.findFirst({
     where: { slug: "sem-limites" },
   });
 
   if (!semLimites) {
-    console.error("Coleção Sem Limites não encontrada no banco. Por favor, rode o seed primeiro.");
-    return;
+    console.log("Coleção Sem Limites não encontrada. Criando nova coleção...");
+    semLimites = await prisma.collection.create({
+      data: {
+        name: "Sem Limites",
+        slug: "sem-limites",
+        year: 2026,
+        season: "Outono",
+      },
+    });
   }
 
   const targetCollectionId = semLimites.id;
-  console.log(`Coleção Sem Limites encontrada: ID ${targetCollectionId}`);
+  console.log(`Coleção Sem Limites ativa: ID ${targetCollectionId}`);
 
   // 2. Mover todos os produtos para a coleção Sem Limites
-  const updatedProducts = await prisma.product.updateMany({
+  const updatedProductsCount = await prisma.product.updateMany({
     data: {
       collection_id: targetCollectionId,
     },
   });
-  console.log(`Produtos migrados: ${updatedProducts.count} registros atualizados.`);
+  console.log(`Produtos vinculados à coleção: ${updatedProductsCount.count}`);
 
-  // 3. Mover todas as mídias de biblioteca para a coleção Sem Limites
+  // 3. Atualizar display_order incrementalmente para todos os produtos
+  const allProducts = await prisma.product.findMany({
+    orderBy: { id: "asc" },
+  });
+
+  for (let i = 0; i < allProducts.length; i++) {
+    await prisma.product.update({
+      where: { id: allProducts[i].id },
+      data: { display_order: i },
+    });
+  }
+  console.log(`Ordenação display_order recalculada para ${allProducts.length} produtos.`);
+
+  // 4. Mover todas as mídias de biblioteca para a coleção Sem Limites (se existirem)
   const updatedMedias = await prisma.mediaAsset.updateMany({
     data: {
       collection_id: targetCollectionId,
     },
   });
-  console.log(`Mídias de biblioteca migradas: ${updatedMedias.count} registros atualizados.`);
+  console.log(`Mídias de biblioteca migradas: ${updatedMedias.count} registros.`);
 
-  // 4. Remover coleções vazias (No Game No Drama)
+  // 5. Remover coleções vazias redundantes
   const deletedCollections = await prisma.collection.deleteMany({
     where: {
       id: {
@@ -52,7 +72,7 @@ async function main() {
       },
     },
   });
-  console.log(`Coleções adicionais removidas: ${deletedCollections.count} registros deletados.`);
+  console.log(`Coleções adicionais removidas: ${deletedCollections.count}`);
 
   console.log("Migração concluída com sucesso!");
 }
