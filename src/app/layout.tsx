@@ -75,7 +75,7 @@ export default async function RootLayout({
   };
 
   const backgroundColorHex = config.colors.bg || "#1F080F";
-  const bgRgba = hexToRgba(backgroundColorHex, 0.85); // 85% opacidade
+  const bgRgba = hexToRgba(backgroundColorHex, 0.5); // 50% opacidade
 
   return (
     <html lang="pt-BR">
