@@ -28,7 +28,7 @@ Toda a codificação do CSS deve utilizar estritamente as variáveis declaradas 
 ### 2.1. Variáveis de Cor (CSS Custom Properties)
 ```css
 :root {
-  --color-bg: #1F080F;       /* Vinho Escuro (Cor de fundo principal) */
+  --color-bg: #17060b;       /* Vinho Escuro (Cor de fundo principal) */
   --color-accent: #D4AF37;   /* Dourado (Destaques cirúrgicos: hover, preços, ativos) */
   --color-text-primary: #FFFFFF;  /* Branco puro */
   --color-text-secondary: #A0A0A0; /* Cinza claro para descrições */

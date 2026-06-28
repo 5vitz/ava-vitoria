@@ -51,6 +51,7 @@
   height: 100%;
   object-fit: cover; /* Preenche tudo sem distorcer */
   object-position: center;
+  filter: brightness(0.75); /* Escurece a imagem estática para visual premium */
 }
 
 /* Selo de Atitude no Banner */
