@@ -65,6 +65,18 @@ export default async function RootLayout({
   const encodedDotColor = dotColor.replace("#", "%23");
   const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='1'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='1'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='1'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='1'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='1'/%3E%3C/svg%3E`;
 
+  // Função para converter Hex para RGBA
+  const hexToRgba = (hex: string, alpha: number) => {
+    const cleanHex = hex.replace("#", "");
+    const r = parseInt(cleanHex.substring(0, 2), 16);
+    const g = parseInt(cleanHex.substring(2, 4), 16);
+    const b = parseInt(cleanHex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  };
+
+  const backgroundColorHex = config.colors.bg || "#1F080F";
+  const bgRgba = hexToRgba(backgroundColorHex, 0.85); // 85% opacidade
+
   return (
     <html lang="pt-BR">
       <head>
@@ -92,10 +104,13 @@ export default async function RootLayout({
           }
           
           body {
-            background-image: url("${svgHalftone}");
+            background-image: 
+              linear-gradient(${bgRgba}, ${bgRgba}),
+              url("${svgHalftone}");
             background-size: 8px 8px;
             background-position: 0 0, 4px 4px;
             background-attachment: fixed;
+            background-color: #ffffff; /* Base branca para criar contraste com os pontos pretos por baixo */
           }
         `}} />
       </head>
