@@ -70,23 +70,10 @@ export default function HeroVideo({
       return;
     }
 
-    // Configura o estado inicial do som e do tempo no elemento de vídeo físico
+    // Configura o estado inicial do som e do tempo no elemento de vídeo físico, mantendo-o pausado até o clique em ENTRAR
     video.muted = true;
     video.volume = 0;
     video.currentTime = 0;
-
-    // Autoplay garantido por estar mutado (Chrome, Firefox, Safari, etc.)
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-      playPromise
-        .then(() => {
-          setIsPlaying(true);
-        })
-        .catch((error) => {
-          console.log("Autoplay blocked by browser policy:", error);
-          setIsPlaying(false);
-        });
-    }
 
     // Monitora quando o vídeo chegar ao fim
     const handleEnded = () => {
