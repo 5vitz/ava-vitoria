@@ -84,24 +84,44 @@ export default function HeroVideo({
       
       // Cria e toca o som de clique de câmera como ponte estética
       const clickAudio = new Audio('/trilhas/camera_click.mp3');
-      clickAudio.volume = activeVolume;
+      // Usamos o volume original do estado (volume) e não o volume físico do vídeo que sofreu fade-out para 0
+      clickAudio.volume = volume;
       clickAudio.muted = activeMuted;
 
+      let hasStartedMusic = false;
       const startGlobalAudio = () => {
+        if (hasStartedMusic) return;
+        hasStartedMusic = true;
+        
+        // Sincroniza o volume do som global com o volume original configurado no slider (volume)
+        setAudioVolume(volume);
         if (currentVideo) {
-          setAudioVolume(currentVideo.volume);
           setAudioMuted(currentVideo.muted);
         }
         playAudio();
       };
 
+      // Limite de segurança: se o clique falhar, não carregar ou travar, inicia a trilha em 1.2s de qualquer forma
+      const safetyTimeout = setTimeout(startGlobalAudio, 1200);
+
+      clickAudio.addEventListener('ended', () => {
+        clearTimeout(safetyTimeout);
+        startGlobalAudio();
+      });
+
+      clickAudio.addEventListener('error', () => {
+        console.log("Audio file loading error, skipping click.");
+        clearTimeout(safetyTimeout);
+        startGlobalAudio();
+      });
+
       clickAudio.play()
         .then(() => {
-          // Quando o som do clique da câmera terminar, inicia a trilha global em loop
-          clickAudio.addEventListener('ended', startGlobalAudio);
+          // Reprodução iniciou com sucesso
         })
         .catch((err) => {
           console.log("Camera click play blocked or failed, starting music directly:", err);
+          clearTimeout(safetyTimeout);
           startGlobalAudio();
         });
     };
