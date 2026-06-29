@@ -80,15 +80,30 @@ export default function HeroVideo({
       setIsPlaying(false);
       setIsTransitionActive(true);
       
-      // Sincroniza o volume e mudo global com o do vídeo no momento do fim
       const currentVideo = videoRef.current;
-      if (currentVideo) {
-        setAudioVolume(currentVideo.volume);
-        setAudioMuted(currentVideo.muted);
-      }
       
-      // Toca o áudio de fundo global
-      playAudio();
+      // Cria e toca o som de clique de câmera como ponte estética
+      const clickAudio = new Audio('/trilhas/camera_click.mp3');
+      clickAudio.volume = activeVolume;
+      clickAudio.muted = activeMuted;
+
+      const startGlobalAudio = () => {
+        if (currentVideo) {
+          setAudioVolume(currentVideo.volume);
+          setAudioMuted(currentVideo.muted);
+        }
+        playAudio();
+      };
+
+      clickAudio.play()
+        .then(() => {
+          // Quando o som do clique da câmera terminar, inicia a trilha global em loop
+          clickAudio.addEventListener('ended', startGlobalAudio);
+        })
+        .catch((err) => {
+          console.log("Camera click play blocked or failed, starting music directly:", err);
+          startGlobalAudio();
+        });
     };
 
     video.addEventListener('ended', handleEnded);
@@ -220,23 +235,20 @@ export default function HeroVideo({
     const duration = video.duration;
     if (!duration) return;
 
-    // Gatilho: Inicia a transição de fade 3 segundos antes do final do vídeo
+    // Fade-out suave e gradual do áudio do vídeo nos últimos 1.5 segundos
+    const fadeOutDuration = 1.5;
+    if (video.currentTime >= duration - fadeOutDuration) {
+      const timeRemaining = duration - video.currentTime;
+      const factor = Math.max(0, timeRemaining / fadeOutDuration);
+      video.volume = activeVolume * factor;
+    }
+
+    // Gatilho: Inicia a transição de fade visual 3 segundos antes do final do vídeo
     // para encobrir o frame da logo e do player nativo embutidos
     const fadeTriggerOffset = 3.0; 
     if (video.currentTime >= duration - fadeTriggerOffset) {
       if (!isTransitionActive) {
         setIsTransitionActive(true);
-      }
-
-      // Gatilho antecipado para a música de fundo (0.8s antes do final do vídeo)
-      // Isso compensa qualquer latência de carregamento do browser e conecta perfeitamente os áudios
-      const audioStartOffset = 0.8;
-      if (video.currentTime >= duration - audioStartOffset) {
-        if (!isGlobalPlaying) {
-          setAudioVolume(video.volume);
-          setAudioMuted(video.muted);
-          playAudio();
-        }
       }
     } else {
       if (isTransitionActive) {
