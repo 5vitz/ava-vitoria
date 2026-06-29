@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useRef, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 interface AudioContextType {
   isPlaying: boolean;
@@ -17,79 +17,121 @@ interface AudioContextType {
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
+// Objeto de áudio persistente global (singleton fora do React para persistir entre navegações)
+let globalAudio: HTMLAudioElement | null = null;
+let globalIsPlaying = false;
+let globalIsMuted = true;
+let globalVolume = 0.2;
+let globalHasEnteredStore = false;
+
+// Callbacks para sincronizar os múltiplos AudioProvider se remountarem
+const listeners = new Set<() => void>();
+const notifyListeners = () => {
+  listeners.forEach((l) => l());
+};
+
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
-  const [volume, setVolume] = useState(0.2);
-  const [hasEnteredStore, setHasEnteredStore] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(globalIsPlaying);
+  const [isMuted, setIsMuted] = useState(globalIsMuted);
+  const [volume, setVolume] = useState(globalVolume);
+  const [hasEnteredStore, setHasEnteredStore] = useState(globalHasEnteredStore);
 
   useEffect(() => {
-    console.log("AudioProvider: Mounting...");
-    // Executa apenas no navegador (lado do cliente)
-    const audio = new Audio('/trilhas/FuncaoMaster_1405.mp3');
-    audio.preload = 'auto';
-    audio.loop = true;
-    audio.volume = volume;
-    audio.muted = isMuted;
-    
+    // Inicializa o áudio global no client-side uma única vez
+    if (typeof window !== 'undefined' && !globalAudio) {
+      globalAudio = new Audio('/trilhas/FuncaoMaster_1405.mp3');
+      globalAudio.preload = 'auto';
+      globalAudio.loop = true;
+      globalAudio.volume = globalVolume;
+      globalAudio.muted = globalIsMuted;
+    }
+
+    const syncState = () => {
+      setIsPlaying(globalIsPlaying);
+      setIsMuted(globalIsMuted);
+      setVolume(globalVolume);
+      setHasEnteredStore(globalHasEnteredStore);
+      if (globalAudio) {
+        globalAudio.volume = globalVolume;
+        globalAudio.muted = globalIsMuted;
+      }
+    };
+
+    listeners.add(syncState);
+
     const handlePlay = () => {
-      console.log("AudioProvider: play event triggered");
-      setIsPlaying(true);
+      globalIsPlaying = true;
+      notifyListeners();
     };
     const handlePause = () => {
-      console.log("AudioProvider: pause event triggered");
-      setIsPlaying(false);
+      globalIsPlaying = false;
+      notifyListeners();
     };
-    
-    audio.addEventListener('play', handlePlay);
-    audio.addEventListener('pause', handlePause);
-    
-    audioRef.current = audio;
+
+    if (globalAudio) {
+      globalAudio.addEventListener('play', handlePlay);
+      globalAudio.addEventListener('pause', handlePause);
+    }
+
+    // Sincroniza o estado atual ao montar
+    syncState();
 
     return () => {
-      console.log("AudioProvider: Unmounting...");
-      audio.pause();
-      audio.removeEventListener('play', handlePlay);
-      audio.removeEventListener('pause', handlePause);
+      listeners.delete(syncState);
+      if (globalAudio) {
+        globalAudio.removeEventListener('play', handlePlay);
+        globalAudio.removeEventListener('pause', handlePause);
+      }
     };
   }, []);
 
   const playAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.play()
-        .then(() => setIsPlaying(true))
+    if (globalAudio) {
+      globalAudio.play()
+        .then(() => {
+          globalIsPlaying = true;
+          notifyListeners();
+        })
         .catch((err) => console.log("Global audio play failed:", err));
     }
   };
 
   const pauseAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+    if (globalAudio) {
+      globalAudio.pause();
+      globalIsPlaying = false;
+      notifyListeners();
     }
   };
 
   const stopAudio = () => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.currentTime = 0;
-      setIsPlaying(false);
+    if (globalAudio) {
+      globalAudio.pause();
+      globalAudio.currentTime = 0;
+      globalIsPlaying = false;
+      notifyListeners();
     }
   };
 
   const setAudioVolume = (vol: number) => {
-    setVolume(vol);
-    if (audioRef.current) {
-      audioRef.current.volume = vol;
+    globalVolume = vol;
+    if (globalAudio) {
+      globalAudio.volume = vol;
     }
+    notifyListeners();
   };
 
   const setAudioMuted = (muted: boolean) => {
-    setIsMuted(muted);
-    if (audioRef.current) {
-      audioRef.current.muted = muted;
+    globalIsMuted = muted;
+    if (globalAudio) {
+      globalAudio.muted = muted;
     }
+    notifyListeners();
+  };
+
+  const updateHasEnteredStore = (entered: boolean) => {
+    globalHasEnteredStore = entered;
+    notifyListeners();
   };
 
   return (
@@ -98,7 +140,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       isMuted,
       volume,
       hasEnteredStore,
-      setHasEnteredStore,
+      setHasEnteredStore: updateHasEnteredStore,
       playAudio,
       pauseAudio,
       stopAudio,
