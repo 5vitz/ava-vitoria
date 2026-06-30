@@ -15,6 +15,11 @@
   border-color: var(--color-accent); /* Borda dourada no hover */
 }
 
+/* Quando o mouse entra na área da imagem, a borda do card fica branca */
+.card:has(.imageContainer:hover) {
+  border-color: #FFFFFF;
+}
+
 .imageContainer {
   position: relative;
   width: 100%;
