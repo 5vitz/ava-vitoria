@@ -46,6 +46,10 @@ export default function HeroVideo({
   // Referência para limpar o intervalo de fade-in caso o componente seja desmontado
   const fadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Referências para gerenciar o crossfade da trilha sonora global
+  const musicFadeIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isMusicFadingRef = useRef(false);
+
   // Mapeamento dinâmico do estado ativo dependendo do vídeo estar rolando ou já ter acabado
   const activePlaying = isTransitionActive ? isGlobalPlaying : isPlaying;
   const activeMuted = isTransitionActive ? isGlobalMuted : isMuted;
@@ -81,6 +85,13 @@ export default function HeroVideo({
       setIsTransitionActive(true);
       
       const currentVideo = videoRef.current;
+
+      // Limpa qualquer intervalo pendente de fade
+      if (musicFadeIntervalRef.current) {
+        clearInterval(musicFadeIntervalRef.current);
+        musicFadeIntervalRef.current = null;
+      }
+      isMusicFadingRef.current = false;
       
       // Sincroniza o volume do som global com o volume original configurado no slider (volume)
       setAudioVolume(volume);
@@ -95,6 +106,7 @@ export default function HeroVideo({
     return () => {
       isUnmounted.current = true;
       if (fadeIntervalRef.current) clearInterval(fadeIntervalRef.current);
+      if (musicFadeIntervalRef.current) clearInterval(musicFadeIntervalRef.current);
       video.removeEventListener('ended', handleEnded);
     };
   }, []);
@@ -184,6 +196,13 @@ export default function HeroVideo({
     stopAudio(); // Para e reseta a música global
     setIsPlaying(false);
     setIsTransitionActive(false);
+
+    // Limpa o intervalo de fade-in da música se rodando
+    if (musicFadeIntervalRef.current) {
+      clearInterval(musicFadeIntervalRef.current);
+      musicFadeIntervalRef.current = null;
+    }
+    isMusicFadingRef.current = false;
   };
 
   const toggleMute = () => {
@@ -219,12 +238,55 @@ export default function HeroVideo({
     const duration = video.duration;
     if (!duration) return;
 
-    // Fade-out suave e gradual do áudio do vídeo nos últimos 1.5 segundos
     const fadeOutDuration = 1.5;
-    if (video.currentTime >= duration - fadeOutDuration) {
+    const isNearEnd = video.currentTime >= duration - fadeOutDuration;
+
+    if (isNearEnd) {
+      // 1. Fade-out suave e gradual do volume do vídeo
       const timeRemaining = duration - video.currentTime;
       const factor = Math.max(0, timeRemaining / fadeOutDuration);
-      video.volume = activeVolume * factor;
+      video.volume = volume * factor;
+
+      // 2. Inicia a trilha sonora global (crossfade) 1.5s antes do término
+      if (!isGlobalPlaying && !isMusicFadingRef.current) {
+        isMusicFadingRef.current = true;
+        setAudioVolume(0);
+        setAudioMuted(video.muted);
+        playAudio();
+
+        let currentVol = 0;
+        const targetVol = volume; // Volume alvo (slider)
+        const steps = 15;
+        const volStep = targetVol / steps;
+
+        if (musicFadeIntervalRef.current) {
+          clearInterval(musicFadeIntervalRef.current);
+        }
+
+        musicFadeIntervalRef.current = setInterval(() => {
+          currentVol += volStep;
+          if (currentVol >= targetVol) {
+            setAudioVolume(targetVol);
+            if (musicFadeIntervalRef.current) {
+              clearInterval(musicFadeIntervalRef.current);
+              musicFadeIntervalRef.current = null;
+            }
+            isMusicFadingRef.current = false;
+          } else {
+            setAudioVolume(currentVol);
+          }
+        }, 100); // Crossfade suave de 1.5s
+      }
+    } else {
+      // Se o usuário voltar no tempo (seek/rewind), limpa o fade da música e para o áudio
+      if (isMusicFadingRef.current || isGlobalPlaying) {
+        if (musicFadeIntervalRef.current) {
+          clearInterval(musicFadeIntervalRef.current);
+          musicFadeIntervalRef.current = null;
+        }
+        isMusicFadingRef.current = false;
+        stopAudio();
+      }
     }
 
     // Gatilho: Inicia a transição de fade visual 3 segundos antes do final do vídeo
@@ -237,7 +299,6 @@ export default function HeroVideo({
     } else {
       if (isTransitionActive) {
         setIsTransitionActive(false);
-        stopAudio(); // Para a música de fundo se o usuário retroceder o tempo no vídeo
       }
     }
   };
