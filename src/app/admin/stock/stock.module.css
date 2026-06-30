@@ -1,6 +1,6 @@
 .adminContainer {
   min-height: 100vh;
-  background-color: var(--color-bg);
+  background-color: #0d0306;
   color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
@@ -241,7 +241,7 @@
   overflow-y: auto;
   padding: 30px 40px;
   box-sizing: border-box;
-  background-color: var(--color-bg);
+  background-color: #0d0306;
 }
 
 .editorWrapper {
