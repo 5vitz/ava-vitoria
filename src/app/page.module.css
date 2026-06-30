@@ -226,7 +226,7 @@
   font-size: 0.75rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
+  color: #000000;
 }
 
 @media (max-width: 768px) {
