@@ -75,10 +75,10 @@
 /* Barra de Controles Customizados do Player (Estética da Subtração Altamente Discreta) */
 .controlsBar {
   position: absolute;
-  top: calc(16% + 32px); /* Posicionado 32px abaixo de '2027' */
-  bottom: auto;
-  left: 50%;
-  transform: translateX(-50%); /* Centralizado horizontalmente */
+  bottom: calc(25.4% + 16px); /* 16px acima da faixa preta inferior */
+  top: auto;
+  left: 32px; /* Canto inferior esquerdo da imagem central */
+  transform: none; /* Remove a centralização */
   z-index: 15;
   display: flex;
   align-items: center;
@@ -192,10 +192,10 @@
     height: 90px;
   }
   .controlsBar {
-    bottom: 20px;
+    bottom: calc(25.4% + 12px); /* Acompanha a escala proporcional do banner central */
     top: auto;
-    left: 50%;
-    transform: translateX(-50%); /* Centralizado também no mobile */
+    left: 20px; /* Margem esquerda menor para telas pequenas */
+    transform: none;
     padding: 6px 12px;
     gap: 10px;
   }
