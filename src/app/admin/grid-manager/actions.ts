@@ -239,12 +239,28 @@ export async function createCollectionAction(data: { name: string; year: number;
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)+/g, "");
 
+  const slug = cleanSlug || `collection-${Date.now()}`;
+
+  // Verificar duplicidade de nome ou slug
+  const existing = await prisma.collection.findFirst({
+    where: {
+      OR: [
+        { name: { equals: data.name, mode: "insensitive" } },
+        { slug: slug }
+      ]
+    }
+  });
+
+  if (existing) {
+    throw new Error("Uma coleção com este nome já existe.");
+  }
+
   const collection = await prisma.collection.create({
     data: {
       name: data.name,
       year: data.year,
       season: data.season,
-      slug: cleanSlug || `collection-${Date.now()}`,
+      slug: slug,
     },
   });
 
