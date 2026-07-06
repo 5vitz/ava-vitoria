@@ -75,7 +75,8 @@
 /* Barra de Controles Customizados do Player (Estética da Subtração Altamente Discreta) */
 .controlsBar {
   position: absolute;
-  bottom: 20px;
+  top: calc(16% + 32px); /* Posicionado 32px abaixo de '2027' */
+  bottom: auto;
   left: 50%;
   transform: translateX(-50%); /* Centralizado horizontalmente */
   z-index: 15;
@@ -192,6 +193,7 @@
   }
   .controlsBar {
     bottom: 20px;
+    top: auto;
     left: 50%;
     transform: translateX(-50%); /* Centralizado também no mobile */
     padding: 6px 12px;
