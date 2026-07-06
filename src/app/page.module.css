@@ -22,7 +22,6 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  border-bottom: 1px solid var(--color-border); /* Separação sutil na base */
   margin-top: 0;         /* Encosta exatamente na base do header, sem vão */
 }
 
