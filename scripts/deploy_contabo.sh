@@ -65,7 +65,7 @@ connect_ssh << 'EOF'
   cat << 'ENV' > .env
 DATABASE_URL="postgresql://ava_vitoria_user:AvaVitoriaSecretPass!@localhost:5432/ava_vitoria_prod?schema=public"
 NEXTAUTH_SECRET="f6c8d76d4001cbe13658514101e52dbbfa9796e6"
-NEXTAUTH_URL="http://31.220.102.2"
+NEXTAUTH_URL="https://www.ava-vitoria.com.br"
 ENV
 
   # Carrega variáveis de ambiente comuns para garantir que o PM2 e Node sejam localizados
