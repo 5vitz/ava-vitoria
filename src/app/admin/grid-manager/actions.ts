@@ -416,3 +416,21 @@ export async function uploadMediaAction(collectionId: string, formData: FormData
 
   return { success: true, assets: savedAssets };
 }
+
+// 12. Deletar Coleção (Projeto)
+export async function deleteCollectionAction(collectionId: string) {
+  await requireAuth();
+
+  // Deletar os produtos associados a esta coleção primeiro (limpeza completa em cascata)
+  await prisma.product.deleteMany({
+    where: { collection_id: collectionId },
+  });
+
+  // Deletar a coleção em si
+  await prisma.collection.delete({
+    where: { id: collectionId },
+  });
+
+  revalidatePath("/admin");
+  return { success: true };
+}

@@ -65,7 +65,7 @@ connect_ssh << 'EOF'
   cat << 'ENV' > .env
 DATABASE_URL="postgresql://ava_vitoria_user:AvaVitoriaSecretPass!@localhost:5432/ava_vitoria_prod?schema=public"
 NEXTAUTH_SECRET="f6c8d76d4001cbe13658514101e52dbbfa9796e6"
-NEXTAUTH_URL="https://www.ava-vitoria.com.br"
+NEXTAUTH_URL="http://31.220.102.2"
 ENV
 
   # Carrega variáveis de ambiente comuns para garantir que o PM2 e Node sejam localizados
@@ -88,7 +88,7 @@ ENV
   
   # Reiniciar serviço no PM2
   echo "🔄 Iniciando/Reiniciando serviço Next.js com PM2..."
-  pm2 restart ava-vitoria || pm2 start npm --name "ava-vitoria" -- start || {
+  pm2 restart ava-vitoria --update-env || pm2 start npm --name "ava-vitoria" -- start || {
       echo "❌ ERRO: Falha ao gerenciar processo PM2!"; exit 1;
   }
   

@@ -1,39 +1,120 @@
 #!/bin/bash
-# Script de deploy automatizado em 1 clique para AVA Sem Limites
-# -------------------------------------------------------------
+echo "🚀 INICIANDO DEPLOY AUTOMÁTICO — AVA SEM LIMITES (CONTABO)"
+echo "------------------------------------------------------------"
 
-# Navegar para o diretório do projeto
-cd "/home/artz/Documentos/Antigravity/Ava-Vitoria" || exit
+# Notificação local de início
+if command -v notify-send >/dev/null 2>&1; then
+    notify-send "AVA Sem Limites" "Iniciando deploy automático na Contabo..."
+fi
 
-# Notificar início do processo
-notify-send "AVA Sem Limites" "Iniciando deploy automático..."
+# 1. Carrega as variáveis do arquivo .env local
+if [ -f .env ]; then
+    export $(cat .env | grep -v '^#' | xargs)
+fi
 
-# Adicionar todas as alterações
+echo "📦 1. Enviando alterações locais para o GitHub..."
 git add .
-
-# Commitar com timestamp
-COMMIT_MSG="auto-deploy: $(date '+%d/%m/%Y %H:%M:%S')"
-git commit -m "$COMMIT_MSG"
-
-# Extrair token do arquivo .env
-TOKEN=$(sed -n 's/^GITHUB_TOKEN=//p' .env | tr -d '\r\n ')
-
-# Fallback se não achar no .env, tenta na pasta pai
-if [ -z "$TOKEN" ] && [ -f "../Token_GitHub.txt" ]; then
-  TOKEN=$(cat ../Token_GitHub.txt | tr -d '\r\n ')
-fi
-
-# Faz o push autenticado de forma transparente
-if [ -n "$TOKEN" ]; then
-  git push "https://$TOKEN@github.com/5vitz/ava-vitoria.git" main
+if ! git diff-index --quiet HEAD --; then
+    git commit -m "deploy: automatic sync $(date '+%Y-%m-%d %H:%M:%S')"
 else
-  git push origin main
+    echo "ℹ️ Nenhuma alteração pendente para commitar."
 fi
 
-# Abre no Firefox após conclusão e envia notificação
+if [ ! -z "$GITHUB_TOKEN" ]; then
+    echo "🔑 Autenticando com Token do GitHub..."
+    git push https://$GITHUB_TOKEN@github.com/5vitz/ava-vitoria.git main
+    if [ $? -ne 0 ]; then
+        echo "❌ ERRO: Falha ao enviar alterações para o GitHub. Verifique se há conflitos!"
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send "AVA Sem Limites" "Erro no git push. Verifique o terminal."
+        fi
+        exit 1
+    fi
+else
+    echo "⚠️ GITHUB_TOKEN não configurado no .env! Tentando push padrão..."
+    git push
+    if [ $? -ne 0 ]; then
+        echo "❌ ERRO: Falha ao enviar alterações para o GitHub. Configure o GITHUB_TOKEN!"
+        if command -v notify-send >/dev/null 2>&1; then
+            notify-send "AVA Sem Limites" "Erro no git push. Configure o GITHUB_TOKEN."
+        fi
+        exit 1
+    fi
+fi
+
+echo "🖥️ 2. Conectando via SSH à VPS Contabo e atualizando o site..."
+
+# Função de conexão inteligente que automatiza o SSH com senha se VPS_PASSWORD existir
+connect_ssh() {
+  if [ ! -z "$VPS_PASSWORD" ]; then
+      # Garante que o sshpass esteja instalado localmente
+      if ! command -v sshpass >/dev/null 2>&1; then
+          echo "🔄 Instalando sshpass localmente para automação de senha..."
+          sudo apt-get install -y sshpass || true
+      fi
+      sshpass -p "$VPS_PASSWORD" ssh -o StrictHostKeyChecking=no root@31.220.102.2 "$@"
+  else
+      ssh root@31.220.102.2 "$@"
+  fi
+}
+
+connect_ssh << 'EOF'
+  # Verifica se a pasta ~/ava-vitoria existe na VPS, senão clona
+  if [ ! -d "/root/ava-vitoria" ]; then
+      echo "📦 Clonando repositório ava-vitoria na VPS..."
+      git clone https://github.com/5vitz/ava-vitoria.git /root/ava-vitoria || { echo "❌ ERRO: Falha ao clonar repositório!"; exit 1; }
+  fi
+
+  cd /root/ava-vitoria || { echo "❌ ERRO: Pasta /root/ava-vitoria não encontrada na VPS!"; exit 1; }
+  
+  # Força a atualização do repositório
+  git reset --hard
+  git pull || { echo "❌ ERRO: Falha ao rodar git pull no VPS!"; exit 1; }
+  
+  # Criar ou atualizar o arquivo .env de produção na VPS
+  echo "📝 Configurando arquivo .env de produção na VPS..."
+  cat << 'ENV' > .env
+DATABASE_URL="postgresql://ava_vitoria_user:AvaVitoriaSecretPass!@localhost:5432/ava_vitoria_prod?schema=public"
+NEXTAUTH_SECRET="f6c8d76d4001cbe13658514101e52dbbfa9796e6"
+NEXTAUTH_URL="http://31.220.102.2"
+ENV
+
+  # Carrega variáveis de ambiente comuns para garantir que o PM2 e Node sejam localizados
+  export PATH=$PATH:/usr/local/bin:/usr/bin:/root/.nvm/versions/node/*/bin
+  [ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
+  [ -s "$HOME/.profile" ] && \. "$HOME/.profile"
+  [ -s "$HOME/.bashrc" ] && \. "$HOME/.bashrc"
+  
+  # Instalar dependências npm
+  echo "📦 Instalando dependências npm na VPS..."
+  npm install || { echo "❌ ERRO: Falha ao rodar npm install no VPS!"; exit 1; }
+
+  # Sincronizar o banco de dados via Prisma
+  echo "⚡ Executando migrações do banco de dados (Prisma)..."
+  npx prisma db push || { echo "❌ ERRO: Falha ao rodar prisma db push no VPS!"; exit 1; }
+  
+  # Compilar Next.js
+  echo "📦 Compilando aplicação Next.js (Build)..."
+  npm run build || { echo "❌ ERRO: Falha ao rodar npm run build no VPS!"; exit 1; }
+  
+  # Reiniciar serviço no PM2
+  echo "🔄 Iniciando/Reiniciando serviço Next.js com PM2..."
+  pm2 restart ava-vitoria --update-env || pm2 start npm --name "ava-vitoria" -- start || {
+      echo "❌ ERRO: Falha ao gerenciar processo PM2!"; exit 1;
+  }
+  
+  echo "✅ DEPLOY CONCLUÍDO COM SUCESSO NA VPS CONTABO!"
+EOF
+
+# Notificação local de conclusão e abertura de navegador
 if [ $? -eq 0 ]; then
-  notify-send "AVA Sem Limites" "Deploy enviado com sucesso para o GitHub/Vercel!"
-  firefox "https://www.avasemlimites.com.br" &
+  if command -v notify-send >/dev/null 2>&1; then
+    notify-send "AVA Sem Limites" "Deploy concluído com sucesso na Contabo!"
+  fi
+  # Abre o site em homologação (domínio temporário apontando para a VPS no Nginx)
+  firefox "http://31.220.102.2" &
 else
-  notify-send "AVA Sem Limites" "Erro ao realizar o git push. Verifique o terminal."
+  if command -v notify-send >/dev/null 2>&1; then
+    notify-send "AVA Sem Limites" "Erro durante o deploy da Contabo. Verifique os logs."
+  fi
 fi

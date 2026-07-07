@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { createCollectionAction } from "./grid-manager/actions";
+import { createCollectionAction, deleteCollectionAction } from "./grid-manager/actions";
 import styles from "./dashboard.module.css";
 
 interface CollectionType {
@@ -58,6 +58,24 @@ export default function DashboardClient({
     } else {
       // Acesso padrão ao Grid Manager da Coleção
       router.push(`/admin/grid-manager?collection=${collection.id}`);
+    }
+  };
+
+  // Clique para deletar projeto (Coleção)
+  const handleDeleteCollection = async (e: React.MouseEvent, id: string, name: string) => {
+    e.stopPropagation(); // Impede o clique de abrir a coleção
+    if (window.confirm(`Tem certeza que deseja excluir permanentemente a coleção "${name}" e todos os seus produtos?`)) {
+      setLoading(true);
+      try {
+        const res = await deleteCollectionAction(id);
+        if (res.success) {
+          router.refresh();
+        }
+      } catch (err: any) {
+        alert(err.message || "Erro ao excluir coleção.");
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -219,7 +237,16 @@ export default function DashboardClient({
             >
               <div className={styles.cardHeader}>
                 <span className={styles.colYear}>{col.year}</span>
-                <span className={styles.colSeason}>{col.season}</span>
+                <div className={styles.headerRight}>
+                  <span className={styles.colSeason}>{col.season}</span>
+                  <button 
+                    onClick={(e) => handleDeleteCollection(e, col.id, col.name)}
+                    className={styles.deleteColBtn}
+                    title="Excluir Coleção"
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
               <h3 className={styles.colName}>{col.name}</h3>
               <span className={styles.openCardLabel}>
