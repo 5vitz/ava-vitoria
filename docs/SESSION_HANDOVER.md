@@ -1,60 +1,44 @@
 # 📍 Protocolo de Passagem de Bastão (Handover) — AVA Sem Limites
 
-Este documento é a nossa âncora de persistência para as sessões de planejamento e codificação. Ele deve ser atualizado ao final de cada sessão e lido no início da próxima.
+Este documento é a nossa âncora de persistência para as sessões de planejamento e codificação. Ele deve ser lido no início de cada sessão e atualizado ao final.
 
 ---
 
 ## 1. O que realizamos nesta sessão (Estado Atual)
 
-*   **Pitch Deck Completo (12 Slides) ✅:**
-    *   Gerados 12 slides individuais em formato JPEG (`1366x768` para encaixe nativo em tela cheia do notebook do usuário) na pasta `/public/imagens/SLIDES/`.
-    *   Visual: Tema escuro puro (`#000000`), fontes Poppins 200 (ExtraLight) para textos técnicos e Brave Ember para títulos dramáticos de impacto.
-    *   Semântica Comercial: Excluída qualquer conotação de "luxo" (substituída por moda criativa, autêntica e atitude de rua).
-    *   **Compilação em PDF:** Criado e executado o script [/scripts/compile_pdf.py](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/compile_pdf.py) que unificou os 12 JPEGs em um único arquivo PDF premium: [apresentacao_ava.pdf](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/imagens/SLIDES/apresentacao_ava.pdf).
-*   **Guias de Integração com Redes Sociais ✅:**
-    *   **Instagram:** Revisado o passo a passo comercial e técnico [Sacolinha do Instagram.pdf](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/imagens/SLIDES/Sacolinha%20do%20Instagram.pdf) que aponta para o nosso catálogo PostgreSQL dinâmico em `https://www.avasemlimites.com.br/api/catalog/meta`.
-    *   **TikTok:** Criado o documento [Guia de Integracao com TikTok.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/imagens/SLIDES/Guia%20de%20Integracao%20com%20TikTok.md) detalhando Pixel, Business Center, Catalog Feeds e Shopping Ads (linguagem de storytelling de vídeo).
-*   **Esteira de Personagens VTON (Rascunho de Base) ✅:**
-    *   Desenvolvida a biblioteca conceitual dos 6 manequins no Google Flow (Nano Banana Pro) sob o mesmo padrão de estúdio (fundo cinza, camiseta branca, jeans, pose neutra com braços afastados):
-        *   **Menino:** Finalizado na versão 4K nítida local ([Menino_base_4k.jpg](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/referencias/Menino/Menino_base_4k.jpg)).
-        *   **Menina:** Finalizada sem sorrir na versão 4K nítida local ([Menina_base_4k.jpg](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/referencias/Menina/Menina_base_4k.jpg)).
-        *   **Moço:** Primeiro intermediário aprovado com dreadlocks e tatuagens.
-        *   **Moça, Senhor, Senhora:** Prompts rascunhados em inglês e validados.
-    *   **Script de Nitidez Local:** Executado o script [/scripts/sharp_characters.py](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/sharp_characters.py) que aplica *Unsharp Masking* e ajuste leve de contraste nas imagens geradas em baixa densidade na nuvem, gerando texturas super nítidas no computador local.
+*   **Migração Completa para a VPS Contabo (`31.220.102.2`) ✅:**
+    *   **Banco de Dados PostgreSQL:** Instalamos e ativamos o PostgreSQL nativo na VPS. Criamos o banco `ava_vitoria_prod` e usuário `ava_vitoria_user` com a senha secreta do projeto.
+    *   **Sincronização e Seed:** Rodamos o Prisma Migrations para criar a estrutura e semeamos o banco (`npx tsx prisma/seed.ts` via tsx) gerando o administrador padrão, Design System padrão, produtos, coleções e variantes.
+    *   **Redefinição de Mídias:** Atualizamos as imagens dos produtos da coleção da vitrine para lerem a pasta local `/imagens/VITRINE/SemLimites/...` na VPS.
+*   **Domínio e HTTPS (SSL) Ativados ✅:**
+    *   O domínio `ava-vitoria.com.br` e o subdomínio `www.ava-vitoria.com.br` foram apontados no Registro.br para o IP da VPS (`31.220.102.2`).
+    *   Instalamos o certificado SSL gratuito via **Certbot (Let's Encrypt)** na VPS, configurando o Nginx para forçar todo o tráfego a rodar sobre HTTPS de forma nativa e segura.
+    *   **NEXTAUTH_URL:** A URL de segurança da sessão de login administrativa foi devidamente atualizada para o domínio seguro `https://www.ava-vitoria.com.br` no `.env` de produção.
+*   **Automação e Atalho do Deploy ✅:**
+    *   **Script de Deploy:** O script local [deploy.sh](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/deploy.sh) commita e dá push no GitHub, acessa a VPS via SSH (usando `sshpass` com a senha segura em `.env`), atualiza o código, instala pacotes, sincroniza o banco, builda o Next.js e reinicia o processo PM2 (`ava-vitoria`) recarregando as variáveis com `--update-env`.
+    *   **Atalho de Área de Trabalho:** Criamos o atalho executável [Deploy-AVA.desktop](file:///home/artz/%C3%81rea%20de%20trabalho/Deploy-AVA.desktop) na Área de Trabalho com a logomarca da AVA Vitória. Ao clicar duas vezes, ele abre um terminal interativo executando todo o deploy e abrindo a página no Firefox ao final.
+*   **Exclusão de Projetos (Coleções) no Painel ✅:**
+    *   Desenvolvemos a Server Action `deleteCollectionAction` no final de [actions.ts](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/grid-manager/actions.ts).
+    *   Integramos o botão `×` vermelho no cabeçalho de cada card de projeto no [DashboardClient.tsx](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/DashboardClient.tsx), estilizado no [dashboard.module.css](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/dashboard.module.css). Ele conta com confirmação de segurança e `e.stopPropagation()` para não abrir a coleção ao excluir.
+*   **Desativação de Serviços Externos ✅:**
+    *   O usuário removeu o projeto na Vercel e deletou o banco de dados na Neon. A aplicação agora é **100% autônoma e descentralizada na VPS Contabo**.
 
 ---
 
-## 2. ⚙️ Fluxograma do Processo Operacional (Mapeamento de Processos)
+## 2. 🖥️ Informações do Ambiente de Produção
 
-O próximo Lincoln deve compreender e seguir a seguinte esteira integrada para a geração final de imagens editoriais e de catálogo:
-
-```mermaid
-graph TD
-    A["1. Criação do Roteiro e Storyboard (Tripoint - Diretor)"] --> B["2. Criação da Arte da Camisa em Vetor (Design/PDF)"]
-    B --> C["3. Aplicação do Vetor no Template 3D (Blender - Dobras e Sombras)"]
-    D["4. Foto de Referência de Rosto (Internet)"] --> E["5. Personagem Intermediário (Google Flow - Nano Banana Pro)"]
-    E --> F["6. Manequim Digital Oficial em 4K (GPT-5.5 / FLUX / Seedream)"]
-    A -.-> G["7. Geração da Pose da Cena (Leonardo.ai / Krea.ai - ControlNet)"]
-    F --> G
-    C --> H["8. Vestimenta Digital (VTON - Warping da Camisa 3D na Pose)"]
-    G --> H
-    H --> I["Imagem Final da Campanha (Editorial / Catálogo)"]
-```
-
-### Detalhamento das Etapas:
-1.  **Roteiro & Storyboard:** O sócio-diretor desenha os enquadramentos e a sequência narrativa.
-2.  **Vetor da Arte:** A estampa técnica limpa.
-3.  **Render da Camisa (Blender):** Criação do mockup da camiseta física (com dobras, costuras e caimento real) onde o vetor é aplicado digitalmente, gerando a imagem da peça plana para VTON.
-4.  **Referência de Rosto:** Imagens conceituais baixadas da internet.
-5.  **Intermediário (Google Flow):** Geração do personagem de frente com camiseta branca e jeans no Nano Banana Pro (0 créditos) para fixar a fisionomia inicial.
-6.  **Manequim 4K:** Processamento do intermediário em IAs premium (GPT-5.5, FLUX Dev/Pro ou Seedream com Image-to-Image / Denoising em 0.25) para consolidar a textura dos poros, cabelo definido e tatuagens na resolução máxima.
-7.  **Pose da Cena:** O Manequim 4K frontal (Etapa 6) é submetido ao ControlNet (Scribble/Lineart ou OpenPose) guiado pelo storyboard do Diretor (Etapa 1), gerando o modelo na pose correta da cena (ex: agachado, correndo).
-8.  **VTON:** A IA de provador virtual funde a peça 3D plana do Blender (Etapa 3) com o corpo do modelo na pose correta (Etapa 7) para o catálogo ou carrossel do site.
+*   **URL da Loja:** `https://www.ava-vitoria.com.br`
+*   **URL do Painel Admin:** `https://www.ava-vitoria.com.br/admin`
+*   **Credenciais Padrão:**
+    *   **Usuário:** `admin`
+    *   **Senha:** `admin123`
+*   **Banco de Dados na VPS:** `postgresql://ava_vitoria_user:AvaVitoriaSecretPass!@localhost:5432/ava_vitoria_prod?schema=public`
+*   **Next.js PM2 Process Name:** `ava-vitoria` (porta 3000)
 
 ---
 
-## 3. Próximos Passos Imediatos (Pós-Reunião)
+## 3. Próximos Passos Imediatos (Para o próximo Lincoln)
 
-1.  Aguardar o feedback da reunião com o **Tripoint Ava** (marcada para amanhã, 14:00, em Vitória).
-2.  Iniciar o refinamento dos 6 personagens no GPT-5.5 / FLUX para gerar as imagens de base oficiais em 4K.
-3.  Apoiar na estruturação do ambiente do **Blender** para modelagem física das camisetas e exportação das peças planas de vestuário.
+1.  **Testar Upload de Imagens no Painel:** Como a VPS tem o sistema de arquivos 100% gravável, valide a criação de novos produtos e o upload de fotos de vitrine pela biblioteca administrativa.
+2.  **Mapear Fluxo de E-commerce:** Validar se a sacolinha do Instagram e as rotas de checkout estão lendo as APIs do novo domínio dinâmico (`https://www.ava-vitoria.com.br/api/catalog/meta`).
+3.  **Segurança e Backup:** Acompanhar com o proprietário a contratação do serviço de backup automático da VPS (Contabo) para resguardar o banco de dados local.
