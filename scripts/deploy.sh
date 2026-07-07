@@ -111,10 +111,16 @@ if [ $? -eq 0 ]; then
   if command -v notify-send >/dev/null 2>&1; then
     notify-send "AVA Sem Limites" "Deploy concluído com sucesso na Contabo!"
   fi
-  # Abre o site em homologação (domínio temporário apontando para a VPS no Nginx)
-  firefox "http://31.220.102.2" &
+  # Abre o site oficial seguro
+  firefox "https://www.ava-vitoria.com.br" &
 else
   if command -v notify-send >/dev/null 2>&1; then
     notify-send "AVA Sem Limites" "Erro durante o deploy da Contabo. Verifique os logs."
   fi
+fi
+
+# Se o script estiver rodando em um terminal interativo (ex: duplo clique no atalho), aguarda o Enter
+if [ -t 0 ]; then
+  echo ""
+  read -p "Pressione [Enter] para fechar esta janela..."
 fi
