@@ -99,6 +99,13 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
+.controlsBar.controlsPlaying {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 24px;
+}
+
+
 
 
 .controlButton {
