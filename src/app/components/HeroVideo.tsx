@@ -238,55 +238,9 @@ export default function HeroVideo({
     const duration = video.duration;
     if (!duration) return;
 
-    const fadeOutDuration = 1.5;
-    const isNearEnd = video.currentTime >= duration - fadeOutDuration;
-
-    if (isNearEnd) {
-      // 1. Fade-out suave e gradual do volume do vídeo
-      const timeRemaining = duration - video.currentTime;
-      const factor = Math.max(0, timeRemaining / fadeOutDuration);
-      video.volume = volume * factor;
-
-      // 2. Inicia a trilha sonora global (crossfade) 1.5s antes do término
-      if (!isGlobalPlaying && !isMusicFadingRef.current) {
-        isMusicFadingRef.current = true;
-        setAudioVolume(0);
-        setAudioMuted(video.muted);
-        playAudio();
-
-        let currentVol = 0;
-        const targetVol = volume; // Volume alvo (slider)
-        const steps = 15;
-        const volStep = targetVol / steps;
-
-        if (musicFadeIntervalRef.current) {
-          clearInterval(musicFadeIntervalRef.current);
-        }
-
-        musicFadeIntervalRef.current = setInterval(() => {
-          currentVol += volStep;
-          if (currentVol >= targetVol) {
-            setAudioVolume(targetVol);
-            if (musicFadeIntervalRef.current) {
-              clearInterval(musicFadeIntervalRef.current);
-              musicFadeIntervalRef.current = null;
-            }
-            isMusicFadingRef.current = false;
-          } else {
-            setAudioVolume(currentVol);
-          }
-        }, 100); // Crossfade suave de 1.5s
-      }
-    } else {
-      // Se o usuário voltar no tempo (seek/rewind), limpa o fade da música e para o áudio
-      if (isMusicFadingRef.current || isGlobalPlaying) {
-        if (musicFadeIntervalRef.current) {
-          clearInterval(musicFadeIntervalRef.current);
-          musicFadeIntervalRef.current = null;
-        }
-        isMusicFadingRef.current = false;
-        stopAudio();
-      }
+    // Se o usuário voltar no tempo (seek/rewind) e a música global estiver tocando, paramos ela
+    if (video.currentTime < duration - 1.5 && isGlobalPlaying) {
+      stopAudio();
     }
 
     // Gatilho: Inicia a transição de fade visual 3 segundos antes do final do vídeo

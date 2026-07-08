@@ -39,8 +39,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Inicializa o áudio global no client-side uma única vez
     if (typeof window !== 'undefined' && !globalAudio) {
-      globalAudio = new Audio('/trilhas/FuncaoMaster_1405.mp3');
+      globalAudio = new Audio('/trilhas/No Limits.mp3');
       globalAudio.preload = 'auto';
+
       globalAudio.loop = true;
       globalAudio.volume = globalVolume;
       globalAudio.muted = globalIsMuted;
