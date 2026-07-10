@@ -72,6 +72,7 @@ export default function GridManagerClient({
   const [prodPrice, setProdPrice] = useState("");
   const [prodDesc, setProdDesc] = useState("");
   const [prodCardType, setProdCardType] = useState<number>(1);
+  const [targetPosition, setTargetPosition] = useState<string>("");
 
   // Controladores de UI
   const [loading, setLoading] = useState(false);
@@ -132,8 +133,10 @@ export default function GridManagerClient({
   // Criar novo card vazio
   const handleCreateCard = async (cardType = 1) => {
     setLoading(true);
+    const parsedPosition = targetPosition.trim() !== "" ? parseInt(targetPosition) : undefined;
+
     try {
-      const result = await createProductCard(currentCollection.id, cardType);
+      const result = await createProductCard(currentCollection.id, cardType, parsedPosition);
       if (result.success && result.product) {
         const newProd: ProductWithImages = {
           ...result.product,
@@ -143,10 +146,29 @@ export default function GridManagerClient({
           size_chart: null,
           variants: [],
         };
-        const updated = [...products, newProd];
-        setProducts(updated);
+
+        const insertIndex = parsedPosition !== undefined && parsedPosition >= 1 && parsedPosition <= products.length
+          ? parsedPosition - 1 
+          : products.length;
+
+        const updated = [...products];
+        updated.splice(insertIndex, 0, newProd);
+
+        // Reordenar display_order em nosso estado local para condizer com o novo grid
+        const updatedWithOrders = updated.map((p, idx) => ({
+          ...p,
+          display_order: idx
+        }));
+
+        setProducts(updatedWithOrders);
         setSelectedProduct(newProd);
-        triggerFeedback("success", "Novo card criado no final do grid.");
+        setTargetPosition(""); // Reseta a posição no input
+
+        const message = parsedPosition !== undefined
+          ? `Novo card criado na posição ${parsedPosition}.`
+          : "Novo card criado no final do grid.";
+
+        triggerFeedback("success", message);
       }
     } catch (err: any) {
       triggerFeedback("error", "Erro ao criar card: " + err.message);
@@ -289,6 +311,19 @@ export default function GridManagerClient({
             </p>
           </div>
           <div className={styles.createCardControls}>
+            <div className={styles.positionInputWrapper}>
+              <span className={styles.positionLabel}>Posição:</span>
+              <input
+                type="number"
+                min="1"
+                max={products.length + 1}
+                placeholder="Fim"
+                value={targetPosition}
+                onChange={(e) => setTargetPosition(e.target.value)}
+                className={styles.positionInput}
+                title="Deixe em branco para adicionar ao final"
+              />
+            </div>
             <button onClick={() => handleCreateCard(1)} className={styles.addCardBtnGroup} disabled={loading}>
               + Tipo 1
             </button>

@@ -17,47 +17,67 @@ async function requireAuth() {
 }
 
 // 1. Criar novo produto vazio (card no grid) associado a uma coleção
-export async function createProductCard(collectionId: string, cardType = 1) {
+export async function createProductCard(collectionId: string, cardType = 1, targetPosition?: number) {
   await requireAuth();
 
-  // Encontrar o maior display_order atual da coleção correspondente para colocar o card no final
-  const lastProduct = await prisma.product.findFirst({
-    where: {
-      collection_id: collectionId,
-    },
-    orderBy: {
-      display_order: "desc",
-    },
-  });
-  const newOrder = lastProduct ? lastProduct.display_order + 1 : 0;
-
   const timestamp = Date.now();
-  const product = await prisma.product.create({
-    data: {
-      name: "Novo Produto",
-      slug: `novo-produto-${timestamp}`,
-      description: "Edite a descrição deste produto.",
-      price: 0,
-      is_active: true,
-      display_order: newOrder,
-      collection_id: collectionId,
-      card_type: cardType,
-    },
-  });
 
-  // Criar uma variante padrão (ex: tamanho M, cor Preto) com estoque 0 para integridade de checkout
-  await prisma.stockVariant.create({
-    data: {
-      product_id: product.id,
-      size: "M",
-      color: "Preto",
-      quantity: 0,
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    // Buscar todos os produtos desta coleção ordenados por display_order
+    const existingProducts = await tx.product.findMany({
+      where: { collection_id: collectionId },
+      orderBy: { display_order: "asc" },
+    });
+
+    let newOrder = existingProducts.length;
+
+    // Se uma posição específica foi solicitada e ela está dentro do intervalo de produtos existentes
+    if (targetPosition !== undefined && targetPosition >= 1 && targetPosition <= existingProducts.length) {
+      const targetIndex = targetPosition - 1;
+      newOrder = targetIndex;
+
+      // Incrementar em 1 o display_order de todos os produtos que estão no índice alvo ou posterior
+      await tx.product.updateMany({
+        where: {
+          collection_id: collectionId,
+          display_order: { gte: targetIndex },
+        },
+        data: {
+          display_order: { increment: 1 },
+        },
+      });
+    }
+
+    // Criar o novo produto na posição de ordem correspondente
+    const product = await tx.product.create({
+      data: {
+        name: "Novo Produto",
+        slug: `novo-produto-${timestamp}`,
+        description: "Edite a descrição deste produto.",
+        price: 0,
+        is_active: true,
+        display_order: newOrder,
+        collection_id: collectionId,
+        card_type: cardType,
+      },
+    });
+
+    // Criar uma variante padrão (ex: tamanho M, cor Preto) com estoque 0 para integridade de checkout
+    await tx.stockVariant.create({
+      data: {
+        product_id: product.id,
+        size: "M",
+        color: "Preto",
+        quantity: 0,
+      },
+    });
+
+    return product;
   });
 
   revalidatePath("/");
   revalidatePath("/admin/grid-manager");
-  return { success: true, product };
+  return { success: true, product: result };
 }
 
 // 2. Deletar produto
