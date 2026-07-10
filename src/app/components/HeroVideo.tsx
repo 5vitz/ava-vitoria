@@ -277,7 +277,7 @@ export default function HeroVideo({
       {/* Imagem de Capa Estática (revelada quando o vídeo esmaece) */}
       <div className={`${styles.coverImageContainer} ${isTransitionActive ? styles.coverVisible : ''}`}>
         <Image
-          src="/imagens/CAPA/Capa002.png"
+          src="/imagens/CAPA/Colorida1.png"
           alt="AVA Sem Limites Capa"
           fill
           sizes="100vw"
