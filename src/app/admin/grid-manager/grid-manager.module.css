@@ -1034,3 +1034,117 @@
     opacity: 1;
   }
 }
+
+/* Modificações de layout para múltiplos tipos de cards (Admin Preview) */
+.cardTipo1 {
+  grid-column: span 1;
+}
+.cardTipo1 .cardImageContainer {
+  aspect-ratio: 9 / 16;
+}
+
+.cardTipo2 {
+  grid-column: span 2;
+}
+.cardTipo2 .cardImageContainer {
+  aspect-ratio: 93 / 80; /* 744 x 640 */
+}
+
+.cardTipo3 {
+  grid-column: span 3;
+}
+.cardTipo3 .cardImageContainer {
+  aspect-ratio: 141 / 80; /* 1128 x 640 */
+}
+
+/* Player do Editor adaptável */
+.playerFrameFixedTipo1 {
+  width: 170px;
+  aspect-ratio: 9 / 16;
+  margin: 15px auto;
+  border: 1px solid var(--color-border);
+  background-color: #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.playerFrameFixedTipo2 {
+  width: 260px;
+  aspect-ratio: 93 / 80;
+  margin: 15px auto;
+  border: 1px solid var(--color-border);
+  background-color: #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.playerFrameFixedTipo3 {
+  width: 380px;
+  aspect-ratio: 141 / 80;
+  margin: 15px auto;
+  border: 1px solid var(--color-border);
+  background-color: #000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Seletor de Tipo no Editor */
+.typeSelectorGroup {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.typeBtn {
+  flex: 1;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 8px;
+  font-size: 0.75rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.typeBtnActive {
+  background-color: rgba(212, 175, 55, 0.1);
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.typeBtn:hover:not(.typeBtnActive) {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Controles de criação de card (Menu Dropdown/Flex) */
+.createCardControls {
+  display: flex;
+  gap: 8px;
+}
+
+.addCardBtnGroup {
+  background-color: transparent;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.addCardBtnGroup:hover {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+}

@@ -66,6 +66,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
     price: Number(p.price), // Decimal -> number
     is_active: p.is_active,
     display_order: p.display_order,
+    card_type: p.card_type,
     size_chart: p.size_chart, // JSON
     collection_id: p.collection_id,
     images: p.images.map((img) => ({

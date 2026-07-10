@@ -12,6 +12,7 @@ interface ProductCardProps {
     name: string;
     slug: string;
     price: number;
+    card_type: number;
     images: {
       image_url: string;
     }[];
@@ -33,12 +34,18 @@ export default function ProductCard({ product }: ProductCardProps) {
     ? product.images[0].image_url 
     : "/imagens/COLECAO/01.jpg"; // Fallback padrão
 
+  const cardTypeClass = product.card_type === 2 
+    ? styles.cardTipo2 
+    : product.card_type === 3 
+    ? styles.cardTipo3 
+    : styles.cardTipo1;
+
   return (
     <Link 
       href={`/produtos/${product.slug}`}
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
-      className={styles.card}
+      className={`${styles.card} ${cardTypeClass}`}
     >
       {/* Container da Imagem 9:16 */}
       <div className={styles.imageContainer}>

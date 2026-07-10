@@ -17,7 +17,7 @@ async function requireAuth() {
 }
 
 // 1. Criar novo produto vazio (card no grid) associado a uma coleção
-export async function createProductCard(collectionId: string) {
+export async function createProductCard(collectionId: string, cardType = 1) {
   await requireAuth();
 
   // Encontrar o maior display_order atual da coleção correspondente para colocar o card no final
@@ -41,6 +41,7 @@ export async function createProductCard(collectionId: string) {
       is_active: true,
       display_order: newOrder,
       collection_id: collectionId,
+      card_type: cardType,
     },
   });
 
@@ -98,6 +99,7 @@ export async function saveProductDetails(
     name: string;
     price: number;
     description: string;
+    cardType: number;
   }
 ) {
   await requireAuth();
@@ -128,6 +130,7 @@ export async function saveProductDetails(
       name: data.name,
       price: data.price,
       description: data.description,
+      card_type: data.cardType,
       slug,
     },
   });

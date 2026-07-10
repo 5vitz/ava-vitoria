@@ -36,6 +36,7 @@ export default async function Home() {
     name: product.name,
     slug: product.slug,
     price: Number(product.price),
+    card_type: product.card_type,
     images: product.images.map((img: any) => ({
       image_url: img.image_url,
     })),

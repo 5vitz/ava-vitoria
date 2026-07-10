@@ -19,6 +19,7 @@ interface ProductWithImages {
   price: number;
   is_active: boolean;
   display_order: number;
+  card_type: number;
   size_chart: any;
   collection_id: string | null;
   images: {
@@ -70,6 +71,7 @@ export default function GridManagerClient({
   const [prodName, setProdName] = useState("");
   const [prodPrice, setProdPrice] = useState("");
   const [prodDesc, setProdDesc] = useState("");
+  const [prodCardType, setProdCardType] = useState<number>(1);
 
   // Controladores de UI
   const [loading, setLoading] = useState(false);
@@ -105,6 +107,7 @@ export default function GridManagerClient({
       setProdName(selectedProduct.name);
       setProdPrice(selectedProduct.price.toString());
       setProdDesc(selectedProduct.description || "");
+      setProdCardType(selectedProduct.card_type || 1);
 
       // Sincronizar imagens vinculadas
       const current = products.find((p) => p.id === selectedProduct.id);
@@ -127,14 +130,15 @@ export default function GridManagerClient({
   };
 
   // Criar novo card vazio
-  const handleCreateCard = async () => {
+  const handleCreateCard = async (cardType = 1) => {
     setLoading(true);
     try {
-      const result = await createProductCard(currentCollection.id);
+      const result = await createProductCard(currentCollection.id, cardType);
       if (result.success && result.product) {
         const newProd: ProductWithImages = {
           ...result.product,
           price: Number(result.product.price),
+          card_type: result.product.card_type,
           images: [],
           size_chart: null,
           variants: [],
@@ -163,6 +167,7 @@ export default function GridManagerClient({
         name: prodName,
         price: parsedPrice,
         description: prodDesc,
+        cardType: prodCardType,
       });
 
       if (result.success) {
@@ -173,6 +178,7 @@ export default function GridManagerClient({
               name: prodName,
               price: parsedPrice,
               description: prodDesc,
+              card_type: prodCardType,
             };
           }
           return p;
@@ -282,9 +288,17 @@ export default function GridManagerClient({
               Ordene arrastando os cards. Clique para editar detalhes.
             </p>
           </div>
-          <button onClick={handleCreateCard} className={styles.addCardBtn} disabled={loading}>
-            + Novo Card
-          </button>
+          <div className={styles.createCardControls}>
+            <button onClick={() => handleCreateCard(1)} className={styles.addCardBtnGroup} disabled={loading}>
+              + Tipo 1
+            </button>
+            <button onClick={() => handleCreateCard(2)} className={styles.addCardBtnGroup} disabled={loading}>
+              + Tipo 2
+            </button>
+            <button onClick={() => handleCreateCard(3)} className={styles.addCardBtnGroup} disabled={loading}>
+              + Tipo 3
+            </button>
+          </div>
         </div>
 
         <div className={styles.storefrontGrid}>
@@ -292,10 +306,16 @@ export default function GridManagerClient({
             const hasImages = prod.images.length > 0;
             const isSelected = selectedProduct?.id === prod.id;
 
+            const cardTypeClass = prod.card_type === 2 
+              ? styles.cardTipo2 
+              : prod.card_type === 3 
+              ? styles.cardTipo3 
+              : styles.cardTipo1;
+
             return (
               <div
                 key={prod.id}
-                className={`${styles.productCardWrapper} ${
+                className={`${styles.productCardWrapper} ${cardTypeClass} ${
                   isSelected ? styles.cardWrapperSelected : ""
                 }`}
                 draggable
@@ -349,8 +369,13 @@ export default function GridManagerClient({
       <section className={styles.editorPanel}>
         {selectedProduct ? (
           <div className={styles.editorContentFixed}>
-            {/* Player Físico 9:16 (Fixo no topo da coluna) */}
-            <div className={styles.playerFrameFixed}>
+            {/* Player Físico Adaptável (Fixo no topo da coluna) */}
+            <div className={prodCardType === 2 
+              ? styles.playerFrameFixedTipo2 
+              : prodCardType === 3 
+              ? styles.playerFrameFixedTipo3 
+              : styles.playerFrameFixedTipo1
+            }>
               <div
                 className={styles.playerScreen}
                 onClick={handleRedirectToMediaLibrary}
@@ -430,6 +455,33 @@ export default function GridManagerClient({
                     className={styles.textarea}
                     rows={3}
                   />
+                </div>
+
+                <div className={styles.fieldGroup}>
+                  <label className={styles.label}>Tamanho / Tipo do Card</label>
+                  <div className={styles.typeSelectorGroup}>
+                    <button
+                      type="button"
+                      onClick={() => setProdCardType(1)}
+                      className={`${styles.typeBtn} ${prodCardType === 1 ? styles.typeBtnActive : ""}`}
+                    >
+                      Tipo 1 (360x640)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setProdCardType(2)}
+                      className={`${styles.typeBtn} ${prodCardType === 2 ? styles.typeBtnActive : ""}`}
+                    >
+                      Tipo 2 (744x640)
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setProdCardType(3)}
+                      className={`${styles.typeBtn} ${prodCardType === 3 ? styles.typeBtnActive : ""}`}
+                    >
+                      Tipo 3 (1128x640)
+                    </button>
+                  </div>
                 </div>
 
                 <div className={styles.btnRow}>

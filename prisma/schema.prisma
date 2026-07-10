@@ -23,6 +23,7 @@ model Product {
   price         Decimal        @db.Decimal(10, 2)
   is_active     Boolean        @default(true)
   display_order Int            @default(0)
+  card_type     Int            @default(1)
   size_chart    Json?          @db.JsonB
   collection_id String?        @db.Uuid
   collection    Collection?    @relation(fields: [collection_id], references: [id], onDelete: SetNull)
