@@ -50,6 +50,7 @@
   height: 100%;
   object-fit: cover; /* Preenche tudo sem distorcer */
   object-position: center;
+  filter: grayscale(50%) contrast(1.4) brightness(0.75); /* Efeito de cores desbotadas premium */
 }
 
 /* Selo de Atitude no Banner */
