@@ -1,0 +1,29 @@
+{
+  "scene_description": {
+    "model": {
+      "ethnicity": "Latin",
+      "pose": "Standing looking forward, street posture",
+      "expression": "Neutral, high-fashion cold look",
+      "hair": "Short buzzcut, dark brown"
+    },
+    "clothing": {
+      "item": "Oversized hoodie with hood down",
+      "color": "#1F080F",
+      "details": "Thick premium cotton texture, dropped shoulders, minimalist clean chest",
+      "pants": "Wide-leg dark utility trousers",
+      "shoes": "Premium chunky streetwear sneakers"
+    },
+    "environment": {
+      "location": "Urban street alley in Vitória, Brazil",
+      "background": "Textured concrete wall, subtle colorful graffiti partially out of focus",
+      "time_of_day": "Dusk"
+    },
+    "photography": {
+      "framing": "Full body shot, vertical 9:16 aspect ratio",
+      "lens": "85mm professional portrait lens",
+      "depth_of_field": "Shallow, background softly blurred",
+      "lighting": "Cinematic soft street lighting, warm accents on edges",
+      "color_grading": "Moody contrast, rich shadow details"
+    }
+  }
+}

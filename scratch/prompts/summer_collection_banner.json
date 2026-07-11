@@ -1,0 +1,38 @@
+{
+  "scene_description": {
+    "style": {
+      "type": "Hand-drawn sketch / comic illustration",
+      "medium": "Ink, charcoal, and pencil texture",
+      "color_profile": "Monochrome / Grayscale / High contrast black and white"
+    },
+    "subject": {
+      "character": "Youth skateboarder in mid-air",
+      "pose": "Dynamic jump trick, flying forward with skateboard angled",
+      "clothing": {
+        "top": "Sleeveless ribbed tank top",
+        "bottom": "Streetwear loose shorts",
+        "headwear": "Backward baseball cap",
+        "shoes": "Low-top skate sneakers"
+      },
+      "equipment": {
+        "item": "Skateboard viewed from the underside",
+        "color": "Matte black deck",
+        "graphic": "Circular AVA logo printed exactly in the center of the deck"
+      }
+    },
+    "background": {
+      "setting": "Densely packed urban cityscape",
+      "architecture": "High-rise skyscrapers and buildings in perspective",
+      "style": "Rough, expressive architectural sketch with vertical shading lines"
+    },
+    "composition": {
+      "framing": "Wide cinematic horizontal banner strip",
+      "presentation": "Centered within a solid black canvas",
+      "typography": {
+        "top_header": "2027 in a clean serif font",
+        "bottom_title": "Summer Collection in a thin, elegant sans-serif font",
+        "branding": "AVA logo in the bottom right corner separated by a vertical arrow graphic"
+      }
+    }
+  }
+}

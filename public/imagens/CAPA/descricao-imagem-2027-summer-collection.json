@@ -1,0 +1,214 @@
+{
+  "tipo_arquivo": "descrição_visual",
+  "idioma": "pt-BR",
+  "visao_geral": {
+    "formato": "banner horizontal / peça gráfica promocional",
+    "tema": "coleção de verão 2027 com estética urbana e skate",
+    "estilo_visual": "monocromático, alto contraste, editorial, streetwear, com influência de quadrinhos/mangá e fotografia urbana",
+    "paleta": {
+      "principal": ["preto", "cinza escuro", "cinza médio", "cinza claro"],
+      "observacao": "A imagem não utiliza cores saturadas; todo o layout é em escala de cinza sobre fundo preto."
+    },
+    "composicao": "Layout centralizado com grande área preta no topo e na base, uma faixa imagética urbana no centro, texto superior com ano, texto inferior com nome da coleção e marca no canto inferior direito."
+  },
+  "dimensoes_aparentes": {
+    "proporcao": "16:9 aproximadamente",
+    "orientacao": "paisagem",
+    "largura_visual": "muito ampla",
+    "altura_visual": "baixa em relação à largura, típica de banner ou capa digital"
+  },
+  "fundo": {
+    "cor_base": "preto",
+    "areas": [
+      {
+        "posicao": "topo",
+        "descricao": "Grande faixa preta horizontal ocupando a região superior."
+      },
+      {
+        "posicao": "centro",
+        "descricao": "Faixa retangular com ilustração urbana em tons de cinza."
+      },
+      {
+        "posicao": "base",
+        "descricao": "Grande faixa preta horizontal com texto da coleção e logotipo."
+      }
+    ]
+  },
+  "elementos_textuais": [
+    {
+      "texto": "2027",
+      "posicao": "topo central",
+      "estilo": "fonte fina, alta, elegante, espaçamento amplo, cinza claro",
+      "funcao": "indicar o ano da coleção",
+      "observacoes": "O número aparece centralizado entre duas linhas horizontais finas."
+    },
+    {
+      "texto": "Summer Collection",
+      "posicao": "parte inferior central",
+      "estilo": "fonte condensada, fina, muito espaçada, cinza médio",
+      "funcao": "nome da campanha/coleção",
+      "observacoes": "O texto ocupa grande largura e tem aparência sofisticada e minimalista."
+    },
+    {
+      "texto": "ava",
+      "posicao": "canto inferior direito",
+      "estilo": "logotipo em cinza claro/branco, letras arredondadas e volumosas",
+      "funcao": "identificação da marca",
+      "observacoes": "Há uma assinatura pequena acima ou ao lado do logotipo, possivelmente relacionada a colaboração/autoria."
+    },
+    {
+      "texto": "ava",
+      "posicao": "centro do skate",
+      "estilo": "selo circular aplicado no shape do skate",
+      "funcao": "branding no produto",
+      "observacoes": "O logotipo aparece dentro de um emblema circular no centro do shape."
+    }
+  ],
+  "linhas_e_divisorias": [
+    {
+      "tipo": "linha horizontal fina",
+      "posicao": "topo esquerdo, alinhada ao número 2027",
+      "cor": "cinza escuro",
+      "funcao": "ornamentação e equilíbrio visual"
+    },
+    {
+      "tipo": "linha horizontal fina",
+      "posicao": "topo direito, alinhada ao número 2027",
+      "cor": "cinza escuro",
+      "funcao": "ornamentação e equilíbrio visual"
+    },
+    {
+      "tipo": "linha vertical fina com seta",
+      "posicao": "parte inferior direita, antes do logotipo",
+      "cor": "cinza claro",
+      "funcao": "elemento gráfico decorativo que separa o texto da marca"
+    }
+  ],
+  "cena_central": {
+    "descricao": "Faixa horizontal com paisagem urbana em preto e branco, contendo prédios altos, estruturas arquitetônicas e uma skatista em destaque sobre um skate grande em primeiro plano.",
+    "ambiente": "cidade / centro urbano",
+    "arquitetura": [
+      {
+        "elemento": "prédios altos",
+        "posicao": "esquerda e centro",
+        "estilo": "arranha-céus desenhados com linhas verticais e sombreamento forte"
+      },
+      {
+        "elemento": "fachadas verticais",
+        "posicao": "direita",
+        "estilo": "linhas longas e repetitivas, aparência de edifício corporativo"
+      },
+      {
+        "elemento": "rua/perspectiva urbana",
+        "posicao": "fundo da faixa central",
+        "estilo": "perspectiva dramática, com profundidade sugerida pelas linhas diagonais e verticais"
+      }
+    ],
+    "tratamento_visual": "Textura granulada e riscada, semelhante a desenho em grafite, quadrinho ou impressão desgastada."
+  },
+  "personagem_principal": {
+    "tipo": "skatista ilustrada",
+    "posicao": "centro superior da faixa urbana, parcialmente sobreposta ao skate",
+    "genero_aparente": "feminino",
+    "idade_aparente": "jovem adulta",
+    "pose": "sentada/agachada de forma dinâmica, com uma perna dobrada e outra elevada, sugerindo movimento ou manobra",
+    "expressao": "confiante e descontraída",
+    "direcao_do_olhar": "voltada para frente, em direção ao observador",
+    "roupas_e_acessorios": [
+      {
+        "item": "boné",
+        "descricao": "Usado para trás, reforçando a estética street/skate."
+      },
+      {
+        "item": "camiseta ou regata",
+        "descricao": "Peça simples, casual e urbana."
+      },
+      {
+        "item": "calça larga",
+        "descricao": "Modelagem ampla, associada ao universo streetwear/skate."
+      },
+      {
+        "item": "tênis",
+        "descricao": "Calçado esportivo com solado aparente."
+      }
+    ],
+    "estilo_de_desenho": "Traço preto e cinza, com hachuras e sombreamento de quadrinhos."
+  },
+  "skate": {
+    "posicao": "primeiro plano central, inclinado diagonalmente da esquerda inferior para a direita superior",
+    "escala": "grande em relação à personagem e ao fundo, funcionando como elemento dominante da composição",
+    "cor": "preto brilhante/cinza escuro",
+    "componentes_visiveis": [
+      {
+        "parte": "shape",
+        "descricao": "Prancha preta com brilho sutil e emblema circular no centro."
+      },
+      {
+        "parte": "rodas",
+        "descricao": "Rodas em tons de cinza visíveis nas extremidades."
+      },
+      {
+        "parte": "trucks/eixos",
+        "descricao": "Peças metálicas desenhadas com detalhes mecânicos."
+      }
+    ],
+    "branding": {
+      "local": "centro do shape",
+      "descricao": "Selo circular com o texto/logotipo 'ava' e inscrições menores ao redor."
+    },
+    "efeito_visual": "O skate cruza a composição em diagonal, criando sensação de movimento e profundidade."
+  },
+  "logotipo_inferior": {
+    "marca_visivel": "ava",
+    "posicao": "canto inferior direito",
+    "area": "dentro de um retângulo escuro discreto",
+    "cor": "cinza claro com sombras",
+    "estilo": "letras arredondadas, bold, com aparência tridimensional leve",
+    "elementos_secundarios": "Pequena assinatura manuscrita acima do logotipo."
+  },
+  "hierarquia_visual": [
+    {
+      "nivel": 1,
+      "elemento": "skate em primeiro plano",
+      "motivo": "Maior contraste, grande escala e posicionamento diagonal."
+    },
+    {
+      "nivel": 2,
+      "elemento": "personagem skatista",
+      "motivo": "Centralizada e sobreposta à cena urbana."
+    },
+    {
+      "nivel": 3,
+      "elemento": "texto 'Summer Collection'",
+      "motivo": "Grande largura e posição inferior central."
+    },
+    {
+      "nivel": 4,
+      "elemento": "ano '2027'",
+      "motivo": "Posição superior central e tratamento tipográfico refinado."
+    },
+    {
+      "nivel": 5,
+      "elemento": "logotipo inferior direito",
+      "motivo": "Menor escala, mas importante para assinatura da marca."
+    }
+  ],
+  "atmosfera_e_mensagem": {
+    "sensacao": "urbana, jovem, ousada, futurista e sofisticada",
+    "associacoes": ["skate", "streetwear", "moda jovem", "verão", "cidade", "movimento", "coleção sazonal"],
+    "publico_alvo_aparente": "jovens e adultos interessados em moda urbana, skate e cultura street",
+    "posicionamento_de_marca": "marca com identidade alternativa, contemporânea e ligada à cultura urbana"
+  },
+  "possivel_uso": [
+    "banner de campanha de moda",
+    "capa de coleção",
+    "peça para site ou e-commerce",
+    "post horizontal para redes sociais",
+    "material promocional de lançamento"
+  ],
+  "observacoes_de_acessibilidade": {
+    "contraste": "A composição usa contraste forte entre preto e cinza, mas alguns textos e detalhes finos podem ter baixa legibilidade devido à paleta escura.",
+    "texto_importante": "Os textos principais legíveis são '2027', 'Summer Collection' e 'ava'.",
+    "descricao_alt_curta": "Banner monocromático da Summer Collection 2027 com skatista ilustrada sobre skate em cenário urbano e logotipo ava no canto inferior direito."
+  }
+}

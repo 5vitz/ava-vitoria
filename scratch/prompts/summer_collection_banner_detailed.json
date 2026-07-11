@@ -1,0 +1,146 @@
+{
+  "canvas": {
+    "dimensions": {
+      "aspect_ratio": "16:9",
+      "resolution": "3840x2160",
+      "composition_layout": "Horizontal banner strip centered on a solid black background"
+    },
+    "typography": {
+      "header_top": {
+        "text": "2027",
+        "font_family": "Custom Serif Premium",
+        "font_weight": "Regular",
+        "tracking": "extra-wide",
+        "color": "#E5E5E5",
+        "position": "Centered above the banner strip"
+      },
+      "title_bottom": {
+        "text": "Summer Collection",
+        "font_family": "Plus Jakarta Sans / Outfit",
+        "font_weight": "Light",
+        "tracking": "wide",
+        "color": "#FFFFFF",
+        "position": "Centered below the banner strip"
+      },
+      "branding_bottom_right": {
+        "text": "ava",
+        "font_family": "AVA Custom Logo Font",
+        "subtext": "Sem Limites",
+        "color": "#FFFFFF",
+        "separator": "Vertical thin line with an airplane arrow pointing up",
+        "position": "Bottom right corner of the canvas"
+      }
+    }
+  },
+  "scene": {
+    "art_style": {
+      "primary_medium": "Hand-drawn comic book illustration",
+      "line_work": "Intricate cross-hatching, sharp ink outlines, charcoal texture overlays",
+      "color_scheme": {
+        "base": "Monochromatic dark gray and rich black ink tones (Gotham City foundation)",
+        "accent_style": "Vibrant color splashes popping out of the grayscale base",
+        "palette": {
+          "shadows": "#0A0A0C",
+          "midtones": "#4A4A4F",
+          "highlights": "#F2F2F2",
+          "graffiti_accents": ["#FF4D1C (Laranja Ferrugem)", "#D4AF37 (Dourado)", "#00FFCC (Neon Teal)", "#E6007E (Vibrant Magenta)"]
+        }
+      }
+    },
+    "lighting_and_atmosphere": {
+      "time_of_day": "Golden hour during a hot summer dusk",
+      "lighting_type": "Dramatic backlighting (rim light) from a warm setting sun",
+      "light_sources": {
+        "sun": "Positioned low behind the skyscrapers, casting warm golden-orange volumetric rays",
+        "street_level": "Cool blue neon reflections bounce from wet pavement below"
+      },
+      "atmosphere": "A mix of summer humidity and Gotham haze, warm air distortion visible between building silhouettes"
+    },
+    "camera_setup": {
+      "viewpoint": "Extreme low-angle shot looking straight up at the sky",
+      "lens": "24mm wide-angle lens to exaggerate skyscraper heights and skate jump heights",
+      "depth_of_field": "Focal point locked on the skateboard deck; background buildings have a progressive soft blur"
+    },
+    "character": {
+      "anatomy": {
+        "gender": "Female",
+        "age_group": "Young adult, athletic build",
+        "expression": "Intense concentration, confident look, slight smirk",
+        "hair": "Dark brown, short messy strands escaping from under the cap",
+        "pose": "Dynamic mid-air skate trick (ollie/kickflip grab), legs bent, torso leaning forward"
+      },
+      "wardrobe": {
+        "top": {
+          "type": "Ribbed cotton tank top",
+          "color": "#FFFFFF",
+          "texture": "Fine vertical ribbing, subtle sweat highlights on fabric creases",
+          "fit": "Fitted"
+        },
+        "bottom": {
+          "type": "Oversized utility cargo shorts",
+          "color": "#1C1C1E",
+          "details": "Double stitching, deep side pockets, heavyweight canvas texture",
+          "fit": "Loose and baggy"
+        },
+        "headwear": {
+          "type": "Five-panel snapback cap",
+          "direction": "Worn backward",
+          "color": "#2C2C2E"
+        },
+        "shoes": {
+          "type": "Low-top retro suede skate shoes",
+          "color": "#1A1A1A",
+          "laces": "#E5E5E5",
+          "sole": "Gum rubber vulcanized sole"
+        }
+      }
+    },
+    "skateboard": {
+      "deck": {
+        "view": "Underside facing the viewer",
+        "material": "7-ply Canadian maple wood texture, visible scratches on tail and nose",
+        "base_color": "Matte black paint coat"
+      },
+      "graphic": {
+        "type": "Circular stamp",
+        "logo_text": "ava",
+        "details": "White distressed ink, containing pilares words: 'ATITUDE - VALORIZAÇÃO - AMIZADE' surrounding the central AVA typography",
+        "placement": "Center-aligned on the deck"
+      },
+      "hardware": {
+        "trucks": {
+          "brand": "Independent-style raw aluminum trucks",
+          "wear": "Grind marks on the hanger"
+        },
+        "wheels": {
+          "type": "52mm conical street wheels",
+          "color": "#FFFFFF",
+          "details": "Subtle dirt/asphalt stains on tread"
+        }
+      }
+    },
+    "background_environment": {
+      "architecture": {
+        "style": "Gotham City-inspired Art Deco and Gothic industrial skyscraper spires",
+        "elements": [
+          "Distant building rooftops decorated with water tanks and steel antennas",
+          "Iron fire escapes zigzagging down building facades in sharp perspective",
+          "Deep concrete alleys with heavy vertical shadow casting"
+        ]
+      },
+      "sky": {
+        "type": "Summer evening twilight gradient",
+        "colors": ["#111115 (Top night sky)", "#FF5722 (Horizon sunset orange)", "#E040FB (Accent twilight purple)"]
+      },
+      "graffiti_details": {
+        "concept": "Vibrant, fresh street art painted onto building bricks and concrete panels",
+        "colors": ["Vibrant neon green spray", "Dripping pink lacquer", "Sharp orange tags"],
+        "designs": [
+          "Abstract graffiti shapes behind the skater",
+          "AVA lettering tag hidden in urban style on the left building wall",
+          "Street art characters drawn on structural columns"
+        ]
+      }
+    }
+  }
+}

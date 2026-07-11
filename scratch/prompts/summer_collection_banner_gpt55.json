@@ -1,0 +1,240 @@
+{
+  "tipo_arquivo": "descrição_visual",
+  "idioma": "pt-BR",
+  "visao_geral": {
+    "formato": "banner horizontal / peça gráfica promocional",
+    "tema": "coleção de verão 2027 com estética urbana de Gotham City e skate",
+    "estilo_visual": "alto contraste extremo, editorial de luxo, streetwear, com influência de quadrinhos/mangá noir, arte urbana e efeito color splash dinâmico",
+    "paleta": {
+      "principal": ["preto absoluto", "cinza-chumbo", "cinza de alta densidade"],
+      "acentos_de_cor": ["laranja-dourado crepúsculo", "rosa neon líquido", "verde limão ácido", "azul ciano elétrico", "preto fosco (para tags de grafite sobrepostas)"],
+      "observacao": "A base da imagem é em escala de cinza e sombras densas de Gotham City, mas com uma iluminação de pôr do sol quente de verão recortando os prédios e grafites extremamente coloridos e saturados nas paredes."
+    },
+    "composicao": "Layout centralizado com grande área preta no topo e na base, uma faixa imagética urbana no centro, texto superior com ano, texto inferior com nome da coleção e marca no canto inferior direito."
+  },
+  "dimensoes_aparentes": {
+    "proporcao": "16:9 aproximadamente",
+    "orientacao": "paisagem",
+    "largura_visual": "muito ampla",
+    "altura_visual": "baixa em relação à largura, típica de banner ou capa digital"
+  },
+  "fundo": {
+    "cor_base": "preto",
+    "areas": [
+      {
+        "posicao": "topo",
+        "descricao": "Grande faixa preta horizontal ocupando a região superior."
+      },
+      {
+        "posicao": "centro",
+        "descricao": "Faixa retangular com ilustração de Gotham City ao entardecer com cores vibrantes pontuais."
+      },
+      {
+        "posicao": "base",
+        "descricao": "Grande faixa preta horizontal com texto da coleção e logotipo."
+      }
+    ]
+  },
+  "elementos_textuais": [
+    {
+      "texto": "2027",
+      "posicao": "topo central",
+      "estilo": "fonte fina, alta, elegante, espaçamento amplo, cinza claro",
+      "funcao": "indicar o ano da coleção",
+      "observacoes": "O número aparece centralizado entre duas linhas horizontais finas."
+    },
+    {
+      "texto": "Summer Collection",
+      "posicao": "parte inferior central",
+      "estilo": "estilo tipográfico streetwear de luxo (como Gothic Blackletter ou Brutalist Sans)",
+      "funcao": "nome da campanha/coleção",
+      "observacoes": "O texto ocupa grande largura e tem aparência sofisticada e minimalista."
+    },
+    {
+      "texto": "ava",
+      "posicao": "canto inferior direito",
+      "estilo": "logotipo em cinza claro/branco, letras arredondadas e volumosas",
+      "funcao": "identificação da marca",
+      "observacoes": "Há uma assinatura pequena acima ou ao lado do logotipo, possivelmente relacionada a colaboração/autoria."
+    },
+    {
+      "texto": "ava",
+      "posicao": "centro do skate",
+      "estilo": "selo circular aplicado no shape do skate",
+      "funcao": "branding no produto",
+      "observacoes": "O logotipo aparece dentro de um emblema circular no centro do shape."
+    }
+  ],
+  "linhas_e_divisorias": [
+    {
+      "tipo": "linha horizontal fina",
+      "posicao": "topo esquerdo, alinhada ao número 2027",
+      "cor": "cinza escuro",
+      "funcao": "ornamentação e equilíbrio visual"
+    },
+    {
+      "tipo": "linha horizontal fina",
+      "posicao": "topo esquerdo, alinhada ao número 2027",
+      "cor": "cinza escuro",
+      "funcao": "ornamentação e equilíbrio visual"
+    },
+    {
+      "tipo": "linha vertical fina com seta",
+      "posicao": "parte inferior direita, antes do logotipo",
+      "cor": "cinza claro",
+      "funcao": "elemento gráfico decorativo que separa o texto da marca"
+    }
+  ],
+  "cena_central": {
+    "descricao": "Faixa horizontal com paisagem urbana gótica industrial sob um pôr do sol de verão. A base é desenhada em traços de nanquim e grafite com hachuras densas e sombras pretas puras de altíssimo contraste, combinando com o estilo da skatista. O céu brilha em um degradê quente de fim de tarde e os prédios possuem grafites coloridos e pretos aplicados organicamente.",
+    "ambiente": "cidade / centro urbano denso de Gotham City ao entardecer sob alta umidade de verão",
+    "iluminacao": {
+      "tipo": "Golden Hour cinematográfica dramática com névoa volumétrica",
+      "efeito": "Luz solar alaranjada cortante recortando as silhuetas dos prédios góticos (backlight), criando feixes de luz visíveis que atravessam a atmosfera gótica e projetam sombras longas e dramáticas. Efeito de lente com pequenos reflexos (lens flare) discretos.",
+      "reflexos": "Reflexos dourados intensos (rim light) contornando o corpo da skatista e as bordas do shape do skate"
+    },
+    "arquitetura": [
+      {
+        "elementos_góticos": "prédios e arranha-céus no estilo gótico industrial e Art Deco com gárgulas proeminentes, spires afiados e escadas de incêndio metálicas em diagonal",
+        "posicao": "esquerda e centro",
+        "estilo": "hachuras pesadas, sombras pretas sólidas e traçado grosso e expressivo feito à mão com nanquim preto, garantindo o mesmo nível de contraste agressivo e detalhado da personagem skatista"
+      },
+      {
+        "fachadas_verticais": "paredes de tijolos expostos e blocos de concreto bruto",
+        "posicao": "esquerda e direita",
+        "estilo": "textura áspera com sombras pretas profundas nas frestas"
+      },
+      {
+        "ceu_de_verao": "degradê crepúsculo quente",
+        "posicao": "fundo superior",
+        "estilo": "gradiente de cores vibrantes indo de um amarelo-dourado/laranja incandescente na linha do horizonte até um roxo violeta e azul escuro profundo na parte superior da faixa"
+      }
+    ],
+    "tratamento_visual": "Fusão de desenho noir a lápis e nanquim de altíssimo contraste com cores digitais aplicadas exclusivamente na luz solar volumétrica, no céu e nos grafites."
+  },
+  "personagem_principal": {
+    "tipo": "skatista ilustrada",
+    "posicao": "centro superior da faixa urbana, parcialmente sobreposta ao skate",
+    "genero_aparente": "feminino",
+    "idade_aparente": "jovem adulta",
+    "pose": "sentada/agachada de forma dinâmica, com uma perna dobrada e outra elevada, sugerindo movimento ou manobra aérea",
+    "expressao": "confiante e descontraída",
+    "direcao_do_olhar": "voltada para frente, em direção ao observador",
+    "roupas_e_acessorios": [
+      {
+        "item": "boné",
+        "descricao": "Usado para trás, na cor preta com textura fosca, reforçando a estética street/skate."
+      },
+      {
+        "item": "camiseta regata",
+        "descricao": "Peça de algodão branca de alta gramatura, com dobras realistas e hachuras de sombra densas."
+      },
+      {
+        "item": "calça cargo larga",
+        "descricao": "Modelagem ampla e oversized em tom cinza escuro, com bolsos laterais volumosos."
+      },
+      {
+        "item": "tênis",
+        "descricao": "Tênis de skate clássico preto com solado vulcanizado branco."
+      }
+    ],
+    "estilo_de_desenho": "Traço forte de contorno preto, sombras sólidas de nanquim e iluminação dourada contornando seu corpo."
+  },
+  "skate": {
+    "posicao": "primeiro plano central, inclinado diagonalmente da esquerda inferior para a direita superior",
+    "escala": "grande em relação à personagem e ao fundo, funcionando como elemento dominante da composição",
+    "cor": "preto brilhante/cinza escuro",
+    "componentes_visiveis": [
+      {
+        "parte": "shape",
+        "descricao": "Prancha preta com brilho sutil refletindo a luz alaranjada do entardecer e emblema circular no centro."
+      },
+      {
+        "parte": "rodas",
+        "descricao": "Rodas brancas de skate com marcas sutis de uso."
+      },
+      {
+        "parte": "trucks/eixos",
+        "descricao": "Eixos de alumínio polido com sombreamento técnico de nanquim."
+      }
+    ],
+    "branding": {
+      "local": "centro do shape",
+      "descricao": "Selo circular com o logotipo 'ava' em branco e inscrições circulares finas ao redor."
+    },
+    "efeito_visual": "O skate cruza a composição em diagonal, com brilhos quentes do pôr do sol na borda superior do shape."
+  },
+  "graffiti_details": {
+    "distribuicao": "orgânica, irregular e sobreposta (layred), simulando uma parede real de beco urbano que foi pichada ao longo dos anos. Menos repetições e mais foco em composições únicas de grafite.",
+    "elementos": [
+      {
+        "tipo": "tags de pichação em spray preto",
+        "estilo": "letras de rua clássicas estilo 'pixação' ou 'throw-up' em preto fosco escorrendo, aplicadas sobrepostas a grafites coloridos antigos",
+        "posicao": "pilares de sustentação e base das paredes"
+      },
+      {
+        "tipo": "arte colorida em spray",
+        "estilo": "formas abstratas e personagens de street art em tons saturados (magenta, verde ácido e ciano)",
+        "posicao": "paredes laterais, parcialmente cobertas por tags pretas novas"
+      },
+      {
+        "tipo": "branding oculto",
+        "estilo": "tag urbana com a palavra 'AVA' escrita em estilo graffiti selvagem (wildstyle) usando spray rosa neon com contorno preto",
+        "posicao": "parede do prédio à esquerda, integrada de forma natural ao cenário"
+      }
+    ]
+  },
+  "logotipo_inferior": {
+    "marca_visivel": "ava",
+    "posicao": "canto inferior direito",
+    "area": "dentro de um retângulo escuro discreto",
+    "cor": "cinza claro com sombras",
+    "estilo": "letras arredondadas, bold, com aparência tridimensional leve",
+    "elementos_secundarios": "Pequena assinatura manuscrita acima do logotipo."
+  },
+  "hierarquia_visual": [
+    {
+      "nivel": 1,
+      "elemento": "skate em primeiro plano",
+      "motivo": "Maior contraste, grande escala e brilhos alaranjados do sol na borda."
+    },
+    {
+      "nivel": 2,
+      "elemento": "personagem skatista",
+      "motivo": "Centralizada, com iluminação dourada contornando seu corpo."
+    },
+    {
+      "nivel": 3,
+      "elemento": "luz solar volumétrica e céu crepúsculo",
+      "motivo": "Cria atmosfera e destaca a silhueta gótica dos prédios."
+    },
+    {
+      "nivel": 4,
+      "elemento": "grafites pretos e neon nas fachadas",
+      "motivo": "Sobreposição e texturas de rua que enriquecem o cenário sem poluir o primeiro plano."
+    },
+    {
+      "nivel": 5,
+      "elemento": "texto 'Summer Collection'",
+      "motivo": "Grande largura e posição inferior central."
+    }
+  ],
+  "atmosfera_e_mensagem": {
+    "sensacao": "urbana, crua, artística e de alto nível de detalhe editorial. A sensação é de uma capa de quadrinhos noir clássica misturada com a atitude moderna de uma revista de moda de streetwear de luxo.",
+    "associacoes": ["skate", "streetwear de luxo", "graffiti de rua", "fim de tarde de verão", "cidade gótica", "contraste de cores", "coleção sazonal"],
+    "publico_alvo_aparente": "jovens e adultos interessados em streetwear de luxo, arte urbana e cultura skate",
+    "posicionamento_de_marca": "marca que une a atitude crua de rua ao refinamento estético e artístico"
+  },
+  "possivel_uso": [
+    "banner de campanha de moda",
+    "capa de coleção",
+    "peça para site ou e-commerce",
+    "post horizontal para redes sociais",
+    "material promocional de lançamento"
+  ],
+  "observacoes_de_acessibilidade": {
+    "contraste": "A composição usa contraste forte entre preto e cinza, com pontos brilhantes de cor neon e luz dourada que facilitam a distinção dos elementos visuais.",
+    "texto_importante": "Os textos principais legíveis são '2027', 'Summer Collection' e 'ava'.",
+    "descricao_alt_curta": "Banner da Summer Collection 2027 com skatista em Gotham City ao entardecer sob luz de pôr do sol dourada, grafites coloridos nos prédios e logotipo ava."
+  }
+}
