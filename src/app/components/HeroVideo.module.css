@@ -82,7 +82,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(0, 0, 0, 0.7); /* Fundo com 30% de transparência */
+  background: rgba(0, 0, 0, 0.8); /* Fundo com 20% de transparência */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--color-border); /* Borda visível */
@@ -96,6 +96,11 @@
 .controlsBar:hover {
   border-color: var(--color-accent);
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+}
+
+.controlsBar.controlsPlaying {
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 
@@ -197,6 +202,13 @@
     transform: none;
     padding: 6px 12px;
     gap: 10px;
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .controlsBar.controlsPlaying {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
   }
   .controlIcon {
     width: 16px;
