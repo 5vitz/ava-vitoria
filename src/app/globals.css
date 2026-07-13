@@ -1,5 +1,12 @@
 /* Globals CSS — Estética da Subtração AVA Vitória */
 
+@font-face {
+  font-family: 'Stop Famous';
+  src: url('/fonts/StopFamousDemo-nAJ0M.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
