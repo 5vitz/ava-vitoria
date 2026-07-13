@@ -296,7 +296,7 @@ export default function HeroVideo({
       />
 
       {/* Painel de Controles do Player com Estética da Subtração (Sempre Visível) */}
-      <div className={`${styles.controlsBar} ${!isTransitionActive ? styles.controlsPlaying : ''}`}>
+      <div className={styles.controlsBar}>
 
         {/* Play / Pause */}
         <button 

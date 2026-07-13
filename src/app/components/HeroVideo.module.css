@@ -74,7 +74,7 @@
 /* Barra de Controles Customizados do Player (Estética da Subtração Altamente Discreta) */
 .controlsBar {
   position: absolute;
-  bottom: calc(25.4% + 16px); /* 16px acima da faixa preta inferior */
+  bottom: 32px;
   top: auto;
   left: 32px; /* Canto inferior esquerdo da imagem central */
   transform: none; /* Remove a centralização */
@@ -82,27 +82,18 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(0, 0, 0, 0.25); /* Fundo extremamente translúcido e discreto */
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(255, 255, 255, 0.06); /* Borda quase imperceptível */
-  padding: 6px 14px;
+  background: #000000; /* Fundo 100% opaco */
+  border: 1px solid var(--color-border); /* Borda visível */
+  padding: 8px 16px;
   border-radius: 30px;
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  opacity: 0.6; /* Fica semi-transparente quando fora de foco */
+  transition: all 0.3s ease;
+  opacity: 1; /* Sem transparência */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
 }
 
 .controlsBar:hover {
-  opacity: 1; /* Revela-se totalmente ao passar o mouse */
-  background: rgba(10, 10, 10, 0.65);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-}
-
-.controlsBar.controlsPlaying {
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 24px;
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
 }
 
 
@@ -198,7 +189,7 @@
     height: 90px;
   }
   .controlsBar {
-    bottom: calc(25.4% + 12px); /* Acompanha a escala proporcional do banner central */
+    bottom: 20px;
     top: auto;
     left: 20px; /* Margem esquerda menor para telas pequenas */
     transform: none;
