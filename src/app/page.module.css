@@ -137,7 +137,7 @@
 .sectionTitle {
   font-family: 'Stardos Stencil', serif;
   font-weight: 400;
-  font-size: 57px;
+  font-size: 72px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #000000;
@@ -185,7 +185,7 @@
     max-width: 744px; /* Ajusta largura do cabeçalho para coincidir com 2 colunas */
   }
   .sectionTitle {
-    font-size: 42px;
+    font-size: 52px;
   }
   .grid {
     grid-template-columns: repeat(2, minmax(0, 360px));
@@ -208,7 +208,7 @@
     padding: 0 10px 15px 10px; /* Pequeno respiro lateral no mobile */
   }
   .sectionTitle {
-    font-size: 28px;
+    font-size: 32px;
     letter-spacing: 1px;
   }
   .grid {
