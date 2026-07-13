@@ -53,6 +53,11 @@ export default async function Home() {
 
         {/* Seção da Vitrine de Produtos */}
         <section className={styles.collectionSection}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>
+              Summer Collection - 2027
+            </h2>
+          </div>
           {/* Grid de 3 colunas Balenciaga */}
           <div className={styles.grid}>
             {serializedProducts.map((product) => (
