@@ -109,7 +109,7 @@
 }
 
 .collectionSection {
-  padding: 60px 0; /* Alterado para 0 nas laterais para que a vitrine ocupe 100vw e distribua as colunas */
+  padding: 60px 32px; /* 32px de padding lateral para dar respiro e alinhamento perfeito */
   display: flex;
   flex-direction: column;
   gap: 40px;
@@ -118,7 +118,7 @@
 
 @media (max-width: 768px) {
   .collectionSection {
-    padding: 40px 0;
+    padding: 40px 16px; /* 16px de padding lateral no mobile */
     gap: 30px;
   }
 }

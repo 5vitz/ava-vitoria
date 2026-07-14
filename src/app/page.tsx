@@ -67,7 +67,7 @@ export default async function Home() {
         </section>
       </main>
 
-      <footer className={styles.footer}>
+      <footer id="footer" className={styles.footer}>
         © {new Date().getFullYear()} AVA VITÓRIA. Todos os direitos reservados.
       </footer>
     </div>

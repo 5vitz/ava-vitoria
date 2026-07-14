@@ -2,6 +2,7 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './HeroVideo.module.css';
 import { useAudio } from '@/lib/audioContext';
 
@@ -282,14 +283,14 @@ export default function HeroVideo({
         >
           Loja
         </button>
-        <button
-          onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
+        <Link
+          href="/sobre-nos"
           className={styles.menuLink}
         >
           Sobre Nós
-        </button>
+        </Link>
         <button
-          onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
+          onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
           className={styles.menuLink}
         >
           Contato
