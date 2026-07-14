@@ -100,33 +100,33 @@
 /* Modificações por Tipo de Card (Vitrine Pública) */
 .cardTipo1 {
   grid-column: span 1;
-  max-width: 360px;
+  max-width: 480px;
 }
 .cardTipo1 .imageContainer {
-  aspect-ratio: 9 / 16; /* 360 x 640 */
+  aspect-ratio: 9 / 16;
 }
 
 .cardTipo2 {
   grid-column: span 2;
-  max-width: 744px;
+  max-width: 984px;
 }
 .cardTipo2 .imageContainer {
-  aspect-ratio: 93 / 80; /* 744 x 640 */
+  aspect-ratio: 93 / 80;
 }
 
 .cardTipo3 {
   grid-column: span 3;
-  max-width: 1128px;
+  max-width: 1488px;
 }
 .cardTipo3 .imageContainer {
-  aspect-ratio: 141 / 80; /* 1128 x 640 */
+  aspect-ratio: 141 / 80;
 }
 
 /* Responsividade de Columns e Spans para Tablets */
 @media (max-width: 1024px) {
   .cardTipo3 {
     grid-column: span 2;
-    max-width: 744px;
+    max-width: 984px;
   }
   .cardTipo3 .imageContainer {
     aspect-ratio: 93 / 80; /* Comporta-se como Tipo 2 no Tablet */
@@ -135,11 +135,13 @@
 
 /* Responsividade de Columns e Spans para Mobile (Colapso para 1 coluna vertical 9:16) */
 @media (max-width: 768px) {
+  .cardTipo1,
   .cardTipo2,
   .cardTipo3 {
     grid-column: span 1;
     max-width: 360px;
   }
+  .cardTipo1 .imageContainer,
   .cardTipo2 .imageContainer,
   .cardTipo3 .imageContainer {
     aspect-ratio: 9 / 16; /* Retorna para a proporção padrão vertical 9:16 no celular */

@@ -127,9 +127,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid var(--color-border);
   padding: 0 0 15px 0; /* Alinhamento estrito com a borda lateral da primeira coluna */
-  max-width: 1128px; /* Largura idêntica à do grid no desktop (3 * 360px + 2 * 24px) */
+  max-width: 1488px; /* Largura idêntica à do grid no desktop (3 * 480px + 2 * 24px) */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
 }
@@ -173,7 +173,7 @@
 /* GRID GRID BALENCIAGA DE 3 COLUNAS - LARGURA TOTAL CENTRALIZADO COM ESPAÇAMENTO DE 24PX */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 360px));
+  grid-template-columns: repeat(3, minmax(0, 480px));
   gap: 24px; /* Define espaçamento horizontal e vertical constante de 24px entre todos os cards */
   justify-content: center; /* Centraliza o bloco das colunas na tela, deixando o espaço excedente nas margens laterais */
   max-width: 100%;
@@ -182,13 +182,13 @@
 
 @media (max-width: 1024px) {
   .sectionHeader {
-    max-width: 744px; /* Ajusta largura do cabeçalho para coincidir com 2 colunas */
+    max-width: 984px; /* Ajusta largura do cabeçalho para coincidir com 2 colunas: 2 * 480 + 24 */
   }
   .sectionTitle {
     font-size: 52px;
   }
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 360px));
+    grid-template-columns: repeat(2, minmax(0, 480px));
     gap: 24px;
     justify-content: center;
   }
