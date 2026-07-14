@@ -44,7 +44,7 @@ export default function SobreNos() {
             <Link href="/sobre-nos" className={`${styles.navLink} ${styles.navActive}`}>
               Sobre Nós
             </Link>
-            <Link href="/#footer" className={styles.navLink}>
+            <Link href="/contato" className={styles.navLink}>
               Contato
             </Link>
           </nav>

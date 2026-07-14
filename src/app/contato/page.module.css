@@ -1,0 +1,359 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text-primary);
+}
+
+/* Header */
+.header {
+  width: 100%;
+  background-color: #000000;
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.headerInner {
+  max-width: 1488px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navigation {
+  display: flex;
+  gap: 36px;
+}
+
+.navLink {
+  font-family: 'Exotc350', sans-serif;
+  font-size: 20px;
+  color: #8E8F96;
+  transition: color 0.3s ease;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+}
+
+.navLink:hover {
+  color: #ffffff;
+}
+
+.navActive {
+  color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+  padding-bottom: 2px;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logoImage {
+  filter: invert(1);
+}
+
+/* Main Layout */
+.main {
+  flex: 1;
+  max-width: 1488px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  width: 100%;
+  align-items: start;
+}
+
+/* Left Section */
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.brandTitleContainer {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 20px;
+}
+
+.sectionTitle {
+  font-family: 'Stardos Stencil', serif;
+  font-weight: 400;
+  font-size: 72px;
+  text-transform: uppercase;
+  color: #000000;
+  margin: 0 0 10px 0;
+}
+
+.brandSubtitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.infoDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.infoGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.infoLabel {
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  letter-spacing: 1.5px;
+}
+
+.infoValue {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.15rem;
+  color: #000000;
+  font-weight: 400;
+}
+
+.socialLink {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1.15rem;
+  color: #000000;
+  font-weight: 400;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.socialLink:hover {
+  color: var(--color-accent);
+}
+
+/* Right Section - Form */
+.formSection {
+  width: 100%;
+}
+
+.formCard {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.inputGroup {
+  position: relative;
+  width: 100%;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border);
+  padding: 10px 0;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.textarea {
+  resize: none;
+}
+
+.input:focus,
+.textarea:focus {
+  border-bottom-color: #ffffff;
+}
+
+/* Floating Label Logic */
+.label {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  color: #8E8F96;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Focus and active states */
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label,
+.textarea:focus ~ .label,
+.textarea:not(:placeholder-shown) ~ .label {
+  top: -12px;
+  font-size: 0.75rem;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.submitButton {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  padding: 16px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover {
+  background: transparent;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+.submitButton:disabled {
+  background: #444444;
+  color: #8E8F96;
+  border-color: #444444;
+  cursor: not-allowed;
+}
+
+/* Success State */
+.successMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.successIcon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+
+.successTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.successText {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  color: #8E8F96;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.resetButton {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid var(--color-border);
+  padding: 12px 24px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.resetButton:hover {
+  border-color: #ffffff;
+}
+
+/* Footer */
+.footer {
+  width: 100%;
+  border-top: 1px solid var(--color-border);
+  padding: 30px 32px;
+  text-align: center;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.8rem;
+  color: #000000;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .main {
+    padding: 60px 24px;
+  }
+  .header {
+    padding: 20px 24px;
+  }
+  .container {
+    gap: 40px;
+  }
+  .sectionTitle {
+    font-size: 52px;
+  }
+}
+
+@media (max-width: 768px) {
+  .headerInner {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .navigation {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .navLink {
+    font-size: 16px;
+  }
+  .logoContainer {
+    width: 100%;
+    justify-content: center;
+  }
+  .main {
+    padding: 40px 16px;
+  }
+  .container {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .sectionTitle {
+    font-size: 32px;
+  }
+  .formCard {
+    padding: 30px 20px;
+  }
+}
