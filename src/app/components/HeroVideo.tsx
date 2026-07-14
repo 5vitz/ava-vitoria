@@ -289,12 +289,12 @@ export default function HeroVideo({
         >
           Sobre Nós
         </Link>
-        <button
-          onClick={() => document.getElementById('footer')?.scrollIntoView({ behavior: 'smooth' })}
+        <Link
+          href="/contato"
           className={styles.menuLink}
         >
           Contato
-        </button>
+        </Link>
       </nav>
 
       {/* Imagem de Capa Estática (revelada quando o vídeo esmaece) */}
