@@ -291,6 +291,14 @@
   z-index: 20; /* Fica acima do vídeo e da capa */
   display: flex;
   gap: 40px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease; /* Fade-in suave de 0.8s acompanhando a capa */
+}
+
+.floatingMenu.menuVisible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .menuLink {

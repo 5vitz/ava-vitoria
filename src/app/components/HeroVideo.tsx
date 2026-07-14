@@ -275,7 +275,7 @@ export default function HeroVideo({
       )}
 
       {/* Menu Flutuante de Navegação (Estilo Streetwear) */}
-      <nav className={styles.floatingMenu}>
+      <nav className={`${styles.floatingMenu} ${isTransitionActive ? styles.menuVisible : ''}`}>
         <button
           onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
           className={styles.menuLink}
