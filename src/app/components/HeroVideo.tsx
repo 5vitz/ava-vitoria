@@ -274,10 +274,32 @@ export default function HeroVideo({
         </div>
       )}
 
+      {/* Menu Flutuante de Navegação (Estilo Streetwear) */}
+      <nav className={styles.floatingMenu}>
+        <button
+          onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
+          className={styles.menuLink}
+        >
+          Loja
+        </button>
+        <button
+          onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
+          className={styles.menuLink}
+        >
+          Sobre Nós
+        </button>
+        <button
+          onClick={() => document.getElementById('vitrine')?.scrollIntoView({ behavior: 'smooth' })}
+          className={styles.menuLink}
+        >
+          Contato
+        </button>
+      </nav>
+
       {/* Imagem de Capa Estática (revelada quando o vídeo esmaece) */}
       <div className={`${styles.coverImageContainer} ${isTransitionActive ? styles.coverVisible : ''}`}>
         <Image
-          src="/imagens/CAPA/CAPA_NANO3.png"
+          src="/imagens/CAPA/CAPA_NANO6SemMenu.png"
           alt="AVA Sem Limites Capa"
           fill
           sizes="100vw"

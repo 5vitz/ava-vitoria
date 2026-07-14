@@ -52,7 +52,7 @@ export default async function Home() {
         />
 
         {/* Seção da Vitrine de Produtos */}
-        <section className={styles.collectionSection}>
+        <section id="vitrine" className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
               Summer Collection - 2027

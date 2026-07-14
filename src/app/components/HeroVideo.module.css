@@ -282,3 +282,43 @@
     height: 200px !important;
   }
 }
+
+/* Menu Flutuante Estilo Streetwear (Exotc350 Font) */
+.floatingMenu {
+  position: absolute;
+  top: 60px;
+  left: 60px;
+  z-index: 20; /* Fica acima do vídeo e da capa */
+  display: flex;
+  gap: 40px;
+}
+
+.menuLink {
+  background: transparent;
+  border: none;
+  font-family: 'Exotc350', sans-serif;
+  font-weight: normal;
+  font-size: 28px;
+  color: #8E8F96;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.2s ease;
+  text-transform: capitalize;
+  padding: 0;
+  outline: none;
+}
+
+.menuLink:hover {
+  color: var(--color-text-primary); /* Branco ou destaque */
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .floatingMenu {
+    top: 20px;
+    left: 20px;
+    gap: 20px;
+  }
+  .menuLink {
+    font-size: 18px;
+  }
+}
