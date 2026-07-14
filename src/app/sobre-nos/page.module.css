@@ -89,7 +89,7 @@
 .sectionSubtitle {
   font-family: var(--font-body), sans-serif;
   font-size: 1.1rem;
-  color: var(--color-text-secondary);
+  color: #333333; /* Escurecido para melhor contraste */
   max-width: 600px;
   line-height: 1.6;
 }
