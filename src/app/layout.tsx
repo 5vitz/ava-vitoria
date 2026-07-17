@@ -61,9 +61,10 @@ export default async function RootLayout({
   const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${titleFontUrl}:wght@400;600;700;800&family=${bodyFontUrl}:wght@200;300;400;500&family=Gruppo&family=Syncopate:wght@700&family=Unbounded:wght@700;900&family=Stardos+Stencil:wght@400&display=swap`;
 
   // Construção da textura Halftone de retícula clássica em 45 graus (staggered 8x8 grid)
+  const isLightTheme = config.theme === "light" || config.colors.bg.toLowerCase() === "#ffffff";
   const dotColor = "#000000";
   const encodedDotColor = dotColor.replace("#", "%23");
-  const dotOpacity = config.theme === "light" ? "0.05" : "0.5";
+  const dotOpacity = isLightTheme ? "0.05" : "0.5";
   const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3C/svg%3E`;
 
   return (
@@ -93,10 +94,12 @@ export default async function RootLayout({
           }
           
           body {
-            background-image: url("${svgHalftone}");
-            background-size: 8px 8px;
-            background-position: 0 0, 4px 4px;
-            background-attachment: fixed;
+            ${!isLightTheme ? `
+              background-image: url("${svgHalftone}");
+              background-size: 8px 8px;
+              background-position: 0 0, 4px 4px;
+              background-attachment: fixed;
+            ` : ""}
           }
         `}} />
       </head>
