@@ -1,9 +1,8 @@
 .card {
   display: flex;
   flex-direction: column;
-  background: #000000;
-  border: 1px solid var(--color-border);
-  transition: border-color 0.3s ease;
+  background: var(--color-bg);
+  transition: outline 0.3s ease;
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -11,12 +10,9 @@
 }
 
 .card:hover {
-  border-color: var(--color-accent); /* Borda dourada no hover */
-}
-
-/* Esconde a borda externa quando o cursor está sobre a imagem */
-.card:has(.imageContainer:hover) {
-  border-color: transparent;
+  outline: 1px solid var(--color-accent); /* Borda de destaque (laranja) no hover */
+  outline-offset: -1px;
+  z-index: 10;
 }
 
 /* Cria a borda interna branca (1px para dentro) com transição de opacidade */
@@ -29,7 +25,7 @@
   bottom: 1px;
   border: 1px solid #FFFFFF;
   pointer-events: none;
-  z-index: 10;
+  z-index: 12;
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -42,7 +38,7 @@
 .imageContainer {
   position: relative;
   width: 100%;
-  background: #000000;
+  background: var(--color-bg);
   overflow: hidden;
 }
 

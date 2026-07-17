@@ -129,7 +129,7 @@
   align-items: flex-end;
   border-bottom: 1px solid var(--color-border);
   padding: 0 0 15px 0; /* Alinhamento estrito com a borda lateral da primeira coluna */
-  max-width: 1488px; /* Largura idêntica à do grid no desktop (3 * 480px + 2 * 24px) */
+  max-width: 1442px; /* Largura idêntica à do grid no desktop (3 * 480px + 2 * 1px) */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
 }
@@ -170,42 +170,46 @@
   border-bottom: 1px dashed var(--color-accent);
 }
 
-/* GRID GRID BALENCIAGA DE 3 COLUNAS - LARGURA TOTAL CENTRALIZADO COM ESPAÇAMENTO DE 24PX */
+/* GRID DE 3 COLUNAS - TOQUE DE IMAGENS COM ESPAÇAMENTO DE 1PX E BORDA EXTERNA */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 480px));
-  gap: 24px; /* Define espaçamento horizontal e vertical constante de 24px entre todos os cards */
-  justify-content: center; /* Centraliza o bloco das colunas na tela, deixando o espaço excedente nas margens laterais */
-  max-width: 100%;
+  gap: 1px; /* Espaçamento mínimo de 1px */
+  background-color: var(--color-border); /* Cor de fundo preenche a fresta de 1px como linha divisória */
+  border: 1px solid var(--color-border); /* Borda ao redor do grid inteiro */
+  justify-content: center;
+  max-width: 1442px;
   width: 100%;
+  margin: 0 auto;
 }
 
 @media (max-width: 1024px) {
   .sectionHeader {
-    max-width: 984px; /* Ajusta largura do cabeçalho para coincidir com 2 colunas: 2 * 480 + 24 */
+    max-width: 961px; /* Ajusta largura para 2 colunas: 2 * 480 + 1px */
   }
   .sectionTitle {
     font-size: 52px;
   }
   .grid {
     grid-template-columns: repeat(2, minmax(0, 480px));
-    gap: 24px;
+    gap: 1px;
+    max-width: 961px;
     justify-content: center;
   }
 }
 
 @media (max-width: 768px) {
   .hero {
-    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile, focando no centro da imagem */
+    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile */
     min-height: 250px;
-    margin-top: 0;             /* Encosta exatamente na base do header mobile */
+    margin-top: 0;             
   }
   .heroImage {
-    object-position: 15% top;  /* Foca no skatista (superior esquerdo) evitando cortes no capacete e lateral */
+    object-position: 15% top;  
   }
   .sectionHeader {
-    max-width: 360px; /* Ajusta largura do cabeçalho para coincidir com 1 coluna */
-    padding: 0 10px 15px 10px; /* Pequeno respiro lateral no mobile */
+    max-width: 360px; /* Alinha com 1 coluna */
+    padding: 0 10px 15px 10px; 
   }
   .sectionTitle {
     font-size: 32px;
@@ -213,7 +217,8 @@
   }
   .grid {
     grid-template-columns: repeat(1, minmax(0, 360px));
-    gap: 24px;
+    gap: 1px;
+    max-width: 360px;
     justify-content: center;
   }
 }

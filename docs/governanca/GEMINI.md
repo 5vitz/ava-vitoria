@@ -33,6 +33,7 @@ Antes de realizar qualquer alteração física no código:
 - Não crie abstrações, classes ou helpers para trechos de código que serão usados uma única vez.
 - Não adicione configurações ou campos no banco de dados "just in case" (prevendo um uso futuro hipotético).
 - Confie nos fluxos e tratamentos do framework. Evite código defensivo para cenários logicamente impossíveis.
+- **Mídias e Performance:** Usar sempre o componente `<Image />` nativo do Next.js (`next/image`) para a exibição de imagens. Ele realiza o redimensionamento dinâmico automático (mídias adaptativas), conversão para formatos modernos (WebP/AVIF) e cache local de graça, sem depender de provedores pagos de otimização.
 
 ---
 

@@ -12,13 +12,13 @@ export const metadata: Metadata = {
 
 // Fallback de configurações estéticas caso o banco esteja inacessível ou sem dados
 const defaultSettings = {
-  theme: "dark",
+  theme: "light",
   colors: {
-    bg: "#000000",
-    accent: "#D1D1D6",
-    text_primary: "#FFFFFF",
-    text_secondary: "#A0A0A0",
-    border: "rgba(255, 255, 255, 0.1)",
+    bg: "#FFFFFF",
+    accent: "#FF4D1C",
+    text_primary: "#000000",
+    text_secondary: "#666666",
+    border: "rgba(0, 0, 0, 0.1)",
   },
   fonts: {
     title_family: "Outfit",
@@ -63,7 +63,8 @@ export default async function RootLayout({
   // Construção da textura Halftone de retícula clássica em 45 graus (staggered 8x8 grid)
   const dotColor = "#000000";
   const encodedDotColor = dotColor.replace("#", "%23");
-  const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='0.5'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='0.5'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='0.5'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='0.5'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='0.5'/%3E%3C/svg%3E`;
+  const dotOpacity = config.theme === "light" ? "0.05" : "0.5";
+  const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3C/svg%3E`;
 
   return (
     <html lang="pt-BR">
