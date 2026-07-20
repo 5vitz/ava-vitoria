@@ -270,6 +270,30 @@ export default function GridManagerClient({
   const dragItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
 
+  // Agrupar imagens dos produtos em pares de 2 no preview do admin
+  const adminCardItems = products.flatMap((prod) => {
+    const images = prod.images;
+    if (images.length === 0) {
+      return [{
+        cardId: `${prod.id}-0`,
+        prod,
+        primaryImage: "/imagens/COLECAO/01.jpg",
+        isLookbook: Number(prod.price) === 0
+      }];
+    }
+
+    const pairs = [];
+    for (let i = 0; i < images.length; i += 2) {
+      pairs.push({
+        cardId: `${prod.id}-${i / 2}`,
+        prod,
+        primaryImage: images[i].image_url,
+        isLookbook: Number(prod.price) === 0
+      });
+    }
+    return pairs;
+  });
+
   const handleDragStart = (e: React.DragEvent, position: number) => {
     dragItem.current = position;
   };
@@ -280,11 +304,30 @@ export default function GridManagerClient({
 
   const handleDragEnd = async () => {
     if (dragItem.current === null || dragOverItem.current === null) return;
+    if (dragItem.current === dragOverItem.current) return;
+
+    const sourceCard = adminCardItems[dragItem.current];
+    const targetCard = adminCardItems[dragOverItem.current];
+
+    if (!sourceCard || !targetCard) return;
+
+    if (sourceCard.prod.id === targetCard.prod.id) {
+      // Arrastou o card de frente/costas do mesmo produto, não faz nada
+      dragItem.current = null;
+      dragOverItem.current = null;
+      return;
+    }
+
+    // Encontra os índices dos produtos correspondentes no array original
+    const sourceProductIndex = products.findIndex((p) => p.id === sourceCard.prod.id);
+    const targetProductIndex = products.findIndex((p) => p.id === targetCard.prod.id);
+
+    if (sourceProductIndex === -1 || targetProductIndex === -1) return;
 
     const copyListItems = [...products];
-    const dragItemContent = copyListItems[dragItem.current];
-    copyListItems.splice(dragItem.current, 1);
-    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
+    const dragItemContent = copyListItems[sourceProductIndex];
+    copyListItems.splice(sourceProductIndex, 1);
+    copyListItems.splice(targetProductIndex, 0, dragItemContent);
 
     dragItem.current = null;
     dragOverItem.current = null;
@@ -305,7 +348,7 @@ export default function GridManagerClient({
       <section className={styles.gridPreview}>
         <div className={styles.sectionHeaderFlex}>
           <div>
-            <h2 className={styles.sectionTitle}>Vitrine da Coleção ({products.length} cards)</h2>
+            <h2 className={styles.sectionTitle}>Vitrine da Coleção ({adminCardItems.length} cards)</h2>
             <p className={styles.sectionSubtitle}>
               Ordene arrastando os cards. Clique para editar detalhes.
             </p>
@@ -337,20 +380,16 @@ export default function GridManagerClient({
         </div>
 
         <div className={styles.storefrontGrid}>
-          {products.map((prod, index) => {
-            const hasImages = prod.images.length > 0;
+          {adminCardItems.map((cardItem, index) => {
+            const prod = cardItem.prod;
             const isSelected = selectedProduct?.id === prod.id;
-
-            const cardTypeClass = prod.card_type === 2 
-              ? styles.cardTipo2 
-              : prod.card_type === 3 
-              ? styles.cardTipo3 
-              : styles.cardTipo1;
+            const imageUrl = cardItem.primaryImage;
+            const isVideo = imageUrl.toLowerCase().endsWith(".mp4");
 
             return (
               <div
-                key={prod.id}
-                className={`${styles.productCardWrapper} ${cardTypeClass} ${
+                key={cardItem.cardId}
+                className={`${styles.productCardWrapper} ${styles.cardTipo1} ${
                   isSelected ? styles.cardWrapperSelected : ""
                 }`}
                 draggable
@@ -361,10 +400,10 @@ export default function GridManagerClient({
                 onClick={() => setSelectedProduct(prod)}
               >
                 <div className={styles.cardImageContainer}>
-                  {hasImages ? (
-                    prod.images[0].image_url.toLowerCase().endsWith(".mp4") ? (
+                  {imageUrl ? (
+                    isVideo ? (
                       <video
-                        src={prod.images[0].image_url}
+                        src={imageUrl}
                         className={styles.cardImage}
                         muted
                         playsInline
@@ -373,7 +412,7 @@ export default function GridManagerClient({
                       />
                     ) : (
                       <img
-                        src={prod.images[0].image_url}
+                        src={imageUrl}
                         alt={prod.name}
                         className={styles.cardImage}
                       />
@@ -385,14 +424,13 @@ export default function GridManagerClient({
                   )}
 
                   <span className={styles.orderBadge}>{index + 1}</span>
-                  {prod.images.length > 1 && (
-                    <span className={styles.mediaCountBadge}>{prod.images.length} mídias</span>
-                  )}
                 </div>
 
                 <div className={styles.cardDetails}>
                   <h4 className={styles.cardName}>{prod.name}</h4>
-                  <p className={styles.cardPrice}>R$ {Number(prod.price).toFixed(2)}</p>
+                  <p className={styles.cardPrice}>
+                    {cardItem.isLookbook ? "LOOKBOOK" : `R$ ${Number(prod.price).toFixed(2)}`}
+                  </p>
                 </div>
               </div>
             );

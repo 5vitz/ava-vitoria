@@ -41,6 +41,32 @@ export default async function Home() {
     })),
   }));
 
+  // Agrupar imagens em pares de 2 (frente/zoom e costas/zoom) para gerar cards independentes
+  const cardItems = serializedProducts.flatMap((product) => {
+    const images = product.images;
+    if (images.length === 0) {
+      return [{
+        cardId: `${product.id}-0`,
+        product,
+        primaryImage: "/imagens/COLECAO/01.jpg",
+        hoverImage: "/imagens/COLECAO/01.jpg"
+      }];
+    }
+
+    const pairs = [];
+    for (let i = 0; i < images.length; i += 2) {
+      const primary = images[i].image_url;
+      const hover = images[i + 1] ? images[i + 1].image_url : primary;
+      pairs.push({
+        cardId: `${product.id}-${i / 2}`,
+        product,
+        primaryImage: primary,
+        hoverImage: hover
+      });
+    }
+    return pairs;
+  });
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -51,10 +77,15 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 3 colunas Balenciaga */}
+          {/* Grid de 4 colunas */}
           <div className={styles.grid}>
-            {serializedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {cardItems.map((item) => (
+              <ProductCard
+                key={item.cardId}
+                product={item.product}
+                primaryImage={item.primaryImage}
+                hoverImage={item.hoverImage}
+              />
             ))}
           </div>
         </section>

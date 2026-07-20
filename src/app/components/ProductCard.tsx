@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,15 +12,18 @@ interface ProductCardProps {
     name: string;
     slug: string;
     price: number;
-    card_type: number;
-    images: {
-      image_url: string;
-    }[];
   };
+  primaryImage: string;
+  hoverImage: string;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  primaryImage,
+  hoverImage,
+}: ProductCardProps) {
   const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleSingleClick = (e: React.MouseEvent) => {
     e.preventDefault(); // Desativa a navegação em clique único (para humanos)
@@ -30,26 +33,42 @@ export default function ProductCard({ product }: ProductCardProps) {
     router.push(`/produtos/${product.slug}`); // Navega no duplo clique
   };
 
-  const imageUrl = product.images.length > 0 
-    ? product.images[0].image_url 
-    : "/imagens/COLECAO/01.jpg"; // Fallback padrão
-
   const isLookbook = Number(product.price) === 0;
+  const hasHover = hoverImage && hoverImage !== primaryImage;
+
+  const imageContent = (
+    <div 
+      className={styles.imageContainer}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Imagem Principal (Frente ou Costas) */}
+      <Image
+        src={primaryImage}
+        alt={product.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        className={`${styles.image} ${hasHover && isHovered ? styles.imageHidden : ""}`}
+        priority
+      />
+
+      {/* Imagem de Zoom no Hover (Arte da Frente ou Arte das Costas) */}
+      {hasHover && (
+        <Image
+          src={hoverImage}
+          alt={`${product.name} Zoom`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className={`${styles.image} ${styles.hoverImage} ${isHovered ? styles.imageVisible : ""}`}
+        />
+      )}
+    </div>
+  );
 
   if (isLookbook) {
     return (
       <div className={styles.card}>
-        {/* Container da Imagem 9:16 */}
-        <div className={styles.imageContainer}>
-          <Image
-            src={imageUrl}
-            alt={product.name}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className={styles.image}
-            priority
-          />
-        </div>
+        {imageContent}
       </div>
     );
   }
@@ -61,17 +80,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       onDoubleClick={handleDoubleClick}
       className={styles.card}
     >
-      {/* Container da Imagem 9:16 */}
-      <div className={styles.imageContainer}>
-        <Image
-          src={imageUrl}
-          alt={product.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className={styles.image}
-          priority
-        />
-      </div>
+      {imageContent}
 
       {/* Informações do Produto (Nome e Preço) */}
       <div className={styles.info}>
