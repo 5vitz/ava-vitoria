@@ -270,29 +270,13 @@ export default function GridManagerClient({
   const dragItem = useRef<number | null>(null);
   const dragOverItem = useRef<number | null>(null);
 
-  // Agrupar imagens dos produtos em pares de 2 no preview do admin
-  const adminCardItems = products.flatMap((prod) => {
-    const images = prod.images;
-    if (images.length === 0) {
-      return [{
-        cardId: `${prod.id}-0`,
-        prod,
-        primaryImage: "/imagens/COLECAO/01.jpg",
-        isLookbook: Number(prod.price) === 0
-      }];
-    }
-
-    const pairs = [];
-    for (let i = 0; i < images.length; i += 2) {
-      pairs.push({
-        cardId: `${prod.id}-${i / 2}`,
-        prod,
-        primaryImage: images[i].image_url,
-        isLookbook: Number(prod.price) === 0
-      });
-    }
-    return pairs;
-  });
+  // Mapeamento 1-para-1 de cada produto para 1 card independente no preview do admin
+  const adminCardItems = products.map((prod) => ({
+    cardId: prod.id,
+    prod,
+    primaryImage: prod.images[0]?.image_url || "/imagens/COLECAO/01.jpg",
+    isLookbook: Number(prod.price) === 0,
+  }));
 
   const handleDragStart = (e: React.DragEvent, position: number) => {
     dragItem.current = position;
@@ -306,28 +290,10 @@ export default function GridManagerClient({
     if (dragItem.current === null || dragOverItem.current === null) return;
     if (dragItem.current === dragOverItem.current) return;
 
-    const sourceCard = adminCardItems[dragItem.current];
-    const targetCard = adminCardItems[dragOverItem.current];
-
-    if (!sourceCard || !targetCard) return;
-
-    if (sourceCard.prod.id === targetCard.prod.id) {
-      // Arrastou o card de frente/costas do mesmo produto, não faz nada
-      dragItem.current = null;
-      dragOverItem.current = null;
-      return;
-    }
-
-    // Encontra os índices dos produtos correspondentes no array original
-    const sourceProductIndex = products.findIndex((p) => p.id === sourceCard.prod.id);
-    const targetProductIndex = products.findIndex((p) => p.id === targetCard.prod.id);
-
-    if (sourceProductIndex === -1 || targetProductIndex === -1) return;
-
     const copyListItems = [...products];
-    const dragItemContent = copyListItems[sourceProductIndex];
-    copyListItems.splice(sourceProductIndex, 1);
-    copyListItems.splice(targetProductIndex, 0, dragItemContent);
+    const dragItemContent = copyListItems[dragItem.current];
+    copyListItems.splice(dragItem.current, 1);
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
 
     dragItem.current = null;
     dragOverItem.current = null;
