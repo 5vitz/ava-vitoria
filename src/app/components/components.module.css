@@ -6,13 +6,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 75px; /* Altura ultra compacta de 75px */
+  height: 135px; /* Barra preta elegante expandida para acomodar a logo dobrada de tamanho */
   display: flex;
   justify-content: space-between; /* Logo na extrema esquerda, Menu + Sacola na extrema direita */
   align-items: center;
   padding: 0 40px; /* Alinhamento lateral com as margens da vitrine */
   border-bottom: none;
-  background: var(--color-bg);
+  background: #000000; /* Fundo totalmente preto */
   z-index: 90;
   transition: all 0.3s ease;
 }
@@ -20,34 +20,33 @@
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;
-    height: 65px;
+    height: 95px;
   }
 }
 
 .logoContainer {
   display: flex;
   align-items: center;
-  height: 60px; /* Moldura ajustada para eliminar margens vazias */
+  height: 110px; /* Moldura dobrada de tamanho (de 60px para 110px) */
   overflow: hidden;
   cursor: pointer;
 }
 
 .logoImage {
   object-fit: contain;
-  height: 95px; /* Ajuste milimétrico para centralização perfeita */
+  height: 180px; /* Logo dobrada e ampliada de forma marcante */
   width: auto;
-  margin-top: -6px; /* 12px de distância entre o topo e a palavra SemLimites */
-  filter: contrast(180%) brightness(115%); /* Elimina o fundo creme transformando-o em branco 100% puro */
-  mix-blend-mode: multiply; /* Mesclagem perfeita com o fundo do site */
+  margin-top: -10px; /* Ajuste preciso do topo para a palavra SemLimites */
+  filter: invert(1) contrast(180%); /* Inverte a logo de preta para branca e o fundo de branco para preto absoluto */
 }
 
 @media (max-width: 768px) {
   .logoContainer {
-    height: 50px;
+    height: 75px;
   }
   .logoImage {
-    height: 75px;
-    margin-top: -4px;
+    height: 120px;
+    margin-top: -6px;
   }
 }
 
@@ -78,7 +77,7 @@
 .menuLink {
   background: transparent;
   border: none;
-  color: var(--color-text-primary);
+  color: #FFFFFF; /* Fonte branca no fundo preto */
   font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 da AVA Vitória */
   font-weight: normal;
   font-size: 1.35rem; /* ~22px */
@@ -97,7 +96,7 @@
 .cartButton {
   background: transparent;
   border: none;
-  color: var(--color-text-primary);
+  color: #FFFFFF; /* Fonte branca no fundo preto */
   font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 */
   font-weight: normal;
   font-size: 1.35rem;
@@ -124,7 +123,7 @@
 
 .cartCountBadge {
   background-color: var(--color-accent);
-  color: #FFFFFF;
+  color: #000000;
   font-family: var(--font-body);
   font-size: 0.7rem;
   font-weight: 700;
