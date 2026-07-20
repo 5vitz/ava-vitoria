@@ -59,7 +59,7 @@ export default async function RootLayout({
   
   const titleFontUrl = titleFontFamily.replace(/ /g, "+");
   const bodyFontUrl = bodyFontFamily.replace(/ /g, "+");
-  const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${titleFontUrl}:wght@400;600;700;800&family=${bodyFontUrl}:wght@200;300;400;500&family=Gruppo&family=Syncopate:wght@700&family=Unbounded:wght@700;900&family=Stardos+Stencil:wght@400&family=Rubik+Spray+Paint&family=Rock+Salt&family=WindSong:wght@400;500&display=swap`;
+  const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${titleFontUrl}:wght@400;600;700;800&family=${bodyFontUrl}:wght@200;300;400;500&family=Gruppo&family=Syncopate:wght@700&family=Unbounded:wght@700;900&family=Stardos+Stencil:wght@400&family=Rubik+Spray+Paint&family=Rock+Salt&family=WindSong:wght@400;500&family=Raleway+Dots&display=swap`;
 
   // Construção da textura Halftone de retícula clássica em 45 graus (staggered 8x8 grid)
   const isLightTheme = config.theme === "light" || config.colors.bg.toLowerCase() === "#ffffff";
