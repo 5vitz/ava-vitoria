@@ -314,6 +314,10 @@
   align-content: start;
 }
 
+.storefrontGrid > *:nth-child(4n + 2) {
+  border-right: 2px solid var(--color-accent) !important;
+}
+
 .productCardWrapper {
   border: 1px solid var(--color-border);
   background-color: rgba(31, 8, 15, 0.3);

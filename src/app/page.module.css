@@ -183,6 +183,13 @@
   margin: 0 auto;
 }
 
+/* Divisor vertical alinhado (1px solid rgba(0,0,0,0.22)) que separa os pares de camisetas entre o card 2 e o card 3 em cada linha */
+@media (min-width: 1025px) {
+  .grid > *:nth-child(4n + 2) {
+    border-right: 1px solid rgba(0, 0, 0, 0.22);
+  }
+}
+
 @media (max-width: 1024px) {
   .sectionHeader {
     max-width: 720px; /* Ajusta largura para 2 colunas: 2 * 360 */
