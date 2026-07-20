@@ -61,7 +61,7 @@
   font-family: var(--font-title);
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--color-text-primary);
+  color: #000000; /* Preto sólido com visibilidade total sobre o fundo claro */
   text-transform: none; /* Permite letras minúsculas e maiúsculas */
   letter-spacing: 0.5px;
   line-height: 1.35;
@@ -77,7 +77,7 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.85rem;
-  color: var(--color-text-primary);
+  color: #000000; /* Preto sólido com visibilidade total */
   margin: 0;
   text-align: center;
 }
