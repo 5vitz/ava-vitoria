@@ -52,6 +52,10 @@ export default function ProductCard({ product, images }: ProductCardProps) {
     router.push(`/produtos/${product.slug}`);
   };
 
+  const handleMouseLeave = () => {
+    setCurrentIndex(0); // Retorna automaticamente para a 1ª imagem (capa da frente)
+  };
+
   const isLookbook = Number(product.price) === 0;
 
   const currentImgUrl = imageList[currentIndex] || imageList[0];
@@ -109,7 +113,7 @@ export default function ProductCard({ product, images }: ProductCardProps) {
 
   if (isLookbook) {
     return (
-      <div className={styles.card}>
+      <div className={styles.card} onMouseLeave={handleMouseLeave}>
         {carouselContent}
       </div>
     );
@@ -120,6 +124,7 @@ export default function ProductCard({ product, images }: ProductCardProps) {
       href={`/produtos/${product.slug}`}
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
+      onMouseLeave={handleMouseLeave}
       className={styles.card}
     >
       {carouselContent}
