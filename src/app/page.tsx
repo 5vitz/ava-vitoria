@@ -41,30 +41,21 @@ export default async function Home() {
     })),
   }));
 
-  // Agrupar imagens em pares de 2 (frente/zoom e costas/zoom) para gerar cards independentes
-  const cardItems = serializedProducts.flatMap((product) => {
+  // Preparar os pares de imagens (Frente/Zoom e Costas/Zoom) para cada produto da vitrine
+  const productPairs = serializedProducts.map((product) => {
     const images = product.images;
-    if (images.length === 0) {
-      return [{
-        cardId: `${product.id}-0`,
-        product,
-        primaryImage: "/imagens/COLECAO/01.jpg",
-        hoverImage: "/imagens/COLECAO/01.jpg"
-      }];
-    }
+    const frontImage = images[0]?.image_url || "/imagens/COLECAO/01.jpg";
+    const frontHoverImage = images[1] ? images[1].image_url : frontImage;
+    const backImage = images[2] ? images[2].image_url : (images[1] ? images[1].image_url : frontImage);
+    const backHoverImage = images[3] ? images[3].image_url : backImage;
 
-    const pairs = [];
-    for (let i = 0; i < images.length; i += 2) {
-      const primary = images[i].image_url;
-      const hover = images[i + 1] ? images[i + 1].image_url : primary;
-      pairs.push({
-        cardId: `${product.id}-${i / 2}`,
-        product,
-        primaryImage: primary,
-        hoverImage: hover
-      });
-    }
-    return pairs;
+    return {
+      product,
+      frontImage,
+      frontHoverImage,
+      backImage,
+      backHoverImage,
+    };
   });
 
   return (
@@ -77,14 +68,16 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 4 colunas */}
+          {/* Grid de 2 pares por linha (4 cards no total) */}
           <div className={styles.grid}>
-            {cardItems.map((item) => (
+            {productPairs.map((item) => (
               <ProductCard
-                key={item.cardId}
+                key={item.product.id}
                 product={item.product}
-                primaryImage={item.primaryImage}
-                hoverImage={item.hoverImage}
+                frontImage={item.frontImage}
+                frontHoverImage={item.frontHoverImage}
+                backImage={item.backImage}
+                backHoverImage={item.backHoverImage}
               />
             ))}
           </div>

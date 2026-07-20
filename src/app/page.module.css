@@ -172,10 +172,10 @@
   border-bottom: 1px dashed var(--color-accent);
 }
 
-/* GRID DE 3 COLUNAS - TOQUE DE IMAGENS COM ESPAÇAMENTO DE 1PX E BORDA EXTERNA */
+/* GRID DE PARES DE CAMISETAS - 2 PARES POR LINHA NO DESKTOP */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 360px));
+  grid-template-columns: repeat(2, minmax(0, 720px));
   gap: 0px; /* Sem espaçamento para junção perfeita */
   justify-content: center;
   max-width: 1440px;
@@ -183,27 +183,27 @@
   margin: 0 auto;
 }
 
-/* Divisor horizontal passando imediatamente abaixo de cada card (abaixo do nome e preço) */
+/* Divisor horizontal passando imediatamente abaixo de cada par de produto (abaixo do nome e preço centralizados) */
 .grid > * {
   border-bottom: 1px solid rgba(0, 0, 0, 0.22);
 }
 
-/* Divisor vertical (1px solid rgba(0,0,0,0.22)) que separa os pares de camisetas entre o card 2 e o card 3 em cada linha */
+/* Divisor vertical (1px solid rgba(0,0,0,0.22)) que separa o par da esquerda do par da direita em cada linha */
 @media (min-width: 1025px) {
-  .grid > *:nth-child(4n + 2) {
+  .grid > *:nth-child(2n + 1) {
     border-right: 1px solid rgba(0, 0, 0, 0.22);
   }
 }
 
 @media (max-width: 1024px) {
   .sectionHeader {
-    max-width: 720px; /* Ajusta largura para 2 colunas: 2 * 360 */
+    max-width: 720px;
   }
   .sectionTitle {
     font-size: 52px;
   }
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 360px));
+    grid-template-columns: 1fr;
     gap: 0px;
     max-width: 720px;
     justify-content: center;

@@ -1,4 +1,4 @@
-.card {
+.pairCard {
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
@@ -6,11 +6,19 @@
   position: relative;
   width: 100%;
   cursor: pointer;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.imagesRow {
+  display: flex;
+  width: 100%;
+  position: relative;
 }
 
 .imageContainer {
   position: relative;
-  width: 100%;
+  flex: 1;
   aspect-ratio: 9 / 16;
   background: var(--color-bg);
   overflow: hidden;
@@ -40,28 +48,28 @@
   opacity: 0;
 }
 
-.card:hover .image {
-  transform: scale(1.02); /* Zoom sutil e elegante */
+.pairCard:hover .image {
+  transform: scale(1.02);
 }
 
-/* Informações do Produto (Diretamente sobre o fundo BG, sem caixa/overlay) */
-.info {
-  padding: 16px 12px;
+/* Informações do Produto (Centralizadas abaixo das duas imagens contíguas) */
+.pairInfo {
+  padding: 18px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: transparent;
-  min-height: 80px; /* Acomoda de 2 a 3 linhas com respiro */
-  gap: 6px;
+  min-height: 65px;
+  gap: 4px;
 }
 
 .name {
   font-family: var(--font-title);
   font-weight: 500;
   font-size: 0.95rem;
-  color: #000000; /* Preto sólido com visibilidade total sobre o fundo claro */
+  color: #000000; /* Preto sólido sobre o fundo claro */
   text-transform: none; /* Permite letras minúsculas e maiúsculas */
   letter-spacing: 0.5px;
   line-height: 1.35;
@@ -77,7 +85,7 @@
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.85rem;
-  color: #000000; /* Preto sólido com visibilidade total */
+  color: #000000; /* Preto sólido */
   margin: 0;
   text-align: center;
 }
