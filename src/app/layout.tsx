@@ -3,6 +3,7 @@ import "./globals.css";
 import { prisma } from "@/lib/db";
 import { CartProvider } from "@/lib/cartContext";
 import { AudioProvider } from "@/lib/audioContext";
+import Header from "@/app/components/Header";
 import CartDrawer from "@/app/components/CartDrawer";
 
 export const metadata: Metadata = {
@@ -106,6 +107,7 @@ export default async function RootLayout({
       <body>
         <AudioProvider>
           <CartProvider>
+            <Header />
             {children}
             <CartDrawer />
           </CartProvider>
