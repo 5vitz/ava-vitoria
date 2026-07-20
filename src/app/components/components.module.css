@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 95px; /* Altura compacta reduzida drasticamente de 230px para 95px */
+  height: 75px; /* Altura ultra compacta de 75px */
   display: flex;
   justify-content: space-between; /* Logo na extrema esquerda, Menu + Sacola na extrema direita */
   align-items: center;
@@ -20,34 +20,34 @@
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;
-    height: 75px;
+    height: 65px;
   }
 }
 
 .logoContainer {
   display: flex;
   align-items: center;
-  height: 80px; /* Moldura enxuta para recortar a área vazia do arquivo JPG */
+  height: 60px; /* Moldura ajustada para eliminar margens vazias */
   overflow: hidden;
   cursor: pointer;
 }
 
 .logoImage {
   object-fit: contain;
-  height: 125px; /* Imagem ampliada que preenche a moldura sem o vão morto superior/inferior */
+  height: 95px; /* Ajuste milimétrico para centralização perfeita */
   width: auto;
-  margin-top: -8px; /* Ajuste de 12px no topo para a palavra SemLimites */
+  margin-top: -6px; /* 12px de distância entre o topo e a palavra SemLimites */
   filter: contrast(180%) brightness(115%); /* Elimina o fundo creme transformando-o em branco 100% puro */
   mix-blend-mode: multiply; /* Mesclagem perfeita com o fundo do site */
 }
 
 @media (max-width: 768px) {
   .logoContainer {
-    height: 60px;
+    height: 50px;
   }
   .logoImage {
-    height: 90px;
-    margin-top: -5px;
+    height: 75px;
+    margin-top: -4px;
   }
 }
 

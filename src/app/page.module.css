@@ -109,17 +109,17 @@
 }
 
 .collectionSection {
-  padding: 40px 32px; /* Padding lateral em sintonia com a vitrine */
+  padding: 12px 32px 40px 32px; /* Padding superior enxuto para igualar o espaço acima e abaixo da logo */
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  border-top: none; /* Removido o divisor preto de fora a fora */
+  gap: 30px;
+  border-top: none;
 }
 
 @media (max-width: 768px) {
   .collectionSection {
-    padding: 30px 16px;
-    gap: 30px;
+    padding: 10px 16px 30px 16px;
+    gap: 20px;
   }
 }
 
@@ -127,9 +127,10 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-top: 1px solid rgba(0, 0, 0, 0.22); /* Divisor de cima: cinza mais encorpado alinhado aos cards */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor de baixo: exatamente idêntico ao de cima */
-  padding: 18px 0; /* Espaçamento interno equilibrado entre o título e as linhas */
+  border-top: 1px solid rgba(0, 0, 0, 0.22); /* Divisor único superior alinhado aos cards */
+  border-bottom: none; /* ELIMINADO o divisor de baixo */
+  padding-top: 15px;
+  padding-bottom: 0px;
   max-width: 1440px; /* Largura idêntica à do grid no desktop (4 * 360px) */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
