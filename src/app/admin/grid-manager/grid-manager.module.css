@@ -309,7 +309,7 @@
   overflow-y: auto;
   padding: 15px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   align-content: start;
 }
@@ -1036,25 +1036,13 @@
 }
 
 /* Modificações de layout para múltiplos tipos de cards (Admin Preview) */
-.cardTipo1 {
+.cardTipo1, .cardTipo2, .cardTipo3 {
   grid-column: span 1;
 }
-.cardTipo1 .cardImageContainer {
-  aspect-ratio: 9 / 16;
-}
-
-.cardTipo2 {
-  grid-column: span 2;
-}
-.cardTipo2 .cardImageContainer {
-  aspect-ratio: 93 / 80; /* 744 x 640 */
-}
-
-.cardTipo3 {
-  grid-column: span 3;
-}
+.cardTipo1 .cardImageContainer,
+.cardTipo2 .cardImageContainer,
 .cardTipo3 .cardImageContainer {
-  aspect-ratio: 141 / 80; /* 1128 x 640 */
+  aspect-ratio: 9 / 16;
 }
 
 /* Player do Editor adaptável */

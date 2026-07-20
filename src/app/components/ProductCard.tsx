@@ -34,18 +34,32 @@ export default function ProductCard({ product }: ProductCardProps) {
     ? product.images[0].image_url 
     : "/imagens/COLECAO/01.jpg"; // Fallback padrão
 
-  const cardTypeClass = product.card_type === 2 
-    ? styles.cardTipo2 
-    : product.card_type === 3 
-    ? styles.cardTipo3 
-    : styles.cardTipo1;
+  const isLookbook = Number(product.price) === 0;
+
+  if (isLookbook) {
+    return (
+      <div className={styles.card}>
+        {/* Container da Imagem 9:16 */}
+        <div className={styles.imageContainer}>
+          <Image
+            src={imageUrl}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className={styles.image}
+            priority
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <Link 
       href={`/produtos/${product.slug}`}
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
-      className={`${styles.card} ${cardTypeClass}`}
+      className={styles.card}
     >
       {/* Container da Imagem 9:16 */}
       <div className={styles.imageContainer}>
@@ -53,7 +67,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           src={imageUrl}
           alt={product.name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className={styles.image}
           priority
         />
@@ -63,9 +77,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
         <span className={styles.price}>
-          {Number(product.price) > 0 
-            ? `R$ ${Number(product.price).toFixed(2)}` 
-            : "No Price"}
+          R$ {Number(product.price).toFixed(2)}
         </span>
       </div>
     </Link>
