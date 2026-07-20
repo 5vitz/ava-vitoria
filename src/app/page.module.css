@@ -135,11 +135,11 @@
 }
 
 .sectionTitle {
-  font-family: 'Rock Salt', cursive;
-  font-weight: 400;
-  font-size: 42px;
+  font-family: 'WindSong', cursive;
+  font-weight: 500;
+  font-size: 64px;
   letter-spacing: 1px;
-  text-transform: uppercase;
+  text-transform: none; /* Preserva as maiúsculas apenas no início: Summer Collection - 2027 */
   color: #000000;
 }
 
