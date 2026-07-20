@@ -1,4 +1,4 @@
-.quadCard {
+.card {
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
@@ -8,19 +8,6 @@
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
-}
-
-.quadGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  width: 100%;
-  gap: 0px;
-}
-
-@media (max-width: 768px) {
-  .quadGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .imageContainer {
@@ -33,32 +20,51 @@
 
 .image {
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  opacity: 1;
 }
 
-.quadCard:hover .image {
-  transform: scale(1.02); /* Zoom sutil ao passar o mouse */
+.hoverImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Informações do Produto (Centralizadas abaixo dos 4 cards) */
-.quadInfo {
-  padding: 18px 15px;
+.imageVisible {
+  opacity: 1 !important;
+}
+
+.imageHidden {
+  opacity: 0;
+}
+
+.card:hover .image {
+  transform: scale(1.02);
+}
+
+/* Informações do Produto (Texto em preto legível diretamente sobre o fundo claro) */
+.info {
+  padding: 14px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: transparent;
-  min-height: 65px;
+  min-height: 60px;
   gap: 4px;
 }
 
 .name {
   font-family: var(--font-title);
   font-weight: 500;
-  font-size: 0.95rem;
-  color: #000000; /* Preto sólido */
-  text-transform: none; /* Permite letras minúsculas e maiúsculas */
+  font-size: 0.9rem;
+  color: #000000; /* Preto sólido legível */
+  text-transform: none; /* Permite minúsculas */
   letter-spacing: 0.5px;
   line-height: 1.35;
   margin: 0;

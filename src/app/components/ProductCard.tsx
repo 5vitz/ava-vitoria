@@ -1,32 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./ProductCard.module.css";
 
-interface ProductQuadCardProps {
+interface ProductCardProps {
   product: {
     id: string;
     name: string;
     slug: string;
     price: number;
   };
-  frontImage: string;
-  frontZoomImage: string;
-  backImage: string;
-  backZoomImage: string;
+  primaryImage: string;
+  hoverImage?: string;
 }
 
 export default function ProductCard({
   product,
-  frontImage,
-  frontZoomImage,
-  backImage,
-  backZoomImage,
-}: ProductQuadCardProps) {
+  primaryImage,
+  hoverImage,
+}: ProductCardProps) {
   const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
 
   const handleSingleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -37,35 +34,41 @@ export default function ProductCard({
   };
 
   const isLookbook = Number(product.price) === 0;
+  const hasHover = hoverImage && hoverImage !== primaryImage;
 
-  const quadImages = [
-    { id: "front", src: frontImage, alt: `${product.name} Frente` },
-    { id: "front-zoom", src: frontZoomImage, alt: `${product.name} Detalhe Frente` },
-    { id: "back", src: backImage, alt: `${product.name} Costas` },
-    { id: "back-zoom", src: backZoomImage, alt: `${product.name} Detalhe Costas` },
-  ];
+  const imageContent = (
+    <div 
+      className={styles.imageContainer}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Imagem Principal do Card */}
+      <Image
+        src={primaryImage}
+        alt={product.name}
+        fill
+        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        className={`${styles.image} ${hasHover && isHovered ? styles.imageHidden : ""}`}
+        priority
+      />
 
-  const imagesContent = (
-    <div className={styles.quadGrid}>
-      {quadImages.map((img) => (
-        <div key={img.id} className={styles.imageContainer}>
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            className={styles.image}
-            priority
-          />
-        </div>
-      ))}
+      {/* Imagem Secundária no Hover (se configurada) */}
+      {hasHover && (
+        <Image
+          src={hoverImage}
+          alt={`${product.name} Zoom`}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className={`${styles.image} ${styles.hoverImage} ${isHovered ? styles.imageVisible : ""}`}
+        />
+      )}
     </div>
   );
 
   if (isLookbook) {
     return (
-      <div className={styles.quadCard}>
-        {imagesContent}
+      <div className={styles.card}>
+        {imageContent}
       </div>
     );
   }
@@ -75,12 +78,12 @@ export default function ProductCard({
       href={`/produtos/${product.slug}`}
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
-      className={styles.quadCard}
+      className={styles.card}
     >
-      {imagesContent}
+      {imageContent}
 
-      {/* Informações do Produto (Nome e Preço centralizados abaixo dos 4 cards) */}
-      <div className={styles.quadInfo}>
+      {/* Informações do Produto (Nome e Preço em preto sobre o fundo claro) */}
+      <div className={styles.info}>
         <h3 className={styles.name}>{product.name}</h3>
         <span className={styles.price}>
           R$ {Number(product.price).toFixed(2)}

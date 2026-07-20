@@ -41,20 +41,15 @@ export default async function Home() {
     })),
   }));
 
-  // Preparar os 4 cards de imagens por produto (1: Frente, 2: Frente Detalhe, 3: Costas, 4: Costas Detalhe)
-  const productQuads = serializedProducts.map((product) => {
-    const images = product.images;
-    const frontImage = images[0]?.image_url || "/imagens/COLECAO/01.jpg";
-    const frontZoomImage = images[1] ? images[1].image_url : frontImage;
-    const backImage = images[2] ? images[2].image_url : (images[1] ? images[1].image_url : frontImage);
-    const backZoomImage = images[3] ? images[3].image_url : backImage;
-
+  // Mapeamento 1-para-1 com os cards configurados no Painel (/admin/grid-manager)
+  const cardItems = serializedProducts.map((product) => {
+    const primary = product.images[0]?.image_url || "/imagens/COLECAO/01.jpg";
+    const hover = product.images[1] ? product.images[1].image_url : primary;
     return {
+      cardId: product.id,
       product,
-      frontImage,
-      frontZoomImage,
-      backImage,
-      backZoomImage,
+      primaryImage: primary,
+      hoverImage: hover,
     };
   });
 
@@ -68,16 +63,14 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 1 produto por linha (4 cards estáticos no total) */}
+          {/* Grid de 4 colunas em sintonia total com o Painel */}
           <div className={styles.grid}>
-            {productQuads.map((item) => (
+            {cardItems.map((item) => (
               <ProductCard
-                key={item.product.id}
+                key={item.cardId}
                 product={item.product}
-                frontImage={item.frontImage}
-                frontZoomImage={item.frontZoomImage}
-                backImage={item.backImage}
-                backZoomImage={item.backZoomImage}
+                primaryImage={item.primaryImage}
+                hoverImage={item.hoverImage}
               />
             ))}
           </div>
