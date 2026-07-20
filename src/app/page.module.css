@@ -172,41 +172,27 @@
   border-bottom: 1px dashed var(--color-accent);
 }
 
-/* GRID DE PARES DE CAMISETAS - 2 PARES POR LINHA NO DESKTOP */
+/* GRID DE SHOWCASE DE PRODUTOS (4 CARDS POR LINHA) */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 720px));
-  gap: 0px; /* Sem espaçamento para junção perfeita */
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Divisor horizontal passando imediatamente abaixo de cada par de produto (abaixo do nome e preço centralizados) */
+/* Divisor horizontal passando imediatamente abaixo de cada vitrine de produto de 4 cards */
 .grid > * {
   border-bottom: 1px solid rgba(0, 0, 0, 0.22);
 }
 
-/* Divisor vertical (1px solid rgba(0,0,0,0.22)) que separa o par da esquerda do par da direita em cada linha */
-@media (min-width: 1025px) {
-  .grid > *:nth-child(2n + 1) {
-    border-right: 1px solid rgba(0, 0, 0, 0.22);
-  }
-}
-
 @media (max-width: 1024px) {
   .sectionHeader {
-    max-width: 720px;
+    max-width: 100%;
   }
   .sectionTitle {
     font-size: 52px;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 0px;
-    max-width: 720px;
-    justify-content: center;
   }
 }
 

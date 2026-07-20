@@ -41,20 +41,20 @@ export default async function Home() {
     })),
   }));
 
-  // Preparar os pares de imagens (Frente/Zoom e Costas/Zoom) para cada produto da vitrine
-  const productPairs = serializedProducts.map((product) => {
+  // Preparar os 4 cards de imagens por produto (1: Frente, 2: Frente Detalhe, 3: Costas, 4: Costas Detalhe)
+  const productQuads = serializedProducts.map((product) => {
     const images = product.images;
     const frontImage = images[0]?.image_url || "/imagens/COLECAO/01.jpg";
-    const frontHoverImage = images[1] ? images[1].image_url : frontImage;
+    const frontZoomImage = images[1] ? images[1].image_url : frontImage;
     const backImage = images[2] ? images[2].image_url : (images[1] ? images[1].image_url : frontImage);
-    const backHoverImage = images[3] ? images[3].image_url : backImage;
+    const backZoomImage = images[3] ? images[3].image_url : backImage;
 
     return {
       product,
       frontImage,
-      frontHoverImage,
+      frontZoomImage,
       backImage,
-      backHoverImage,
+      backZoomImage,
     };
   });
 
@@ -68,16 +68,16 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 2 pares por linha (4 cards no total) */}
+          {/* Grid de 1 produto por linha (4 cards estáticos no total) */}
           <div className={styles.grid}>
-            {productPairs.map((item) => (
+            {productQuads.map((item) => (
               <ProductCard
                 key={item.product.id}
                 product={item.product}
                 frontImage={item.frontImage}
-                frontHoverImage={item.frontHoverImage}
+                frontZoomImage={item.frontZoomImage}
                 backImage={item.backImage}
-                backHoverImage={item.backHoverImage}
+                backZoomImage={item.backZoomImage}
               />
             ))}
           </div>

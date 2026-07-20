@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./ProductCard.module.css";
 
-interface ProductPairCardProps {
+interface ProductQuadCardProps {
   product: {
     id: string;
     name: string;
@@ -14,21 +14,19 @@ interface ProductPairCardProps {
     price: number;
   };
   frontImage: string;
-  frontHoverImage?: string;
+  frontZoomImage: string;
   backImage: string;
-  backHoverImage?: string;
+  backZoomImage: string;
 }
 
 export default function ProductCard({
   product,
   frontImage,
-  frontHoverImage,
+  frontZoomImage,
   backImage,
-  backHoverImage,
-}: ProductPairCardProps) {
+  backZoomImage,
+}: ProductQuadCardProps) {
   const router = useRouter();
-  const [isHoveredFront, setIsHoveredFront] = useState(false);
-  const [isHoveredBack, setIsHoveredBack] = useState(false);
 
   const handleSingleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -40,66 +38,33 @@ export default function ProductCard({
 
   const isLookbook = Number(product.price) === 0;
 
-  const hasFrontHover = !!(frontHoverImage && frontHoverImage !== frontImage);
-  const hasBackHover = !!(backHoverImage && backHoverImage !== backImage);
+  const quadImages = [
+    { id: "front", src: frontImage, alt: `${product.name} Frente` },
+    { id: "front-zoom", src: frontZoomImage, alt: `${product.name} Detalhe Frente` },
+    { id: "back", src: backImage, alt: `${product.name} Costas` },
+    { id: "back-zoom", src: backZoomImage, alt: `${product.name} Detalhe Costas` },
+  ];
 
   const imagesContent = (
-    <div className={styles.imagesRow}>
-      {/* Card 1: Visão da Frente */}
-      <div 
-        className={styles.imageContainer}
-        onMouseEnter={() => setIsHoveredFront(true)}
-        onMouseLeave={() => setIsHoveredFront(false)}
-      >
-        <Image
-          src={frontImage}
-          alt={`${product.name} Frente`}
-          fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
-          className={`${styles.image} ${hasFrontHover && isHoveredFront ? styles.imageHidden : ""}`}
-          priority
-        />
-        {hasFrontHover && (
+    <div className={styles.quadGrid}>
+      {quadImages.map((img) => (
+        <div key={img.id} className={styles.imageContainer}>
           <Image
-            src={frontHoverImage!}
-            alt={`${product.name} Frente Zoom`}
+            src={img.src}
+            alt={img.alt}
             fill
-            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
-            className={`${styles.image} ${styles.hoverImage} ${isHoveredFront ? styles.imageVisible : ""}`}
+            sizes="(max-width: 768px) 50vw, 25vw"
+            className={styles.image}
+            priority
           />
-        )}
-      </div>
-
-      {/* Card 2: Visão das Costas */}
-      <div 
-        className={styles.imageContainer}
-        onMouseEnter={() => setIsHoveredBack(true)}
-        onMouseLeave={() => setIsHoveredBack(false)}
-      >
-        <Image
-          src={backImage}
-          alt={`${product.name} Costas`}
-          fill
-          sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
-          className={`${styles.image} ${hasBackHover && isHoveredBack ? styles.imageHidden : ""}`}
-          priority
-        />
-        {hasBackHover && (
-          <Image
-            src={backHoverImage!}
-            alt={`${product.name} Costas Zoom`}
-            fill
-            sizes="(max-width: 768px) 50vw, (max-width: 1024px) 50vw, 25vw"
-            className={`${styles.image} ${styles.hoverImage} ${isHoveredBack ? styles.imageVisible : ""}`}
-          />
-        )}
-      </div>
+        </div>
+      ))}
     </div>
   );
 
   if (isLookbook) {
     return (
-      <div className={styles.pairCard}>
+      <div className={styles.quadCard}>
         {imagesContent}
       </div>
     );
@@ -110,12 +75,12 @@ export default function ProductCard({
       href={`/produtos/${product.slug}`}
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
-      className={styles.pairCard}
+      className={styles.quadCard}
     >
       {imagesContent}
 
-      {/* Informações do Produto (Nome e Preço centralizados abaixo do par de cards) */}
-      <div className={styles.pairInfo}>
+      {/* Informações do Produto (Nome e Preço centralizados abaixo dos 4 cards) */}
+      <div className={styles.quadInfo}>
         <h3 className={styles.name}>{product.name}</h3>
         <span className={styles.price}>
           R$ {Number(product.price).toFixed(2)}
