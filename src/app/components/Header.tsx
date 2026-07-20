@@ -17,8 +17,8 @@ export default function Header() {
           <Image
             src="/imagens/LOGO/LOGO AVA PRETO-100.jpg"
             alt="AVA Vitória Logo"
-            width={240}
-            height={120}
+            width={400}
+            height={200}
             className={styles.logoImage}
             priority
           />

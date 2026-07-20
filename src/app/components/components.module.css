@@ -6,7 +6,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 120px; /* Aumentado para acomodar a logo em tamanho dobrado */
+  height: 230px; /* Acomoda com respiro a logo de 200px de altura */
   display: flex;
   justify-content: space-between; /* Logo na extrema esquerda, Menu + Sacola na extrema direita */
   align-items: center;
@@ -20,7 +20,7 @@
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;
-    height: 85px;
+    height: 120px;
   }
 }
 
@@ -32,7 +32,7 @@
 
 .logoImage {
   object-fit: contain;
-  height: 85px; /* Tamanho dobrado */
+  height: 200px; /* Altura exata de 200px */
   width: auto;
   filter: contrast(180%) brightness(115%); /* Elimina o fundo creme transformando-o em branco 100% puro */
   mix-blend-mode: multiply; /* Mesclagem perfeita com o fundo do site */
@@ -40,7 +40,7 @@
 
 @media (max-width: 768px) {
   .logoImage {
-    height: 55px;
+    height: 100px;
   }
 }
 
