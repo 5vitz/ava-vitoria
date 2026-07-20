@@ -41,18 +41,6 @@ export default async function Home() {
     })),
   }));
 
-  // Mapeamento 1-para-1 com os cards configurados no Painel (/admin/grid-manager)
-  const cardItems = serializedProducts.map((product) => {
-    const primary = product.images[0]?.image_url || "/imagens/COLECAO/01.jpg";
-    const hover = product.images[1] ? product.images[1].image_url : primary;
-    return {
-      cardId: product.id,
-      product,
-      primaryImage: primary,
-      hoverImage: hover,
-    };
-  });
-
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -63,14 +51,13 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 4 colunas em sintonia total com o Painel */}
+          {/* Grid de 3 colunas com Product Cards em Carrossel estilo Instagram */}
           <div className={styles.grid}>
-            {cardItems.map((item) => (
+            {serializedProducts.map((product) => (
               <ProductCard
-                key={item.cardId}
-                product={item.product}
-                primaryImage={item.primaryImage}
-                hoverImage={item.hoverImage}
+                key={product.id}
+                product={product}
+                images={product.images}
               />
             ))}
           </div>
