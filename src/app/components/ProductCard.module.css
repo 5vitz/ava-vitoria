@@ -44,44 +44,40 @@
   transform: scale(1.02); /* Zoom sutil e elegante */
 }
 
-/* Informações do Produto */
+/* Informações do Produto (Diretamente sobre o fundo BG, sem caixa/overlay) */
 .info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 15px 20px;
+  padding: 16px 12px;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  background: rgba(0, 0, 0, 0.55); /* Fundo Preto translúcido */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Suporte para Safari */
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  z-index: 5;
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.card:hover .info {
-  background: rgba(0, 0, 0, 0.75); /* Fundo mais visível e escuro no hover */
-  border-top-color: rgba(209, 209, 214, 0.25); /* Leve toque prata na borda superior */
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  min-height: 80px; /* Acomoda de 2 a 3 linhas com respiro */
+  gap: 6px;
 }
 
 .name {
   font-family: var(--font-title);
   font-weight: 500;
   font-size: 0.95rem;
-  color: #FFFFFF;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  color: var(--color-text-primary);
+  text-transform: none; /* Permite letras minúsculas e maiúsculas */
+  letter-spacing: 0.5px;
+  line-height: 1.35;
   margin: 0;
-  line-height: 1.3;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* No máximo 2 linhas para o nome/descrição */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .price {
   font-family: var(--font-body);
   font-weight: 400;
   font-size: 0.85rem;
-  color: #FFFFFF;
+  color: var(--color-text-primary);
   margin: 0;
+  text-align: center;
 }
