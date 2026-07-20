@@ -37,7 +37,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [hasEnteredStore, setHasEnteredStore] = useState(globalHasEnteredStore);
 
   useEffect(() => {
-    // Inicializa o áudio global no client-side uma única vez
+    // Inicializa o áudio global no client-side uma única vez (Desativado por enquanto)
+    /*
     if (typeof window !== 'undefined' && !globalAudio) {
       globalAudio = new Audio('/trilhas/No Limits.mp3');
       globalAudio.preload = 'auto';
@@ -46,6 +47,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       globalAudio.volume = globalVolume;
       globalAudio.muted = globalIsMuted;
     }
+    */
 
     const syncState = () => {
       setIsPlaying(globalIsPlaying);

@@ -2,7 +2,6 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import ProductCard from "@/app/components/ProductCard";
 import CartStatus from "@/app/components/CartStatus";
-import HeroVideo from "@/app/components/HeroVideo";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -45,12 +44,6 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        {/* Banner Hero Conceitual Limpo com Vídeo Animado */}
-        <HeroVideo
-          videoSrc="/imagens/IA/Skateboarder_video_otimizado.mp4"
-          posterSrc="/imagens/IA/Frame_Inicial_16_9.jpeg"
-        />
-
         {/* Seção da Vitrine de Produtos */}
         <section id="vitrine" className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
