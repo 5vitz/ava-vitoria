@@ -109,16 +109,16 @@
 }
 
 .collectionSection {
-  padding: 60px 32px; /* 32px de padding lateral para dar respiro e alinhamento perfeito */
+  padding: 40px 32px; /* Padding lateral em sintonia com a vitrine */
   display: flex;
   flex-direction: column;
   gap: 40px;
-  border-top: 1px solid #000000;
+  border-top: none; /* Removido o divisor preto de fora a fora */
 }
 
 @media (max-width: 768px) {
   .collectionSection {
-    padding: 40px 16px; /* 16px de padding lateral no mobile */
+    padding: 30px 16px;
     gap: 30px;
   }
 }
@@ -127,8 +127,9 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 1px solid var(--color-border);
-  padding: 0 0 15px 0; /* Alinhamento estrito com a borda lateral da primeira coluna */
+  border-top: 1px solid rgba(0, 0, 0, 0.22); /* Divisor de cima: cinza mais encorpado alinhado aos cards */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor de baixo: exatamente idêntico ao de cima */
+  padding: 18px 0; /* Espaçamento interno equilibrado entre o título e as linhas */
   max-width: 1440px; /* Largura idêntica à do grid no desktop (4 * 360px) */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
