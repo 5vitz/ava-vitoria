@@ -6,24 +6,21 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px;
+  height: 90px;
   display: flex;
-  justify-content: flex-end; /* Alinha tudo à direita */
+  justify-content: space-between; /* Logo na extrema esquerda, Menu + Sacola na extrema direita */
   align-items: center;
-  padding: 0 40px; /* Alinhamento estrito */
+  padding: 0 40px; /* Alinhamento estrito com as margens da vitrine */
   border-bottom: none;
-  background: transparent;
-  backdrop-filter: none;
+  background: var(--color-bg);
   z-index: 90;
-  gap: 40px; /* Espaço entre o Logo, o Menu e a Sacola */
   transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
   .header {
     padding: 0 20px;
-    height: 70px;
-    gap: 20px; /* Espaço menor no mobile */
+    height: 75px;
   }
 }
 
@@ -33,70 +30,98 @@
   cursor: pointer;
 }
 
-.logoText {
-  font-family: var(--font-title);
-  font-weight: var(--font-title-weight);
-  font-size: 1.4rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--color-text-primary);
-}
-
 .logoImage {
   object-fit: contain;
+  filter: contrast(180%) brightness(115%); /* Elimina o fundo creme transformando-o em branco 100% puro */
+  mix-blend-mode: multiply; /* Mesclagem perfeita com o fundo do site */
+}
+
+.rightNav {
+  display: flex;
+  align-items: center;
+  gap: 35px; /* Espaço entre o menu de navegação e o botão de sacola */
+}
+
+@media (max-width: 768px) {
+  .rightNav {
+    gap: 15px;
+  }
 }
 
 .headerMenu {
   display: flex;
   align-items: center;
-  gap: 25px; /* Espaço entre os links do menu */
+  gap: 30px; /* Espaço entre os links do menu */
 }
 
 @media (max-width: 768px) {
   .headerMenu {
-    gap: 15px; /* Links mais compactos no mobile */
+    gap: 15px;
   }
 }
 
 .menuLink {
   background: transparent;
   border: none;
-  color: var(--color-text-primary); /* Adapta-se ao tema */
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  color: var(--color-text-primary);
+  font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 da AVA Vitória */
+  font-weight: normal;
+  font-size: 1.35rem; /* ~22px */
+  letter-spacing: 1px;
   cursor: pointer;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
   padding: 5px 0;
 }
 
 .menuLink:hover {
   color: var(--color-accent);
+  transform: translateY(-1px);
 }
 
 .cartButton {
   background: transparent;
   border: none;
-  color: var(--color-text-primary); /* Adapta-se ao tema */
-  font-family: var(--font-body);
-  font-weight: 500;
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  color: var(--color-text-primary);
+  font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 */
+  font-weight: normal;
+  font-size: 1.35rem;
+  letter-spacing: 1px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 0;
+  padding: 5px 0;
   position: relative;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .cartButton:hover {
   color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.cartIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartCountBadge {
+  background-color: var(--color-accent);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -2px;
+  right: -12px;
 }
 
 .cartIcon {

@@ -11,50 +11,54 @@ export default function Header() {
 
   return (
     <header className={styles.header}>
-      {/* Logotipo da AVA Vitória */}
+      {/* Logotipo da AVA Vitória no Canto Superior Esquerdo */}
       <div className={styles.logoContainer}>
-        <Image
-          src="/imagens/LOGO/LOGO AVA PRETO-100.jpg"
-          alt="AVA Vitória Logo"
-          width={100}
-          height={100}
-          className={styles.logoImage}
-          priority
-        />
+        <Link href="/">
+          <Image
+            src="/imagens/LOGO/LOGO AVA PRETO-100.jpg"
+            alt="AVA Vitória Logo"
+            width={120}
+            height={60}
+            className={styles.logoImage}
+            priority
+          />
+        </Link>
       </div>
 
-      {/* Menu a direita da logo */}
-      <nav className={styles.headerMenu}>
-        <button
-          onClick={() => {
-            const vitrine = document.getElementById("vitrine");
-            if (vitrine) {
-              vitrine.scrollIntoView({ behavior: "smooth" });
-            } else {
-              window.location.href = "/#vitrine";
-            }
-          }}
-          className={styles.menuLink}
-        >
-          Loja
-        </button>
-        <Link href="/sobre-nos" className={styles.menuLink}>
-          Sobre Nós
-        </Link>
-        <Link href="/contato" className={styles.menuLink}>
-          Contato
-        </Link>
-      </nav>
+      {/* Menu de Navegação e Sacola no Canto Superior Direito */}
+      <div className={styles.rightNav}>
+        <nav className={styles.headerMenu}>
+          <button
+            onClick={() => {
+              const vitrine = document.getElementById("vitrine");
+              if (vitrine) {
+                vitrine.scrollIntoView({ behavior: "smooth" });
+              } else {
+                window.location.href = "/#vitrine";
+              }
+            }}
+            className={styles.menuLink}
+          >
+            Loja
+          </button>
+          <Link href="/sobre-nos" className={styles.menuLink}>
+            Sobre Nós
+          </Link>
+          <Link href="/contato" className={styles.menuLink}>
+            Contato
+          </Link>
+        </nav>
 
-      {/* Botão de Sacola Reativa */}
-      <button onClick={toggleCart} className={styles.cartButton} aria-label="Abrir sacola de compras">
-        <span className={styles.cartIcon}>SACOLA</span>
-        {cartCount > 0 && (
-          <span className={styles.cartCountBadge}>
-            {cartCount}
-          </span>
-        )}
-      </button>
+        {/* Botão de Sacola Reativa */}
+        <button onClick={toggleCart} className={styles.cartButton} aria-label="Abrir sacola de compras">
+          <span className={styles.cartIcon}>SACOLA</span>
+          {cartCount > 0 && (
+            <span className={styles.cartCountBadge}>
+              {cartCount}
+            </span>
+          )}
+        </button>
+      </div>
     </header>
   );
 }
