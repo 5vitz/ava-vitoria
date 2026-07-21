@@ -16,9 +16,18 @@ interface ProductCardProps {
   images: Array<{
     image_url: string;
   }>;
+  onInspect?: () => void;
+  onStopInspect?: () => void;
+  isInspected?: boolean;
 }
 
-export default function ProductCard({ product, images }: ProductCardProps) {
+export default function ProductCard({
+  product,
+  images,
+  onInspect,
+  onStopInspect,
+  isInspected,
+}: ProductCardProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -29,18 +38,21 @@ export default function ProductCard({ product, images }: ProductCardProps) {
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    onInspect?.();
     setCurrentIndex((prev) => (prev === 0 ? imageList.length - 1 : prev - 1));
   };
 
   const handleNext = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    onInspect?.();
     setCurrentIndex((prev) => (prev === imageList.length - 1 ? 0 : prev + 1));
   };
 
   const handleDotClick = (e: React.MouseEvent, index: number) => {
     e.preventDefault();
     e.stopPropagation();
+    onInspect?.();
     setCurrentIndex(index);
   };
 
@@ -54,6 +66,7 @@ export default function ProductCard({ product, images }: ProductCardProps) {
 
   const handleMouseLeave = () => {
     setCurrentIndex(0); // Retorna automaticamente para a 1ª imagem (capa da frente)
+    onStopInspect?.();
   };
 
   const isLookbook = Number(product.price) === 0;

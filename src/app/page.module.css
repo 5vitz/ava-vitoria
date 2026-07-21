@@ -183,22 +183,10 @@
   margin: 0 auto;
 }
 
-/* Transições suaves e efeito Spotlight (Escurece e desfoca os não selecionados) */
-.grid > * {
-  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, filter, transform;
-}
-
-.grid:hover > * {
-  opacity: 0.35;
-  filter: brightness(0.6) blur(1.5px);
-}
-
-.grid > *:hover {
-  opacity: 1;
-  filter: brightness(1) blur(0px);
-  transform: translateY(-2px) scale(1.01);
-  z-index: 2;
+/* Item do Grid */
+.gridItem {
+  position: relative;
+  width: 100%;
 }
 
 @media (max-width: 1024px) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { prisma } from "@/lib/db";
-import ProductCard from "@/app/components/ProductCard";
+import ProductGrid from "@/app/components/ProductGrid";
 import CartStatus from "@/app/components/CartStatus";
 import styles from "./page.module.css";
 
@@ -51,16 +51,8 @@ export default async function Home() {
               Summer Collection - 2027
             </h2>
           </div>
-          {/* Grid de 3 colunas com Product Cards em Carrossel estilo Instagram */}
-          <div className={styles.grid}>
-            {serializedProducts.map((product) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                images={product.images}
-              />
-            ))}
-          </div>
+          {/* Grid de 3 colunas com controle de inspeção ativa e vidro fumê nos 8 vizinhos */}
+          <ProductGrid products={serializedProducts} />
         </section>
       </main>
 
