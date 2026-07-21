@@ -175,17 +175,30 @@
 /* GRID DE 3 COLUNAS - VITRINE DE IMPACTO COM CARROSSEL POR PRODUTO */
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 480px));
-  gap: 0px; /* Sem espaçamento lateral para alinhamento contínuo */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px; /* Espaçamento de 24px entre os cards de produto */
   justify-content: center;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
 }
 
-/* Divisor horizontal passando imediatamente abaixo de cada linha de produtos */
+/* Transições suaves e efeito Spotlight (Escurece e desfoca os não selecionados) */
 .grid > * {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.22);
+  transition: opacity 0.35s ease, filter 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, filter, transform;
+}
+
+.grid:hover > * {
+  opacity: 0.35;
+  filter: brightness(0.6) blur(1.5px);
+}
+
+.grid > *:hover {
+  opacity: 1;
+  filter: brightness(1) blur(0px);
+  transform: translateY(-2px) scale(1.01);
+  z-index: 2;
 }
 
 @media (max-width: 1024px) {
@@ -196,7 +209,8 @@
     font-size: 52px;
   }
   .grid {
-    grid-template-columns: repeat(2, minmax(0, 480px));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
     max-width: 960px;
   }
 }
@@ -204,6 +218,7 @@
 @media (max-width: 600px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: 20px;
     max-width: 100%;
   }
 }
@@ -218,7 +233,7 @@
     object-position: 15% top;  
   }
   .sectionHeader {
-    max-width: 360px; /* Alinha com 1 coluna */
+    max-width: 100%; /* Alinha com a largura total */
     padding: 0 10px 15px 10px; 
   }
   .sectionTitle {
@@ -226,9 +241,9 @@
     letter-spacing: 1px;
   }
   .grid {
-    grid-template-columns: repeat(1, minmax(0, 360px));
-    gap: 0px;
-    max-width: 360px;
+    grid-template-columns: repeat(1, minmax(0, 100%));
+    gap: 20px;
+    max-width: 100%;
     justify-content: center;
   }
 }
