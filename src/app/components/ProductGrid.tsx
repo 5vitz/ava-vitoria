@@ -31,8 +31,10 @@ export default function ProductGrid({ products }: ProductGridProps) {
   return (
     <div className={styles.grid}>
       {products.map((product, idx) => {
-        let isSmoked = false;
-        if (activeInspectIndex !== null && activeInspectIndex !== idx) {
+        let isMilky = false;
+        const isInspected = activeInspectIndex === idx;
+
+        if (activeInspectIndex !== null && !isInspected) {
           const activeRow = Math.floor(activeInspectIndex / 3);
           const activeCol = activeInspectIndex % 3;
           const currRow = Math.floor(idx / 3);
@@ -41,23 +43,25 @@ export default function ProductGrid({ products }: ProductGridProps) {
           const rowDiff = Math.abs(currRow - activeRow);
           const colDiff = Math.abs(currCol - activeCol);
 
-          // Escurece os 8 vizinhos imediatos (linha acima, linha abaixo, e laterais)
+          // Aplica o vidro branco leitoso aos 8 vizinhos imediatos
           if (rowDiff <= 1 && colDiff <= 1) {
-            isSmoked = true;
+            isMilky = true;
           }
         }
 
         return (
           <div
             key={product.id}
-            className={`${styles.gridItem} ${isSmoked ? cardStyles.smokedGlass : ""}`}
+            className={`${styles.gridItem} ${isMilky ? cardStyles.milkyGlass : ""} ${
+              isInspected ? cardStyles.activeBorder : ""
+            }`}
           >
             <ProductCard
               product={product}
               images={product.images}
               onInspect={() => handleInspect(idx)}
               onStopInspect={handleStopInspect}
-              isInspected={activeInspectIndex === idx}
+              isInspected={isInspected}
             />
           </div>
         );
