@@ -167,9 +167,16 @@
 
 /* Borda preta marcada de 1px contornando o card selecionado (Imagem + Nome + Preço) */
 .activeBorder {
-  outline: 1px solid #000000 !important;
-  outline-offset: -1px !important;
-  box-shadow: inset 0 0 0 1px #000000, 0 0 0 1px #000000 !important;
   position: relative;
   z-index: 40;
+}
+
+.activeBorder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid #000000;
+  pointer-events: none;
+  z-index: 99; /* Fica acima da imagem, das setas e das informações */
+  box-sizing: border-box;
 }
