@@ -46,12 +46,16 @@
   justify-content: center;
   cursor: pointer;
   opacity: 0;
+  pointer-events: none;
   transition: all 0.25s ease;
   backdrop-filter: blur(4px);
 }
 
-.card:hover .navBtn {
+/* Revela as setas e bolinhas APENAS no card em inspeção ativa (1º clique) */
+.activeBorder .navBtn,
+.activeBorder .dotsContainer {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .navBtn:hover {
@@ -65,12 +69,6 @@
 
 .nextBtn {
   right: 10px;
-}
-
-@media (max-width: 768px) {
-  .navBtn {
-    opacity: 0.8;
-  }
 }
 
 /* Indicadores de Posição em Bolinhas (Dots estilo Instagram) */
@@ -87,6 +85,9 @@
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(6px);
   border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
 .dot {

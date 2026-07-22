@@ -36,15 +36,11 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
         if (activeInspectIndex !== null && !isInspected) {
           const activeRow = Math.floor(activeInspectIndex / 3);
-          const activeCol = activeInspectIndex % 3;
           const currRow = Math.floor(idx / 3);
-          const currCol = idx % 3;
-
           const rowDiff = Math.abs(currRow - activeRow);
-          const colDiff = Math.abs(currCol - activeCol);
 
-          // Aplica o vidro branco leitoso aos 8 vizinhos imediatos
-          if (rowDiff <= 1 && colDiff <= 1) {
+          // Aplica o vidro leitoso aos 8 cards das 3 linhas adjacentes (3 acima, 2 na mesma linha, 3 abaixo)
+          if (rowDiff <= 1) {
             isMilky = true;
           }
         }

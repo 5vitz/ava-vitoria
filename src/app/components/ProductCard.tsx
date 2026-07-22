@@ -60,6 +60,7 @@ export default function ProductCard({
 
   const handleSingleClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    onInspect?.();
   };
 
   const handleDoubleClick = () => {
