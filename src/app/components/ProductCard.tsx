@@ -19,6 +19,7 @@ interface ProductCardProps {
   onInspect?: () => void;
   onStopInspect?: () => void;
   isInspected?: boolean;
+  isMilky?: boolean;
 }
 
 export default function ProductCard({
@@ -27,6 +28,7 @@ export default function ProductCard({
   onInspect,
   onStopInspect,
   isInspected,
+  isMilky,
 }: ProductCardProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -72,6 +74,10 @@ export default function ProductCard({
   const isLookbook = Number(product.price) === 0;
 
   const currentImgUrl = imageList[currentIndex] || imageList[0];
+
+  const cardClassName = `${styles.card} ${isInspected ? styles.activeBorder : ""} ${
+    isMilky ? styles.milkyGlass : ""
+  }`;
 
   const carouselContent = (
     <div className={styles.carouselContainer}>
@@ -126,7 +132,7 @@ export default function ProductCard({
 
   if (isLookbook) {
     return (
-      <div className={styles.card} onMouseLeave={handleMouseLeave}>
+      <div className={cardClassName} onMouseLeave={handleMouseLeave}>
         {carouselContent}
       </div>
     );
@@ -138,7 +144,7 @@ export default function ProductCard({
       onClick={handleSingleClick}
       onDoubleClick={handleDoubleClick}
       onMouseLeave={handleMouseLeave}
-      className={styles.card}
+      className={cardClassName}
     >
       {carouselContent}
 

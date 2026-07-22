@@ -50,18 +50,14 @@ export default function ProductGrid({ products }: ProductGridProps) {
         }
 
         return (
-          <div
-            key={product.id}
-            className={`${styles.gridItem} ${isMilky ? cardStyles.milkyGlass : ""} ${
-              isInspected ? cardStyles.activeBorder : ""
-            }`}
-          >
+          <div key={product.id} className={styles.gridItem}>
             <ProductCard
               product={product}
               images={product.images}
               onInspect={() => handleInspect(idx)}
               onStopInspect={handleStopInspect}
               isInspected={isInspected}
+              isMilky={isMilky}
             />
           </div>
         );

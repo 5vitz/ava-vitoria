@@ -147,7 +147,7 @@
   text-align: center;
 }
 
-/* Efeito Vidro Branco Leitoso (Milky/Frosted Glassmorphism) para inspeção ativa */
+/* Efeito Vidro Branco Leitoso Intenso (Milky/Frosted Glassmorphism) */
 .milkyGlass {
   position: relative;
 }
@@ -156,18 +156,20 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.55); /* Vidro branco leitoso translúcido */
-  backdrop-filter: blur(8px) saturate(110%);
-  -webkit-backdrop-filter: blur(8px) saturate(110%);
+  background: rgba(255, 255, 255, 0.78); /* Vidro leitoso bem visível e denso */
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
   pointer-events: none;
-  z-index: 20;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 30;
+  transition: opacity 0.35s ease, backdrop-filter 0.35s ease;
   opacity: 1;
 }
 
-/* Borda preta de 1px contornando a célula inteira (Imagem + Nome + Preço) ao primeiro clique */
+/* Borda preta marcada de 1px contornando o card selecionado (Imagem + Nome + Preço) */
 .activeBorder {
-  box-shadow: inset 0 0 0 1px #000000;
+  outline: 1px solid #000000 !important;
+  outline-offset: -1px !important;
+  box-shadow: inset 0 0 0 1px #000000, 0 0 0 1px #000000 !important;
   position: relative;
-  z-index: 10;
+  z-index: 40;
 }
