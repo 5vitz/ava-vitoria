@@ -35,12 +35,15 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 12;
-  width: 32px;
+  width: 32px; /* Mantém o diâmetro original do círculo */
   height: 32px;
+  font-size: 24px; /* Seta interna maior */
+  font-weight: 300;
+  line-height: 1;
   border-radius: 50%;
-  background: #FFFFFF; /* Fundo branco */
+  background: rgba(255, 255, 255, 0.75); /* Fundo branco semi-transparente */
   color: #000000; /* Seta preta */
-  border: 1px solid #000000; /* Borda preta de 1px */
+  border: none; /* Sem borda */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -48,6 +51,8 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 /* Revela as setas e bolinhas APENAS no card em inspeção ativa (1º clique) */
@@ -58,8 +63,8 @@
 }
 
 .navBtn:hover {
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
   transform: translateY(-50%) scale(1.1);
 }
 
