@@ -131,9 +131,10 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor cinza alinhado aos cards ABAIXO de Summer Collection */
   padding-top: 10px;
   padding-bottom: 15px;
-  max-width: 980px; /* Alinhado à largura otimizada do grid de 3 colunas */
+  max-width: min(1540px, calc((100vh - 220px) * (9 / 16) * 3 + 140px)); /* Largura dinâmica fluida baseada na altura útil */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
+  transition: max-width 0.3s ease;
 }
 
 .sectionTitle {
@@ -176,11 +177,12 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 48px; /* Afastamento de 48px entre os produtos */
+  gap: clamp(36px, 4vw, 84px); /* Afastamento fluido proporcional à tela */
   justify-content: center;
-  max-width: 980px; /* Dimensão matemática ideal para telas 1366x768 */
+  max-width: min(1540px, calc((100vh - 220px) * (9 / 16) * 3 + 140px)); /* Dimensionamento bidimensional fluido (largura x altura) */
   width: 100%;
   margin: 0 auto;
+  transition: max-width 0.3s ease, gap 0.3s ease;
 }
 
 /* Item do Grid */
