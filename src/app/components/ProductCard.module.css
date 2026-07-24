@@ -3,6 +3,7 @@
   flex-direction: column;
   background: #FFFFFF; /* Fundo branco preenchendo a célula do grid */
   border: none; /* As 4 linhas verticais são fornecidas dinamicamente pelo container da grade */
+  padding: 20px 24px 14px 24px; /* Respiro interno generoso (afasta a foto da linha compartilhada) */
   overflow: hidden;
   position: relative;
   width: 100%;

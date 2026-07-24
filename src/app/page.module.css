@@ -131,7 +131,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor cinza alinhado aos cards ABAIXO de Summer Collection */
   padding-top: 10px;
   padding-bottom: 15px;
-  max-width: min(1620px, calc((100vh - 170px) * (9 / 16) * 3 + 100px)); /* Preenchimento generoso da largura útil da tela */
+  max-width: min(1680px, calc((100vh - 160px) * (9 / 16) * 3 + 240px)); /* Largura dinâmica fluida alinhada com o padding interno */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
   transition: max-width 0.3s ease;
@@ -181,7 +181,7 @@
   background: rgba(0, 0, 0, 0.12); /* Cor da linha cinza sutil compartilhada */
   border: 1px solid rgba(0, 0, 0, 0.12); /* Bordas externas da vitrine (Linha 1 e Linha 4) */
   justify-content: center;
-  max-width: min(1620px, calc((100vh - 170px) * (9 / 16) * 3 + 100px)); /* Ampliação proporcional para preencher a tela */
+  max-width: min(1680px, calc((100vh - 160px) * (9 / 16) * 3 + 240px)); /* Ampliação proporcional incluindo o padding das células */
   width: 100%;
   margin: 0 auto;
   transition: max-width 0.3s ease;
