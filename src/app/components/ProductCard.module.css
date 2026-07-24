@@ -38,9 +38,9 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #000000; /* Fundo preto sólido */
-  color: #FFFFFF; /* Seta branca */
-  border: 1px solid #FFFFFF; /* Borda branca de 1px nos círculos */
+  background: #FFFFFF; /* Fundo branco */
+  color: #000000; /* Seta preta */
+  border: 1px solid #000000; /* Borda preta de 1px */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,8 +58,8 @@
 }
 
 .navBtn:hover {
-  background: #000000;
-  border: 1px solid #FFFFFF;
+  background: #FFFFFF;
+  border: 1px solid #000000;
   transform: translateY(-50%) scale(1.1);
 }
 
