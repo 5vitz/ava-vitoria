@@ -173,16 +173,18 @@
   border-bottom: 1px dashed var(--color-accent);
 }
 
-/* GRID DE 3 COLUNAS - VITRINE DE IMPACTO COM CARROSSEL POR PRODUTO */
+/* GRID DE 3 COLUNAS - VITRINE EDITORIAL COM BORDAS COMPARTILHADAS (4 LINHAS VERTICAIS) */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(24px, 2.5vw, 44px); /* Gap mais compacto direcionado ao tamanho dos produtos */
+  gap: 1px; /* O gap de 1px funciona como a linha divisória compartilhada única */
+  background: rgba(0, 0, 0, 0.12); /* Cor da linha cinza sutil compartilhada */
+  border: 1px solid rgba(0, 0, 0, 0.12); /* Bordas externas da vitrine (Linha 1 e Linha 4) */
   justify-content: center;
   max-width: min(1620px, calc((100vh - 170px) * (9 / 16) * 3 + 100px)); /* Ampliação proporcional para preencher a tela */
   width: 100%;
   margin: 0 auto;
-  transition: max-width 0.3s ease, gap 0.3s ease;
+  transition: max-width 0.3s ease;
 }
 
 /* Item do Grid */
