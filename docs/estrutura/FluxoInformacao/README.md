@@ -14,6 +14,7 @@ A tabela abaixo define os endpoints principais que o backend do Next.js deve exp
 | `/api/webhooks/payment` | `POST` | Recebe a confirmação de pagamento enviada pelo gateway | *(Enviado pelo Gateway de Pagamento)* | `200 OK` (Com corpo vazio ou confirmação de recebimento) |
 | `/api/catalog/meta` | `GET` | Endpoint público para sincronização da Sacolinha do Instagram | *(Nenhum)* | `application/xml` (Feed XML completo no padrão Meta) |
 | `/api/design-tokens` | `GET` | Retorna as variáveis CSS ativas no banco de dados (Camada 1) | *(Nenhum)* | `{ theme: "dark", colors: { bg, accent... }, fonts: {...} }` |
+| `/api/admin/instagram/publish` | `POST` | Dispara ou agenda publicação de carrossel no Instagram via Meta Graph API | `{ productId, caption, publishNow: boolean, scheduledTime?: string }` | `{ success: true, igMediaId: "...", scheduledTime?: "..." }` |
 
 ---
 

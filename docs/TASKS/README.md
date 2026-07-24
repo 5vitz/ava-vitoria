@@ -12,5 +12,6 @@ Este diretório contém os arquivos de especificação de tarefas que ainda prec
 ## 📂 Lista de Tarefas Ativas
 *   [TASK-001: Criar ícone/script para deploy completo](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/001-deploy-completo.md)
 *   [TASK-003: Pipeline de Produção de Imagens de Vitrine por IA](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/003-pipeline-imagens-ia.md)
+*   [TASK-005: Publicação Simultânea e Agendamento no Instagram via Painel Admin](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/005-integracao-publicacao-instagram.md)
 
 

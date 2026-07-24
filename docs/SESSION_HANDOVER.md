@@ -17,9 +17,14 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 *   **Automação e Atalho do Deploy ✅:**
     *   **Script de Deploy:** O script local [deploy.sh](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/deploy.sh) commita e dá push no GitHub, acessa a VPS via SSH (usando `sshpass` com a senha segura em `.env`), atualiza o código, instala pacotes, sincroniza o banco, builda o Next.js e reinicia o processo PM2 (`ava-vitoria`) recarregando as variáveis com `--update-env`.
     *   **Atalho de Área de Trabalho:** Criamos o atalho executável [Deploy-AVA.desktop](file:///home/artz/%C3%81rea%20de%20trabalho/Deploy-AVA.desktop) na Área de Trabalho com a logomarca da AVA Vitória. Ao clicar duas vezes, ele abre um terminal interativo executando todo o deploy e abrindo a página no Firefox ao final.
-*   **Exclusão de Projetos (Coleções) no Painel ✅:**
-    *   Desenvolvemos a Server Action `deleteCollectionAction` no final de [actions.ts](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/grid-manager/actions.ts).
-    *   Integramos o botão `×` vermelho no cabeçalho de cada card de projeto no [DashboardClient.tsx](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/DashboardClient.tsx), estilizado no [dashboard.module.css](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/dashboard.module.css). Ele conta com confirmação de segurança e `e.stopPropagation()` para não abrir a coleção ao excluir.
+*   **Aprimoramento Visual & UX da Vitrine (Design Balenciaga & Inspeção Ativa) ✅:**
+    *   **Espaçamento entre Colunas (24px):** Adicionado `gap: 24px` na vitrine de 3 colunas no [page.module.css](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/page.module.css), ajustando o enquadramento vertical dos cards 9:16 em telas de notebook (1366x768).
+    *   **Eliminação de Poluição no Hover Passivo:** O simples passar de mouse não dispara mais setas nem escurecimentos. A navegação de scroll permanece 100% limpa e focada no catálogo.
+    *   **Gatilho de Inspeção por 1º Clique:** O 1º clique no card ativa o modo de inspeção:
+        1. Desenha a **borda preta marcada de 1px** contornando a célula inteira (imagem + nome + preço) com overlay `z-index: 99`.
+        2. Exibe as **setas de navegação** e **bolinhas** do carrossel no card selecionado.
+        3. Aplica a película de **Vidro Branco Leitoso** (`rgba(255, 255, 255, 0.78)` com `backdrop-filter: blur(16px)`) sobre os cards vizinhos.
+    *   **Cobertura Perfeita dos 8 Vizinhos (`rowDiff <= 1`):** Refatorado a matriz no [ProductGrid.tsx](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/components/ProductGrid.tsx) para cobrir com o vidro leitoso exatamente os 8 vizinhos do bloco 3x3 (3 acima, 2 na mesma linha, 3 abaixo), sem falhas quando a peça ativa está na extremidade (esquerda/direita).
 *   **Desativação de Serviços Externos ✅:**
     *   O usuário removeu o projeto na Vercel e deletou o banco de dados na Neon. A aplicação agora é **100% autônoma e descentralizada na VPS Contabo**.
 
@@ -27,7 +32,7 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 2. 🖥️ Informações do Ambiente de Produção
 
-*   **URL da Loja:** `https://www.ava-vitoria.com.br`
+*   **URL da Loja:** `https://www.ava-vitoria.com.br` (em breve transição para `https://www.avasemlimites.com.br`)
 *   **URL do Painel Admin:** `https://www.ava-vitoria.com.br/admin`
 *   **Credenciais Padrão:**
     *   **Usuário:** `admin`
@@ -39,6 +44,9 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 3. Próximos Passos Imediatos (Para o próximo Lincoln)
 
-1.  **Testar Upload de Imagens no Painel:** Como a VPS tem o sistema de arquivos 100% gravável, valide a criação de novos produtos e o upload de fotos de vitrine pela biblioteca administrativa.
-2.  **Mapear Fluxo de E-commerce:** Validar se a sacolinha do Instagram e as rotas de checkout estão lendo as APIs do novo domínio dinâmico (`https://www.ava-vitoria.com.br/api/catalog/meta`).
+1.  **Reunião do Genera com o Proprietário:** 
+    *   Obter acessos ao Registro.br para apontar `www.avasemlimites.com.br` para o IP da VPS (`31.220.102.2`).
+    *   Colocar o domínio em estado de "Sob Manutenção / Breve Lançamento".
+    *   Solicitar permissões administrativas no Meta Business Suite para o Instagram `@avasemlimites`.
+2.  **Desenvolver TASK-005 (Publicação & Agendamento Instagram):** Implementar no `/admin` o botão "Publicar / Agendar no Instagram" via Meta Content Publishing Graph API (conforme especificado no arquivo [005-integracao-publicacao-instagram.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/TASKS/005-integracao-publicacao-instagram.md)).
 3.  **Segurança e Backup:** Acompanhar com o proprietário a contratação do serviço de backup automático da VPS (Contabo) para resguardar o banco de dados local.

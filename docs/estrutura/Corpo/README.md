@@ -8,15 +8,14 @@ Esta camada define a estrutura de telas, a jornada visual do usuário, os compon
 
 Inspirado na estética da **Balenciaga**, o e-commerce prioriza mídias de grande escala e proporções marcantes.
 
-*   **Grade de 3 Colunas:** Em vez das 4 colunas padrão de lojas de varejo comum, a vitrine exibirá estritamente **3 produtos por linha** em desktop (caindo para 2 colunas em tablets e 1 coluna em mobile).
-    *   *Raciocínio:* Menos ruído na tela, permitindo que as proporções das roupas (especialmente peças *oversized*) e os detalhes de textura sejam admirados em alta resolução.
-*   **Proporção de Mídia Vertical (9:16):** Todas as fotos do catálogo devem obedecer à proporção de aspecto **9:16** (idênticas aos formatos de Stories e Reels do Instagram).
+*   **Grade de 3 Colunas & Espaçamento de 24px:** Vitrine exibindo **3 produtos por linha** em desktop (com `gap: 24px`), 2 colunas em tablets e 1 coluna em mobile. O espaçamento refinado reduz a dimensão horizontal e vertical dos cards 9:16, garantindo o enquadramento completo do card (imagem + título + preço) em notebooks de resolução standard (1366x768).
+*   **Proporção de Mídia Vertical (9:16):** Todas as fotos do catálogo obedecem à proporção de aspecto **9:16** (Stories/Reels do Instagram).
 
 ---
 
-## 2. Card de Produto Inteligente (Hover Carrossel)
+## 2. Card de Produto Inteligente (Inspeção Ativa & Vidro Leitoso)
 
-O card de produto na vitrine possui um comportamento interativo avançado (benchmark da Balenciaga) para evitar cliques desnecessários e enriquecer a navegação.
+O card de produto na vitrine possui um comportamento interativo avançado e focado no usuário para evitar poluição visual durante o scroll.
 
 ```
 +---------------------------+
@@ -24,23 +23,24 @@ O card de produto na vitrine possui um comportamento interativo avançado (bench
 |                           |
 |        FOTO CAPA          |
 |                           |
-| <                       > |  <-- Setas glassmorphic translúcidas no Hover
+| <                       > |  <-- Setas e bolinhas surgem APENAS no 1º Clique
 |                           |
 +---------------------------+
-| Nome do Produto           |
+| Nome do Produto           |  <-- Contornados por Borda Preta 1px no 1º Clique
 | R$ 299,90                 |
 +---------------------------+
 ```
 
 ### 2.1. Comportamento Detalhado
-1.  **Estado Estático (Padrão):** Exibe a imagem de capa do produto (`images[0]`).
-2.  **Estado Hover (Mouse Sobre o Card):**
-    *   Setas laterais translúcidas (`<` e `>`) surgem nas laterais do card com efeito fade-in.
-    *   O card se converte em um **mini-carrossel dinâmico** contendo todas as imagens vinculadas ao produto (sem limite rígido, comportando 4, 6, 8 ou mais fotos).
-    *   O usuário clica nas setas e navega pelas fotos diretamente na vitrine.
-    *   **Comportamento de Loop:** O carrossel opera em loop infinito (ao atingir a última imagem, o próximo clique retorna à primeira). O usuário percebe a repetição naturalmente quando o ciclo recomeça.
-3.  **Comportamento em Mobile (Touch):**
-    *   Como não há hover em telas de toque, o card ativa suporte a **swipe lateral (gesto de deslizar)** ou exibe as setas de navegação de forma permanente porém sutil.
+1.  **Navegação Passiva (Hover Limpo):** Passar o mouse sobre qualquer card **não dispara setas nem altera o catálogo**. A página permanece 100% limpa e estável durante a rolagem.
+2.  **Modo de Inspeção Ativa (Gatilho do 1º Clique):**
+    *   Ao dar o **1º Clique** em um card:
+        1.  É desenhada uma **borda preta de 1px** contornando a célula inteira (imagem 9:16 + nome + preço) com overlay `z-index: 99`.
+        2.  Surgem as **setas laterais** (`<` e `>`) e as **bolinhas de navegação** no card selecionado.
+        3.  É aplicada a película de **Vidro Branco Leitoso** (`rgba(255, 255, 255, 0.78)` com `backdrop-filter: blur(16px)`) sobre os **8 cards vizinhos** (bloco de 3x3: 3 na linha superior, 2 nas laterais e 3 na linha inferior, `rowDiff <= 1`).
+    *   **Navegação no Carrossel:** O usuário clica nas setas e folheia as fotos em loop infinito diretamente no card ativo.
+    *   **Saída da Inspeção:** Ao mover o mouse para fora do card ativo, a inspeção se encerra e o vidro leitoso se dissolve suavemente de volta ao catálogo normal.
+3.  **Redirecionamento para a PDP:** O **Duplo Clique** (ou clique no nome/preço) direciona o usuário para a página de detalhes do produto (`/produtos/[slug]`).
 
 ### 2.2. Arquitetura do Componente React (`ProductCard.tsx`)
 
