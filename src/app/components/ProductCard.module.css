@@ -35,13 +35,13 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 12;
-  width: 32px; /* Mantém o diâmetro original do círculo */
+  width: 32px; /* Diâmetro compacto de 32px */
   height: 32px;
   font-size: 24px; /* Seta interna maior */
   font-weight: 300;
   line-height: 1;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.75); /* Fundo branco semi-transparente */
+  background: rgba(255, 255, 255, 0.35); /* Transparência aumentada (fundo mais escuro no preto, invisível no branco) */
   color: #000000; /* Seta preta */
   border: none; /* Sem borda */
   display: flex;
