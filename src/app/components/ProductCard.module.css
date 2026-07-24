@@ -117,14 +117,14 @@
 
 /* Informações do Produto (Estáticas na parte inferior do Card) */
 .info {
-  padding: 16px 12px;
+  padding: 12px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   background: transparent;
-  min-height: 65px;
+  min-height: 55px;
   gap: 4px;
 }
 
