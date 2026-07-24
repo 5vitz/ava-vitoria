@@ -2,12 +2,14 @@
   display: flex;
   flex-direction: column;
   background: var(--color-bg);
+  border: 1px solid rgba(0, 0, 0, 0.12); /* Borda cinza clara sutil permanente (unifica foto + nome + preço) */
   overflow: hidden;
   position: relative;
   width: 100%;
   cursor: pointer;
   text-decoration: none;
   box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
 /* Container da Moldura do Carrossel de Imagens (9:16) */

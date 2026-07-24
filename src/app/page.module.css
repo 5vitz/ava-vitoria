@@ -131,7 +131,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor cinza alinhado aos cards ABAIXO de Summer Collection */
   padding-top: 10px;
   padding-bottom: 15px;
-  max-width: min(1540px, calc((100vh - 220px) * (9 / 16) * 3 + 140px)); /* Largura dinâmica fluida baseada na altura útil */
+  max-width: min(1620px, calc((100vh - 170px) * (9 / 16) * 3 + 100px)); /* Preenchimento generoso da largura útil da tela */
   width: 100%;
   margin: 0 auto; /* Centraliza no mesmo alinhamento do grid */
   transition: max-width 0.3s ease;
@@ -177,9 +177,9 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(36px, 4vw, 84px); /* Afastamento fluido proporcional à tela */
+  gap: clamp(24px, 2.5vw, 44px); /* Gap mais compacto direcionado ao tamanho dos produtos */
   justify-content: center;
-  max-width: min(1540px, calc((100vh - 220px) * (9 / 16) * 3 + 140px)); /* Dimensionamento bidimensional fluido (largura x altura) */
+  max-width: min(1620px, calc((100vh - 170px) * (9 / 16) * 3 + 100px)); /* Ampliação proporcional para preencher a tela */
   width: 100%;
   margin: 0 auto;
   transition: max-width 0.3s ease, gap 0.3s ease;
