@@ -28,6 +28,11 @@ export default function ProductGrid({ products }: ProductGridProps) {
     setActiveInspectIndex(null);
   };
 
+  // Calcula os slots vazios necessários para sempre fechar a linha com 3 colunas completas
+  const remainder = products.length % 3;
+  const emptySlotsCount = remainder === 0 ? 0 : 3 - remainder;
+  const emptySlots = Array.from({ length: emptySlotsCount });
+
   return (
     <div className={styles.grid}>
       {products.map((product, idx) => {
@@ -58,6 +63,13 @@ export default function ProductGrid({ products }: ProductGridProps) {
           </div>
         );
       })}
+
+      {/* Slots em branco automáticos para manter as 4 linhas verticais limpas com fundo branco */}
+      {emptySlots.map((_, emptyIdx) => (
+        <div key={`empty-${emptyIdx}`} className={styles.gridItem}>
+          <div className={cardStyles.emptyCard} />
+        </div>
+      ))}
     </div>
   );
 }
