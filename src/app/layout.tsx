@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 const defaultSettings = {
   theme: "light",
   colors: {
-    bg: "#FFFFFF",
+    bg: "#C0C0C5",
     accent: "#FF4D1C",
     text_primary: "#000000",
     text_secondary: "#666666",

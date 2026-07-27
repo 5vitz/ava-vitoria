@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%); /* Fundo cinza prata fluindo da barra do menu */
 }
 
 .main {
@@ -134,7 +135,7 @@
   font-size: 36px;
   letter-spacing: 2px;
   text-transform: none; /* Preserva as maiúsculas apenas no início: Summer Collection - 2027 */
-  color: #858588; /* Média perfeita entre o cinza escuro (#4A4A4A) e o prata (#C0C0C5) */
+  color: #000000; /* Título em preto sólido */
   text-align: left;
 }
 
