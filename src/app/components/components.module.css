@@ -65,7 +65,7 @@
   display: flex;
   align-items: center;
   gap: 30px; /* Espaço entre os links do menu */
-  margin-right: 220px; /* Deslocado +120px adicionais para a esquerda em relação à Sacola */
+  margin-right: 180px; /* Ajuste fino do menu (180px de recuo da Sacola) */
 }
 
 @media (max-width: 768px) {
