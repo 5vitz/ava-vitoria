@@ -177,3 +177,17 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
     </div>
   );
 }
+
+export function ScrollToTopButton() {
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  return (
+    <div className={styles.scrollToTopContainer}>
+      <button onClick={handleScrollTop} className={styles.scrollToTopBtn}>
+        ↑ Voltar ao Topo
+      </button>
+    </div>
+  );
+}

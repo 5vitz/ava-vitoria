@@ -3,41 +3,51 @@
   width: 100%;
   min-height: 100vh;
   color: #000000;
+  padding-bottom: 60px;
 }
 
 .container {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 50px;
-  min-height: calc(100vh - 80px);
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
 
-@media (max-width: 900px) {
-  .container {
+/* Linha 1: 2 colunas divididas igualmente (50% / 50%) */
+.rowGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+  align-items: stretch;
+}
+
+/* Grid das Imagens Adicionais: 2 cards por linha (50% / 50%) lado a lado */
+.imagesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .rowGrid,
+  .imagesGrid {
     grid-template-columns: 1fr;
-    padding: 20px;
-    gap: 30px;
+    gap: 20px;
   }
 }
 
-/* COLUNA DA ESQUERDA: Fotos empilhadas (Estilo Balenciaga) */
-.mediaColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.imageWrapper {
+/* Moldura do Card de Imagem (Proporção 9:16 Balenciaga em Fundo Branco) */
+.imageCard {
   position: relative;
   width: 100%;
-  aspect-ratio: 9 / 16; /* 9:16 vertical alta */
+  aspect-ratio: 9 / 16;
   background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
 .productImage {
@@ -45,25 +55,22 @@
   transition: transform 0.5s ease;
 }
 
-.productImage:hover {
+.imageCard:hover .productImage {
   transform: scale(1.01);
 }
 
-/* COLUNA DA DIREITA: Informações e Compra (Fixa no Desktop) */
+/* Card das Informações e Compra (Coluna da Direita na Linha 1 - Fundo Branco) */
 .detailsColumn {
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  position: sticky;
-  top: 150px; /* Mantém fixa no scroll do desktop abaixo do header prata */
-  height: fit-content;
-}
-
-@media (max-width: 900px) {
-  .detailsColumn {
-    position: static;
-    top: 0;
-  }
+  gap: 20px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 35px 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  height: 100%;
+  justify-content: flex-start;
+  box-sizing: border-box;
 }
 
 .backLink {
@@ -243,52 +250,30 @@
   font-weight: 400;
 }
 
-.sizeChartSection {
+/* Botão Voltar ao Topo */
+.scrollToTopContainer {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.sizeChartLabel {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.65);
-}
-
-.sizeChartTableWrapper {
+  justify-content: center;
+  margin-top: 40px;
   width: 100%;
-  overflow-x: auto;
 }
 
-.sizeChartTable {
-  width: 100%;
-  border-collapse: collapse;
+.scrollToTopBtn {
+  background: #000000;
+  color: #FFFFFF;
+  border: 1px solid #000000;
+  padding: 14px 36px;
   font-family: var(--font-body);
-  font-size: 0.85rem;
-  color: #000000;
-  text-align: left;
-}
-
-.sizeChartTable th {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: rgba(0, 0, 0, 0.65);
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  font-weight: 500;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.sizeChartTable td {
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  font-weight: 300;
-}
-
-.sizeCell {
-  font-weight: 600 !important;
+.scrollToTopBtn:hover {
+  background: transparent;
   color: #000000;
+  transform: translateY(-2px);
 }

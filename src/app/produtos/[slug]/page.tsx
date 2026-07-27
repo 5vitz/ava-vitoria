@@ -2,7 +2,7 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import ProductDetailsClient from "./ProductDetailsClient";
+import ProductDetailsClient, { ScrollToTopButton } from "./ProductDetailsClient";
 import styles from "./product-details.module.css";
 
 export const dynamic = "force-dynamic";
@@ -54,40 +54,50 @@ export default async function ProductPage({ params }: ProductPageProps) {
     })),
   };
 
+  const images = product.images.length > 0
+    ? product.images.map((img) => img.image_url)
+    : ["/imagens/COLECAO/01.jpg"];
+
+  const firstImage = images[0];
+  const remainingImages = images.slice(1);
+
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
-        {/* Coluna da Esquerda: Fotos da peça empilhadas (Estilo Balenciaga) */}
-        <div className={styles.mediaColumn}>
-          {product.images.length > 0 ? (
-            product.images.map((img) => (
-              <div key={img.id} className={styles.imageWrapper}>
-                <Image
-                  src={img.image_url}
-                  alt={product.name}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 55vw"
-                  className={styles.productImage}
-                  priority
-                />
-              </div>
-            ))
-          ) : (
-            <div className={styles.imageWrapper}>
-              <Image
-                src="/imagens/COLECAO/01.jpg"
-                alt={product.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 55vw"
-                className={styles.productImage}
-                priority
-              />
-            </div>
-          )}
+        {/* Linha 1: 2 colunas divididas igualmente (50% / 50%) */}
+        <div className={styles.rowGrid}>
+          <div className={styles.imageCard}>
+            <Image
+              src={firstImage}
+              alt={product.name}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className={styles.productImage}
+              priority
+            />
+          </div>
+          <ProductDetailsClient product={serializedProduct} />
         </div>
 
-        {/* Coluna da Direita: Detalhes, Seletores e Compra (Client Component) */}
-        <ProductDetailsClient product={serializedProduct} />
+        {/* Linhas seguintes: Imagens adicionais lado a lado (2 por linha) */}
+        {remainingImages.length > 0 && (
+          <div className={styles.imagesGrid}>
+            {remainingImages.map((imageUrl, idx) => (
+              <div key={idx} className={styles.imageCard}>
+                <Image
+                  src={imageUrl}
+                  alt={`${product.name} - foto ${idx + 2}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className={styles.productImage}
+                />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Botão Voltar ao Topo */}
+        <ScrollToTopButton />
       </div>
     </div>
   );
