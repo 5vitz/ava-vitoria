@@ -125,12 +125,12 @@ export default function CartDrawer() {
               ? "Pedido Confirmado"
               : isCheckoutMode
               ? "Dados de Entrega"
-              : "Sacola de Compras"}
+              : "Compras"}
           </h2>
           <button
             onClick={() => setCartOpen(false)}
             className={styles.closeButton}
-            aria-label="Fechar sacola"
+            aria-label="Fechar compras"
           >
             ×
           </button>
@@ -171,7 +171,7 @@ export default function CartDrawer() {
                 onClick={() => setIsCheckoutMode(false)}
                 className={styles.backToCartBtn}
               >
-                ← Voltar para a sacola
+                ← Voltar para as Compras
               </button>
 
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", margin: "10px 0" }}>

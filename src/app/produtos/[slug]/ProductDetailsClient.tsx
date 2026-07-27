@@ -165,7 +165,7 @@ export default function ProductDetailsClient({ product }: ProductDetailsClientPr
           >
             {isButtonDisabled 
               ? (!selectedSize || !selectedColor ? "Selecione tamanho & cor" : "Indisponível") 
-              : "Adicionar à Sacola"
+              : "Adicionar às Compras"
             }
           </button>
         </div>
