@@ -78,7 +78,7 @@
     display: flex;
     align-items: baseline; /* Alinha a linha de base das fontes */
     gap: 18px;
-    margin-top: -10px; /* Eleva COMPRAS e Hamburger para "sentarem" na mesma linha reta horizontal da logo */
+    margin-top: 14px; /* Rebaixa COMPRAS e Hamburger para "sentarem" exatamente na mesma linha reta horizontal da base da logo */
   }
 
   .headerMenu {
