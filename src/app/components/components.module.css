@@ -6,13 +6,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 135px; /* Barra preta elegante expandida para acomodar a logo dobrada de tamanho */
+  height: 135px; /* Barra de menu elegante em tom prata */
   display: flex;
   justify-content: space-between; /* Logo na extrema esquerda, Menu + Sacola na extrema direita */
   align-items: center;
   padding: 0 40px; /* Alinhamento lateral com as margens da vitrine */
-  border-bottom: none;
-  background: #000000; /* Fundo totalmente preto */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%); /* Tom prata metálico refinado */
   z-index: 90;
   transition: all 0.3s ease;
 }
@@ -27,17 +27,18 @@
 .logoContainer {
   display: flex;
   align-items: center;
-  height: 110px; /* Moldura dobrada de tamanho (de 60px para 110px) */
+  height: 110px; /* Moldura de 110px */
   overflow: hidden;
   cursor: pointer;
 }
 
 .logoImage {
   object-fit: contain;
-  height: 180px; /* Logo dobrada e ampliada de forma marcante */
+  height: 180px; /* Logo ampliada de forma marcante */
   width: auto;
   margin-top: -10px; /* Ajuste preciso do topo para a palavra SemLimites */
-  filter: invert(1) contrast(180%); /* Inverte a logo de preta para branca e o fundo de branco para preto absoluto */
+  mix-blend-mode: multiply; /* Renderiza a logo preta de forma perfeita no fundo prata */
+  filter: contrast(130%);
 }
 
 @media (max-width: 768px) {
@@ -79,7 +80,7 @@
 .menuLink {
   background: transparent;
   border: none;
-  color: #FFFFFF; /* Fonte branca no fundo preto */
+  color: #000000; /* Fonte preta marcante no fundo prata */
   font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 da AVA Vitória */
   font-weight: normal;
   font-size: 1.35rem; /* ~22px */
@@ -98,7 +99,7 @@
 .cartButton {
   background: transparent;
   border: none;
-  color: #FFFFFF; /* Fonte branca no fundo preto */
+  color: #000000; /* Fonte preta marcante no fundo prata */
   font-family: 'Exotc350', sans-serif; /* Fonte autêntica Exotc350 */
   font-weight: normal;
   font-size: 1.35rem;
