@@ -12,11 +12,11 @@
   flex-grow: 1;
 }
 
-/* HERO / BANNER PRINCIPAL (Tela cheia com proporção widescreen) */
+/* HERO / BANNER PRINCIPAL (Preenche 100% da largura mantendo a proporção nativa sem cortes) */
 .hero {
   position: relative;
   width: 100%;
-  aspect-ratio: 21 / 9;  /* Proporção ultra-wide 21:9 */
+  aspect-ratio: 1366 / 433;  /* Proporção exata do BANNER1.png (1366x433) */
   background: #000000;
   display: flex;
   align-items: center;
@@ -26,9 +26,11 @@
 }
 
 .heroImage {
-  object-fit: cover;
-  object-position: center;     /* Centralização perfeita (mantém o skatista em foco) */
-  opacity: 0.95;               
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;     /* Centralização perfeita (100% visível em qualquer tela) */
+  opacity: 1;               
 }
 
 /* Selo de Atitude no Banner */
@@ -49,18 +51,7 @@
   object-fit: contain;
 }
 
-@media (max-width: 1024px) {
-  .hero {
-    aspect-ratio: 16 / 8;      /* Um pouco mais alto em tablets */
-  }
-}
-
 @media (max-width: 768px) {
-  .hero {
-    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile, focando no centro da imagem */
-    min-height: 250px;
-    margin-top: 0;             /* Encosta exatamente na base do header mobile */
-  }
   .heroSeal {
     top: 20px;
     right: 20px;
@@ -216,14 +207,6 @@
 }
 
 @media (max-width: 768px) {
-  .hero {
-    aspect-ratio: 16 / 10;     /* Proporção mais vertical para mobile */
-    min-height: 250px;
-    margin-top: 0;             
-  }
-  .heroImage {
-    object-position: 15% top;  
-  }
   .sectionHeader {
     max-width: 100%; /* Alinha com a largura total */
     padding: 0 10px 15px 10px; 
