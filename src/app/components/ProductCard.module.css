@@ -58,20 +58,21 @@
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Revela as setas e bolinhas no HOVER do mouse e no card em inspeção */
+/* Revela as setas e bolinhas no HOVER do mouse, no card em inspeção e quando visível no viewport mobile */
 .card:hover .navBtn,
 .card:hover .dotsContainer,
 .activeBorder .navBtn,
-.activeBorder .dotsContainer {
+.activeBorder .dotsContainer,
+.inViewport .navBtn,
+.inViewport .dotsContainer {
   opacity: 1;
   pointer-events: auto;
 }
 
 @media (max-width: 768px) {
-  .navBtn,
-  .dotsContainer {
-    opacity: 1;
-    pointer-events: auto;
+  /* Anula o efeito de vidro leitoso (esvanecimento) no celular */
+  .milkyGlass::after {
+    display: none !important;
   }
 }
 

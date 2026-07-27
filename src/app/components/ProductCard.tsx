@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./ProductCard.module.css";
@@ -30,6 +30,36 @@ export default function ProductCard({
   isMilky,
 }: ProductCardProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisibleInViewport, setIsVisibleInViewport] = useState(false);
+  const cardRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Quando o card atinge 50% ou mais de visibilidade no celular/viewport
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+            setIsVisibleInViewport(true);
+          } else {
+            setIsVisibleInViewport(false);
+          }
+        });
+      },
+      {
+        threshold: 0.5, // >50% de visibilidade
+      }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   const imageList = images && images.length > 0
     ? images.map((img) => img.image_url)
@@ -67,7 +97,7 @@ export default function ProductCard({
 
   const cardClassName = `${styles.card} ${isInspected ? styles.activeBorder : ""} ${
     isMilky ? styles.milkyGlass : ""
-  }`;
+  } ${isVisibleInViewport ? styles.inViewport : ""}`;
 
   const carouselContent = (
     <div className={styles.carouselContainer}>
@@ -122,7 +152,7 @@ export default function ProductCard({
 
   if (isLookbook) {
     return (
-      <div className={cardClassName} onMouseLeave={handleMouseLeave}>
+      <div ref={cardRef} className={cardClassName} onMouseLeave={handleMouseLeave}>
         {carouselContent}
       </div>
     );
@@ -130,6 +160,7 @@ export default function ProductCard({
 
   return (
     <Link 
+      ref={cardRef}
       href={`/produtos/${product.slug}`}
       onMouseLeave={handleMouseLeave}
       className={cardClassName}
