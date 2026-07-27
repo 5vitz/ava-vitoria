@@ -61,7 +61,8 @@ export default async function Home() {
         <section id="vitrine" className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
-              Summer Collection - 2027
+              <span className={styles.titleMain}>Summer Collection</span>
+              <span className={styles.titleYear}> - 2027</span>
             </h2>
           </div>
           {/* Grid de 3 colunas com controle de inspeção ativa e vidro fumê nos 8 vizinhos */}

@@ -139,6 +139,14 @@
   text-align: left;
 }
 
+.titleMain {
+  white-space: nowrap;
+}
+
+.titleYear {
+  white-space: nowrap;
+}
+
 .sectionCount {
   font-family: var(--font-body);
   font-size: 0.75rem;
@@ -214,8 +222,16 @@
     padding: 0 10px 15px 10px; 
   }
   .sectionTitle {
-    font-size: 32px;
+    font-size: 26px;
     letter-spacing: 1px;
+  }
+  .titleMain {
+    display: inline-block;
+    white-space: nowrap; /* Mantém Summer Collection junto na linha 1 */
+  }
+  .titleYear {
+    display: block; /* Joga - 2027 para a linha 2 no celular */
+    margin-top: 4px;
   }
   .grid {
     grid-template-columns: repeat(1, minmax(0, 100%));
