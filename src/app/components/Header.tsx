@@ -15,7 +15,7 @@ export default function Header() {
       <div className={styles.logoContainer}>
         <Link href="/">
           <Image
-            src="/imagens/LOGO/LOGO AVA PRETO-100.jpg"
+            src="/imagens/LOGO/logo_ava_transparent.png"
             alt="AVA Vitória Logo"
             width={400}
             height={200}

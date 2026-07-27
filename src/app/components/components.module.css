@@ -37,8 +37,6 @@
   height: 180px; /* Logo ampliada de forma marcante */
   width: auto;
   margin-top: -10px; /* Ajuste preciso do topo para a palavra SemLimites */
-  mix-blend-mode: multiply; /* Renderiza a logo preta de forma perfeita no fundo prata */
-  filter: contrast(130%);
 }
 
 @media (max-width: 768px) {
