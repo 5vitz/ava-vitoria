@@ -118,8 +118,8 @@
   display: flex;
   justify-content: center; /* Alinhamento centralizado do título */
   align-items: center;
-  border-top: none; /* Sem divisor acima do texto */
-  border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor cinza alinhado aos cards ABAIXO de Summer Collection */
+  border-top: none;
+  border-bottom: none; /* Linha removida */
   padding-top: 10px;
   padding-bottom: 15px;
   max-width: min(1680px, calc((100vh - 160px) * (9 / 16) * 3 + 240px)); /* Largura dinâmica fluida alinhada com o padding interno */
