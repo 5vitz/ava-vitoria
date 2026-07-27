@@ -17,13 +17,6 @@
   transition: all 0.3s ease;
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: 0 20px;
-    height: 95px;
-  }
-}
-
 .logoContainer {
   display: flex;
   align-items: center;
@@ -39,26 +32,10 @@
   margin-top: -10px; /* Ajuste preciso do topo para a palavra SemLimites */
 }
 
-@media (max-width: 768px) {
-  .logoContainer {
-    height: 75px;
-  }
-  .logoImage {
-    height: 120px;
-    margin-top: -6px;
-  }
-}
-
 .rightNav {
   display: flex;
   align-items: center;
   gap: 35px; /* Espaço entre o menu de navegação e o botão de sacola */
-}
-
-@media (max-width: 768px) {
-  .rightNav {
-    gap: 15px;
-  }
 }
 
 .headerMenu {
@@ -80,13 +57,38 @@
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding: 0 20px 14px 20px;
+    height: 95px;
+    align-items: flex-end; /* Alinha a base inferior da logo, COMPRAS e Hamburger horizontalmente no celular */
+  }
+
+  .logoContainer {
+    height: 75px;
+    align-items: flex-end;
+  }
+
+  .logoImage {
+    height: 120px;
+    margin-top: -6px;
+  }
+
+  .rightNav {
+    gap: 15px;
+    align-items: flex-end;
+    margin-bottom: 2px; /* Alinhamento óptico da base de COMPRAS e Hamburger com o pé da logo em relação ao Hero */
+  }
+
   .headerMenu {
     display: none !important; /* Oculta os links inline no celular para zerar sobreposição da logo */
   }
+
   .hamburgerBtn {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 0;
+    line-height: 1;
   }
 }
 
