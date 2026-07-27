@@ -189,14 +189,15 @@
   width: 450px;
   max-width: 100vw;
   height: 100vh;
-  background: #000000;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   backdrop-filter: blur(var(--backdrop-blur));
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(0, 0, 0, 0.12);
   z-index: 101;
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .drawerActive {
@@ -208,7 +209,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .drawerTitle {
@@ -217,13 +218,13 @@
   font-size: 1.1rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .closeButton {
   background: transparent;
   border: none;
-  color: #FFFFFF;
+  color: #000000;
   font-size: 1.5rem;
   cursor: pointer;
   line-height: 1;
@@ -252,7 +253,7 @@
   background: transparent;
 }
 .cartList::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .emptyState {
@@ -263,7 +264,7 @@
   height: 100%;
   text-align: center;
   gap: 15px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .emptyStateMessage {
@@ -274,8 +275,8 @@
 }
 
 .emptyStateButton {
-  background: transparent;
-  border: 1px solid #FFFFFF;
+  background: #000000;
+  border: 1px solid #000000;
   color: #FFFFFF;
   padding: 12px 30px;
   font-family: var(--font-body);
@@ -288,14 +289,14 @@
 }
 
 .emptyStateButton:hover {
-  background: #FFFFFF;
+  background: transparent;
   color: #000000;
 }
 
 .cartItem {
   display: flex;
   gap: 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding-bottom: 25px;
 }
 
@@ -303,8 +304,8 @@
   position: relative;
   width: 90px;
   aspect-ratio: 9 / 16; /* 9:16 Balenciaga no carrinho também */
-  background: #000;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -325,7 +326,7 @@
   font-weight: 500;
   font-size: 0.9rem;
   text-transform: uppercase;
-  color: #FFFFFF;
+  color: #000000;
   letter-spacing: 0.5px;
   line-height: 1.3;
 }
@@ -334,7 +335,7 @@
   font-family: var(--font-body);
   font-weight: var(--font-body-weight);
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
   display: flex;
   gap: 12px;
   text-transform: uppercase;
@@ -342,14 +343,14 @@
 }
 
 .itemMetaLabel {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .itemPrice {
   font-family: var(--font-body);
-  font-weight: 400;
+  font-weight: 500;
   font-size: 0.85rem;
-  color: #FFFFFF;
+  color: #000000;
   margin-top: 4px;
 }
 
@@ -363,13 +364,14 @@
 .quantitySelector {
   display: flex;
   align-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: #FFFFFF;
 }
 
 .qtyButton {
   background: transparent;
   border: none;
-  color: #FFFFFF;
+  color: #000000;
   width: 28px;
   height: 28px;
   display: flex;
@@ -381,7 +383,7 @@
 }
 
 .qtyButton:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.08);
 }
 
 .qtyValue {
@@ -390,13 +392,13 @@
   font-size: 0.8rem;
   width: 25px;
   text-align: center;
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .removeButton {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
   font-family: var(--font-body);
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -407,13 +409,13 @@
 }
 
 .removeButton:hover {
-  color: #FF5A5A;
+  color: var(--color-accent);
 }
 
 .drawerFooter {
   padding: 30px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  background: #000000;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -430,19 +432,19 @@
 
 .totalLabel {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .totalValue {
   font-size: 1.15rem;
-  color: #FFFFFF;
+  color: #000000;
   font-weight: 600;
 }
 
 .checkoutButton {
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #FFFFFF;
+  background: #000000;
+  color: #FFFFFF;
+  border: 1px solid #000000;
   padding: 16px;
   width: 100%;
   font-family: var(--font-body);
@@ -456,7 +458,7 @@
 
 .checkoutButton:hover {
   background: transparent;
-  color: #FFFFFF;
+  color: #000000;
 }
 
 /* Estilos para o Checkout no Drawer */
@@ -479,13 +481,13 @@
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
 }
 
 .formInput {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #000000;
   padding: 12px;
   font-family: var(--font-body);
   font-size: 0.85rem;
@@ -496,14 +498,14 @@
 
 .formInput:focus {
   outline: none;
-  border-color: #FFFFFF;
-  background: rgba(255, 255, 255, 0.08);
+  border-color: #000000;
+  background: #FFFFFF;
 }
 
 .backToCartBtn {
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0, 0, 0, 0.65);
   font-family: var(--font-body);
   font-size: 0.75rem;
   text-transform: uppercase;
@@ -518,7 +520,7 @@
 }
 
 .backToCartBtn:hover {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .errorBanner {
@@ -541,7 +543,7 @@
   height: 100%;
   padding: 30px;
   gap: 20px;
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .successIcon {
@@ -556,6 +558,7 @@
   font-size: 1.2rem;
   letter-spacing: 2px;
   text-transform: uppercase;
+  color: #000000;
 }
 
 .successMessage {
@@ -563,14 +566,14 @@
   font-weight: var(--font-body-weight);
   font-size: 0.85rem;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.75);
 }
 
 .orderIdHighlight {
   font-family: monospace;
-  background: rgba(255, 255, 255, 0.08);
+  background: #FFFFFF;
   padding: 4px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.15);
   color: var(--color-accent);
   margin-top: 10px;
   display: inline-block;
