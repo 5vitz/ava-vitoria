@@ -116,8 +116,8 @@
 
 .sectionHeader {
   display: flex;
-  justify-content: center; /* Alinhamento centralizado do título */
-  align-items: center;
+  justify-content: flex-start; /* Alinhamento à esquerda */
+  align-items: flex-end;
   border-top: none;
   border-bottom: none; /* Linha removida */
   padding-top: 10px;
@@ -131,12 +131,11 @@
 .sectionTitle {
   font-family: 'Geostar', serif;
   font-weight: 400;
-  font-size: 48px;
+  font-size: 36px;
   letter-spacing: 2px;
   text-transform: none; /* Preserva as maiúsculas apenas no início: Summer Collection - 2027 */
   color: #858588; /* Média perfeita entre o cinza escuro (#4A4A4A) e o prata (#C0C0C5) */
-  text-align: center;
-  width: 100%;
+  text-align: left;
 }
 
 .sectionCount {
