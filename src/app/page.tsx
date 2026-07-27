@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { prisma } from "@/lib/db";
 import ProductGrid from "@/app/components/ProductGrid";
 import CartStatus from "@/app/components/CartStatus";
@@ -44,6 +45,18 @@ export default async function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
+        {/* Seção Hero / Banner Principal */}
+        <section className={styles.hero}>
+          <Image
+            src="/imagens/CAPA/BANNER1.png"
+            alt="AVA Sem Limites Banner"
+            fill
+            priority
+            sizes="100vw"
+            className={styles.heroImage}
+          />
+        </section>
+
         {/* Seção da Vitrine de Produtos */}
         <section id="vitrine" className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
