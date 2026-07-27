@@ -116,8 +116,8 @@
 
 .sectionHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
+  justify-content: center; /* Alinhamento centralizado do título */
+  align-items: center;
   border-top: none; /* Sem divisor acima do texto */
   border-bottom: 1px solid rgba(0, 0, 0, 0.22); /* Divisor cinza alinhado aos cards ABAIXO de Summer Collection */
   padding-top: 10px;
@@ -131,10 +131,12 @@
 .sectionTitle {
   font-family: 'Sedgwick Ave Display', cursive;
   font-weight: 400;
-  font-size: 60px;
+  font-size: 48px;
   letter-spacing: 2px;
   text-transform: none; /* Preserva as maiúsculas apenas no início: Summer Collection - 2027 */
   color: #4A4A4A; /* Cinza escuro elegante, um pouco mais escuro que a barra de menu prata */
+  text-align: center;
+  width: 100%;
 }
 
 .sectionCount {
