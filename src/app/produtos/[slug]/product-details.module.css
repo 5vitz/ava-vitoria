@@ -32,7 +32,20 @@
 }
 
 @media (max-width: 768px) {
-  .rowGrid,
+  .rowGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .detailsColumn {
+    order: 1; /* No celular, o card de Tamanho, Cor e Compra fica em 1º lugar no topo */
+  }
+
+  .imageCard {
+    order: 2; /* A primeira foto do produto fica logo abaixo do card de compra */
+  }
+
   .imagesGrid {
     grid-template-columns: 1fr;
     gap: 20px;
