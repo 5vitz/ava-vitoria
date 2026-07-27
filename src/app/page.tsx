@@ -62,7 +62,7 @@ export default async function Home() {
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
               <span className={styles.titleMain}>Summer Collection</span>
-              <span className={styles.titleYear}> - 2027</span>
+              <span className={styles.titleYear}> 2027</span>
             </h2>
           </div>
           {/* Grid de 3 colunas com controle de inspeção ativa e vidro fumê nos 8 vizinhos */}
