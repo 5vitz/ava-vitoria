@@ -227,7 +227,7 @@
 
 /* RODAPÉ MINIMALISTA */
 .footer {
-  border-top: 1px solid var(--color-border);
+  border-top: none; /* Divisor removido */
   padding: 40px;
   text-align: center;
   font-family: var(--font-body);

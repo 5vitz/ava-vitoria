@@ -51,7 +51,7 @@ export default function Header() {
 
         {/* Botão de Sacola Reativa */}
         <button onClick={toggleCart} className={styles.cartButton} aria-label="Abrir sacola de compras">
-          <span className={styles.cartIcon}>SACOLA</span>
+          <span className={styles.cartIcon}>COMPRAS</span>
           {cartCount > 0 && (
             <span className={styles.cartCountBadge}>
               {cartCount}
