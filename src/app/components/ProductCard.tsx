@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import styles from "./ProductCard.module.css";
 
 interface ProductCardProps {
@@ -30,7 +29,6 @@ export default function ProductCard({
   isInspected,
   isMilky,
 }: ProductCardProps) {
-  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const imageList = images && images.length > 0
@@ -56,15 +54,6 @@ export default function ProductCard({
     e.stopPropagation();
     onInspect?.();
     setCurrentIndex(index);
-  };
-
-  const handleSingleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    onInspect?.();
-  };
-
-  const handleDoubleClick = () => {
-    router.push(`/produtos/${product.slug}`);
   };
 
   const handleMouseLeave = () => {
@@ -142,8 +131,6 @@ export default function ProductCard({
   return (
     <Link 
       href={`/produtos/${product.slug}`}
-      onClick={handleSingleClick}
-      onDoubleClick={handleDoubleClick}
       onMouseLeave={handleMouseLeave}
       className={cardClassName}
     >

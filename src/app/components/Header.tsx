@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useCart } from "@/lib/cartContext";
@@ -8,6 +8,23 @@ import styles from "./components.module.css";
 
 export default function Header() {
   const { toggleCart, cartCount } = useCart();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
+  };
+
+  const handleNavClick = (href: string) => {
+    setMobileMenuOpen(false);
+    if (href === "/#vitrine") {
+      const vitrine = document.getElementById("vitrine");
+      if (vitrine) {
+        vitrine.scrollIntoView({ behavior: "smooth" });
+      } else {
+        window.location.href = "/#vitrine";
+      }
+    }
+  };
 
   return (
     <header className={styles.header}>
@@ -27,16 +44,10 @@ export default function Header() {
 
       {/* Menu de Navegação e Sacola no Canto Superior Direito */}
       <div className={styles.rightNav}>
+        {/* Menu Desktop Inline */}
         <nav className={styles.headerMenu}>
           <button
-            onClick={() => {
-              const vitrine = document.getElementById("vitrine");
-              if (vitrine) {
-                vitrine.scrollIntoView({ behavior: "smooth" });
-              } else {
-                window.location.href = "/#vitrine";
-              }
-            }}
+            onClick={() => handleNavClick("/#vitrine")}
             className={styles.menuLink}
           >
             Loja
@@ -49,8 +60,8 @@ export default function Header() {
           </Link>
         </nav>
 
-        {/* Botão de Sacola Reativa */}
-        <button onClick={toggleCart} className={styles.cartButton} aria-label="Abrir sacola de compras">
+        {/* Botão de Compras (Sacola) */}
+        <button onClick={toggleCart} className={styles.cartButton} aria-label="Abrir compras">
           <span className={styles.cartIcon}>COMPRAS</span>
           {cartCount > 0 && (
             <span className={styles.cartCountBadge}>
@@ -58,7 +69,42 @@ export default function Header() {
             </span>
           )}
         </button>
+
+        {/* Botão Hamburger para Mobile */}
+        <button
+          onClick={toggleMobileMenu}
+          className={styles.hamburgerBtn}
+          aria-label="Abrir menu principal"
+        >
+          {mobileMenuOpen ? "✕" : "☰"}
+        </button>
       </div>
+
+      {/* Menu Dropdown/Overlay Mobile */}
+      {mobileMenuOpen && (
+        <div className={styles.mobileNavMenu}>
+          <button
+            onClick={() => handleNavClick("/#vitrine")}
+            className={styles.mobileMenuLink}
+          >
+            Loja
+          </button>
+          <Link
+            href="/sobre-nos"
+            onClick={() => setMobileMenuOpen(false)}
+            className={styles.mobileMenuLink}
+          >
+            Sobre Nós
+          </Link>
+          <Link
+            href="/contato"
+            onClick={() => setMobileMenuOpen(false)}
+            className={styles.mobileMenuLink}
+          >
+            Contato
+          </Link>
+        </div>
+      )}
     </header>
   );
 }

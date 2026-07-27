@@ -58,11 +58,21 @@
   -webkit-backdrop-filter: blur(6px);
 }
 
-/* Revela as setas e bolinhas APENAS no card em inspeção ativa (1º clique) */
+/* Revela as setas e bolinhas no HOVER do mouse e no card em inspeção */
+.card:hover .navBtn,
+.card:hover .dotsContainer,
 .activeBorder .navBtn,
 .activeBorder .dotsContainer {
   opacity: 1;
   pointer-events: auto;
+}
+
+@media (max-width: 768px) {
+  .navBtn,
+  .dotsContainer {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
 
 .navBtn:hover {

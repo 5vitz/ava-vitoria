@@ -68,11 +68,59 @@
   margin-right: 180px; /* Ajuste fino do menu (180px de recuo da Sacola) */
 }
 
+.hamburgerBtn {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.8rem;
+  color: #000000;
+  cursor: pointer;
+  padding: 5px;
+  line-height: 1;
+}
+
 @media (max-width: 768px) {
   .headerMenu {
-    gap: 15px;
-    margin-right: 10px;
+    display: none !important; /* Oculta os links inline no celular para zerar sobreposição da logo */
   }
+  .hamburgerBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Menu Dropdown Mobile */
+.mobileNavMenu {
+  position: absolute;
+  top: 95px;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+  gap: 15px;
+  z-index: 99;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.mobileMenuLink {
+  background: transparent;
+  border: none;
+  color: #000000;
+  font-family: 'Exotc350', sans-serif;
+  font-size: 1.4rem;
+  text-align: left;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.mobileMenuLink:last-child {
+  border-bottom: none;
 }
 
 .menuLink {
