@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import styles from './page.module.css';
 
 export default function Contato() {
@@ -32,36 +30,6 @@ export default function Contato() {
 
   return (
     <div className={styles.page}>
-      {/* Cabeçalho da Página */}
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <nav className={styles.navigation}>
-            <Link href="/" className={styles.navLink}>
-              Loja
-            </Link>
-            <Link href="/sobre-nos" className={styles.navLink}>
-              Sobre Nós
-            </Link>
-            <Link href="/contato" className={`${styles.navLink} ${styles.navActive}`}>
-              Contato
-            </Link>
-          </nav>
-
-          <div className={styles.logoContainer}>
-            <Link href="/">
-              <Image
-                src="/imagens/LOGO/logo_black.png"
-                alt="AVA Vitória Logo"
-                width={120}
-                height={35}
-                className={styles.logoImage}
-                priority
-              />
-            </Link>
-          </div>
-        </div>
-      </header>
-
       <main className={styles.main}>
         <div className={styles.container}>
           {/* Lado Esquerdo: Info da Marca */}

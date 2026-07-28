@@ -34,36 +34,6 @@ export default function SobreNos() {
 
   return (
     <div className={styles.page}>
-      {/* Cabeçalho da Página */}
-      <header className={styles.header}>
-        <div className={styles.headerInner}>
-          <nav className={styles.navigation}>
-            <Link href="/" className={styles.navLink}>
-              Loja
-            </Link>
-            <Link href="/sobre-nos" className={`${styles.navLink} ${styles.navActive}`}>
-              Sobre Nós
-            </Link>
-            <Link href="/contato" className={styles.navLink}>
-              Contato
-            </Link>
-          </nav>
-
-          <div className={styles.logoContainer}>
-            <Link href="/">
-              <Image
-                src="/imagens/LOGO/logo_black.png"
-                alt="AVA Vitória Logo"
-                width={120}
-                height={35}
-                className={styles.logoImage}
-                priority
-              />
-            </Link>
-          </div>
-        </div>
-      </header>
-
       <main className={styles.main}>
         {/* Cabeçalho da Seção */}
         <div className={styles.sectionHeader}>
