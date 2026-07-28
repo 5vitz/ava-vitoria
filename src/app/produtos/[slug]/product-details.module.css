@@ -52,12 +52,12 @@
   }
 }
 
-/* Moldura do Card de Imagem (Proporção 9:16 Balenciaga em Fundo Branco) */
+/* Moldura do Card de Imagem (Proporção 9:16 Balenciaga em Fundo Off-White #FEFCF5) */
 .imageCard {
   position: relative;
   width: 100%;
   aspect-ratio: 9 / 16;
-  background: #FFFFFF;
+  background: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
