@@ -73,12 +73,12 @@
   transform: scale(1.01);
 }
 
-/* Card das Informações e Compra (Coluna da Direita na Linha 1 - Fundo Branco) */
+/* Card das Informações e Compra (Coluna da Direita na Linha 1 - Fundo Off-White #FEFCF5) */
 .detailsColumn {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: #FFFFFF;
+  background: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 35px 30px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
