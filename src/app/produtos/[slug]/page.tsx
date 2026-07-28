@@ -60,12 +60,15 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   const firstImage = images[0];
   const remainingImages = images.slice(1);
+  const totalItemsCount = 1 + 1 + remainingImages.length;
+  const isOdd = totalItemsCount % 2 !== 0;
 
   return (
     <div className={styles.pageWrapper}>
       <div className={styles.container}>
-        {/* Linha 1: 2 colunas divididas igualmente (50% / 50%) */}
-        <div className={styles.rowGrid}>
+        {/* Grid Unificado de 2 Colunas com bordas compartilhadas de 1px */}
+        <div className={styles.unifiedGrid}>
+          {/* Linha 1 - Coluna 1: Primeira Foto */}
           <div className={styles.imageCard}>
             <Image
               src={firstImage}
@@ -76,25 +79,26 @@ export default async function ProductPage({ params }: ProductPageProps) {
               priority
             />
           </div>
-          <ProductDetailsClient product={serializedProduct} />
-        </div>
 
-        {/* Linhas seguintes: Imagens adicionais lado a lado (2 por linha) */}
-        {remainingImages.length > 0 && (
-          <div className={styles.imagesGrid}>
-            {remainingImages.map((imageUrl, idx) => (
-              <div key={idx} className={styles.imageCard}>
-                <Image
-                  src={imageUrl}
-                  alt={`${product.name} - foto ${idx + 2}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className={styles.productImage}
-                />
-              </div>
-            ))}
-          </div>
-        )}
+          {/* Linha 1 - Coluna 2: Detalhes e Compra */}
+          <ProductDetailsClient product={serializedProduct} />
+
+          {/* Linhas seguintes: Fotos Adicionais */}
+          {remainingImages.map((imageUrl, idx) => (
+            <div key={idx} className={styles.imageCard}>
+              <Image
+                src={imageUrl}
+                alt={`${product.name} - foto ${idx + 2}`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className={styles.productImage}
+              />
+            </div>
+          ))}
+
+          {/* Célula em branco para manter alinhamento perfeito se a quantidade total de cards for ímpar */}
+          {isOdd && <div className={styles.emptyCard} />}
+        </div>
 
         {/* Botão Voltar ao Topo */}
         <ScrollToTopButton />

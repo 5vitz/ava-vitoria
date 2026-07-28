@@ -16,27 +16,19 @@
   gap: 30px;
 }
 
-/* Linha 1: 2 colunas divididas por UMA única linha vertical compartilhada de 1px (50% / 50%) */
-.rowGrid {
+/* Grid Unificado de 2 Colunas com Linhas Divisórias Compartilhadas de 1px */
+.unifiedGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   background: rgba(0, 0, 0, 0.12);
   border: 1px solid rgba(0, 0, 0, 0.12);
   align-items: stretch;
-}
-
-/* Grid das Imagens Adicionais: 2 cards por linha divididos por UMA única linha vertical */
-.imagesGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  background: rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  width: 100%;
 }
 
 @media (max-width: 768px) {
-  .rowGrid {
+  .unifiedGrid {
     display: flex;
     flex-direction: column;
     gap: 1px;
@@ -50,9 +42,8 @@
     order: 2; /* A primeira foto do produto fica logo abaixo do card de compra */
   }
 
-  .imagesGrid {
-    grid-template-columns: 1fr;
-    gap: 1px;
+  .emptyCard {
+    display: none;
   }
 }
 
@@ -74,6 +65,14 @@
 
 .imageCard:hover .productImage {
   transform: scale(1.01);
+}
+
+/* Célula em branco para fechar a linha se a quantidade for ímpar */
+.emptyCard {
+  width: 100%;
+  height: 100%;
+  background: #FEFCF5;
+  box-sizing: border-box;
 }
 
 /* Card das Informações e Compra (Coluna da Direita na Linha 1 - Fundo Off-White #FEFCF5) */
