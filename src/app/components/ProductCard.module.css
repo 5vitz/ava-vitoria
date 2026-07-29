@@ -216,3 +216,13 @@
   background: #FEFCF5;
   box-sizing: border-box;
 }
+
+.emptyGridItem {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .emptyGridItem {
+    display: none !important;
+  }
+}

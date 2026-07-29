@@ -66,7 +66,7 @@ export default function ProductGrid({ products }: ProductGridProps) {
 
       {/* Slots em branco automáticos para manter as 4 linhas verticais limpas com fundo branco */}
       {emptySlots.map((_, emptyIdx) => (
-        <div key={`empty-${emptyIdx}`} className={styles.gridItem}>
+        <div key={`empty-${emptyIdx}`} className={`${styles.gridItem} ${cardStyles.emptyGridItem}`}>
           <div className={cardStyles.emptyCard} />
         </div>
       ))}
