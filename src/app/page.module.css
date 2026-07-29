@@ -26,12 +26,22 @@
   margin-top: 0;         /* Encosta exatamente na base do header, sem vão */
 }
 
-.heroImage {
+.heroImageDesktop {
   width: 100%;
   height: 100%;
   object-fit: contain;
   object-position: center;     /* Centralização perfeita (100% visível em qualquer tela) */
+  display: block;
   opacity: 1;               
+}
+
+.heroImageMobile {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: none;
+  opacity: 1;
 }
 
 /* Selo de Atitude no Banner */
@@ -53,6 +63,18 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    aspect-ratio: 1080 / 1920; /* Proporção vertical 9:16 do CapaCelular.png no celular */
+  }
+
+  .heroImageDesktop {
+    display: none;
+  }
+
+  .heroImageMobile {
+    display: block;
+  }
+
   .heroSeal {
     top: 20px;
     right: 20px;

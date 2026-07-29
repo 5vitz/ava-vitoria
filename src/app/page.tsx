@@ -49,11 +49,19 @@ export default async function Home() {
         <section className={styles.hero}>
           <Image
             src="/imagens/CAPA/BANNER1.png"
-            alt="AVA Sem Limites Banner"
+            alt="AVA Sem Limites Banner Desktop"
             fill
             priority
-            sizes="100vw"
-            className={styles.heroImage}
+            sizes="(max-width: 768px) 0vw, 100vw"
+            className={styles.heroImageDesktop}
+          />
+          <Image
+            src="/imagens/CAPA/CapaCelular.png"
+            alt="AVA Sem Limites Banner Mobile"
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 0vw"
+            className={styles.heroImageMobile}
           />
         </section>
 
