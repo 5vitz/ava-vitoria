@@ -35,13 +35,8 @@
   opacity: 1;               
 }
 
-.heroImageMobile {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: center;
+.heroCardMobile {
   display: none;
-  opacity: 1;
 }
 
 /* Selo de Atitude no Banner */
@@ -64,15 +59,40 @@
 
 @media (max-width: 768px) {
   .hero {
-    aspect-ratio: 1080 / 1920; /* Proporção vertical 9:16 do CapaCelular.png no celular */
+    aspect-ratio: auto;
+    background: transparent;
+    padding: 20px 16px 0 16px;
+    overflow: visible;
   }
 
   .heroImageDesktop {
     display: none;
   }
 
+  .heroCardMobile {
+    display: block;
+    width: 100%;
+    background: #FEFCF5; /* Mesma cor de fundo off-white/marfim dos cards de produtos */
+    border: 1px solid rgba(0, 0, 0, 0.12); /* Mesma borda cinza sutil dos cards */
+    padding: 20px 24px 14px 24px; /* Mesmo respiro interno generoso */
+    box-sizing: border-box;
+  }
+
+  .heroImageContainerMobile {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16; /* Proporção 9:16 oficial */
+    background: #FEFCF5;
+    overflow: hidden;
+  }
+
   .heroImageMobile {
     display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply; /* Fusão perfeita das fotos no fundo marfim */
+    opacity: 1;
   }
 
   .heroSeal {

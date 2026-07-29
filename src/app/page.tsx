@@ -55,14 +55,20 @@ export default async function Home() {
             sizes="(max-width: 768px) 0vw, 100vw"
             className={styles.heroImageDesktop}
           />
-          <Image
-            src="/imagens/CAPA/CapaCelular.png"
-            alt="AVA Sem Limites Banner Mobile"
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 0vw"
-            className={styles.heroImageMobile}
-          />
+
+          {/* Versão Card para Celular (Mesmo padrão dos cards de produto) */}
+          <div className={styles.heroCardMobile}>
+            <div className={styles.heroImageContainerMobile}>
+              <Image
+                src="/imagens/CAPA/CapaCelular.png"
+                alt="AVA Sem Limites Banner Mobile"
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, 0vw"
+                className={styles.heroImageMobile}
+              />
+            </div>
+          </div>
         </section>
 
         {/* Seção da Vitrine de Produtos */}
