@@ -1,0 +1,114 @@
+.lockScreen {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.lockCard {
+  width: 100%;
+  max-width: 440px;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 48px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 28px;
+  box-sizing: border-box;
+}
+
+.logoWrapper {
+  width: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logoImage {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+.message {
+  font-family: var(--font-body), sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: #000000;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.passwordInput {
+  width: 100%;
+  background-color: #FEFCF5;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 14px 16px;
+  font-size: 0.95rem;
+  font-family: var(--font-body), sans-serif;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.passwordInput::placeholder {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.submitBtn {
+  width: 100%;
+  background-color: #000000;
+  color: #FEFCF5;
+  border: 1px solid #000000;
+  padding: 14px 20px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.submitBtn:hover {
+  opacity: 0.85;
+}
+
+.submitBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.errorMsg {
+  font-family: var(--font-body), sans-serif;
+  font-size: 0.82rem;
+  color: #b91c1c;
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .lockCard {
+    padding: 36px 24px;
+  }
+
+  .logoWrapper {
+    width: 180px;
+  }
+}

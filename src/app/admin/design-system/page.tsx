@@ -1,18 +1,24 @@
 import React from "react";
 import { prisma } from "@/lib/db";
+import { getSiteLockConfig } from "@/lib/siteLockActions";
 import DesignSystemForm from "./DesignSystemForm";
+import SiteLockControl from "../SiteLockControl";
 import styles from "./design-system.module.css";
 import Link from "next/link";
+import LogoutButton from "./LogoutButton";
 
 export const dynamic = "force-dynamic";
 
 export default async function DesignSystemPage() {
-  // Buscar configurações salvas do Design System no banco de dados
-  const settings = await prisma.siteSettings.findUnique({
-    where: {
-      config_key: "design_system",
-    },
-  });
+  // Buscar configurações salvas do Design System e Portaria no banco de dados
+  const [settings, lockConfig] = await Promise.all([
+    prisma.siteSettings.findUnique({
+      where: {
+        config_key: "design_system",
+      },
+    }),
+    getSiteLockConfig(),
+  ]);
 
   // Configuração visual padrão (fallback caso o banco esteja vazio)
   const defaultSettings = {
@@ -48,6 +54,9 @@ export default async function DesignSystemPage() {
           <span className={styles.adminBadge}>Painel de Controle</span>
         </div>
         <nav className={styles.adminNav}>
+          <Link href="/admin" className={styles.navLink}>
+            Projetos & Coleções
+          </Link>
           <Link href="/" className={styles.navLink} target="_blank">
             Ver Loja ↗
           </Link>
@@ -56,6 +65,11 @@ export default async function DesignSystemPage() {
       </header>
       
       <main className={styles.adminMain}>
+        <SiteLockControl
+          initialIsLocked={lockConfig.isLocked}
+          initialPassword={lockConfig.password}
+        />
+
         <div className={styles.introCard}>
           <h2>Customização da Alma Dinâmica</h2>
           <p>
@@ -68,6 +82,3 @@ export default async function DesignSystemPage() {
     </div>
   );
 }
-
-// Pequeno subcomponente cliente para lidar com o Logout sem precisar que o arquivo inteiro seja 'use client'
-import LogoutButton from "./LogoutButton";

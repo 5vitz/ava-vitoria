@@ -5,6 +5,11 @@ import { CartProvider } from "@/lib/cartContext";
 import { AudioProvider } from "@/lib/audioContext";
 import Header from "@/app/components/Header";
 import CartDrawer from "@/app/components/CartDrawer";
+import SiteLockGate from "@/app/components/SiteLockGate";
+import { getSiteLockConfig } from "@/lib/siteLockActions";
+import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "AVA Vitória — Streetwear de Luxo",
@@ -68,6 +73,11 @@ export default async function RootLayout({
   const dotOpacity = isLightTheme ? "0.05" : "0.5";
   const svgHalftone = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='0' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='0' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='0' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='8' cy='8' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3Ccircle cx='4' cy='4' r='0.6' fill='${encodedDotColor}' opacity='${dotOpacity}'/%3E%3C/svg%3E`;
 
+  const lockConfig = await getSiteLockConfig();
+  const cookieStore = await cookies();
+  const unlockedCookie = cookieStore.get("ava_site_unlocked")?.value;
+  const hasValidCookie = unlockedCookie === lockConfig.password;
+
   return (
     <html lang="pt-BR">
       <head>
@@ -107,9 +117,14 @@ export default async function RootLayout({
       <body>
         <AudioProvider>
           <CartProvider>
-            <Header />
-            {children}
-            <CartDrawer />
+            <SiteLockGate
+              isLocked={lockConfig.isLocked}
+              hasValidCookie={hasValidCookie}
+            >
+              <Header />
+              {children}
+              <CartDrawer />
+            </SiteLockGate>
           </CartProvider>
         </AudioProvider>
       </body>
