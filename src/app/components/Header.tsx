@@ -3,12 +3,19 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/cartContext";
 import styles from "./components.module.css";
 
 export default function Header() {
+  const pathname = usePathname();
   const { toggleCart, cartCount } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Ocultar cabeçalho da loja dentro do painel administrativo
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);

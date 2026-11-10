@@ -1,8 +1,6 @@
 import React from "react";
 import { getCollections } from "./grid-manager/actions";
-import { getSiteLockConfig } from "@/lib/siteLockActions";
 import DashboardClient from "./DashboardClient";
-import SiteLockControl from "./SiteLockControl";
 import Link from "next/link";
 import LogoutButton from "./design-system/LogoutButton";
 import styles from "./dashboard.module.css";
@@ -18,11 +16,8 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const searchQuery = (resolvedSearchParams.searchQuery as string) || "";
   const selectingForProduct = (resolvedSearchParams.selectingForProduct as string) || "";
 
-  // Buscar coleções filtradas com busca inteligente e status da portaria
-  const [collections, lockConfig] = await Promise.all([
-    getCollections(searchQuery),
-    getSiteLockConfig(),
-  ]);
+  // Buscar coleções filtradas com busca inteligente
+  const collections = await getCollections(searchQuery);
 
   return (
     <div className={styles.adminContainer}>
@@ -46,12 +41,6 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
       </header>
 
       <main className={styles.adminMain}>
-        <div style={{ maxWidth: "1100px", margin: "30px auto 0 auto", padding: "0 25px" }}>
-          <SiteLockControl
-            initialIsLocked={lockConfig.isLocked}
-            initialPassword={lockConfig.password}
-          />
-        </div>
         <DashboardClient
           initialCollections={collections}
           initialSearchQuery={searchQuery}
