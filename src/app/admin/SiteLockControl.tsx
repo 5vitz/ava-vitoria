@@ -49,7 +49,7 @@ export default function SiteLockControl({
   return (
     <div
       style={{
-        backgroundColor: "rgba(31, 8, 15, 0.35)",
+        backgroundColor: "#000000",
         border: `1px solid ${isLocked ? "#ff4d4d" : "rgba(212, 175, 55, 0.45)"}`,
         padding: "20px 25px",
         marginBottom: "25px",

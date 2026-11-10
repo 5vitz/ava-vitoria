@@ -1,6 +1,6 @@
 .adminContainer {
   min-height: 100vh;
-  background-color: #0d0306;
+  background-color: #000000;
   color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@
   align-items: center;
   padding: 0 30px;
   border-bottom: 1px solid var(--color-border);
-  background-color: rgba(31, 8, 15, 0.4);
+  background-color: #000000;
   backdrop-filter: blur(10px);
 }
 
@@ -194,12 +194,12 @@
 
 .newProjectBtn:hover {
   background-color: #D4AF37;
-  color: #0d0306;
+  color: #000000;
 }
 
 /* Create Form */
 .createForm {
-  background-color: rgba(31, 8, 15, 0.3);
+  background-color: #000000;
   border: 1px solid var(--color-border);
   padding: 25px;
   display: flex;
@@ -297,7 +297,7 @@
 }
 
 .projectCard {
-  background-color: rgba(31, 8, 15, 0.2);
+  background-color: #000000;
   border: 1px solid var(--color-border);
   padding: 25px;
   cursor: pointer;

@@ -12,7 +12,7 @@ export interface SiteLockConfig {
 }
 
 const DEFAULT_LOCK_CONFIG: SiteLockConfig = {
-  isLocked: false,
+  isLocked: true,
   password: "avanovaera!",
 };
 
