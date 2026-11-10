@@ -22,11 +22,15 @@ fi
 
 if [ ! -z "$GITHUB_TOKEN" ]; then
     echo "🔑 Autenticando com Token do GitHub..."
-    git push https://$GITHUB_TOKEN@github.com/5vitz/ava-vitoria.git main
+    GIT_TERMINAL_PROMPT=0 git push https://5vitz:$GITHUB_TOKEN@github.com/5vitz/ava-vitoria.git main
     if [ $? -ne 0 ]; then
-        echo "❌ ERRO: Falha ao enviar alterações para o GitHub. Verifique se há conflitos!"
+        echo "❌ ERRO: Falha ao enviar alterações para o GitHub. Verifique se há conflitos ou problemas de token!"
         if command -v notify-send >/dev/null 2>&1; then
             notify-send "AVA Sem Limites" "Erro no git push. Verifique o terminal."
+        fi
+        if [ -t 0 ]; then
+            echo ""
+            read -p "Pressione [Enter] para fechar esta janela..."
         fi
         exit 1
     fi
@@ -37,6 +41,10 @@ else
         echo "❌ ERRO: Falha ao enviar alterações para o GitHub. Configure o GITHUB_TOKEN!"
         if command -v notify-send >/dev/null 2>&1; then
             notify-send "AVA Sem Limites" "Erro no git push. Configure o GITHUB_TOKEN."
+        fi
+        if [ -t 0 ]; then
+            echo ""
+            read -p "Pressione [Enter] para fechar esta janela..."
         fi
         exit 1
     fi

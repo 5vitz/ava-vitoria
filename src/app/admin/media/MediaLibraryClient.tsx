@@ -47,12 +47,25 @@ export default function MediaLibraryClient({
     collectionsList.length > 0 ? collectionsList[0].id : "Todos"
   );
   const [uploading, setUploading] = useState(false);
+  const [zoomedAsset, setZoomedAsset] = useState<MediaAsset | null>(null);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
     type: null,
     message: "",
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Fechar modal de ampliação com ESC
+  useEffect(() => {
+    if (!zoomedAsset) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setZoomedAsset(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [zoomedAsset]);
 
   // Sincronizar o estado da lista quando as props mudam
   useEffect(() => {
@@ -226,7 +239,7 @@ export default function MediaLibraryClient({
 
         <div className={styles.mediaGrid}>
           {mediaList.length === 0 ? (
-            <div className={styles.emptyGallery}>Sem mídias cadastradas para o filtro ativo. Faça uploads ao lado.</div>
+            <div className={styles.emptyGallery}>Sem mídias cadastradas para o filtro ativo. Faça uploads acima.</div>
           ) : (
             mediaList.map((asset) => {
               const isVideo = asset.mime_type.startsWith("video");
@@ -246,10 +259,39 @@ export default function MediaLibraryClient({
                     ) : (
                       <img src={asset.file_url} alt={asset.filename} className={styles.mediaThumb} />
                     )}
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setZoomedAsset(asset);
+                      }}
+                      className={styles.zoomBtn}
+                      title="Ampliar imagem para tamanho original"
+                      aria-label="Ampliar imagem"
+                    >
+                      <svg
+                        width="13"
+                        height="13"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        <line x1="11" y1="8" x2="11" y2="14" />
+                        <line x1="8" y1="11" x2="14" y2="11" />
+                      </svg>
+                    </button>
                     {!selectingForProduct && (
                       <button
                         type="button"
-                        onClick={() => handleDeleteAsset(asset.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteAsset(asset.id);
+                        }}
                         className={styles.deleteBtn}
                         title="Excluir arquivo definitivamente"
                       >
@@ -282,6 +324,47 @@ export default function MediaLibraryClient({
           )}
         </div>
       </section>
+
+      {/* Modal de Inspeção em Tamanho Original (Acionado por clique na Lupa) */}
+      {zoomedAsset && (
+        <div
+          className={styles.zoomModalOverlay}
+          onClick={() => setZoomedAsset(null)}
+        >
+          <div
+            className={styles.zoomModalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.zoomModalHeader}>
+              <span className={styles.zoomModalFilename}>{zoomedAsset.filename}</span>
+              <button
+                type="button"
+                className={styles.zoomModalCloseBtn}
+                onClick={() => setZoomedAsset(null)}
+                title="Fechar visualização (ESC)"
+              >
+                ×
+              </button>
+            </div>
+            <div className={styles.zoomModalBody}>
+              {zoomedAsset.mime_type.startsWith("video") ? (
+                <video
+                  src={zoomedAsset.file_url}
+                  controls
+                  autoPlay
+                  className={styles.zoomModalMedia}
+                />
+              ) : (
+                <img
+                  src={zoomedAsset.file_url}
+                  alt={zoomedAsset.filename}
+                  className={styles.zoomModalMedia}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Mensagens de Feedback */}
       {feedback.message && (
