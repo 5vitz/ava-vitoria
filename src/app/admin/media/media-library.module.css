@@ -76,39 +76,55 @@
   box-sizing: border-box;
 }
 
-/* Painel de Controles Horizontal (Acima dos Cards) */
+/* Barra de Controles Horizontal Unificada (Acima dos Cards) */
 .controlsSection {
   background-color: #000000;
   border: 1px solid var(--color-border);
-  padding: 18px 24px;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: 30px;
-  align-items: start;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
   width: 100%;
   box-sizing: border-box;
 }
 
-.controlBox {
+.toolbarLeft {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-width: 0;
+  align-items: flex-end;
+  gap: 16px;
+  flex: 1;
+  max-width: 650px;
 }
 
-.controlBox:first-child {
-  border-right: 1px solid var(--color-border);
-  padding-right: 30px;
+.toolbarRight {
+  display: flex;
+  align-items: center;
 }
 
-.controlTitle {
+.counterBadge {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  background-color: #000000;
+  border: 1px solid var(--color-border);
+  padding: 8px 16px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.counterNumber {
   font-family: var(--font-title), sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin: 0;
-  letter-spacing: 1px;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #D4AF37;
+}
+
+.counterLabel {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary);
 }
 
 .fieldGroup {
@@ -116,7 +132,7 @@
   flex-direction: column;
   gap: 6px;
   flex: 1;
-  min-width: 0;
+  min-width: 240px;
 }
 
 .label {
@@ -144,19 +160,12 @@
   border-color: var(--color-accent);
 }
 
-.uploadFormRow {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: 16px;
+.uploadGroup {
+  flex-shrink: 0;
 }
 
 .fileInputHidden {
   display: none;
-}
-
-.fileUploadBtnGroup {
-  flex-shrink: 0;
 }
 
 .uploadBtn {
@@ -177,8 +186,15 @@
   white-space: nowrap;
 }
 
-.uploadBtn:hover {
-  background-color: rgba(212, 175, 55, 0.08);
+.uploadBtn:hover:not(.uploadBtnDisabled) {
+  background-color: rgba(212, 175, 55, 0.12);
+  border-style: solid;
+}
+
+.uploadBtnDisabled {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.35);
+  cursor: not-allowed;
 }
 
 /* Seção da Galeria (Abaixo dos Controles) */

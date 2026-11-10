@@ -43,9 +43,6 @@ export default function MediaLibraryClient({
   // Estados
   const [mediaList, setMediaList] = useState<MediaAsset[]>(initialMedia);
   const [filterCollectionId, setFilterCollectionId] = useState(initialCollectionId);
-  const [uploadCollectionId, setUploadCollectionId] = useState(
-    collectionsList.length > 0 ? collectionsList[0].id : "Todos"
-  );
   const [uploading, setUploading] = useState(false);
   const [zoomedAsset, setZoomedAsset] = useState<MediaAsset | null>(null);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
@@ -72,13 +69,6 @@ export default function MediaLibraryClient({
     setMediaList(initialMedia);
   }, [initialMedia]);
 
-  // Sincronizar o uploadCollectionId padrão com a coleção filtrada (se for válida)
-  useEffect(() => {
-    if (filterCollectionId !== "Todos") {
-      setUploadCollectionId(filterCollectionId);
-    }
-  }, [filterCollectionId]);
-
   // Mostrar mensagens temporárias
   const triggerFeedback = (type: "success" | "error", message: string) => {
     setFeedback({ type, message });
@@ -98,13 +88,14 @@ export default function MediaLibraryClient({
     router.push(`${pathname}?${params.toString()}`);
   };
 
-  // Upload em lote de mídias
+  // Upload em lote de mídias direto na coleção selecionada
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    if (uploadCollectionId === "Todos" || !uploadCollectionId) {
-      triggerFeedback("error", "Selecione uma Coleção específica para vincular os uploads.");
+    if (filterCollectionId === "Todos" || !filterCollectionId) {
+      triggerFeedback("error", "Selecione uma Coleção específica para fazer upload de mídias.");
+      if (fileInputRef.current) fileInputRef.current.value = "";
       return;
     }
 
@@ -115,9 +106,9 @@ export default function MediaLibraryClient({
     }
 
     try {
-      const result = await uploadMediaAction(uploadCollectionId, formData);
+      const result = await uploadMediaAction(filterCollectionId, formData);
       if (result.success) {
-        triggerFeedback("success", `${files.length} mídias carregadas com sucesso.`);
+        triggerFeedback("success", `${files.length} mídias carregadas com sucesso na coleção.`);
         
         // Atualizar lista local
         const media = await getMediaAssets(filterCollectionId);
@@ -172,13 +163,16 @@ export default function MediaLibraryClient({
     }
   };
 
+  const isCollectionSelected = filterCollectionId !== "Todos" && !!filterCollectionId;
+  const currentCollection = collectionsList.find((c) => c.id === filterCollectionId);
+
   return (
     <div className={styles.mediaContainer}>
+      {/* Barra de Controles Unificada */}
       <section className={styles.controlsSection}>
-        <div className={styles.controlBox}>
-          <h3 className={styles.controlTitle}>Filtro de Visualização</h3>
+        <div className={styles.toolbarLeft}>
           <div className={styles.fieldGroup}>
-            <label className={styles.label}>Filtrar Coleção</label>
+            <label className={styles.label}>Coleção Ativa</label>
             <select
               className={styles.select}
               value={filterCollectionId}
@@ -192,40 +186,40 @@ export default function MediaLibraryClient({
               ))}
             </select>
           </div>
+
+          <div className={styles.uploadGroup}>
+            <input
+              type="file"
+              multiple
+              accept="image/*,video/*"
+              className={styles.fileInputHidden}
+              ref={fileInputRef}
+              onChange={handleUpload}
+              id="media-page-upload"
+              disabled={!isCollectionSelected || uploading}
+            />
+            <label
+              htmlFor="media-page-upload"
+              className={`${styles.uploadBtn} ${!isCollectionSelected ? styles.uploadBtnDisabled : ""}`}
+              title={
+                !isCollectionSelected
+                  ? "Selecione uma coleção específica para fazer upload"
+                  : `Adicionar mídias para ${currentCollection?.name || "a coleção selecionada"}`
+              }
+            >
+              {uploading
+                ? "Carregando..."
+                : isCollectionSelected
+                ? "+ Selecionar Arquivos"
+                : "Selecione uma Coleção para Upload"}
+            </label>
+          </div>
         </div>
 
-        <div className={styles.controlBox}>
-          <h3 className={styles.controlTitle}>Upload em Lote</h3>
-          <div className={styles.uploadFormRow}>
-            <div className={styles.fieldGroup}>
-              <label className={styles.label}>Vincular Mídias à Coleção:</label>
-              <select
-                className={styles.select}
-                value={uploadCollectionId}
-                onChange={(e) => setUploadCollectionId(e.target.value)}
-              >
-                {collectionsList.map((col) => (
-                  <option key={col.id} value={col.id}>
-                    {col.name} ({col.year})
-                  </option>
-                ))}
-              </select>
-            </div>
-            
-            <div className={styles.fileUploadBtnGroup}>
-              <input
-                type="file"
-                multiple
-                accept="image/*,video/*"
-                className={styles.fileInputHidden}
-                ref={fileInputRef}
-                onChange={handleUpload}
-                id="media-page-upload"
-              />
-              <label htmlFor="media-page-upload" className={styles.uploadBtn}>
-                {uploading ? "Carregando..." : "Selecionar Arquivos"}
-              </label>
-            </div>
+        <div className={styles.toolbarRight}>
+          <div className={styles.counterBadge}>
+            <span className={styles.counterNumber}>{mediaList.length}</span>
+            <span className={styles.counterLabel}>arquivos</span>
           </div>
         </div>
       </section>
