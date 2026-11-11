@@ -274,7 +274,7 @@ export default function GridManagerClient({
   const adminCardItems = products.map((prod) => ({
     cardId: prod.id,
     prod,
-    primaryImage: prod.images[0]?.image_url || "/imagens/COLECAO/01.jpg",
+    primaryImage: prod.images[0]?.image_url || "",
     isLookbook: Number(prod.price) === 0,
   }));
 

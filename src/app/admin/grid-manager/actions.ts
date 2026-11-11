@@ -455,5 +455,44 @@ export async function deleteCollectionAction(collectionId: string) {
   });
 
   revalidatePath("/admin");
+  revalidatePath("/");
   return { success: true };
 }
+
+// 13. Definir Coleção Ativa da Vitrine da Loja
+export async function setActiveStoreCollection(collectionId: string) {
+  await requireAuth();
+
+  await prisma.siteSettings.upsert({
+    where: { config_key: "active_collection" },
+    update: {
+      config_value: { collection_id: collectionId },
+    },
+    create: {
+      config_key: "active_collection",
+      config_value: { collection_id: collectionId },
+    },
+  });
+
+  revalidatePath("/");
+  revalidatePath("/admin");
+  revalidatePath("/admin/media");
+  revalidatePath("/admin/grid-manager");
+  return { success: true, activeCollectionId: collectionId };
+}
+
+// 14. Obter ID da Coleção Ativa da Vitrine da Loja
+export async function getActiveStoreCollectionId(): Promise<string | null> {
+  try {
+    const setting = await prisma.siteSettings.findUnique({
+      where: { config_key: "active_collection" },
+    });
+    if (setting && (setting.config_value as any)?.collection_id) {
+      return (setting.config_value as any).collection_id;
+    }
+  } catch (err) {
+    console.error("Erro ao buscar active_collection:", err);
+  }
+  return null;
+}
+

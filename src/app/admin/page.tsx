@@ -1,5 +1,5 @@
 import React from "react";
-import { getCollections } from "./grid-manager/actions";
+import { getCollections, getActiveStoreCollectionId } from "./grid-manager/actions";
 import DashboardClient from "./DashboardClient";
 import Link from "next/link";
 import LogoutButton from "./design-system/LogoutButton";
@@ -16,8 +16,11 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
   const searchQuery = (resolvedSearchParams.searchQuery as string) || "";
   const selectingForProduct = (resolvedSearchParams.selectingForProduct as string) || "";
 
-  // Buscar coleções filtradas com busca inteligente
-  const collections = await getCollections(searchQuery);
+  // Buscar coleções filtradas com busca inteligente e a coleção ativa da vitrine
+  const [collections, activeCollectionId] = await Promise.all([
+    getCollections(searchQuery),
+    getActiveStoreCollectionId(),
+  ]);
 
   return (
     <div className={styles.adminContainer}>
@@ -45,6 +48,7 @@ export default async function AdminDashboardPage({ searchParams }: PageProps) {
           initialCollections={collections}
           initialSearchQuery={searchQuery}
           selectingForProduct={selectingForProduct}
+          initialActiveCollectionId={activeCollectionId}
         />
       </main>
     </div>

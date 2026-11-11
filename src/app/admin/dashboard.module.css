@@ -314,6 +314,70 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
+.projectCardActive {
+  border-color: #D4AF37 !important;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+}
+
+.storefrontSwitchRow {
+  margin-top: 4px;
+}
+
+.activeStoreBadge {
+  display: inline-block;
+  background-color: rgba(212, 175, 55, 0.15);
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 6px 10px;
+}
+
+.setStorefrontBtn {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--color-text-secondary);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.setStorefrontBtn:hover {
+  background-color: #D4AF37;
+  color: #000000;
+  border-color: #D4AF37;
+}
+
+.toastSuccess {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #1f3d2f;
+  color: #9cdcb2;
+  border: 1px solid #2e5c46;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .cardHeader {
   display: flex;
   justify-content: space-between;

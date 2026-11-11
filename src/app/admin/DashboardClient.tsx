@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { createCollectionAction, deleteCollectionAction } from "./grid-manager/actions";
+import { createCollectionAction, deleteCollectionAction, setActiveStoreCollection } from "./grid-manager/actions";
 import styles from "./dashboard.module.css";
 
 interface CollectionType {
@@ -17,17 +17,22 @@ interface DashboardClientProps {
   initialCollections: CollectionType[];
   initialSearchQuery: string;
   selectingForProduct: string;
+  initialActiveCollectionId?: string | null;
 }
 
 export default function DashboardClient({
   initialCollections,
   initialSearchQuery,
   selectingForProduct,
+  initialActiveCollectionId = null,
 }: DashboardClientProps) {
   const router = useRouter();
   const pathname = usePathname();
 
   // Estados
+  const [activeColId, setActiveColId] = useState<string | null>(
+    initialActiveCollectionId || (initialCollections[0]?.id ?? null)
+  );
   const [searchVal, setSearchVal] = useState(initialSearchQuery);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [colName, setColName] = useState("");
@@ -35,6 +40,7 @@ export default function DashboardClient({
   const [colSeason, setColSeason] = useState("Outono");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [toastMessage, setToastMessage] = useState("");
 
   // Handler de pesquisa interativa
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,11 +123,32 @@ export default function DashboardClient({
     } finally {
       setLoading(false);
     }
+  // Handler para definir a coleção como a vitrine ativa do site
+  const handleToggleActiveStorefront = async (e: React.MouseEvent, collectionId: string, collectionName: string) => {
+    e.stopPropagation();
+    try {
+      setLoading(true);
+      await setActiveStoreCollection(collectionId);
+      setActiveColId(collectionId);
+      setToastMessage(`Vitrine da loja atualizada para "${collectionName}"!`);
+      setTimeout(() => setToastMessage(""), 4000);
+      router.refresh();
+    } catch (err: any) {
+      alert("Erro ao alterar vitrine: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className={styles.dashboardContainer}>
-      
+      {/* Toast Notification */}
+      {toastMessage && (
+        <div className={styles.toastSuccess}>
+          {toastMessage}
+        </div>
+      )}
+
       {/* Banner de Modo de Seleção Ativo */}
       {selectingForProduct && (
         <div className={styles.selectionModeBanner}>
@@ -229,31 +256,56 @@ export default function DashboardClient({
             Nenhuma Coleção encontrada com o termo pesquisado.
           </div>
         ) : (
-          initialCollections.map((col) => (
-            <div
-              key={col.id}
-              onClick={() => handleSelectCollection(col)}
-              className={styles.projectCard}
-            >
-              <div className={styles.cardHeader}>
-                <span className={styles.colYear}>{col.year}</span>
-                <div className={styles.headerRight}>
-                  <span className={styles.colSeason}>{col.season}</span>
-                  <button 
-                    onClick={(e) => handleDeleteCollection(e, col.id, col.name)}
-                    className={styles.deleteColBtn}
-                    title="Excluir Coleção"
-                  >
-                    ×
-                  </button>
+          initialCollections.map((col) => {
+            const isStorefrontActive = activeColId === col.id;
+
+            return (
+              <div
+                key={col.id}
+                onClick={() => handleSelectCollection(col)}
+                className={`${styles.projectCard} ${isStorefrontActive ? styles.projectCardActive : ""}`}
+              >
+                <div className={styles.cardHeader}>
+                  <span className={styles.colYear}>{col.year}</span>
+                  <div className={styles.headerRight}>
+                    <span className={styles.colSeason}>{col.season}</span>
+                    <button 
+                      onClick={(e) => handleDeleteCollection(e, col.id, col.name)}
+                      className={styles.deleteColBtn}
+                      title="Excluir Coleção"
+                    >
+                      ×
+                    </button>
+                  </div>
                 </div>
+
+                <h3 className={styles.colName}>{col.name}</h3>
+
+                {/* Chaveador de Vitrine Ativa */}
+                <div className={styles.storefrontSwitchRow}>
+                  {isStorefrontActive ? (
+                    <span className={styles.activeStoreBadge}>
+                      ★ Vitrine Ativa da Loja
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={(e) => handleToggleActiveStorefront(e, col.id, col.name)}
+                      className={styles.setStorefrontBtn}
+                      title="Clique para exibir esta coleção na vitrine principal da loja"
+                      disabled={loading}
+                    >
+                      Exibir na Vitrine
+                    </button>
+                  )}
+                </div>
+
+                <span className={styles.openCardLabel}>
+                  {selectingForProduct ? "Selecionar Biblioteca ➔" : "Gerenciar Coleção & Grid ➔"}
+                </span>
               </div>
-              <h3 className={styles.colName}>{col.name}</h3>
-              <span className={styles.openCardLabel}>
-                {selectingForProduct ? "Selecionar Biblioteca ➔" : "Gerenciar Coleção & Grid ➔"}
-              </span>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 

@@ -356,12 +356,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px dashed rgba(255, 255, 255, 0.1);
-  color: var(--color-text-secondary);
-  font-size: 0.75rem;
+  background-color: #FEFCF5;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  color: #666666;
+  font-size: 0.8rem;
+  font-weight: 500;
   text-align: center;
   padding: 20px;
   box-sizing: border-box;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .orderBadge {

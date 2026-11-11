@@ -8,13 +8,47 @@ import styles from "./page.module.css";
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  // Buscar os produtos ativos e suas respectivas imagens no banco PostgreSQL
+  // 1. Identificar qual Coleção está definida como a vitrine ativa da loja
+  let activeCollection: any = null;
+  let activeCollectionId: string | null = null;
+
+  try {
+    const setting = await prisma.siteSettings.findUnique({
+      where: { config_key: "active_collection" },
+    });
+    if (setting && (setting.config_value as any)?.collection_id) {
+      activeCollectionId = (setting.config_value as any).collection_id;
+    }
+
+    if (activeCollectionId) {
+      activeCollection = await prisma.collection.findUnique({
+        where: { id: activeCollectionId },
+      });
+    }
+
+    // Fallback: se não houver coleção explicitamente chaveada, usa a mais recente
+    if (!activeCollection) {
+      activeCollection = await prisma.collection.findFirst({
+        orderBy: { created_at: "desc" },
+      });
+      activeCollectionId = activeCollection?.id || null;
+    }
+  } catch (error) {
+    console.error("Erro ao buscar coleção ativa:", error);
+  }
+
+  // 2. Buscar os produtos ativos exclusivamente da Coleção selecionada
   let products: any[] = [];
   try {
+    const whereClause: any = {
+      is_active: true,
+    };
+    if (activeCollectionId) {
+      whereClause.collection_id = activeCollectionId;
+    }
+
     products = await prisma.product.findMany({
-      where: {
-        is_active: true,
-      },
+      where: whereClause,
       include: {
         images: {
           orderBy: {
@@ -30,7 +64,7 @@ export default async function Home() {
     console.error("Erro ao buscar produtos do PostgreSQL:", error);
   }
 
-  // Serializar os produtos para converter objetos Decimal do Prisma em numbers simples (evitando quebras de hidratação)
+  // Serializar os produtos para converter objetos Decimal do Prisma em numbers simples
   const serializedProducts = products.map((product) => ({
     id: product.id,
     name: product.name,
@@ -75,8 +109,12 @@ export default async function Home() {
         <section id="vitrine" className={styles.collectionSection}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>
-              <span className={styles.titleMain}>Summer Collection</span>
-              <span className={styles.titleYear}> 2027</span>
+              <span className={styles.titleMain}>
+                {activeCollection ? activeCollection.name : "Summer Collection"}
+              </span>
+              <span className={styles.titleYear}>
+                {" "}{activeCollection ? `${activeCollection.season} ${activeCollection.year}` : "2027"}
+              </span>
             </h2>
           </div>
           {/* Grid de 3 colunas com controle de inspeção ativa e vidro fumê nos 8 vizinhos */}
