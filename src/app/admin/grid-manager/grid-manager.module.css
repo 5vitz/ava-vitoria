@@ -95,6 +95,93 @@
   background-color: #000000;
 }
 
+/* Barra Superior de Seleção de Coleção e Publicação na Vitrine */
+.collectionToolbarRow {
+  padding: 14px 20px;
+  background-color: #000000;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.collectionSelectGroup {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.collectionSelectLabel {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.collectionSwitchSelect {
+  background-color: #000000;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 8px 12px;
+  height: 38px;
+  font-size: 0.85rem;
+  font-family: var(--font-body), sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease;
+  min-width: 240px;
+}
+
+.collectionSwitchSelect:focus {
+  border-color: var(--color-accent);
+}
+
+.publishActionGroup {
+  display: flex;
+  align-items: center;
+}
+
+.activeStoreBadgeHeader {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(212, 175, 55, 0.15);
+  border: 1px solid #D4AF37;
+  color: #D4AF37;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 16px;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+.publishBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #D4AF37;
+  color: #000000;
+  border: 1px solid #D4AF37;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 18px;
+  height: 38px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.publishBtn:hover {
+  background-color: transparent;
+  color: #D4AF37;
+}
+
 .sectionHeaderFlex {
   padding: 15px 20px;
   border-bottom: 1px solid var(--color-border);

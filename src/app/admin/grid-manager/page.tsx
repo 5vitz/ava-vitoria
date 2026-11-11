@@ -2,7 +2,7 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import GridManagerClient from "./GridManagerClient";
-import { getMediaAssets } from "./actions";
+import { getMediaAssets, getActiveStoreCollectionId } from "./actions";
 import Link from "next/link";
 import styles from "./grid-manager.module.css";
 import LogoutButton from "../design-system/LogoutButton";
@@ -23,10 +23,13 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
     redirect("/admin");
   }
 
-  // Buscar a Coleção atual para confirmar existência e obter nome
-  const currentCollection = await prisma.collection.findUnique({
-    where: { id: collectionId },
-  });
+  // Buscar a Coleção atual e a Coleção Ativa da Loja
+  const [currentCollection, activeStoreCollectionId] = await Promise.all([
+    prisma.collection.findUnique({
+      where: { id: collectionId },
+    }),
+    getActiveStoreCollectionId(),
+  ]);
 
   if (!currentCollection) {
     redirect("/admin");
@@ -122,6 +125,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
           collectionsList={collections}
           currentCollection={currentCollection}
           initialSelectingForProduct={selectingForProduct}
+          initialIsStorefrontActive={activeStoreCollectionId === currentCollection.id}
         />
       </main>
     </div>

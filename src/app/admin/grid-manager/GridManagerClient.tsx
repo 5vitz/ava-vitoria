@@ -8,6 +8,7 @@ import {
   reorderProductCards,
   saveProductDetails,
   disassociateMediaFromProduct,
+  setActiveStoreCollection,
 } from "./actions";
 import styles from "./grid-manager.module.css";
 
@@ -48,6 +49,7 @@ interface GridManagerClientProps {
   collectionsList: CollectionType[];
   currentCollection: CollectionType;
   initialSelectingForProduct: string;
+  initialIsStorefrontActive?: boolean;
 }
 
 export default function GridManagerClient({
@@ -55,6 +57,7 @@ export default function GridManagerClient({
   collectionsList,
   currentCollection,
   initialSelectingForProduct,
+  initialIsStorefrontActive = false,
 }: GridManagerClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -75,6 +78,7 @@ export default function GridManagerClient({
   const [targetPosition, setTargetPosition] = useState<string>("");
 
   // Controladores de UI
+  const [isStorefrontActive, setIsStorefrontActive] = useState(initialIsStorefrontActive);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
     type: null,
@@ -87,6 +91,21 @@ export default function GridManagerClient({
     setTimeout(() => {
       setFeedback({ type: null, message: "" });
     }, 4000);
+  };
+
+  // Publicar esta coleção na Vitrine da Loja
+  const handlePublishToStorefront = async () => {
+    setLoading(true);
+    try {
+      await setActiveStoreCollection(currentCollection.id);
+      setIsStorefrontActive(true);
+      triggerFeedback("success", `Coleção "${currentCollection.name}" publicada na vitrine com sucesso!`);
+      router.refresh();
+    } catch (err: any) {
+      triggerFeedback("error", "Erro ao publicar: " + err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   // 1. Inicialização e Foco do Produto
@@ -312,9 +331,45 @@ export default function GridManagerClient({
   return (
     <div className={styles.gridManagerGrid2Panel}>
       <section className={styles.gridPreview}>
+        {/* Barra Superior da Coleção com Chaveador de Vitrine */}
+        <div className={styles.collectionToolbarRow}>
+          <div className={styles.collectionSelectGroup}>
+            <label className={styles.collectionSelectLabel}>Coleção em Edição:</label>
+            <select
+              className={styles.collectionSwitchSelect}
+              value={currentCollection.id}
+              onChange={(e) => router.push(`/admin/grid-manager?collection=${e.target.value}`)}
+            >
+              {collectionsList.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.name} ({c.year} - {c.season})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className={styles.publishActionGroup}>
+            {isStorefrontActive ? (
+              <span className={styles.activeStoreBadgeHeader}>
+                ★ Esta Coleção é a Vitrine Ativa do Site
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={handlePublishToStorefront}
+                className={styles.publishBtn}
+                disabled={loading}
+                title="Publicar esta coleção na vitrine oficial da loja"
+              >
+                {loading ? "Publicando..." : "⚡ Publicar Coleção na Vitrine"}
+              </button>
+            )}
+          </div>
+        </div>
+
         <div className={styles.sectionHeaderFlex}>
           <div>
-            <h2 className={styles.sectionTitle}>Vitrine da Coleção ({adminCardItems.length} cards)</h2>
+            <h2 className={styles.sectionTitle}>Cards da Coleção ({adminCardItems.length})</h2>
             <p className={styles.sectionSubtitle}>
               Ordene arrastando os cards. Clique para editar detalhes.
             </p>
