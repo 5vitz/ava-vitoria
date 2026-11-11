@@ -123,6 +123,8 @@ export default function DashboardClient({
     } finally {
       setLoading(false);
     }
+  };
+
   // Handler para definir a coleção como a vitrine ativa do site
   const handleToggleActiveStorefront = async (e: React.MouseEvent, collectionId: string, collectionName: string) => {
     e.stopPropagation();
