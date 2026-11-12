@@ -57,7 +57,21 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
         *   [Dimona_Costas_Arte_FundoEscuro_SemMargem_300dpi.png](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/Dimona/Dimona_Costas_Arte_FundoEscuro_SemMargem_300dpi.png) (Pôster costas ocupando 100% da área útil para peças escuras)
         *   [Dimona_Costas_Arte_FundoClaro_SemMargem_300dpi.png](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/Dimona/Dimona_Costas_Arte_FundoClaro_SemMargem_300dpi.png) (Pôster costas ocupando 100% da área útil para peças claras)
         *   [Dimona_Selo_Bola_FundoEscuro_SemMargem_300dpi.png](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/Dimona/Dimona_Selo_Bola_FundoEscuro_SemMargem_300dpi.png) & [Dimona_Selo_Bola_FundoClaro_SemMargem_300dpi.png](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/Dimona/Dimona_Selo_Bola_FundoClaro_SemMargem_300dpi.png) (Selo isolado `2400 × 2400 px` para aplicação em Bonés)
-        *   Mockups da **Oversized Preta (Altinha)** gerados e salvos pelo Genera em [`docs/Fornecedores/Dimona/Prontas/Ovesized/Preta/Altinha/Mockups`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/Dimona/Prontas/Ovesized/Preta/Altinha/Mockups).
+*   **Refatoração da Biblioteca de Mídias & Grid Uniforme de 9 Colunas ✅:**
+    *   **Barra Superior Unificada:** Eliminado o select redundante de uploads; agora a **Coleção Ativa** comanda a exibição e os uploads diretamente.
+    *   **Grid de 9 Colunas Balenciaga:** Ajustado o grid com `minmax(0, 1fr)` e `min-width: 0`, garantindo 9 cards de tamanho 100% uniforme por linha, sem cortes na lateral direita.
+    *   **Lupa de Inspeção por Clique (Lightbox):** Adicionado botão de zoom discreto no topo de cada card que abre a imagem em tamanho original via modal, sem disparar ao simples passar de mouse (`hover`).
+*   **Ocultação do Header da Loja no Painel Administrativo (`/admin`) ✅:**
+    *   O cabeçalho público da loja (logo da AVA e menu Loja/Sobre Nós/Contato/Sacola) agora é omitido em todas as rotas `/admin/*`.
+*   **Remoção de Duplicidade da Portaria da Loja ✅:**
+    *   O `<SiteLockControl />` foi retirado de *Projetos & Coleções* (`/admin`) e mantido exclusivamente em *Design System* (`/admin/design-system`).
+*   **Chaveador Dinâmico de Coleção Ativa na Vitrine Oficial ✅:**
+    *   Implementado mecanismo via `site_settings` para selecionar qual coleção aparece na Home (`/`), com botão **`[⚡ Publicar Coleção na Vitrine]`** e badge **`★ Vitrine Ativa da Loja`** no `/admin` e no `/admin/grid-manager`.
+    *   Corrigido o card recém-criado (`+ Tipo 1`): agora nasce como um **card vazio real** (retângulo off-white `#FEFCF5`) sem carregar foto antiga hardcoded.
+*   **Adequação de Mídias Balenciaga para a Coleção "Ava Nova Era" (Proporção 9:16) ✅:**
+    *   Recortadas proporcionalmente as 6 fotos quadradas de modelos da pasta `public/imagens/VITRINE/Coleção_AvaNovaEra/` para proporção exata **9:16** (`393 × 700 px`), centralizadas e prontas para o Lookbook.
+*   **Plano Estratégico da Matriz Canônica Multicanal ✅:**
+    *   Criado o documento [docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md) detalhando a integração entre Cadastro Único, Vitrine 9:16, Meta Commerce (`/api/catalog/meta`), Bling ERP (API v3) e Produção PoD (Dimona Dropsimples).
 
 ---
 
@@ -65,6 +79,7 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 *   **URL da Loja:** `https://www.ava-vitoria.com.br` (em breve transição para `https://www.avasemlimites.com.br`)
 *   **URL do Painel Admin:** `https://www.ava-vitoria.com.br/admin`
+*   **Feed Meta Commerce (Instagram Shopping):** `https://www.ava-vitoria.com.br/api/catalog/meta`
 *   **Credenciais Padrão:**
     *   **Usuário:** `admin`
     *   **Senha:** `admin123`
@@ -73,14 +88,15 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 3. Próximos Passos Imediatos (Para o próximo Lincoln)
+## 3. Próximos Passos Imediatos (Para a Sessão de Amanhã)
 
-1.  **Reembolso Reserva INK (Dentro do prazo de 7 dias):**
-    *   Solicitar o cancelamento e estorno integral dos `R$ 80,00` da assinatura Básica na Reserva INK.
-2.  **Finalização dos Mockups e Amostras na Dimona + Estudo Executivo PoD para os Sócios:**
-    *   Montar no Studio da Dimona os mockups das demais peças em **Silk HD** (**T-Shirt Prime 180g / Quality 165g Branca**, **Regata Quality** e **Boné**) utilizando os arquivos padronizados em `docs/Fornecedores/Dimona/`.
-    *   Elaborar o **Documento/PDF Executivo de Viabilidade do Modelo PoD Nacional (Dimona Dropsimples + Site + Bling 10 Canais vs. Modelo Tradicional)** com base nos custos reais de lojista (`R$ 59,90` na Quality/Regata e `R$ 67,90` na Prime Frente+Costas), demonstrando a liberação do capital de giro (de estoque parado para Marketing/Tráfego Pago) e a expansão de Vitória para o Brasil inteiro.
-3.  **Reunião do Genera com o Proprietário & TASK-005:** 
-    *   Obter acessos ao Registro.br (`www.avasemlimites.com.br`) e Meta Business Suite (`@avasemlimites`).
-    *   Desenvolver TASK-005 (Publicação & Agendamento Instagram) e acompanhar backup da VPS.
+1.  **Implementação da Matriz Canônica (conforme [PLANO_MATRIZ_CANONICA_MULTICANAL.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md)):**
+    *   Adicionar campos fiscais e logísticos no banco (`sku_master`, `cost_price`, `ncm`, `weight_grams`, `dimensions`).
+    *   Dividir o editor de produto no `/admin/grid-manager` em 4 abas limpas (Visual, Estoque, Fiscal/Custo e Multicanal).
+    *   Enriquecer o feed XML do Meta Commerce (`/api/catalog/meta`).
+    *   Importar os conectores da API v3 do Bling ERP desenvolvidos no Star-Ink.
+2.  **Preparação Final para a Reunião com os Sócios (Quinta-feira 13:30):**
+    *   Apresentação da Vitrine Balenciaga rodando sobre a nova coleção.
+    *   Demonstração do fluxo operacional de cadastro canônico e publicação em 1 clique.
+
 
