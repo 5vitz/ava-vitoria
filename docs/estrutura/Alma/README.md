@@ -28,20 +28,20 @@ Toda a codificação do CSS deve utilizar estritamente as variáveis declaradas 
 ### 2.1. Variáveis de Cor (CSS Custom Properties)
 ```css
 :root {
-  --color-bg: #17060b;       /* Vinho Escuro (Cor de fundo principal) */
-  --color-accent: #D4AF37;   /* Dourado (Destaques cirúrgicos: hover, preços, ativos) */
-  --color-text-primary: #FFFFFF;  /* Branco puro */
-  --color-text-secondary: #A0A0A0; /* Cinza claro para descrições */
-  --color-border: rgba(255, 255, 255, 0.1); /* Bordas finas de 1px */
-  --color-card-bg: rgba(31, 8, 15, 0.5); /* Vinho translúcido para cards */
+  --color-bg: #FEFCF5;       /* Off-White Marfim (Fundo de galeria e cards) */
+  --color-accent: #000000;   /* Preto Sólido (Destaques cirúrgicos, botões e inspeção ativa) */
+  --color-text-primary: #000000;  /* Preto de alto contraste */
+  --color-text-secondary: #555555; /* Cinza grafite para descrições */
+  --color-border: rgba(0, 0, 0, 0.12); /* Bordas finas compartilhadas de 1px */
+  --color-card-bg: #FEFCF5; /* Fundo marfim contínuo integrado com mix-blend-mode: multiply */
 }
 ```
 
 ### 2.2. Tipografia
-*   **Títulos:** `Outfit` ou `Syne` (Google Fonts). Devem ser carregados em pesos bold/black para criar contraste dramático, similar a editoriais de moda de luxo.
-*   **Corpo & UI:** `Plus Jakarta Sans` (Google Fonts). Deve ser utilizado em pesos finos (`200` ou `300`) para transmitir elegância e sofisticação tipográfica.
+*   **Títulos & Navegação:** `Exotc350`, `Geostar` ou `Outfit`.
+*   **Corpo & UI:** `Poppins` / `Plus Jakarta Sans` em pesos finos (`200` ou `300`) para transmitir elegância e sofisticação tipográfica.
 
 ### 2.3. Estética da Subtração (Regras Visuais)
 *   **Bordas:** Usar estritamente `1px solid var(--color-border)`. Sem bordas grossas ou arredondamentos excessivos.
-*   **Sombras:** Evitar sombras pesadas ou coloridas. Preferir o uso de contrastes secos ou efeitos de transparência (*glassmorphism* com `backdrop-filter`).
-*   **Espaçamento:** Layouts limpos com bastante respiro (padding e margin generosos).
+*   **Inspeção Ativa (Vidro Leitoso):** Película `rgba(255, 255, 255, 0.78)` com `backdrop-filter: blur(16px)` sobre os 8 cards vizinhos durante o 1º clique.
+*   **Espaçamento:** Layouts limpos com respiro simétrico (`gap: 24px` no grid da vitrine e matriz `.unifiedGrid` com divisórias de `1px` na PDP).

@@ -10,7 +10,7 @@ Este diretório centraliza todas as decisões arquiteturais, especificações co
 *   **📐 [Corpo](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/estrutura/Corpo)**: Arquitetura de informação e UX/UI (layouts de telas, grid 9:16 de 3 colunas, comportamento do hover carrossel inteligente, fluxos de navegação).
 *   **🦴 [Esqueleto](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/estrutura/Esqueleto)**: Engenharia e persistência de dados (modelagem de tabelas PostgreSQL, integridade transacional ACID, segurança de controle de estoque).
 *   **⚡ [FluxoInformacao](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/estrutura/FluxoInformacao)**: Integrações de sistemas e APIs (Instagram Shopping Catalog XML/JSON, Webhooks de checkout/gateway de pagamento).
-*   **📋 [GuiaPrompts](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/estrutura/GuiaPrompts)**: Fases de codificação e geração de prompts cirúrgicos prontos para a execução da IA.
+*   **🏛️ [Plano Mestre dos 8 Departamentos](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_IMPLEMENTACAO_8_DEPARTAMENTOS_AVA.md)**: Roteiro de execução em 5 fases para os 8 Departamentos Operacionais, 19 Agentes de IA, Matriz Canônica e Motor Multi-Supplier.
 
 ---
 
