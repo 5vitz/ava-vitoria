@@ -1,0 +1,427 @@
+/* admin-cockpit.module.css — Estética da Subtração aplicada ao Painel Executivo AVA */
+
+.adminLayout {
+  min-height: 100vh;
+  background-color: #0C0D0E;
+  color: #E6E6E6;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header do Painel Admin */
+.adminHeader {
+  background: linear-gradient(180deg, #18191B 0%, #121315 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.brandArea {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.brandLogo {
+  font-family: var(--font-title), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.brandBadge {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 2px;
+  color: #C0C0C5;
+}
+
+.deptNav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px 0;
+}
+
+.deptNavLink {
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #A0A0A5;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.deptNavLink:hover {
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.deptNavLinkActive {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.storeLink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  transition: background 0.2s ease;
+}
+
+.storeLink:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Área Principal */
+.mainContainer {
+  flex: 1;
+  padding: 28px 24px 60px 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Banner de Boas Vindas & Conselho */
+.topBanner {
+  background: #141517;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bannerTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.bannerSubtitle {
+  font-size: 13px;
+  color: #8E8F94;
+  line-height: 1.6;
+}
+
+/* Fila de Decisões dos 4 Sócios (Human-in-the-loop) */
+.decisionQueueSection {
+  background: #17181A;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+}
+
+.decisionQueueHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.sectionHeading {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: #FFFFFF;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badgePulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.decisionCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+.decisionCard {
+  background: #0E0F10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.decisionCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.decisionCardDepto {
+  color: #A0A0A5;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.decisionCardTag {
+  padding: 2px 6px;
+  font-size: 10px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.decisionText {
+  font-size: 13px;
+  color: #D1D2D6;
+  line-height: 1.4;
+}
+
+.decisionActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.btnPrimary {
+  background: #FFFFFF;
+  color: #000000;
+  border: none;
+  padding: 6px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: #A0A0A5;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+}
+
+.btnSecondary:hover {
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Grid dos 8 Departamentos */
+.deptGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.deptCard {
+  background: #141517;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.deptCard:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  background: #18191C;
+}
+
+.deptCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.deptNumber {
+  font-family: var(--font-title), sans-serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.deptCardIcon {
+  font-size: 20px;
+}
+
+.deptTitle {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  margin-bottom: 6px;
+}
+
+.deptDesc {
+  font-size: 12px;
+  color: #8E8F94;
+  line-height: 1.5;
+}
+
+.deptMetrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+  color: #A0A0A5;
+}
+
+/* Painel de Telemetria dos 19 Agentes */
+.agentsPanel {
+  background: #141517;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+}
+
+.agentsPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.agentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.agentBadge {
+  background: #0E0F10;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agentStatusDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.agentInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.agentName {
+  font-size: 12px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.agentRole {
+  font-size: 10px;
+  color: #8E8F94;
+}
+
+/* Módulos Internos de Departamentos */
+.deptModuleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+}
+
+.moduleTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+}
+
+.moduleSubtitle {
+  font-size: 13px;
+  color: #8E8F94;
+  margin-top: 4px;
+}
+
+.moduleGrid2Cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .moduleGrid2Cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.moduleCard {
+  background: #141517;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.cardHeading {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
