@@ -33,8 +33,8 @@ export default function AdminHeader() {
           <Image
             src="/imagens/AMOSTRAS/LOGOS/SELO_AVA_BRANCO_ISOLADO_300DPI.png"
             alt="AVA Selo Oficial"
-            width={38}
-            height={38}
+            width={52}
+            height={52}
             className={styles.brandLogoImg}
             priority
           />

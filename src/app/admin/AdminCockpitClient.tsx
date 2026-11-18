@@ -156,20 +156,12 @@ export default function AdminCockpitClient() {
       <AdminHeader />
 
       <main className={styles.mainContainer}>
-        {/* Banner de Boas-Vindas */}
-        <section className={styles.topBanner}>
-          <h1 className={styles.bannerTitle}>Cockpit Central — AVA Sem Limites</h1>
-          <p className={styles.bannerSubtitle}>
-            Ambiente de comando executivo dos 8 Departamentos Operacionais e telemetria dos 19 Agentes de IA sob coordenação do Maestro Lincoln para o Conselho dos 4 Sócios.
-          </p>
-        </section>
-
-        {/* Fila de Decisões dos 4 Sócios (Human-in-the-Loop) */}
+        {/* Fila de Decisões Executivas */}
         <section className={styles.decisionQueueSection}>
           <div className={styles.decisionQueueHeader}>
             <div className={styles.sectionHeading}>
               <span className={styles.badgePulse}></span>
-              Fila de Decisões Executivas dos 4 Sócios (Human-in-the-Loop)
+              Fila de Decisões Executivas
             </div>
             <span style={{ fontSize: '11px', color: '#A0A0A5' }}>
               {decisions.length} pendências ativas
