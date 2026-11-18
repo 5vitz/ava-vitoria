@@ -7,10 +7,11 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 ## 1. O que realizamos nesta sessão (Estado Atual)
 
 *   **✨ REFINAMENTO VISUAL & UX DO COCKPIT ADMIN & HEADER ([`AdminHeader.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/AdminHeader.tsx) & [`AdminCockpitClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/AdminCockpitClient.tsx)) ✅:**
+    *   **Inversão Estratégica de Seções:** Os **Departamentos Operacionais da Empresa** agora assumem o topo da página principal `/admin`, seguidos da **Fila de Decisões Executivas** e da **Telemetria dos 19 Agentes de IA da Mesa Redonda** no rodapé.
     *   **Logo Selo Ampliada e Barra Imponente:** Aumentada a altura do menu para `min-height: 80px` (com `padding: 16px 28px`), expandindo a **Logo Selo Branca** para **52px**, garantindo presença marcante e elegância como botão de retorno à Home (`/admin`).
     *   **Eliminação do Card Informativo do Topo:** Removido o banner redundante *"Cockpit Central — Ambiente de comando executivo..."*, dando foco imediato às operações da loja.
     *   **Título Sucinto da Fila:** Ajustado para **"Fila de Decisões Executivas"** (sem redundâncias).
-    *   **Validação Completa:** `npx tsc --noEmit` aprovado com 0 erros e `npm run build` compilado com sucesso em 8.6s!
+    *   **Validação Completa:** `npx tsc --noEmit` aprovado com 0 erros e `npm run build` compilado com sucesso em 8.9s!
 
 *   **🏆 IMPLEMENTAÇÃO DO PACOTE 3 CONCLUÍDA — ARQUITETURA COMPLETA DOS 8 DEPARTAMENTOS HOMOLOGADA! ✅:**
     *   **Depto 07 — Atelier Criativo & Mídias (`/admin/atelier`):**

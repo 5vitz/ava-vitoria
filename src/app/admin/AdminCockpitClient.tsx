@@ -156,6 +156,36 @@ export default function AdminCockpitClient() {
       <AdminHeader />
 
       <main className={styles.mainContainer}>
+        {/* Grid dos 8 Departamentos */}
+        <section style={{ marginBottom: '32px' }}>
+          <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h2 className={styles.sectionHeading}>Departamentos Operacionais da Empresa</h2>
+            <Link href="/admin/atelier" style={{ fontSize: '11px', color: '#FFFFFF', textDecoration: 'underline' }}>
+              Acessar Atelier & Gestão de Coleções ↗
+            </Link>
+          </div>
+
+          <div className={styles.deptGrid}>
+            {DEPARTMENTS_DATA.map(dept => (
+              <Link key={dept.number} href={dept.href} className={styles.deptCard}>
+                <div>
+                  <div className={styles.deptCardTop}>
+                    <span className={styles.deptNumber}>{dept.number}</span>
+                    <span className={styles.deptCardIcon}>{dept.icon}</span>
+                  </div>
+                  <h3 className={styles.deptTitle}>{dept.title}</h3>
+                  <p className={styles.deptDesc}>{dept.desc}</p>
+                </div>
+
+                <div className={styles.deptMetrics}>
+                  <span>{dept.metric}</span>
+                  <span style={{ color: '#FFFFFF', fontWeight: 500 }}>{dept.status}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
         {/* Fila de Decisões Executivas */}
         <section className={styles.decisionQueueSection}>
           <div className={styles.decisionQueueHeader}>
@@ -187,36 +217,6 @@ export default function AdminCockpitClient() {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Grid dos 8 Departamentos */}
-        <section>
-          <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h2 className={styles.sectionHeading}>Departamentos Operacionais da Empresa</h2>
-            <Link href="/admin/atelier" style={{ fontSize: '11px', color: '#FFFFFF', textDecoration: 'underline' }}>
-              Acessar Atelier & Gestão de Coleções ↗
-            </Link>
-          </div>
-
-          <div className={styles.deptGrid}>
-            {DEPARTMENTS_DATA.map(dept => (
-              <Link key={dept.number} href={dept.href} className={styles.deptCard}>
-                <div>
-                  <div className={styles.deptCardTop}>
-                    <span className={styles.deptNumber}>{dept.number}</span>
-                    <span className={styles.deptCardIcon}>{dept.icon}</span>
-                  </div>
-                  <h3 className={styles.deptTitle}>{dept.title}</h3>
-                  <p className={styles.deptDesc}>{dept.desc}</p>
-                </div>
-
-                <div className={styles.deptMetrics}>
-                  <span>{dept.metric}</span>
-                  <span style={{ color: '#FFFFFF', fontWeight: 500 }}>{dept.status}</span>
-                </div>
-              </Link>
             ))}
           </div>
         </section>
