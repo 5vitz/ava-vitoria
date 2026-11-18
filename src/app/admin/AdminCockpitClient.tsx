@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import AdminHeader from './AdminHeader';
+import AgentDossierModal from './AgentDossierModal';
+import { AGENTS_DOSSIER, AgentDossier } from './agentDossierData';
 import styles from './admin-cockpit.module.css';
 
 interface DecisionItem {
@@ -122,30 +124,9 @@ const DEPARTMENTS_DATA = [
   }
 ];
 
-const AGENTS_LIST = [
-  { name: 'Maestro Lincoln', role: 'Orquestrador Geral Técnico' },
-  { name: 'Dr. Lex', role: 'Jurídico & Compliance' },
-  { name: 'Auditor de Preços', role: 'Inspeção Fornecedores 2h' },
-  { name: 'Agente Discriminador', role: 'Triagem CDC 49 / Garantia' },
-  { name: 'Concierge Virtual', role: 'Atendimento ao Cliente 24/7' },
-  { name: 'Escalador Anti-Omissão', role: 'Transbordo aos 4 Sócios' },
-  { name: 'Curador de Matrizes', role: 'Artes 300 DPI & Prompts MDV' },
-  { name: 'Matriz Canônica', role: 'Sincronizador Bling ERP v3' },
-  { name: 'Lookbook 9:16', role: 'Diretor de Fotografia IA' },
-  { name: 'Content Creator', role: 'Voz da Marca Streetwear' },
-  { name: 'Whimsy Injector', role: 'Designer de Interação UX/UI' },
-  { name: 'Minimal Change', role: 'Garantia de Escopo Cirúrgico' },
-  { name: 'Sprint Prioritizer', role: 'Metas & Prazos Comerciais' },
-  { name: 'Software Architect', role: 'Contratos de API & Feed Meta' },
-  { name: 'Database Optimizer', role: 'Integridade ACID PostgreSQL' },
-  { name: 'Trios 3x3 Balenciaga', role: 'Growth Instagram Shopping' },
-  { name: 'Vault Coupon', role: 'Senhas Prefixadas 10% a 50%' },
-  { name: 'Unit Economics', role: 'DRE & Margens Dinâmicas' },
-  { name: 'Telemetria Infra', role: 'Monitoramento VPS & PM2' }
-];
-
 export default function AdminCockpitClient() {
   const [decisions, setDecisions] = useState(INITIAL_DECISIONS);
+  const [selectedAgent, setSelectedAgent] = useState<AgentDossier | null>(null);
 
   const handleResolve = (id: string) => {
     setDecisions(prev => prev.filter(d => d.id !== id));
@@ -221,19 +202,40 @@ export default function AdminCockpitClient() {
           </div>
         </section>
 
-        {/* Painel de Telemetria dos 19 Agentes */}
+        {/* Painel de Telemetria dos 20 Agentes */}
         <section className={styles.agentsPanel}>
           <div className={styles.agentsPanelHeader}>
-            <h2 className={styles.sectionHeading}>Telemetria dos 19 Agentes de IA da Mesa Redonda</h2>
-            <span style={{ fontSize: '11px', color: '#10B981', display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span className={styles.agentStatusDot}></span> 19 Agentes Operacionais
-            </span>
+            <div>
+              <h2 className={styles.sectionHeading}>Telemetria dos 20 Agentes de IA da Mesa Redonda</h2>
+              <p style={{ fontSize: '11px', color: '#8E8F94', marginTop: '3px' }}>
+                💡 Clique em qualquer agente para ver o Dossiê de Ajuda (O que faz, Por que faz, Como faz e Economia).
+              </p>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981', fontWeight: 500 }}>
+                <span className={styles.agentStatusDotActive}></span> Em Atividade
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#F59E0B', fontWeight: 500 }}>
+                <span className={styles.agentStatusDotStandby}></span> Em Prontidão (Stand-by)
+              </span>
+            </div>
           </div>
 
           <div className={styles.agentsGrid}>
-            {AGENTS_LIST.map((agent, i) => (
-              <div key={i} className={styles.agentBadge}>
-                <span className={styles.agentStatusDot}></span>
+            {Object.values(AGENTS_DOSSIER).map((agent) => (
+              <div
+                key={agent.id}
+                className={styles.agentBadge}
+                onClick={() => setSelectedAgent(agent)}
+                title={`Clique para abrir o Dossiê e Economia de ${agent.name}`}
+              >
+                <span
+                  className={
+                    agent.status === 'ACTIVE'
+                      ? styles.agentStatusDotActive
+                      : styles.agentStatusDotStandby
+                  }
+                ></span>
                 <div className={styles.agentInfo}>
                   <span className={styles.agentName}>{agent.name}</span>
                   <span className={styles.agentRole}>{agent.role}</span>
@@ -243,6 +245,14 @@ export default function AdminCockpitClient() {
           </div>
         </section>
       </main>
+
+      {/* Modal do Dossiê do Agente */}
+      {selectedAgent && (
+        <AgentDossierModal
+          agent={selectedAgent}
+          onClose={() => setSelectedAgent(null)}
+        />
+      )}
     </div>
   );
 }

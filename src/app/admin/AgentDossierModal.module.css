@@ -1,0 +1,185 @@
+/* AgentDossierModal.module.css — Dossiê dos 19 Agentes AVA */
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalCard {
+  background-color: #121316;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  padding: 20px 24px;
+  background: linear-gradient(180deg, #1B1C20 0%, #151619 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.agentTitleArea {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agentNameRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.agentName {
+  font-family: var(--font-title), sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #FFFFFF;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 600;
+}
+
+.statusActive {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.statusStandby {
+  background: rgba(245, 158, 11, 0.15);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.agentRole {
+  font-size: 12px;
+  color: #C0C0C5;
+}
+
+.agentDepto {
+  font-size: 11px;
+  color: #8E8F94;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.closeButton {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.closeButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #FFFFFF;
+}
+
+.modalBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8E8F94;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sectionText {
+  font-size: 13px;
+  color: #E2E2E4;
+  line-height: 1.6;
+  background: #0C0D0F;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 14px 16px;
+}
+
+/* Bloco Nobre: ROI Humano (O que os Sócios Deixam de Fazer) */
+.humanRoiBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(180deg, #0F1713 0%, #0B110E 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 16px 18px;
+  margin-top: 4px;
+}
+
+.humanRoiLabel {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #10B981;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.humanRoiText {
+  font-size: 13px;
+  color: #E6F5EE;
+  line-height: 1.6;
+}
+
+.modalFooter {
+  padding: 16px 24px;
+  background: #0E0F11;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+}
