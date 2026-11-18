@@ -40,8 +40,22 @@ body {
   font-family: var(--font-body), sans-serif;
   font-weight: var(--font-body-weight);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.5s ease, color 0.5s ease;
+  position: relative;
+}
+
+/* Halftone Texture Overlay — Sensação de tela artística / galeria */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 0.8px, transparent 0.8px);
+  background-size: 3.5px 3.5px;
+  pointer-events: none;
+  z-index: 9999;
 }
 
 h1, h2, h3, h4, h5, h6 {

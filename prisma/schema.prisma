@@ -27,6 +27,21 @@ model Product {
   size_chart    Json?          @db.JsonB
   collection_id String?        @db.Uuid
   collection    Collection?    @relation(fields: [collection_id], references: [id], onDelete: SetNull)
+  sku_master           String?        @db.VarChar(100)
+  product_category     String         @default("CAMISETA_PRIME") @db.VarChar(50)
+  supplier_provider    String         @default("DIMONA") @db.VarChar(50)
+  supplier_item_code   String?        @db.VarChar(100)
+  cost_price           Decimal?       @db.Decimal(10, 2)
+  cost_baseline        Decimal?       @db.Decimal(10, 2)
+  target_margin_percent Decimal?      @db.Decimal(5, 2)
+  is_price_indexed     Boolean        @default(true)
+  ncm                  String?        @default("6109.10.00") @db.VarChar(20)
+  weight_grams         Int?           @default(180)
+  dimensions           Json?          @db.JsonB
+  print_file_front_url String?        @db.VarChar(512)
+  print_file_back_url  String?        @db.VarChar(512)
+  artwork_id           String?        @db.Uuid
+  artwork              Artwork?       @relation(fields: [artwork_id], references: [id], onDelete: SetNull)
   created_at    DateTime       @default(now())
   updated_at    DateTime       @default(now()) @updatedAt
   images        ProductImage[]
@@ -118,4 +133,55 @@ model Collection {
   medias     MediaAsset[]
 
   @@map("collections")
+}
+
+model Artwork {
+  id                      String    @id @default(uuid()) @db.Uuid
+  code                    String    @unique @db.VarChar(50)
+  title                   String    @db.VarChar(255)
+  concept                 String?   @db.Text
+  project_folder          String    @default("Testes") @db.VarChar(100)
+  is_registered           Boolean   @default(false)
+  coa_hash_sha256         String?   @db.VarChar(64)
+  mutated_keys_count      Int       @default(0)
+  writing_matrix_26       Json?     @db.JsonB
+  master_print_dimona_url String?   @db.VarChar(512)
+  master_print_reserva_url String?  @db.VarChar(512)
+  preview_image_url       String?   @db.VarChar(512)
+  default_supplier        String    @default("DIMONA") @db.VarChar(50)
+  created_at              DateTime  @default(now())
+  updated_at              DateTime  @default(now()) @updatedAt
+  products                Product[]
+
+  @@map("artworks")
+}
+
+model CategoryMarginRule {
+  id                    String   @id @default(uuid()) @db.Uuid
+  category_code         String   @unique @db.VarChar(50)
+  category_label        String   @db.VarChar(100)
+  target_margin_percent Decimal  @db.Decimal(5, 2)
+  drop_indexing_mode    String   @default("INDEXED") @db.VarChar(20)
+  created_at            DateTime @default(now())
+  updated_at            DateTime @default(now()) @updatedAt
+
+  @@map("category_margin_rules")
+}
+
+model SupplierCatalogItem {
+  id                String   @id @default(uuid()) @db.Uuid
+  supplier_code     String   @db.VarChar(50)
+  item_code         String   @unique @db.VarChar(100)
+  item_name         String   @db.VarChar(255)
+  print_mode        String   @default("FRENTE") @db.VarChar(50)
+  dimensions_px     String?  @db.VarChar(50)
+  cost_current      Decimal  @db.Decimal(10, 2)
+  cost_baseline     Decimal  @db.Decimal(10, 2)
+  public_source_url String?  @db.VarChar(512)
+  last_checked_at   DateTime @default(now())
+  last_changed_at   DateTime @default(now())
+  created_at        DateTime @default(now())
+  updated_at        DateTime @default(now()) @updatedAt
+
+  @@map("supplier_catalog_items")
 }

@@ -1,0 +1,83 @@
+/* SalesChannelsSection.module.css — Estética da Subtração AVA Sem Limites */
+
+.section {
+  padding: 80px 20px;
+  background-color: var(--color-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 10;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.title {
+  font-family: var(--font-title), sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.card {
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 16px;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+  position: relative;
+}
+
+.card:hover {
+  border-color: #000000;
+  transform: translateY(-2px);
+}
+
+.logoWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.card:hover .logoWrapper {
+  transform: scale(1.04);
+}

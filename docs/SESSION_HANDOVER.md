@@ -6,6 +6,35 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 1. O que realizamos nesta sessão (Estado Atual)
 
+*   **🚀 IMPLEMENTAÇÃO DO PACOTE 1 CONCLUÍDA COM SUCESSO (FUNDAÇÃO & LOJA PÚBLICA) ✅:**
+    *   **Evolução Aditiva do Banco de Dados (`schema.prisma`):**
+        *   Model `Product` expandido com os campos de PoD/Matriz Canônica (`sku_master`, `product_category`, `supplier_provider`, `cost_price`, `cost_baseline`, `target_margin_percent`, `is_price_indexed`, `dimensions`, gabaritos `print_file_front_url`/`back_url`, e relação com `Artwork`).
+        *   Novos models criados e sincronizados no PostgreSQL via `npx prisma db push`: `Artwork` (matrizes 300 DPI e MDV 26 chaves), `CategoryMarginRule` (caixinhas de margem e chave de 2 posições) e `SupplierCatalogItem` (telemetria 2h).
+    *   **Motor Multi-Supplier & Precificação Inteligente (`src/lib/`):**
+        *   `src/lib/suppliers.ts`: catálogo homologado completo (Dimona, Reserva INK, Montink, Hotprinti, Private Label e Estoque AVA).
+        *   `src/lib/pricingEngine.ts`: regras de margem dinâmica, cálculo de preço e lógica da Chave de 2 Posições (`INDEXED` vs `HOLD_ON_DROP` com gatilho de reindexação automática ao superar o `cost_baseline`).
+        *   Rotas de API criadas: `/api/categories/margins` (reindexação imediata), `/api/production/suppliers/sync-prices` (auditoria 2h de custos) e `/llms.txt` (manifesto para indexação IA/GEO).
+    *   **Incrementos na Loja Pública (100% CSS Modules e Vitrine Balenciaga Intacta):**
+        *   **Textura Halftone de Tela:** adicionado overlay sutil de pontilhado tátil de galeria (`body::before` com `radial-gradient` de opacidade 0.07) sobre o marfim `#FEFCF5` em `src/app/globals.css`.
+        *   **Seção dos 10 Canais de Venda:** componente `SalesChannelsSection.tsx` + `SalesChannelsSection.module.css` posicionado no final da página inicial, antes do rodapé, conferindo autoridade nacional (Mercado Livre, Amazon, Google Shopping, SHEIN, Dafiti, TikTok Shop, Reserva, Instagram Shopping, Meta, Shopee).
+        *   **Central do Cliente (`/atendimento` & `/trocas`):** botão "Atendimento" integrado ao cabeçalho global (`Header.tsx`) levando para a central com **Concierge IA 24/7**, **Portal de Trocas e Devoluções** (com triagem CDC Art. 49 vs Garantia PoD) e **Dúvidas & Políticas Legais**.
+    *   **Validação Completa:** `npx tsc --noEmit` com 0 erros e `npm run build` do Next.js compilado com sucesso em 13.2s!
+
+*   **🎉 ENCOMENDA OFICIAL DE AMOSTRAS FÍSICAS REALIZADA (DIMONA) ✅:**
+    *   **NÚMERO DO PEDIDO DIMONA:** `# 755-460-927`
+    *   **Data/Hora do Pedido:** 17/11/2026 às 02:11:53 (Horário de Brasília)
+    *   **Valor Pago (PIX Instantâneo):** `R$ 472,80` (Frete 100% Grátis para Vitória/ES - Black Friday)
+    *   **Comprovante de Pagamento:** ID `E18236120202611170513s108f56a00b` (Nu Pagamentos -> Dimona Silk E Malhas Ltda)
+    *   **Lote Completo (Cenário 3 - 6 Peças):**
+        1. Camiseta Oversized 220g (Preta - Tam G): Frente Cubista + Costas Selo AVA Branco 16cm
+        2. T-Shirt Prime 180g (Branca - Tam G): Frente Coruja + Costas Selo AVA Preto 16cm
+        3. Camiseta Estonada 30.1 (Cinza Chumbo - Tam GG): Frente Peito Siga Fazendo o Bem + Costas Pôster Siga Fazendo o Bem
+        4. Camiseta Quality 30.1 (Vinho - Tam GG): Frente Cubista + Costas Selo AVA Preto 16cm
+        5. Boné Prime (Preto - Fivela): Frente Selo AVA Branco Circular (1100px)
+        6. Boné Americano (Branco - Snapback): Frente "Sem Limites AVA" Preto Orgânico
+    *   **Documento Completo de Registro:** [`docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md)
+*   **Status Reserva INK:** 2 camisetas cadastradas (Oversized e Algodão Peruano) e verificação de identidade/CIN protocolada com Sucesso, aguardando análise de compliance da Zoop.
+
 *   **Migração Completa para a VPS Contabo (`31.220.102.2`) ✅:**
     *   **Banco de Dados PostgreSQL:** Instalamos e ativamos o PostgreSQL nativo na VPS. Criamos o banco `ava_vitoria_prod` e usuário `ava_vitoria_user` com a senha secreta do projeto.
     *   **Sincronização e Seed:** Rodamos o Prisma Migrations para criar a estrutura e semeamos o banco (`npx tsx prisma/seed.ts` via tsx) gerando o administrador padrão, Design System padrão, produtos, coleções e variantes.
@@ -70,8 +99,12 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
     *   Corrigido o card recém-criado (`+ Tipo 1`): agora nasce como um **card vazio real** (retângulo off-white `#FEFCF5`) sem carregar foto antiga hardcoded.
 *   **Adequação de Mídias Balenciaga para a Coleção "Ava Nova Era" (Proporção 9:16) ✅:**
     *   Recortadas proporcionalmente as 6 fotos quadradas de modelos da pasta `public/imagens/VITRINE/Coleção_AvaNovaEra/` para proporção exata **9:16** (`393 × 700 px`), centralizadas e prontas para o Lookbook.
-*   **Plano Estratégico da Matriz Canônica Multicanal ✅:**
-    *   Criado o documento [docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md) detalhando a integração entre Cadastro Único, Vitrine 9:16, Meta Commerce (`/api/catalog/meta`), Bling ERP (API v3) e Produção PoD (Dimona Dropsimples).
+*   **Plano Mestre dos 8 Departamentos, Limpeza Estrutural & Pasta de Reunião Societária (Sessão de 15/Novembro/2026) ✅:**
+    *   **Higienização Completa do Repositório:** Removidos arquivos legados e obsoletos da raiz, de `docs/` (antigo VTON, tarefas antigas `TASKS/` e `DONE/`, `GuiaPrompts`) e os 27 scripts temporários de `scripts/` (preservando exclusivamente [scripts/deploy.sh](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/deploy.sh) e mantendo a pasta `public/` 100% intacta). Deploy realizado e validado em produção pelo Genera sem nenhuma perda.
+    *   **Dossiê Executivo para os Sócios (`docs/REUNIAO/`):**
+        *   [INDEX.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/INDEX.md): Pauta executiva da reunião societária.
+        *   [01_ESTRATEGIA_EU_TENHO_CUPOM_E_INAUGURACAO.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/01_ESTRATEGIA_EU_TENHO_CUPOM_E_INAUGURACAO.md): Estratégia condicional de inauguração em **01/Dezembro** com a Nova Coleção PoD na vitrine principal, postagem no Instagram em **Trios 3x3 (Padrão Balenciaga)** e Campanha Viral **`"EU TENHO CUPOM!"`** com **Senha Única Prefixada (`1...` = 10% a `5...` = 50% OFF)** para escoar o estoque físico atual em uma Vitrine Secreta.
+        *   [02_CHECKLIST_DOCUMENTACAO_BLING_E_10_CANAIS.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/02_CHECKLIST_DOCUMENTACAO_BLING_E_10_CANAIS.md): Diagnóstico MEI vs. LTDA (Simples Nacional) e relação de 14 documentos fiscais, bancários e digitais para integrar o Bling ERP e os 10 Canais de Venda.
 
 ---
 
@@ -90,13 +123,12 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 3. Próximos Passos Imediatos (Para a Sessão de Amanhã)
 
-1.  **Implementação da Matriz Canônica (conforme [PLANO_MATRIZ_CANONICA_MULTICANAL.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_MATRIZ_CANONICA_MULTICANAL.md)):**
-    *   Adicionar campos fiscais e logísticos no banco (`sku_master`, `cost_price`, `ncm`, `weight_grams`, `dimensions`).
-    *   Dividir o editor de produto no `/admin/grid-manager` em 4 abas limpas (Visual, Estoque, Fiscal/Custo e Multicanal).
-    *   Enriquecer o feed XML do Meta Commerce (`/api/catalog/meta`).
-    *   Importar os conectores da API v3 do Bling ERP desenvolvidos no Star-Ink.
-2.  **Preparação Final para a Reunião com os Sócios (Quinta-feira 13:30):**
-    *   Apresentação da Vitrine Balenciaga rodando sobre a nova coleção.
-    *   Demonstração do fluxo operacional de cadastro canônico e publicação em 1 clique.
+1.  **Iniciar a Implementação dos 8 Departamentos ([PLANO_IMPLEMENTACAO_8_DEPARTAMENTOS_AVA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_IMPLEMENTACAO_8_DEPARTAMENTOS_AVA.md)) — Fases 1 a 5:**
+    *   **Fase 1:** Evolução do `schema.prisma`, Catálogo Multi-Supplier (`suppliers.ts`), Motor de Precificação Dinâmica com inspeção de 2h e Chave de 2 Posições (`pricingEngine.ts`) e rotas de API.
+    *   **Fase 2:** Incrementos na Loja Pública (Textura Halftone, Seção dos 10 Canais de Venda e Central `/atendimento` + `/trocas`).
+    *   **Fases 3, 4 e 5:** Cockpit Central `/admin` + os 8 Departamentos Operacionais em 100% CSS Modules (`.module.css`).
+2.  **Retorno do Sócio de Marketing (Fase Extra Condicional):**
+    *   Assim que o sócio de Marketing aprovar a estratégia enviada hoje, implementar o módulo **`[ 🔑 EU TENHO CUPOM! ]`** com Senha Única Prefixada (`1` a `5` = `10%` a `50% OFF`) e a Vitrine Secreta do Estoque Físico.
+
 
 

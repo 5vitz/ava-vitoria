@@ -58,6 +58,15 @@ Sem alterar o layout Balenciaga dos cards de produto, a loja pública receberá 
   3. **Formulário de Contato Direto & Dúvidas Frequentes (FAQ).**
   4. **Páginas Legais Obrigatórias:** `/politica-de-devolucao`, `/politica-de-privacidade` (LGPD) e `/termos-e-condicoes`.
 
+### 2.4. [PROPOSTA CONDICIONAL — AGUARDANDO APROVAÇÃO DOS SÓCIOS] Banner `[ 🔑 EU TENHO CUPOM! ]` & Vitrine Secreta de Estoque Físico (Senhas `1` a `5` = `10%` a `50% OFF`)
+> [!NOTE]
+> **Status:** *Ideia estratégica condicional formulada pelo Genera em 15/Nov/2026. Só será implementada no sistema após alinhamento e aprovação do sócio de Marketing e demais sócios.*
+
+* **Propósito Estratégico (Caso aprovada a meta de 01/Dezembro):** Inaugurar o site exibindo 100% a **Nova Coleção PoD** na vitrine principal e, simultaneamente, escoar o estoque físico já fabricado através de uma campanha viral de aquisição no Instagram sem misturar as coleções.
+* **Mecânica da Senha Única Prefixada (`1` a `5`):**
+  * O webhook de comentários do Instagram lê o comentário do usuário, conta quantos `@amigos` distintos foram marcados (de 1 a 5) e envia no Direct (DM) **uma única senha consolidada** cujo **1º dígito** define o patamar de desconto (`1...` = 10% OFF até `5...` = 50% OFF).
+  * **Experiência no Site (quando aprovado):** O cliente clica no banner **`EU TENHO CUPOM!`**, digita sua **única senha**, e o site destrava a **Vitrine Secreta (Coleção do Estoque Físico)** já com os preços recalculados (`10%` a `50%`).
+
 ---
 
 ## ⚙️ 3. Arquitetura Multi-Supplier & Motor de Precificação Dinâmica (Inspeção 2h)
@@ -74,7 +83,7 @@ Lista dinâmica disponível em todos os seletores de Produto, Artes Matrizes, Am
 | `MONTINK` | **Montink PoD** | Linhas complementares e comparativos de malha. | `4200 × 4800 px` | Sob tabela sincronizada |
 | `HOTPRINTI` | **Hotprinti** | Papelaria Fine Art A3, Ecobags e acessórios específicos. | `3508 × 4960 px` (A3) | Sob tabela sincronizada |
 | `PRIVATE_LABEL` | **Private Label / Facção CMT** | Lotes especiais autorais ou serigrafia local em Vitória/ES. | Vetorial `.ai` / `.pdf` / `300 DPI` | Custo negociado por lote |
-| `ESTOQUE_AVA` | **Estoque Físico Próprio AVA** | Peças remanescentes ou pronta-entrega local. | N/A | Custo histórico de aquisição |
+| `ESTOQUE_AVA` | **Estoque Físico Próprio AVA** | Peças remanescentes na Vitrine Secreta de Cupons (`10%` a `50% OFF`). | N/A | Custo histórico de aquisição |
 
 ---
 
@@ -121,9 +130,9 @@ A rota principal `/admin` deixará de ser apenas a listagem de coleções (que i
 | **02** | `/admin/juridico` | [`JuridicoComplianceModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/JuridicoComplianceModule.tsx) | Governança Societária (Contrato Social 4 Sócios), Registro de Marca INPI, Compliance Fiscal Simples Nacional, LGPD e Chat Consultivo **Dr. Lex**. |
 | **03** | `/admin/engenharia` | [`EngenhariaTIModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/EngenhariaTIModule.tsx) + [`/admin/design-system`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/design-system/page.tsx) | Telemetria da VPS Contabo (`31.220.102.2`), status PostgreSQL/Prisma, rota GEO `/llms.txt` + acesso integrado ao **Design System Dinâmico** (cores, fontes, textura halftone) e **Portaria da Loja (`SiteLockControl`)**. |
 | **04** | `/admin/producao` | [`ProducaoModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/ProducaoModule.tsx) + [`/admin/stock`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/stock/page.tsx) | **4 Abas Operacionais:**<br/>1. *Kanban PoD (5 Etapas)* com filtro Multi-Supplier;<br/>2. *Gestão & Comparativo de Amostras Físicas* (Dimona vs. Reserva INK com notas de avaliação de malha/estampa);<br/>3. *Multi-Supplier Hub & Sincronizador 2h de Preços*;<br/>4. *Estoque Físico Remanescente* (`StockClient`). |
-| **05** | `/admin/atendimento` | [`AtendimentoModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/AtendimentoModule.tsx) | **Agente Discriminador** (triagem automática: Defeito de Fábrica roteado para garantia Dimona/Reserva INK vs. Troca de Tamanho AVA), gestão de chamados de `/trocas`, logs do **Concierge IA 24/7** e CRM de Clientes. |
-| **06** | `/admin/marketing` | [`ShowcaseCatalogModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/ShowcaseCatalogModule.tsx) (Módulo Growth) | Gestão de Tráfego Pago (Meta Ads / Google Shopping), monitoramento de ROAS/CAC, status de sincronização do Feed XML da **Sacolinha do Instagram (`/api/catalog/meta`)** e calendário de publicações. |
-| **07** | `/admin/atelier` | [`ArtworksProductionModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/ArtworksProductionModule.tsx) + [`MediaLibraryClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/media/MediaLibraryClient.tsx) + [`DashboardClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/DashboardClient.tsx) + [`GridManagerClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/grid-manager/GridManagerClient.tsx) | **O Estúdio Criativo Unificado em 3 Abas** (abandono definitivo do antigo V-TON):<br/>• **Aba 1 — Artes Matrizes & Prompts (MDV 26 Chaves):** Cadastro de artes 300 DPI multi-gabarito (Dimona `3435×4680` / Reserva INK `4200×4800`), pastas-projeto, selo `Registrado? Sim/Não`, Hash SHA-256 e Inspetor das 26 Chaves do JSON de Escrita.<br/>• **Aba 2 — Biblioteca Geral de Mídias:** Grid uniforme de 9 colunas com Lightbox.<br/>• **Aba 3 — Projetos/Coleções & Grid Manager (Matriz Canônica):** Criação/chaveamento de coleções ativas na vitrine, ordenação de cards e editor de produto com as **4 Abas da Matriz Canônica**. |
+| **05** | `/admin/atendimento` | [`AtendimentoModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/AtendimentoModule.tsx) | **Agente Discriminador & SAC 24/7 (SLA Anti-Omissão Societário):**<br/>• **Triagem em 2 Vias:** Separação entre *Defeito de Fabricação* (acionamento de garantia com 2 fotos para Dimona/Reserva INK) e *Troca por Tamanho / Desistência CDC 49* (fluxo automatizado no portal `/trocas`).<br/>• **Escalada Anti-Omissão com Transbordo aos 4 Sócios (Filosofia do Zagueiro-Artilheiro):** O agente monta o dossiê e envia notificação de WhatsApp com *Deep Link de 1-Clique* para o Sócio Titular do SAC. Se a aprovação não ocorrer em tempo hábil (ex: 2h/4h), a frequência de alertas aumenta e transborda automaticamente para os **outros 3 sócios** (*"Nada impede o zagueiro de marcar o gol para resguardar a empresa"*), garantindo que nenhum cliente fique no vácuo e nenhum prazo expire.<br/>• Logs do **Concierge IA 24/7** e CRM de Clientes. |
+| **06** | `/admin/marketing` | [`ShowcaseCatalogModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/ShowcaseCatalogModule.tsx) (Módulo Growth) | **Publicação Instagram em Trios 3x3 (Espelho da Vitrine)**, **Motor de Cupons Progressivos (`1...` = 10% a `5...` = 50% OFF via Webhook de `@amigos`)**, Gestão de Tráfego Pago (Meta Ads / Google Shopping) e Feed XML da **Sacolinha do Instagram (`/api/catalog/meta`)**. |
+| **07** | `/admin/atelier` | [`ArtworksProductionModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/ArtworksProductionModule.tsx) + [`MediaLibraryClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/media/MediaLibraryClient.tsx) + [`DashboardClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/DashboardClient.tsx) + [`GridManagerClient.tsx`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/grid-manager/GridManagerClient.tsx) | **O Estúdio Criativo Unificado em 3 Abas** (abandono definitivo do antigo V-TON):<br/>• **Aba 1 — Artes Matrizes & Prompts (MDV 26 Chaves):** Cadastro de artes 300 DPI multi-gabarito (Dimona `3435×4680` / Reserva INK `4200×4800`), pastas-projeto, selo `Registrado? Sim/Não`, Hash SHA-256 e Inspetor das 26 Chaves do JSON de Escrita.<br/>• **Aba 2 — Biblioteca Geral de Mídias:** Grid uniforme de 9 colunas com Lightbox.<br/>• **Aba 3 — Projetos/Coleções & Grid Manager (Matriz Canônica):** Criação/chaveamento de coleções ativas na vitrine (incluindo marcação de **Coleção Secreta de Cupons**), ordenação de cards e editor de produto com as **4 Abas da Matriz Canônica**. |
 | **08** | `/admin/financeiro` | [`FinanceiroModule.tsx`](file:///home/artz/Documentos/Antigravity/Star-Ink/src/components/admin/FinanceiroModule.tsx) | **Painel de Margens por Categoria (Caixinhas de efeito imediato)** + **Chave de 2 Posições de Indexação/Desindexação**, Calculadora de Unit Economics Multi-Supplier, DRE Gerencial, Conciliação Pix/Cartão e **Conector Bling ERP v3** (OAuth 1-Clique, NF-e e distribuição para os 10 Marketplaces). |
 
 ---
@@ -156,7 +165,7 @@ Para sustentar todas essas funcionalidades sem quebrar nada do que já existe na
 
 ---
 
-## 🚀 6. Cronograma de Execução em 5 Fases (A partir da próxima sessão)
+## 🚀 6. Cronograma de Execução em 5 Fases (8 Departamentos)
 
 ### Fase 1: Banco de Dados, Motor Multi-Supplier, Sincronizador 2h & APIs
 1. Atualizar [`Ava-Vitoria/prisma/schema.prisma`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/prisma/schema.prisma) e rodar `npx prisma db push`.
@@ -181,6 +190,10 @@ Para sustentar todas essas funcionalidades sem quebrar nada do que já existe na
 
 ### Fase 5: Departamentos 04 (Operações PoD & Amostras), 05 (SAC) e 08 (Financeiro & Bling)
 1. Implementar `/admin/producao` (Depto 04) com Kanban PoD, **Gestão e Comparativo de Amostras (Dimona vs. Reserva INK)**, Hub Multi-Supplier com botão de inspeção de preços e aba de Estoque Físico.
-2. Implementar `/admin/atendimento` (Depto 05 — Agente Discriminador e Concierge IA).
+2. Implementar `/admin/atendimento` (Depto 05 — Agente Discriminador, Concierge IA 24/7 e o **Motor de Escalada Anti-Omissão com Transbordo Societário aos 4 Sócios** via WhatsApp com *Deep Links de 1-Clique*).
 3. Implementar `/admin/financeiro` (Depto 08) com o **Painel de Caixinhas de Margem por Categoria**, a **Chave de 2 Posições (Indexação vs. Retenção de Lucro na Baixa c/ Reindexação Automática)**, Calculadora Unit Economics e Conector Bling ERP v3.
 4. Executar validação final TypeScript (`tsc --noEmit`) e build local completo.
+
+### Fase Extra (Condicional — Após Aprovação do Sócio de Marketing)
+* Implementar o Banner **`[ 🔑 EU TENHO CUPOM! ]`**, o modelo `VaultCoupon` (senhas únicas prefixadas `1...` a `5...` equivalentes a `10%` a `50% OFF`), o webhook de contagem de `@amigos` no Instagram e a **Vitrine Secreta do Estoque Físico**.
+

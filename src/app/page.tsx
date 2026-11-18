@@ -3,6 +3,7 @@ import Image from "next/image";
 import { prisma } from "@/lib/db";
 import ProductGrid from "@/app/components/ProductGrid";
 import CartStatus from "@/app/components/CartStatus";
+import SalesChannelsSection from "@/app/components/SalesChannelsSection";
 import styles from "./page.module.css";
 
 export const dynamic = "force-dynamic";
@@ -120,6 +121,9 @@ export default async function Home() {
           {/* Grid de 3 colunas com controle de inspeção ativa e vidro fumê nos 8 vizinhos */}
           <ProductGrid products={serializedProducts} />
         </section>
+
+        {/* Autoridade Nacional — Os 10 Canais de Venda */}
+        <SalesChannelsSection />
       </main>
 
       <footer id="footer" className={styles.footer}>
