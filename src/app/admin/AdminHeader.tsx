@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './admin-cockpit.module.css';
 
@@ -12,7 +13,6 @@ interface DeptLink {
 }
 
 const DEPTS: DeptLink[] = [
-  { number: 'HUB', name: 'Cockpit Central', href: '/admin' },
   { number: '01', name: 'Diretoria', href: '/admin/diretoria' },
   { number: '02', name: 'Jurídico', href: '/admin/juridico' },
   { number: '03', name: 'Engenharia', href: '/admin/engenharia' },
@@ -29,10 +29,16 @@ export default function AdminHeader() {
   return (
     <header className={styles.adminHeader}>
       <div className={styles.brandArea}>
-        <Link href="/admin" className={styles.brandLogo}>
-          AVA SEM LIMITES
+        <Link href="/admin" className={styles.brandLogoLink} title="Cockpit Central AVA (Início)">
+          <Image
+            src="/imagens/AMOSTRAS/LOGOS/SELO_AVA_BRANCO_ISOLADO_300DPI.png"
+            alt="AVA Selo Oficial"
+            width={38}
+            height={38}
+            className={styles.brandLogoImg}
+            priority
+          />
         </Link>
-        <span className={styles.brandBadge}>Cockpit 8 Departamentos</span>
       </div>
 
       <nav className={styles.deptNav}>
