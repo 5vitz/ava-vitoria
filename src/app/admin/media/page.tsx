@@ -2,9 +2,8 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import { getMediaAssets } from "../grid-manager/actions";
 import MediaLibraryClient from "./MediaLibraryClient";
-import Link from "next/link";
+import AdminHeader from "../AdminHeader";
 import styles from "./media-library.module.css";
-import LogoutButton from "../design-system/LogoutButton";
 
 export const dynamic = "force-dynamic";
 
@@ -59,24 +58,7 @@ export default async function MediaLibraryPage({ searchParams }: PageProps) {
 
   return (
     <div className={styles.adminContainer}>
-      <header className={styles.adminHeader}>
-        <div className={styles.headerTitleGroup}>
-          <h1 className={styles.adminTitle}>AVA Vitória</h1>
-          <span className={styles.adminBadge}>Biblioteca de Mídias</span>
-        </div>
-        <nav className={styles.adminNav}>
-          <Link href="/admin" className={styles.navLink}>
-            ➔ Projetos
-          </Link>
-          <Link href="/admin/design-system" className={styles.navLink}>
-            Design System
-          </Link>
-          <Link href="/" className={styles.navLink} target="_blank">
-            Ver Loja ↗
-          </Link>
-          <LogoutButton />
-        </nav>
-      </header>
+      <AdminHeader />
 
       <main className={styles.adminMain}>
         <MediaLibraryClient

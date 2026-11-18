@@ -1,8 +1,7 @@
 import React from "react";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
-import Link from "next/link";
-import LogoutButton from "../design-system/LogoutButton";
+import AdminHeader from "../AdminHeader";
 import StockClient from "./StockClient";
 import styles from "./stock.module.css";
 
@@ -32,7 +31,7 @@ export default async function StockPage({ searchParams }: PageProps) {
     : null;
 
   if (!currentCollection) {
-    redirect("/admin");
+    redirect("/admin/atelier");
   }
 
   // 2. Buscar todos os produtos desta coleção com suas imagens e variantes de estoque
@@ -96,32 +95,7 @@ export default async function StockPage({ searchParams }: PageProps) {
 
   return (
     <div className={styles.adminContainer}>
-      <header className={styles.adminHeader}>
-        <div className={styles.headerTitleGroup}>
-          <h1 className={styles.adminTitle}>AVA Vitória</h1>
-          <span className={styles.adminBadge}>
-            Estoque: {currentCollection.name} ({currentCollection.year})
-          </span>
-        </div>
-        <nav className={styles.adminNav}>
-          <Link href="/admin" className={styles.navLink}>
-            ➔ Projetos
-          </Link>
-          <Link href={`/admin/grid-manager?collection=${currentCollection.id}`} className={styles.navLink}>
-            Gerenciar Grid
-          </Link>
-          <Link href="/admin/media" className={styles.navLink}>
-            Biblioteca Geral
-          </Link>
-          <Link href="/admin/design-system" className={styles.navLink}>
-            Design System
-          </Link>
-          <Link href="/" className={styles.navLink} target="_blank">
-            Ver Loja ↗
-          </Link>
-          <LogoutButton />
-        </nav>
-      </header>
+      <AdminHeader />
 
       <main className={styles.adminMain}>
         <StockClient 

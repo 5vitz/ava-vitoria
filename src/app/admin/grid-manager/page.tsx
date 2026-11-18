@@ -3,9 +3,8 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import GridManagerClient from "./GridManagerClient";
 import { getMediaAssets, getActiveStoreCollectionId } from "./actions";
-import Link from "next/link";
+import AdminHeader from "../AdminHeader";
 import styles from "./grid-manager.module.css";
-import LogoutButton from "../design-system/LogoutButton";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +19,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
 
   // Se não houver coleção selecionada, redireciona para a Página de Projetos
   if (!collectionId) {
-    redirect("/admin");
+    redirect("/admin/atelier");
   }
 
   // Buscar a Coleção atual e a Coleção Ativa da Loja
@@ -32,7 +31,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
   ]);
 
   if (!currentCollection) {
-    redirect("/admin");
+    redirect("/admin/atelier");
   }
 
   // 1. Buscar produtos desta coleção ordenados por display_order com suas imagens e variantes de estoque
@@ -95,29 +94,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
 
   return (
     <div className={styles.adminContainer}>
-      <header className={styles.adminHeader}>
-        <div className={styles.headerTitleGroup}>
-          <h1 className={styles.adminTitle}>AVA Vitória</h1>
-          <span className={styles.adminBadge}>
-            Grid: {currentCollection.name} ({currentCollection.year} - {currentCollection.season})
-          </span>
-        </div>
-        <nav className={styles.adminNav}>
-          <Link href="/admin" className={styles.navLink}>
-            ➔ Projetos
-          </Link>
-          <Link href="/admin/media" className={styles.navLink}>
-            Biblioteca Geral
-          </Link>
-          <Link href="/admin/design-system" className={styles.navLink}>
-            Design System
-          </Link>
-          <Link href="/" className={styles.navLink} target="_blank">
-            Ver Loja ↗
-          </Link>
-          <LogoutButton />
-        </nav>
-      </header>
+      <AdminHeader />
 
       <main className={styles.adminMain}>
         <GridManagerClient 

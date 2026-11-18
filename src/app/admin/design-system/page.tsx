@@ -3,9 +3,8 @@ import { prisma } from "@/lib/db";
 import { getSiteLockConfig } from "@/lib/siteLockActions";
 import DesignSystemForm from "./DesignSystemForm";
 import SiteLockControl from "../SiteLockControl";
+import AdminHeader from "../AdminHeader";
 import styles from "./design-system.module.css";
-import Link from "next/link";
-import LogoutButton from "./LogoutButton";
 
 export const dynamic = "force-dynamic";
 
@@ -48,21 +47,7 @@ export default async function DesignSystemPage() {
 
   return (
     <div className={styles.adminContainer}>
-      <header className={styles.adminHeader}>
-        <div className={styles.headerTitleGroup}>
-          <h1 className={styles.adminTitle}>AVA Vitória</h1>
-          <span className={styles.adminBadge}>Painel de Controle</span>
-        </div>
-        <nav className={styles.adminNav}>
-          <Link href="/admin" className={styles.navLink}>
-            Projetos & Coleções
-          </Link>
-          <Link href="/" className={styles.navLink} target="_blank">
-            Ver Loja ↗
-          </Link>
-          <LogoutButton />
-        </nav>
-      </header>
+      <AdminHeader />
       
       <main className={styles.adminMain}>
         <SiteLockControl
