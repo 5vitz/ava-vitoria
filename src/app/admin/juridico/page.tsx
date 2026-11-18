@@ -58,12 +58,14 @@ export default function JuridicoPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 02 · Jurídico & Compliance</h1>
+            <h1 className={styles.moduleTitle}>Depto 01 · Jurídico &amp; Compliance</h1>
             <p className={styles.moduleSubtitle}>
-              Governança Fiscal, Transição Societária (MEI ➔ LTDA), INPI e Consultoria Dr. Lex
+              Sócio Titular: <strong>Flávio</strong> · Governança Fiscal, Transição Societária (MEI ➔ LTDA), INPI e Consultoria Dr. Lex
             </p>
           </div>
-          <span className={styles.brandBadge}>Auditoria Legal</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Flávio
+          </span>
         </div>
 
         {/* Diagnóstico MEI vs LTDA */}

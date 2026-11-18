@@ -60,12 +60,14 @@ export default function AtendimentoAdminPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 05 · Atendimento &amp; SAC Anti-Omissão</h1>
+            <h1 className={styles.moduleTitle}>Depto 04 · Atendimento &amp; SAC Anti-Omissão</h1>
             <p className={styles.moduleSubtitle}>
-              Triagem em 2 Vias (Agente Discriminador) e Motor de Transbordo aos 4 Sócios (Filosofia do Zagueiro-Artilheiro)
+              Sócio Titular: <strong>Gustavo</strong> · Triagem em 2 Vias (Agente Discriminador) e Transbordo aos 4 Sócios (Zagueiro-Artilheiro)
             </p>
           </div>
-          <span className={styles.brandBadge}>SLA Blindado</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Gustavo
+          </span>
         </div>
 
         {actionFeedback && (

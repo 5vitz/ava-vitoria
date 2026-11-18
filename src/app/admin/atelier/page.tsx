@@ -75,10 +75,12 @@ export default function AtelierPage() {
           <div>
             <h1 className={styles.moduleTitle}>Depto 07 · Atelier Criativo &amp; Mídias</h1>
             <p className={styles.moduleSubtitle}>
-              Estúdio Unificado: Artes Matrizes 300 DPI, Prompts MDV (26 Chaves), Biblioteca de Mídias e Projetos/Coleções da Vitrine
+              Sócio Titular: <strong>Tripoint</strong> · Artes Matrizes 300 DPI, Prompts MDV (26 Chaves), Biblioteca de Mídias e Coleções da Vitrine
             </p>
           </div>
-          <span className={styles.brandBadge}>Atelier Oficial</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Tripoint
+          </span>
         </div>
 
         {/* Seletor de Abas do Atelier */}

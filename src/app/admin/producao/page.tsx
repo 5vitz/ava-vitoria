@@ -44,12 +44,14 @@ export default function ProducaoPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 04 · Produção &amp; Fornecedores</h1>
+            <h1 className={styles.moduleTitle}>Depto 03 · Produção &amp; Fornecedores</h1>
             <p className={styles.moduleSubtitle}>
-              Operações Print on Demand (PoD Silk HD), Gestão de Amostras Físicas, Sincronizador 2h e Estoque Físico
+              Sócio Titular: <strong>Armando</strong> · Operações Print on Demand (PoD Silk HD), Amostras Físicas, Sincronizador 2h e Estoque Físico
             </p>
           </div>
-          <span className={styles.brandBadge}>Operações Industriais</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Armando
+          </span>
         </div>
 
         {/* Abas Operacionais */}

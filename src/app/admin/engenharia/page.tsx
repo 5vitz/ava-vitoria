@@ -13,12 +13,14 @@ export default function EngenhariaPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 03 · Engenharia & TI</h1>
+            <h1 className={styles.moduleTitle}>Depto 02 · Engenharia &amp; TI</h1>
             <p className={styles.moduleSubtitle}>
-              Infraestrutura VPS Contabo, PostgreSQL, Prisma ORM, Rota GEO e Design System
+              Sócio Titular: <strong>Armando</strong> · Infraestrutura VPS Contabo, PostgreSQL, Prisma ORM, Sentinel Security e Design System
             </p>
           </div>
-          <span className={styles.brandBadge}>Operações Técnicas</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Armando
+          </span>
         </div>
 
         <div className={styles.moduleGrid2Cols}>

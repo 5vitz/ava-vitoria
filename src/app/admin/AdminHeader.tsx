@@ -13,11 +13,11 @@ interface DeptLink {
 }
 
 const DEPTS: DeptLink[] = [
-  { number: '01', name: 'Diretoria', href: '/admin/diretoria' },
-  { number: '02', name: 'Jurídico', href: '/admin/juridico' },
-  { number: '03', name: 'Engenharia', href: '/admin/engenharia' },
-  { number: '04', name: 'Produção PoD', href: '/admin/producao' },
-  { number: '05', name: 'Atendimento', href: '/admin/atendimento' },
+  { number: '01', name: 'Jurídico', href: '/admin/juridico' },
+  { number: '02', name: 'Engenharia', href: '/admin/engenharia' },
+  { number: '03', name: 'Produção', href: '/admin/producao' },
+  { number: '04', name: 'Atendimento', href: '/admin/atendimento' },
+  { number: '05', name: 'Vendas', href: '/admin/vendas' },
   { number: '06', name: 'Marketing', href: '/admin/marketing' },
   { number: '07', name: 'Atelier', href: '/admin/atelier' },
   { number: '08', name: 'Financeiro', href: '/admin/financeiro' },
@@ -25,6 +25,7 @@ const DEPTS: DeptLink[] = [
 
 export default function AdminHeader() {
   const pathname = usePathname();
+  const isDiretoria = pathname === '/admin/diretoria';
 
   return (
     <header className={styles.adminHeader}>
@@ -38,6 +39,13 @@ export default function AdminHeader() {
             className={styles.brandLogoImg}
             priority
           />
+        </Link>
+        <Link
+          href="/admin/diretoria"
+          className={`${styles.executiveHeaderBtn} ${isDiretoria ? styles.executiveHeaderBtnActive : ''}`}
+          title="Camada Soberana · Conselho dos 4 Sócios"
+        >
+          <span>🏛️</span> Diretoria
         </Link>
       </div>
 

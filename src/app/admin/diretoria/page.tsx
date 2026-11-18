@@ -5,10 +5,30 @@ import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
 
 const PARTNERS = [
-  { name: 'Armando Sinkovitz (Genera)', role: 'Diretor Criativo & Mentor Estratégico', quota: '25%', focus: 'Direção Geral, Design System & Decisões Soberanas' },
-  { name: 'Diretor Audiovisual & IA', role: 'Diretor de Vídeo & Novas Mídias', quota: '25%', focus: 'Lookbook Editorial, Reels, Vídeos em IA & Benchmark Balenciaga' },
-  { name: 'Diretor Comercial', role: 'Diretor de Parcerias & Expansão', quota: '25%', focus: 'Marketplaces, Relacionamento B2B & Ponto Físico' },
-  { name: 'Diretor de Marketing', role: 'Diretor de Performance & Growth', quota: '25%', focus: 'Meta Ads, Campanha "EU TENHO CUPOM!" & Gestão de Comunidade' }
+  {
+    name: 'Armando Sinkovitz (Genera)',
+    role: 'Titular: 02 · Engenharia & TI + 03 · Produção & Fornecedores',
+    quota: '25% · Voto Soberano',
+    focus: 'Arquitetura Tecnológica, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
+  },
+  {
+    name: 'Flávio',
+    role: 'Titular: 01 · Jurídico & Compliance + 08 · Financeiro, Fiscal & ERP',
+    quota: '25% · Voto Soberano',
+    focus: 'Governança Societária (MEI ➔ LTDA), INPI, LGPD/CDC, Unit Economics (DRE) e Bling ERP v3'
+  },
+  {
+    name: 'Tripoint',
+    role: 'Titular: 06 · Marketing & Branding + 07 · Atelier Criativo & Mídias',
+    quota: '25% · Voto Soberano',
+    focus: 'Curadoria de Coleções (★ Vitrine Ativa), Lookbook 9:16, Matrizes 300 DPI, Trios 3x3 e Campanha Cupom'
+  },
+  {
+    name: 'Gustavo',
+    role: 'Titular: 04 · Atendimento & SAC + 05 · Vendas & Canais Comerciais',
+    quota: '25% · Voto Soberano',
+    focus: 'Análise de Tráfego, Impulsionamento (ROAS), Relacionamento com os 10 Canais de Venda e SAC 24/7'
+  }
 ];
 
 export default function DiretoriaPage() {
@@ -26,12 +46,14 @@ export default function DiretoriaPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 01 · Diretoria Executiva</h1>
+            <h1 className={styles.moduleTitle}>🏛️ Camada Soberana · Diretoria Executiva</h1>
             <p className={styles.moduleSubtitle}>
-              Governança dos 4 Sócios, Metas de Inauguração (01/Dezembro) e Scorecard Estratégico
+              Conselho Deliberativo dos 4 Sócios (25% cada), Divisão Simétrica (2 Deptos por Sócio) e Consenso de Precificação
             </p>
           </div>
-          <span className={styles.brandBadge}>Conselho Deliberativo</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px', color: '#F59E0B', borderColor: 'rgba(245,158,11,0.4)' }}>
+            🏛️ Cúpula de Comando · 4 Sócios
+          </span>
         </div>
 
         <div className={styles.moduleGrid2Cols}>

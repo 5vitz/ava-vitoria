@@ -38,7 +38,7 @@ export default function FinanceiroPage() {
 
   const handleSaveMargin = async (code: string) => {
     setLoading(true);
-    setSaveStatus(`Atualizando regra de margem para ${code}...`);
+    setSaveStatus(`Enviando proposta de margem de ${code} (${margins[code]}%) para a Urna de Votação dos 4 Sócios...`);
     try {
       const res = await fetch('/api/categories/margins', {
         method: 'POST',
@@ -52,15 +52,17 @@ export default function FinanceiroPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setSaveStatus(`✓ Margem de ${code} atualizada para ${margins[code]}%! Produtos reindexados.`);
+        setSaveStatus(
+          `🗳️ Proposta de ${code} (${margins[code]}%) registrada na Urna! Cobrança de voto disparada via WhatsApp e E-mail para Armando, Flávio, Tripoint e Gustavo.`
+        );
       } else {
-        setSaveStatus('Erro ao atualizar margem.');
+        setSaveStatus('Erro ao registrar proposta de margem.');
       }
     } catch {
-      setSaveStatus('Erro de conexão ao salvar margem.');
+      setSaveStatus('Erro de conexão ao salvar proposta de margem.');
     } finally {
       setLoading(false);
-      setTimeout(() => setSaveStatus(null), 4000);
+      setTimeout(() => setSaveStatus(null), 5500);
     }
   };
 
@@ -71,12 +73,35 @@ export default function FinanceiroPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 08 · Financeiro &amp; Precificação Dinâmica</h1>
+            <h1 className={styles.moduleTitle}>Depto 08 · Financeiro, Fiscal &amp; Precificação Colegiada</h1>
             <p className={styles.moduleSubtitle}>
-              Painel de Margens por Categoria, Chave de 2 Posições, Unit Economics e Integração Bling ERP v3
+              Sócio Titular: <strong>Flávio</strong> · Precificação sob Votação Colegiada dos 4 Sócios (4/4), Unit Economics (DRE) e Bling ERP v3
             </p>
           </div>
-          <span className={styles.brandBadge}>Inteligência Financeira</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Flávio · 🗳️ Preços sob Voto 4/4
+          </span>
+        </div>
+
+        {/* Lei de Ouro da Precificação Colegiada */}
+        <div
+          style={{
+            padding: '14px 18px',
+            background: 'rgba(245, 158, 11, 0.08)',
+            border: '1px solid rgba(245, 158, 11, 0.3)',
+            color: '#E6E6E6',
+            fontSize: '12px',
+            marginBottom: '20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '10px'
+          }}
+        >
+          <span>
+            ⚖️ <strong>Governança Colegiada de Preços:</strong> <em>&ldquo;Se o preço estiver baixo, você nada e morre na praia; se estiver alto, você não sai do lugar e morre ali mesmo.&rdquo;</em> Toda alteração de margem exige votação dos 4 sócios com cobrança automática via WhatsApp e E-mail.
+          </span>
         </div>
 
         {saveStatus && (
@@ -87,7 +112,7 @@ export default function FinanceiroPage() {
 
         {/* Chave de 2 Posições */}
         <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
-          <h2 className={styles.cardHeading}>Chave de 2 Posições · Comportamento em Queda de Custo do Fornecedor</h2>
+          <h2 className={styles.cardHeading}>Chave de 2 Posições · Comportamento em Queda de Custo do Fornecedor (Votação 4/4)</h2>
           <p style={{ fontSize: '13px', color: '#8E8F94' }}>
             Define a conduta automática do sistema quando a Dimona ou a Reserva realizam uma promoção ou reduzem os custos base:
           </p>
@@ -142,7 +167,7 @@ export default function FinanceiroPage() {
         <div className={styles.moduleGrid2Cols}>
           {/* Caixinhas de Margem por Categoria */}
           <div className={styles.moduleCard}>
-            <h2 className={styles.cardHeading}>Tabela de Margem por Categoria (Efeito Imediato)</h2>
+            <h2 className={styles.cardHeading}>Tabela de Margem por Categoria (Submissão à Urna dos 4 Sócios)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {[
                 { code: 'CAMISETA_QUALITY', label: 'T-Shirts Quality 30.1' },
@@ -177,9 +202,9 @@ export default function FinanceiroPage() {
                       onClick={() => handleSaveMargin(cat.code)}
                       disabled={loading}
                       className={styles.btnPrimary}
-                      style={{ fontSize: '10px', padding: '4px 8px' }}
+                      style={{ fontSize: '10px', padding: '5px 10px' }}
                     >
-                      Salvar
+                      🗳️ Votar 4/4
                     </button>
                   </div>
                 </div>

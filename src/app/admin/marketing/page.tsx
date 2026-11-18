@@ -25,12 +25,14 @@ export default function MarketingPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 06 · Marketing & Growth</h1>
+            <h1 className={styles.moduleTitle}>Depto 06 · Marketing &amp; Branding</h1>
             <p className={styles.moduleSubtitle}>
-              Trios 3x3 Balenciaga no Instagram, Feed Meta XML, Campanha &quot;EU TENHO CUPOM!&quot; e Tráfego Pago
+              Sócio Titular: <strong>Tripoint</strong> · Trios 3x3 Balenciaga no Instagram, Posicionamento de Marca e Campanha &quot;EU TENHO CUPOM!&quot;
             </p>
           </div>
-          <span className={styles.brandBadge}>Tração & Vendas</span>
+          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            👤 Titular: Tripoint
+          </span>
         </div>
 
         <div className={styles.moduleGrid2Cols}>
