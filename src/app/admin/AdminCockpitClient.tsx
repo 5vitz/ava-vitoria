@@ -251,11 +251,11 @@ export default function AdminCockpitClient() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
               <span style={{ fontSize: '18px' }}>🏛️</span>
-              <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#F59E0B' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#B45309' }}>
                 Camada Soberana · Diretoria Executiva (Conselho dos 4 Sócios · 25% Cada)
               </span>
             </div>
-            <p style={{ fontSize: '12px', color: '#A0A0A5', margin: 0 }}>
+            <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
               Simetria Operacional: <strong>Armando</strong> (02 Engenharia &amp; 03 Produção) · <strong>Flávio</strong> (01 Jurídico &amp; 08 Financeiro) · <strong>Tripoint</strong> (06 Marketing &amp; 07 Atelier) · <strong>Gustavo</strong> (04 Atendimento &amp; 05 Vendas)
             </p>
           </div>
@@ -297,14 +297,14 @@ export default function AdminCockpitClient() {
 
                 <div className={styles.deptMetrics}>
                   <span>{dept.metric}</span>
-                  <span style={{ color: '#FFFFFF', fontWeight: 500 }}>{dept.status}</span>
+                  <span style={{ color: '#111113', fontWeight: 700 }}>{dept.status}</span>
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Fila de Decisões Executivas & Urna de Votação Societária */}
+        {/* Fila de Decisões Executivas & Urna de Votação Societária (Bloco 2: Azul Escuro + Cards Azul Claro) */}
         <section className={styles.decisionQueueSection}>
           <div className={styles.decisionQueueHeader}>
             <div>
@@ -312,11 +312,11 @@ export default function AdminCockpitClient() {
                 <span className={styles.badgePulse}></span>
                 Fila de Decisões Executivas &amp; Urna de Votação (Consenso 4 Sócios)
               </div>
-              <p style={{ fontSize: '11px', color: '#8E8F94', marginTop: '4px' }}>
+              <p style={{ fontSize: '11px', color: '#BFDBFE', marginTop: '4px' }}>
                 🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto ou dispare cobrança por WhatsApp e E-mail.
               </p>
             </div>
-            <span style={{ fontSize: '11px', color: '#A0A0A5' }}>
+            <span style={{ fontSize: '11px', color: '#93C5FD', fontWeight: 600 }}>
               {decisions.length} pautas em votação
             </span>
           </div>
@@ -325,11 +325,11 @@ export default function AdminCockpitClient() {
             <div
               style={{
                 padding: '12px 16px',
-                background: 'rgba(245, 158, 11, 0.14)',
+                background: '#FEF3C7',
                 border: '1px solid #F59E0B',
-                color: '#FBBF24',
+                color: '#92400E',
                 fontSize: '12px',
-                fontWeight: 500,
+                fontWeight: 600,
                 marginBottom: '16px'
               }}
             >
@@ -354,7 +354,7 @@ export default function AdminCockpitClient() {
                     </span>
                   </div>
 
-                  <div style={{ fontWeight: 600, fontSize: '13px', color: '#FFFFFF' }}>{item.title}</div>
+                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#0A1931' }}>{item.title}</div>
                   <p className={styles.decisionText}>{item.description}</p>
 
                   {/* Crachás de Votação dos 4 Sócios */}
@@ -376,7 +376,7 @@ export default function AdminCockpitClient() {
                           className={`${styles.voterChip} ${chipClass}`}
                           title={`Clique para alternar o voto de ${PARTNER_LABELS[partnerKey]}`}
                         >
-                          <strong style={{ fontSize: '10px', color: '#FFFFFF', marginBottom: '2px' }}>
+                          <strong style={{ fontSize: '10px', color: '#0A1931', marginBottom: '2px' }}>
                             {PARTNER_LABELS[partnerKey]}
                           </strong>
                           <span>{icon}</span>
@@ -404,11 +404,11 @@ export default function AdminCockpitClient() {
                     <div
                       style={{
                         padding: '8px 10px',
-                        background: 'rgba(16, 185, 129, 0.12)',
-                        border: '1px solid rgba(16, 185, 129, 0.35)',
-                        color: '#10B981',
+                        background: '#D1FAE5',
+                        border: '1px solid #059669',
+                        color: '#065F46',
                         fontSize: '11px',
-                        fontWeight: 600,
+                        fontWeight: 700,
                         marginTop: '4px'
                       }}
                     >
@@ -421,8 +421,8 @@ export default function AdminCockpitClient() {
                       onClick={() => handleResolve(item.id)}
                       className={styles.btnPrimary}
                       style={{
-                        background: isUnanimous ? '#10B981' : '#FFFFFF',
-                        color: '#000000'
+                        background: isUnanimous ? '#059669' : '#0F2547',
+                        color: '#FFFFFF'
                       }}
                     >
                       {isUnanimous ? `✓ ${item.actionPrimary}` : `${item.actionPrimary} (${approvedCount}/4)`}
@@ -444,15 +444,15 @@ export default function AdminCockpitClient() {
               <h2 className={styles.sectionHeading}>
                 Telemetria dos {totalAgents} Agentes de IA da Mesa Redonda
               </h2>
-              <p style={{ fontSize: '11px', color: '#8E8F94', marginTop: '3px' }}>
+              <p style={{ fontSize: '11px', color: '#52525B', marginTop: '3px' }}>
                 💡 Clique em qualquer agente para ver o Dossiê de Ajuda (O que faz, Por que faz, Como faz e Economia).
               </p>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#10B981', fontWeight: 500 }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
                 <span className={styles.agentStatusDotActive}></span> Em Atividade
               </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#F59E0B', fontWeight: 500 }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#D97706', fontWeight: 600 }}>
                 <span className={styles.agentStatusDotStandby}></span> Em Prontidão (Stand-by)
               </span>
             </div>
