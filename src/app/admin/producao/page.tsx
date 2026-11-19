@@ -55,7 +55,7 @@ export default function ProducaoPage() {
         </div>
 
         {/* Abas Operacionais */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(0,0,0,0.14)', paddingBottom: '12px', overflowX: 'auto' }}>
           {[
             { id: 'samples', label: '📦 Amostras Físicas (Pedido #755-460-927)' },
             { id: 'suppliers', label: '⚙️ Multi-Supplier Hub & Auditor 2h' },
@@ -70,10 +70,10 @@ export default function ProducaoPage() {
                 fontSize: '12px',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
-                background: activeTab === tab.id ? '#FFFFFF' : 'transparent',
-                color: activeTab === tab.id ? '#000000' : '#A0A0A5',
+                background: activeTab === tab.id ? '#111113' : 'rgba(255, 255, 255, 0.55)',
+                color: activeTab === tab.id ? '#FFFFFF' : '#18191B',
                 border: '1px solid',
-                borderColor: activeTab === tab.id ? '#FFFFFF' : 'rgba(255,255,255,0.15)',
+                borderColor: activeTab === tab.id ? '#111113' : 'rgba(0, 0, 0, 0.2)',
                 cursor: 'pointer',
                 fontWeight: 600,
                 whiteSpace: 'nowrap'

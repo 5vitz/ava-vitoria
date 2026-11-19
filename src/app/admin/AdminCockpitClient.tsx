@@ -272,10 +272,10 @@ export default function AdminCockpitClient() {
         {/* Grid dos 8 Departamentos Operacionais (01 a 08) */}
         <section style={{ marginBottom: '32px' }}>
           <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
-            <h2 className={styles.sectionHeading}>
+            <h2 className={styles.sectionHeading} style={{ color: '#111113' }}>
               8 Departamentos Operacionais da Empresa (2 por Sócio)
             </h2>
-            <Link href="/admin/atelier" style={{ fontSize: '11px', color: '#FFFFFF', textDecoration: 'underline' }}>
+            <Link href="/admin/atelier" style={{ fontSize: '11px', color: '#111113', fontWeight: 600, textDecoration: 'underline' }}>
               Acessar Atelier &amp; Gestão de Coleções ↗
             </Link>
           </div>

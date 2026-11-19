@@ -84,7 +84,7 @@ export default function AtelierPage() {
         </div>
 
         {/* Seletor de Abas do Atelier */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(0,0,0,0.14)', paddingBottom: '12px' }}>
           <button
             onClick={() => setActiveTab('collections')}
             style={{
@@ -92,10 +92,10 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'collections' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'collections' ? '#000000' : '#A0A0A5',
+              background: activeTab === 'collections' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
+              color: activeTab === 'collections' ? '#FFFFFF' : '#18191B',
               border: '1px solid',
-              borderColor: activeTab === 'collections' ? '#FFFFFF' : 'rgba(255,255,255,0.15)',
+              borderColor: activeTab === 'collections' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
               cursor: 'pointer',
               fontWeight: 600
             }}
@@ -110,10 +110,10 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'media' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'media' ? '#000000' : '#A0A0A5',
+              background: activeTab === 'media' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
+              color: activeTab === 'media' ? '#FFFFFF' : '#18191B',
               border: '1px solid',
-              borderColor: activeTab === 'media' ? '#FFFFFF' : 'rgba(255,255,255,0.15)',
+              borderColor: activeTab === 'media' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
               cursor: 'pointer',
               fontWeight: 600
             }}
@@ -128,10 +128,10 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'artworks' ? '#FFFFFF' : 'transparent',
-              color: activeTab === 'artworks' ? '#000000' : '#A0A0A5',
+              background: activeTab === 'artworks' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
+              color: activeTab === 'artworks' ? '#FFFFFF' : '#18191B',
               border: '1px solid',
-              borderColor: activeTab === 'artworks' ? '#FFFFFF' : 'rgba(255,255,255,0.15)',
+              borderColor: activeTab === 'artworks' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
               cursor: 'pointer',
               fontWeight: 600
             }}

@@ -1,6 +1,6 @@
 .adminContainer {
   min-height: 100vh;
-  background-color: #000000;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: var(--color-text-primary);
   display: flex;
   flex-direction: column;

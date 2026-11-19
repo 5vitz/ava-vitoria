@@ -145,7 +145,7 @@ export default function VendasPage() {
           <div
             style={{
               padding: '14px 18px',
-              background: 'rgba(245, 158, 11, 0.14)',
+              background: '#171511',
               border: '1px solid #F59E0B',
               color: '#FBBF24',
               fontSize: '13px',

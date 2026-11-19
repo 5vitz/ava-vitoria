@@ -87,8 +87,8 @@ export default function FinanceiroPage() {
         <div
           style={{
             padding: '14px 18px',
-            background: 'rgba(245, 158, 11, 0.08)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
+            background: '#171511',
+            border: '1px solid rgba(245, 158, 11, 0.35)',
             color: '#E6E6E6',
             fontSize: '12px',
             marginBottom: '20px',
