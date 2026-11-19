@@ -14,8 +14,8 @@
   background: #DFCFA8;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  padding: 16px 28px;
-  min-height: 80px;
+  padding: 14px 20px;
+  min-height: 76px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +27,7 @@
 .brandArea {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-shrink: 0;
 }
 
@@ -46,57 +46,62 @@
 
 .brandLogoImg {
   object-fit: contain;
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   filter: brightness(0); /* Converte o selo branco em preto sólido sobre o fundo palha */
 }
 
 .executiveHeaderBtn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 12px;
+  gap: 5px;
+  padding: 6px 10px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #78350F;
-  background: rgba(217, 119, 6, 0.16);
-  border: 1px solid rgba(180, 83, 9, 0.45);
+  letter-spacing: 0.7px;
+  color: #000000;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 2px;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .executiveHeaderBtn:hover {
-  background: rgba(217, 119, 6, 0.28);
-  border-color: #92400E;
-  color: #451A03;
+  background: rgba(0, 0, 0, 0.14);
+  border-color: #000000;
+  color: #000000;
 }
 
 .executiveHeaderBtnActive {
-  background: #B45309 !important;
-  border-color: #92400E !important;
-  color: #FFFFFF !important;
+  background: #000000 !important;
+  border-color: #000000 !important;
+  color: #DFCFA8 !important;
 }
 
 .deptNav {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 3px;
   overflow-x: auto;
+  scrollbar-width: none;
   padding: 4px 0;
-  margin: 0 16px;
+  margin: 0 10px;
   flex: 1;
   justify-content: center;
 }
 
+.deptNav::-webkit-scrollbar {
+  display: none;
+}
+
 .deptNavLink {
-  padding: 7px 11px;
+  padding: 6px 8px;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
-  color: #27272A;
+  letter-spacing: 0.4px;
+  color: #3F3F46;
   border: 1px solid transparent;
   border-radius: 2px;
   transition: all 0.2s ease;
@@ -111,36 +116,38 @@
 }
 
 .deptNavLinkActive {
-  color: #F3E9D2 !important;
-  background: #18181B;
-  border-color: #18181B;
+  color: #DFCFA8 !important;
+  background: #000000;
+  border-color: #000000;
   font-weight: 600;
 }
 
 .headerActions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
+  flex-shrink: 0;
 }
 
 .storeLink {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+  gap: 5px;
+  padding: 6px 10px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.7px;
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.28);
-  color: #18181B;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  color: #000000;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .storeLink:hover {
-  background: #18181B;
-  color: #F3E9D2;
+  background: #000000;
+  color: #DFCFA8;
 }
 
 /* Área Principal */
@@ -168,7 +175,7 @@
   font-size: 22px;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: #18181B;
+  color: #000000;
   text-transform: uppercase;
 }
 
@@ -178,12 +185,12 @@
   line-height: 1.6;
 }
 
-/* BLOCO 2: Fila de Decisões dos 4 Sócios — Azul Escuro Empresarial + Cards Azul Claro Confortável */
+/* BLOCO 2: Fila de Decisões dos 4 Sócios (Uniformizado em Palha Escuro #DFCFA8 + Preto/Grafite) */
 .decisionQueueSection {
-  background: linear-gradient(180deg, #0F2547 0%, #0A1931 100%);
-  border: 1px solid #1E3A8A;
-  box-shadow: 0 8px 24px rgba(10, 25, 49, 0.16);
-  padding: 22px 24px;
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 24px;
   margin-bottom: 28px;
 }
 
@@ -198,7 +205,7 @@
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  color: #18181B;
+  color: #000000;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -206,14 +213,14 @@
 }
 
 .decisionQueueSection .sectionHeading {
-  color: #E2E8F0;
+  color: #000000;
 }
 
 .badgePulse {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #10B981;
+  background: #059669;
 }
 
 .decisionCardsGrid {
@@ -222,16 +229,16 @@
   gap: 14px;
 }
 
-/* Cards Internos do Bloco 2 — Azul Claro Acetinado (Zero Reflexo Branco) */
+/* Cards Internos do Bloco 2 — Palha Escuro (#DFCFA8) */
 .decisionCard {
-  background: #D5E5F7;
-  border: 1px solid #7EB0E8;
-  box-shadow: 0 4px 12px rgba(10, 25, 49, 0.2);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: #0A1931;
+  color: #000000;
 }
 
 .decisionCardHeader {
@@ -242,7 +249,7 @@
 }
 
 .decisionCardDepto {
-  color: #1E3A8A;
+  color: #3F3F46;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -252,14 +259,14 @@
   padding: 2px 8px;
   font-size: 10px;
   font-weight: 600;
-  background: #0F2547;
-  color: #E2E8F0;
-  border: 1px solid #1E40AF;
+  background: rgba(0, 0, 0, 0.06);
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.24);
 }
 
 .decisionText {
   font-size: 13px;
-  color: #1E293B;
+  color: #3F3F46;
   line-height: 1.45;
 }
 
@@ -270,8 +277,8 @@
 }
 
 .btnPrimary {
-  background: #18181B;
-  color: #F3E9D2;
+  background: #000000;
+  color: #DFCFA8;
   border: none;
   padding: 7px 13px;
   font-size: 11px;
@@ -288,8 +295,8 @@
 
 .btnSecondary {
   background: rgba(0, 0, 0, 0.06);
-  color: #1E293B;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #3F3F46;
+  border: 1px solid rgba(0, 0, 0, 0.28);
   padding: 7px 13px;
   font-size: 11px;
   font-weight: 600;
@@ -299,9 +306,9 @@
 }
 
 .btnSecondary:hover {
-  background: #18181B;
-  color: #F3E9D2;
-  border-color: #18181B;
+  background: #000000;
+  color: #DFCFA8;
+  border-color: #000000;
 }
 
 /* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #DFCFA8) */
@@ -333,7 +340,7 @@
 }
 
 .deptCard:hover {
-  border-color: #18181B;
+  border-color: #000000;
   transform: translateY(-2px);
   background: #E8DAB8;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
@@ -349,7 +356,7 @@
   font-family: var(--font-title), sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.45);
+  color: #3F3F46;
 }
 
 .deptCardIcon {
@@ -360,7 +367,7 @@
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: #18181B;
+  color: #000000;
   margin-bottom: 6px;
 }
 
@@ -415,7 +422,7 @@
 
 .agentBadge:hover {
   background: #E8DAB8;
-  border-color: #18181B;
+  border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
 }
@@ -433,7 +440,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #B45309;
+  background: #D97706;
   flex-shrink: 0;
 }
 
@@ -445,7 +452,7 @@
 .agentName {
   font-size: 12px;
   font-weight: 700;
-  color: #18181B;
+  color: #000000;
 }
 
 .agentRole {
@@ -467,7 +474,7 @@
 .deptModuleHeader .partnerOwnerBadge {
   background: rgba(0, 0, 0, 0.06);
   border-color: rgba(0, 0, 0, 0.24);
-  color: #18181B;
+  color: #000000;
 }
 
 .moduleTitle {
@@ -475,7 +482,7 @@
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 1.5px;
-  color: #18181B;
+  color: #000000;
   text-transform: uppercase;
 }
 
@@ -505,7 +512,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  color: #18191B;
+  color: #000000;
 }
 
 .cardHeading {
@@ -513,16 +520,16 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #18181B;
+  color: #000000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   padding-bottom: 10px;
 }
 
-/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #DFCFA8) */
+/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #DFCFA8 + Preto/Grafite) */
 .executiveCommandStrip {
   background: #DFCFA8;
-  border: 1px solid rgba(180, 83, 9, 0.42);
-  border-left: 4px solid #B45309;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  border-left: 4px solid #000000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 18px 24px;
   margin-bottom: 28px;
@@ -542,19 +549,19 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  background: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  color: #18191B;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #3F3F46;
 }
 
-/* Urna de Votação dos 4 Sócios & Cobrança Automática (Sobre Card Azul Claro) */
+/* Urna de Votação dos 4 Sócios & Cobrança Automática (Sobre Card Palha Escuro #DFCFA8) */
 .voterGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
   margin-top: 6px;
   padding-top: 10px;
-  border-top: 1px solid rgba(30, 58, 138, 0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
 }
 
 .voterChip {
@@ -577,19 +584,19 @@
 }
 
 .voterApproved {
-  background: #D1FAE5;
+  background: rgba(5, 150, 105, 0.16);
   border: 1px solid #059669;
   color: #065F46;
 }
 
 .voterPending {
-  background: #FEF3C7;
-  border: 1px solid #D97706;
-  color: #92400E;
+  background: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  color: #3F3F46;
 }
 
 .voterRejected {
-  background: #FEE2E2;
+  background: rgba(220, 38, 38, 0.14);
   border: 1px solid #DC2626;
   color: #991B1B;
 }
@@ -600,17 +607,17 @@
   justify-content: space-between;
   gap: 8px;
   padding: 8px 10px;
-  background: #DBEAFE;
-  border: 1px dashed #3B82F6;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px dashed rgba(0, 0, 0, 0.28);
   font-size: 11px;
-  color: #1E3A8A;
+  color: #3F3F46;
   margin-top: 4px;
 }
 
 .btnNudge {
-  background: #0F2547;
-  color: #FFFFFF;
-  border: 1px solid #1E3A8A;
+  background: #000000;
+  color: #DFCFA8;
+  border: 1px solid #000000;
   padding: 5px 10px;
   font-size: 10px;
   font-weight: 600;
@@ -622,8 +629,7 @@
 }
 
 .btnNudge:hover {
-  background: #1E3A8A;
-  color: #FFFFFF;
+  opacity: 0.85;
 }
 
 

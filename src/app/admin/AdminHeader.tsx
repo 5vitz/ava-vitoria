@@ -66,7 +66,7 @@ export default function AdminHeader() {
 
       <div className={styles.headerActions}>
         <Link href="/" target="_blank" className={styles.storeLink}>
-          <span>↗</span> Ver Vitrine
+          <span>↗</span> Vitrine
         </Link>
       </div>
     </header>

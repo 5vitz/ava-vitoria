@@ -251,12 +251,12 @@ export default function AdminCockpitClient() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
               <span style={{ fontSize: '18px' }}>🏛️</span>
-              <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#B45309' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#000000' }}>
                 Camada Soberana · Diretoria Executiva (Conselho dos 4 Sócios · 25% Cada)
               </span>
             </div>
             <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
-              Simetria Operacional: <strong>Armando</strong> (02 Engenharia &amp; 03 Produção) · <strong>Flávio</strong> (01 Jurídico &amp; 08 Financeiro) · <strong>Tripoint</strong> (06 Marketing &amp; 07 Atelier) · <strong>Gustavo</strong> (04 Atendimento &amp; 05 Vendas)
+              Simetria Operacional: <strong style={{ color: '#000000' }}>Armando</strong> (02 Engenharia &amp; 03 Produção) · <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 08 Financeiro) · <strong style={{ color: '#000000' }}>Tripoint</strong> (06 Marketing &amp; 07 Atelier) · <strong style={{ color: '#000000' }}>Gustavo</strong> (04 Atendimento &amp; 05 Vendas)
             </p>
           </div>
 
@@ -304,7 +304,7 @@ export default function AdminCockpitClient() {
           </div>
         </section>
 
-        {/* Fila de Decisões Executivas & Urna de Votação Societária (Bloco 2: Azul Escuro + Cards Azul Claro) */}
+        {/* Fila de Decisões Executivas & Urna de Votação Societária (Bloco 2 Uniformizado em Palha Escuro) */}
         <section className={styles.decisionQueueSection}>
           <div className={styles.decisionQueueHeader}>
             <div>
@@ -312,11 +312,11 @@ export default function AdminCockpitClient() {
                 <span className={styles.badgePulse}></span>
                 Fila de Decisões Executivas &amp; Urna de Votação (Consenso 4 Sócios)
               </div>
-              <p style={{ fontSize: '11px', color: '#BFDBFE', marginTop: '4px' }}>
+              <p style={{ fontSize: '11px', color: '#3F3F46', marginTop: '4px' }}>
                 🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto ou dispare cobrança por WhatsApp e E-mail.
               </p>
             </div>
-            <span style={{ fontSize: '11px', color: '#93C5FD', fontWeight: 600 }}>
+            <span style={{ fontSize: '11px', color: '#3F3F46', fontWeight: 600 }}>
               {decisions.length} pautas em votação
             </span>
           </div>
@@ -325,9 +325,9 @@ export default function AdminCockpitClient() {
             <div
               style={{
                 padding: '12px 16px',
-                background: '#FEF3C7',
-                border: '1px solid #F59E0B',
-                color: '#92400E',
+                background: 'rgba(0, 0, 0, 0.08)',
+                border: '1px solid #000000',
+                color: '#000000',
                 fontSize: '12px',
                 fontWeight: 600,
                 marginBottom: '16px'
@@ -354,7 +354,7 @@ export default function AdminCockpitClient() {
                     </span>
                   </div>
 
-                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#0A1931' }}>{item.title}</div>
+                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#000000' }}>{item.title}</div>
                   <p className={styles.decisionText}>{item.description}</p>
 
                   {/* Crachás de Votação dos 4 Sócios */}
@@ -376,7 +376,7 @@ export default function AdminCockpitClient() {
                           className={`${styles.voterChip} ${chipClass}`}
                           title={`Clique para alternar o voto de ${PARTNER_LABELS[partnerKey]}`}
                         >
-                          <strong style={{ fontSize: '10px', color: '#0A1931', marginBottom: '2px' }}>
+                          <strong style={{ fontSize: '10px', color: '#000000', marginBottom: '2px' }}>
                             {PARTNER_LABELS[partnerKey]}
                           </strong>
                           <span>{icon}</span>
@@ -389,7 +389,7 @@ export default function AdminCockpitClient() {
                   {!isUnanimous ? (
                     <div className={styles.nudgeStrip}>
                       <span>
-                        ⏳ Falta votar: <strong>{pendingPartners.join(', ')}</strong>
+                        ⏳ Falta votar: <strong style={{ color: '#000000' }}>{pendingPartners.join(', ')}</strong>
                         {item.lastNudge ? ` · (${item.lastNudge})` : ' · Régua WhatsApp/E-mail a cada 2h'}
                       </span>
                       <button
@@ -404,7 +404,7 @@ export default function AdminCockpitClient() {
                     <div
                       style={{
                         padding: '8px 10px',
-                        background: '#D1FAE5',
+                        background: 'rgba(5, 150, 105, 0.16)',
                         border: '1px solid #059669',
                         color: '#065F46',
                         fontSize: '11px',
@@ -421,8 +421,8 @@ export default function AdminCockpitClient() {
                       onClick={() => handleResolve(item.id)}
                       className={styles.btnPrimary}
                       style={{
-                        background: isUnanimous ? '#059669' : '#0F2547',
-                        color: '#FFFFFF'
+                        background: isUnanimous ? '#059669' : '#000000',
+                        color: isUnanimous ? '#FFFFFF' : '#DFCFA8'
                       }}
                     >
                       {isUnanimous ? `✓ ${item.actionPrimary}` : `${item.actionPrimary} (${approvedCount}/4)`}
