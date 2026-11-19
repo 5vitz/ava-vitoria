@@ -62,13 +62,13 @@ export default function DiretoriaPage() {
             <h2 className={styles.cardHeading}>Conselho Societário (4 Sócios da AVA)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {PARTNERS.map((p, i) => (
-                <div key={i} style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <div key={i} style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                    <span style={{ fontWeight: 600, color: '#FFFFFF', fontSize: '13px' }}>{p.name}</span>
-                    <span style={{ fontSize: '11px', color: '#10B981', fontWeight: 600 }}>{p.quota}</span>
+                    <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{p.name}</span>
+                    <span style={{ fontSize: '11px', color: '#047857', fontWeight: 700 }}>{p.quota}</span>
                   </div>
-                  <div style={{ fontSize: '11px', color: '#C0C0C5', marginBottom: '2px' }}>{p.role}</div>
-                  <div style={{ fontSize: '11px', color: '#8E8F94' }}>{p.focus}</div>
+                  <div style={{ fontSize: '11px', color: '#27272A', fontWeight: 600, marginBottom: '2px' }}>{p.role}</div>
+                  <div style={{ fontSize: '11px', color: '#4B5563' }}>{p.focus}</div>
                 </div>
               ))}
             </div>
@@ -79,7 +79,7 @@ export default function DiretoriaPage() {
             <h2 className={styles.cardHeading}>Simulador de Inauguração (Natal 2026)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
-                <label style={{ fontSize: '12px', color: '#A0A0A5', display: 'block', marginBottom: '6px' }}>
+                <label style={{ fontSize: '12px', color: '#4B5563', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                   Meta de Vendas de Dezembro (Unidades): <strong>{targetUnits} peças</strong>
                 </label>
                 <input
@@ -89,12 +89,12 @@ export default function DiretoriaPage() {
                   step="25"
                   value={targetUnits}
                   onChange={(e) => setTargetUnits(Number(e.target.value))}
-                  style={{ width: '100%', accentColor: '#FFFFFF' }}
+                  style={{ width: '100%', accentColor: '#000000' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '12px', color: '#A0A0A5', display: 'block', marginBottom: '6px' }}>
+                <label style={{ fontSize: '12px', color: '#4B5563', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                   Ticket Médio da Peça: <strong>R$ {avgTicket.toFixed(2)}</strong>
                 </label>
                 <input
@@ -104,21 +104,21 @@ export default function DiretoriaPage() {
                   step="10"
                   value={avgTicket}
                   onChange={(e) => setAvgTicket(Number(e.target.value))}
-                  style={{ width: '100%', accentColor: '#FFFFFF' }}
+                  style={{ width: '100%', accentColor: '#000000' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
-                <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
-                  <div style={{ fontSize: '11px', color: '#8E8F94', textTransform: 'uppercase' }}>Faturamento Bruto</div>
-                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#FFFFFF', marginTop: '4px' }}>
+                <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                  <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>Faturamento Bruto</div>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                     R$ {estimatedRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </div>
                 </div>
 
-                <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(16, 185, 129, 0.2)' }}>
-                  <div style={{ fontSize: '11px', color: '#10B981', textTransform: 'uppercase' }}>Margem Bruta (58%)</div>
-                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#10B981', marginTop: '4px' }}>
+                <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(5, 150, 105, 0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                  <div style={{ fontSize: '11px', color: '#065F46', textTransform: 'uppercase', fontWeight: 600 }}>Margem Bruta (58%)</div>
+                  <div style={{ fontSize: '20px', fontWeight: 700, color: '#065F46', marginTop: '4px' }}>
                     R$ {estimatedGrossProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </div>
                 </div>
@@ -130,8 +130,8 @@ export default function DiretoriaPage() {
         {/* Parecer do Maestro Lincoln */}
         <div className={styles.moduleCard} style={{ marginTop: '20px' }}>
           <h2 className={styles.cardHeading}>Parecer Estratégico do Maestro Lincoln</h2>
-          <p style={{ fontSize: '13px', color: '#D1D2D6', lineHeight: '1.6' }}>
-            A estratégia de inauguração em <strong>01 de Dezembro</strong> com a Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>"EU TENHO CUPOM!"</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A formalização da transformação para LTDA na JUCEES resguarda a cota dos 4 sócios e destrava os 10 canais sem limite tributário.
+          <p style={{ fontSize: '13px', color: '#27272A', lineHeight: '1.6' }}>
+            A estratégia de inauguração em <strong>01 de Dezembro</strong> com a Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A formalização da transformação para LTDA na JUCEES resguarda a cota dos 4 sócios e destrava os 10 canais sem limite tributário.
           </p>
         </div>
       </main>

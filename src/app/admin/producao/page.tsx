@@ -70,13 +70,14 @@ export default function ProducaoPage() {
                 fontSize: '12px',
                 textTransform: 'uppercase',
                 letterSpacing: '1px',
-                background: activeTab === tab.id ? '#111113' : 'rgba(255, 255, 255, 0.55)',
-                color: activeTab === tab.id ? '#FFFFFF' : '#18191B',
+                background: activeTab === tab.id ? '#000000' : '#EFE4CC',
+                color: activeTab === tab.id ? '#DFCFA8' : '#18181B',
                 border: '1px solid',
-                borderColor: activeTab === tab.id ? '#111113' : 'rgba(0, 0, 0, 0.2)',
+                borderColor: activeTab === tab.id ? '#000000' : 'rgba(0, 0, 0, 0.18)',
                 cursor: 'pointer',
                 fontWeight: 600,
-                whiteSpace: 'nowrap'
+                whiteSpace: 'nowrap',
+                transition: 'all 0.2s ease'
               }}
             >
               {tab.label}
@@ -90,19 +91,19 @@ export default function ProducaoPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 className={styles.cardHeading}>Lote de Amostras Físicas — Dimona Silk HD (Pedido #755-460-927)</h2>
-                <p style={{ fontSize: '13px', color: '#8E8F94' }}>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Pedido pago via PIX (R$ 472,80 com Frete Grátis) em 17/11/2026. Lote composto por 6 peças para homologação de malhas e acabamento.
                 </p>
               </div>
-              <span style={{ fontSize: '12px', background: 'rgba(16,185,129,0.2)', color: '#10B981', padding: '4px 10px', fontWeight: 600 }}>
+              <span style={{ fontSize: '12px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '4px 10px', fontWeight: 700 }}>
                 Na Linha de Produção
               </span>
             </div>
 
-            <div style={{ overflowX: 'auto', marginTop: '16px' }}>
+            <div style={{ overflowX: 'auto', marginTop: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', padding: '8px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left' }}>
                 <thead>
-                  <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.12)', color: '#8E8F94' }}>
+                  <tr style={{ borderBottom: '1px solid rgba(0,0,0,0.14)', color: '#4B5563' }}>
                     <th style={{ padding: '10px' }}>Item</th>
                     <th style={{ padding: '10px' }}>Modelo / Malha</th>
                     <th style={{ padding: '10px' }}>Cor / Tam</th>
@@ -113,22 +114,22 @@ export default function ProducaoPage() {
                 </thead>
                 <tbody>
                   {DIMONA_SAMPLES.map(s => (
-                    <tr key={s.item} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-                      <td style={{ padding: '12px 10px', fontWeight: 600, color: '#FFFFFF' }}>{s.item}</td>
-                      <td style={{ padding: '12px 10px', color: '#FFFFFF' }}>{s.product}</td>
-                      <td style={{ padding: '12px 10px', color: '#A0A0A5' }}>{s.color} · {s.size}</td>
-                      <td style={{ padding: '12px 10px', color: '#C0C0C5' }}>{s.front}</td>
-                      <td style={{ padding: '12px 10px', color: '#C0C0C5' }}>{s.back}</td>
-                      <td style={{ padding: '12px 10px', color: '#10B981' }}>{s.status}</td>
+                    <tr key={s.item} style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
+                      <td style={{ padding: '12px 10px', fontWeight: 700, color: '#000000' }}>{s.item}</td>
+                      <td style={{ padding: '12px 10px', fontWeight: 600, color: '#000000' }}>{s.product}</td>
+                      <td style={{ padding: '12px 10px', color: '#374151' }}>{s.color} · {s.size}</td>
+                      <td style={{ padding: '12px 10px', color: '#374151' }}>{s.front}</td>
+                      <td style={{ padding: '12px 10px', color: '#374151' }}>{s.back}</td>
+                      <td style={{ padding: '12px 10px', color: '#047857', fontWeight: 600 }}>{s.status}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div style={{ marginTop: '20px', padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-              <h3 style={{ fontSize: '13px', color: '#FFFFFF', marginBottom: '8px' }}>Critérios da Mesa Redonda para Avaliação Física na Chegada:</h3>
-              <p style={{ fontSize: '12px', color: '#8E8F94', lineHeight: '1.6' }}>
+            <div style={{ marginTop: '20px', padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
+              <h3 style={{ fontSize: '13px', color: '#000000', fontWeight: 700, marginBottom: '8px' }}>Critérios da Mesa Redonda para Avaliação Física na Chegada:</h3>
+              <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.6' }}>
                 1. <strong>Toque &amp; Gramatura:</strong> Sensação ao toque da malha Prime 180g (lixada) vs Oversized 220g pesada.<br/>
                 2. <strong>Fidelidade do Silk HD:</strong> Nitidez dos grafismos cubistas e resolução do selo na nuca.<br/>
                 3. <strong>Encolhimento &amp; Lavagem:</strong> Teste de lavagem prévia em 1 peça para atestar estabilidade dimensional.
@@ -143,7 +144,7 @@ export default function ProducaoPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 className={styles.cardHeading}>Hub Multi-Supplier &amp; Auditor de Custos 2h</h2>
-                <p style={{ fontSize: '13px', color: '#8E8F94' }}>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Audita os catálogos públicos a cada 2 horas para proteger a margem bruta da AVA Sem Limites contra variações de custos de insumos.
                 </p>
               </div>
@@ -157,28 +158,28 @@ export default function ProducaoPage() {
             </div>
 
             {syncStatus && (
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(16,185,129,0.3)', color: '#10B981', fontSize: '12px', marginTop: '12px' }}>
+              <div style={{ padding: '12px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.4)', color: '#065F46', fontSize: '12px', marginTop: '12px', fontWeight: 600 }}>
                 {syncStatus}
               </div>
             )}
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
-              <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                  <span style={{ fontWeight: 600, color: '#FFFFFF' }}>Dimona (Dropsimples)</span>
-                  <span style={{ color: '#10B981', fontSize: '11px', fontWeight: 600 }}>Principal (Silk HD)</span>
+                  <span style={{ fontWeight: 700, color: '#000000' }}>Dimona (Dropsimples)</span>
+                  <span style={{ color: '#047857', fontSize: '11px', fontWeight: 700 }}>Principal (Silk HD)</span>
                 </div>
-                <p style={{ fontSize: '12px', color: '#8E8F94' }}>Frente + Costas, Prime 180g, Oversized 220g e Bonés.</p>
-                <div style={{ fontSize: '11px', color: '#C0C0C5', marginTop: '8px' }}>Chave de API Dropsimples: Integrada</div>
+                <p style={{ fontSize: '12px', color: '#374151' }}>Frente + Costas, Prime 180g, Oversized 220g e Bonés.</p>
+                <div style={{ fontSize: '11px', color: '#4B5563', marginTop: '8px' }}>Chave de API Dropsimples: Integrada</div>
               </div>
 
-              <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                  <span style={{ fontWeight: 600, color: '#FFFFFF' }}>Reserva INK</span>
-                  <span style={{ color: '#F59E0B', fontSize: '11px', fontWeight: 600 }}>Pendente Zoop</span>
+                  <span style={{ fontWeight: 700, color: '#000000' }}>Reserva INK</span>
+                  <span style={{ color: '#92400E', fontSize: '11px', fontWeight: 700 }}>Pendente Zoop</span>
                 </div>
-                <p style={{ fontSize: '12px', color: '#8E8F94' }}>Linha Classic e Algodão Peruano (apenas estampas na frente).</p>
-                <div style={{ fontSize: '11px', color: '#C0C0C5', marginTop: '8px' }}>Cadastro em validação de compliance</div>
+                <p style={{ fontSize: '12px', color: '#374151' }}>Linha Classic e Algodão Peruano (apenas estampas na frente).</p>
+                <div style={{ fontSize: '11px', color: '#4B5563', marginTop: '8px' }}>Cadastro em validação de compliance</div>
               </div>
             </div>
           </div>
@@ -190,11 +191,11 @@ export default function ProducaoPage() {
             <h2 className={styles.cardHeading}>Fluxo de Produção Sob Demanda (Kanban PoD)</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px', marginTop: '12px', minHeight: '220px' }}>
               {['1. Novo Pedido', '2. Aprovação 4 Sócios', '3. Em Produção (Fábrica)', '4. Expedição / Rastreio', '5. Entregue ao Cliente'].map((col, idx) => (
-                <div key={idx} style={{ background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)', padding: '12px' }}>
-                  <div style={{ fontSize: '11px', fontWeight: 600, color: '#FFFFFF', textTransform: 'uppercase', marginBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.06)', paddingBottom: '4px' }}>
+                <div key={idx} style={{ background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', padding: '12px' }}>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: '#000000', textTransform: 'uppercase', marginBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.1)', paddingBottom: '4px' }}>
                     {col}
                   </div>
-                  <div style={{ fontSize: '11px', color: '#8E8F94', textAlign: 'center', marginTop: '20px' }}>
+                  <div style={{ fontSize: '11px', color: '#4B5563', textAlign: 'center', marginTop: '20px' }}>
                     Nenhum pedido nesta coluna
                   </div>
                 </div>
@@ -209,7 +210,7 @@ export default function ProducaoPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 className={styles.cardHeading}>Estoque Físico Remanescente AVA</h2>
-                <p style={{ fontSize: '13px', color: '#8E8F94' }}>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Peças físicas prontas para escoamento na Vitrine Secreta de Cupons (10% a 50% OFF).
                 </p>
               </div>
@@ -218,8 +219,8 @@ export default function ProducaoPage() {
               </Link>
             </div>
 
-            <div style={{ padding: '30px', textAlign: 'center', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)', marginTop: '16px' }}>
-              <p style={{ fontSize: '13px', color: '#FFFFFF', marginBottom: '12px' }}>
+            <div style={{ padding: '30px', textAlign: 'center', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', marginTop: '16px' }}>
+              <p style={{ fontSize: '13px', color: '#000000', marginBottom: '12px' }}>
                 O módulo dedicado de estoque permite registrar entradas e saídas físicas de cada variante (P, M, G, GG).
               </p>
               <Link href="/admin/stock" className={styles.btnSecondary}>

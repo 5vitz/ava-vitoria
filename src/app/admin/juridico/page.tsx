@@ -72,11 +72,11 @@ export default function JuridicoPage() {
         <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
           <h2 className={styles.cardHeading}>Diagnóstico Fiscal Crítico: MEI vs. LTDA (Simples Nacional)</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '16px', background: '#1B1112', border: '1px solid rgba(239,68,68,0.2)' }}>
-              <div style={{ color: '#EF4444', fontWeight: 600, fontSize: '13px', marginBottom: '8px' }}>
+            <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(220,38,38,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+              <div style={{ color: '#991B1B', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
                 ⚠️ Gargalos do MEI Atual
               </div>
-              <ul style={{ fontSize: '12px', color: '#D1D2D6', lineHeight: '1.6', paddingLeft: '16px' }}>
+              <ul style={{ fontSize: '12px', color: '#18181B', lineHeight: '1.6', paddingLeft: '16px' }}>
                 <li>Limite de 38 peças/mês (R$ 81 mil/ano).</li>
                 <li>Proibição legal de inclusão dos 4 sócios.</li>
                 <li>Bloqueio de cadastro na Dafiti e Reserva.</li>
@@ -84,11 +84,11 @@ export default function JuridicoPage() {
               </ul>
             </div>
 
-            <div style={{ padding: '16px', background: '#0F1814', border: '1px solid rgba(16,185,129,0.2)' }}>
-              <div style={{ color: '#10B981', fontWeight: 600, fontSize: '13px', marginBottom: '8px' }}>
+            <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+              <div style={{ color: '#065F46', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
                 ✅ Vantagens da LTDA (Simples Nacional)
               </div>
-              <ul style={{ fontSize: '12px', color: '#D1D2D6', lineHeight: '1.6', paddingLeft: '16px' }}>
+              <ul style={{ fontSize: '12px', color: '#18181B', lineHeight: '1.6', paddingLeft: '16px' }}>
                 <li>Teto salta para R$ 360 mil até R$ 4,8 milhões/ano.</li>
                 <li>Contrato Social formalizando os 4 sócios (25% cada).</li>
                 <li>Liberação imediata nos 10 canais via Bling ERP.</li>
@@ -102,8 +102,8 @@ export default function JuridicoPage() {
           {/* Checklist de Documentação */}
           <div className={styles.moduleCard}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 className={styles.cardHeading}>Checklist Bling ERP & 10 Canais</h2>
-              <span style={{ fontSize: '12px', color: '#10B981', fontWeight: 600 }}>{progressPercent}% Completo</span>
+              <h2 className={styles.cardHeading}>Checklist Bling ERP &amp; 10 Canais</h2>
+              <span style={{ fontSize: '12px', color: '#065F46', fontWeight: 700 }}>{progressPercent}% Completo</span>
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -115,7 +115,7 @@ export default function JuridicoPage() {
                     alignItems: 'center',
                     gap: '10px',
                     fontSize: '12px',
-                    color: item.checked ? '#FFFFFF' : '#8E8F94',
+                    color: item.checked ? '#18181B' : '#52525B',
                     cursor: 'pointer'
                   }}
                 >
@@ -123,9 +123,9 @@ export default function JuridicoPage() {
                     type="checkbox"
                     checked={item.checked}
                     onChange={() => toggleCheck(item.id)}
-                    style={{ accentColor: '#10B981', width: '16px', height: '16px' }}
+                    style={{ accentColor: '#059669', width: '16px', height: '16px' }}
                   />
-                  <span style={{ textDecoration: item.checked ? 'line-through' : 'none' }}>
+                  <span style={{ textDecoration: item.checked ? 'line-through' : 'none', opacity: item.checked ? 0.75 : 1 }}>
                     {item.label}
                   </span>
                 </label>
@@ -136,7 +136,7 @@ export default function JuridicoPage() {
           {/* Chat Dr. Lex */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Consultoria Jurídica IA · Dr. Lex</h2>
-            <p style={{ fontSize: '12px', color: '#8E8F94' }}>
+            <p style={{ fontSize: '12px', color: '#3F3F46' }}>
               Tire dúvidas rápidas sobre contratos, tributação Simples Nacional, proteção de marca no INPI e direito do consumidor.
             </p>
 
@@ -147,13 +147,14 @@ export default function JuridicoPage() {
                 value={lexQuestion}
                 onChange={(e) => setLexQuestion(e.target.value)}
                 style={{
-                  background: '#0E0F10',
-                  border: '1px solid rgba(255,255,255,0.15)',
+                  background: '#EFE4CC',
+                  border: '1px solid rgba(0, 0, 0, 0.22)',
                   padding: '12px',
-                  color: '#FFFFFF',
+                  color: '#000000',
                   fontFamily: 'inherit',
                   fontSize: '13px',
-                  outline: 'none'
+                  outline: 'none',
+                  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.04)'
                 }}
               />
               <button type="submit" className={styles.btnPrimary} style={{ alignSelf: 'flex-start' }}>
@@ -162,7 +163,7 @@ export default function JuridicoPage() {
             </form>
 
             {lexAnswer && (
-              <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.1)', fontSize: '13px', lineHeight: '1.5', color: '#E0E0E0' }}>
+              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0, 0, 0, 0.16)', fontSize: '13px', lineHeight: '1.5', color: '#18181B', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.04)' }}>
                 {lexAnswer}
               </div>
             )}

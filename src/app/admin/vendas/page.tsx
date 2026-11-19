@@ -145,11 +145,13 @@ export default function VendasPage() {
           <div
             style={{
               padding: '14px 18px',
-              background: '#171511',
-              border: '1px solid #F59E0B',
-              color: '#FBBF24',
+              background: '#EFE4CC',
+              border: '1px solid #D97706',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+              color: '#92400E',
               fontSize: '13px',
-              marginBottom: '20px'
+              marginBottom: '20px',
+              fontWeight: 600
             }}
           >
             {nudgeAlert}
@@ -160,27 +162,27 @@ export default function VendasPage() {
         <div className={styles.moduleGrid2Cols} style={{ marginBottom: '24px' }}>
           <section className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Termômetro Comercial: Preço vs. Conversão de Tráfego</h2>
-            <p style={{ fontSize: '13px', color: '#D1D2D6', lineHeight: '1.6', margin: 0 }}>
+            <p style={{ fontSize: '13px', color: '#374151', lineHeight: '1.6', margin: 0 }}>
               <em>&ldquo;Se o preço estiver baixo, você nada e morre na praia; se estiver alto, você não sai do lugar e morre ali mesmo.&rdquo;</em>
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '8px' }}>
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <div style={{ fontSize: '11px', color: '#8E8F94', textTransform: 'uppercase' }}>1. Taxa de Inspeção na Vitrine 9:16 (1º Clique)</div>
-                <div style={{ fontSize: '18px', fontWeight: 600, color: '#10B981', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>1. Taxa de Inspeção na Vitrine 9:16 (1º Clique)</div>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
                   34,8% dos visitantes inspecionam as peças
                 </div>
-                <div style={{ fontSize: '11px', color: '#A0A0A5', marginTop: '2px' }}>
+                <div style={{ fontSize: '11px', color: '#52525B', marginTop: '2px' }}>
                   O efeito de vidro leitoso nos 8 vizinhos retém a atenção visual acima da média do mercado (18%).
                 </div>
               </div>
 
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <div style={{ fontSize: '11px', color: '#8E8F94', textTransform: 'uppercase' }}>2. Sensibilidade de Preço no Checkout</div>
-                <div style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>2. Sensibilidade de Preço no Checkout</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   Faixa Ideal Homologada: R$ 149,90 a R$ 189,90 (T-Shirt Prime / Oversized)
                 </div>
-                <div style={{ fontSize: '11px', color: '#A0A0A5', marginTop: '2px' }}>
+                <div style={{ fontSize: '11px', color: '#52525B', marginTop: '2px' }}>
                   Qualquer ajuste de margem para campanhas em canais externos exige aprovação 4/4 na Urna.
                 </div>
               </div>
@@ -198,12 +200,12 @@ export default function VendasPage() {
 
           <section className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Simulador de Impulsionamento &amp; Tráfego Pago (ROAS)</h2>
-            <p style={{ fontSize: '12px', color: '#8E8F94', margin: 0 }}>
+            <p style={{ fontSize: '12px', color: '#4B5563', margin: 0 }}>
               Calibre o investimento diário em Meta Ads / Instagram Shopping e projete o retorno comercial:
             </p>
 
             <div>
-              <label style={{ fontSize: '11px', color: '#A0A0A5', display: 'block', marginBottom: '6px' }}>
+              <label style={{ fontSize: '11px', color: '#4B5563', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
                 Orçamento Diário de Impulsionamento (R$/dia): <strong>R$ {dailyBudget}</strong>
               </label>
               <input
@@ -213,32 +215,32 @@ export default function VendasPage() {
                 step={10}
                 value={dailyBudget}
                 onChange={(e) => setDailyBudget(Number(e.target.value))}
-                style={{ width: '100%' }}
+                style={{ width: '100%', accentColor: '#000000' }}
               />
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: '11px', color: '#8E8F94' }}>Visitas Qualificadas / Dia</span>
-                <div style={{ fontSize: '18px', fontWeight: 600, color: '#FFFFFF', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Visitas Qualificadas / Dia</span>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   ~{estimatedClicks} visitas
                 </div>
               </div>
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: '11px', color: '#8E8F94' }}>Pedidos Estimados (Conv. 2,5%)</span>
-                <div style={{ fontSize: '18px', fontWeight: 600, color: '#10B981', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Pedidos Estimados (Conv. 2,5%)</span>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
                   {estimatedOrders} pedidos/dia
                 </div>
               </div>
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
-                <span style={{ fontSize: '11px', color: '#8E8F94' }}>Faturamento Bruto Projetado</span>
-                <div style={{ fontSize: '16px', fontWeight: 600, color: '#FFFFFF', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Faturamento Bruto Projetado</span>
+                <div style={{ fontSize: '16px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   R$ {estimatedRevenue.toFixed(2)}/dia
                 </div>
               </div>
-              <div style={{ padding: '12px', background: '#0E0F10', border: '1px solid rgba(16,185,129,0.25)' }}>
-                <span style={{ fontSize: '11px', color: '#10B981' }}>ROAS Projetado (Retorno)</span>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: '#10B981', marginTop: '4px' }}>
+              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 600 }}>ROAS Projetado (Retorno)</span>
+                <div style={{ fontSize: '16px', fontWeight: 700, color: '#065F46', marginTop: '4px' }}>
                   {estimatedRoas}x sobre o anúncio
                 </div>
               </div>
@@ -252,7 +254,7 @@ export default function VendasPage() {
             <h2 className={styles.cardHeading} style={{ borderBottom: 'none', paddingBottom: 0 }}>
               Gestão &amp; Relacionamento com os 10 Canais de Vendas Nacionais
             </h2>
-            <span style={{ fontSize: '11px', color: '#10B981' }}>
+            <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 700 }}>
               ● Catálogo Centralizado via Feed Meta XML &amp; Bling ERP
             </span>
           </div>
@@ -263,8 +265,9 @@ export default function VendasPage() {
                 key={ch.id}
                 style={{
                   padding: '16px',
-                  background: '#0E0F10',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  background: '#EFE4CC',
+                  border: '1px solid rgba(0,0,0,0.12)',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -273,15 +276,15 @@ export default function VendasPage() {
               >
                 <div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#F59E0B', fontWeight: 600 }}>
+                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#92400E', fontWeight: 700 }}>
                       {ch.category}
                     </span>
-                    <span style={{ fontSize: '10px', color: '#10B981' }}>{ch.status}</span>
+                    <span style={{ fontSize: '10px', color: '#047857', fontWeight: 600 }}>{ch.status}</span>
                   </div>
-                  <div style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF', marginBottom: '6px' }}>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginBottom: '6px' }}>
                     {ch.name}
                   </div>
-                  <p style={{ fontSize: '12px', color: '#A0A0A5', lineHeight: '1.45', margin: 0 }}>
+                  <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.45', margin: 0 }}>
                     {ch.relationshipNote}
                   </p>
                 </div>
@@ -291,13 +294,13 @@ export default function VendasPage() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     paddingTop: '10px',
-                    borderTop: '1px solid rgba(255,255,255,0.06)',
+                    borderTop: '1px solid rgba(0,0,0,0.12)',
                     fontSize: '11px',
-                    color: '#8E8F94'
+                    color: '#4B5563'
                   }}
                 >
-                  <span>Taxa: <strong style={{ color: '#E6E6E6' }}>{ch.commission}</strong></span>
-                  <span>Alvo: <strong style={{ color: '#FFFFFF' }}>{ch.trafficShare}</strong></span>
+                  <span>Taxa: <strong style={{ color: '#000000' }}>{ch.commission}</strong></span>
+                  <span>Alvo: <strong style={{ color: '#000000' }}>{ch.trafficShare}</strong></span>
                 </div>
               </div>
             ))}

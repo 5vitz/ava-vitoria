@@ -229,16 +229,24 @@
   gap: 14px;
 }
 
-/* Cards Internos do Bloco 2 — Palha Escuro (#DFCFA8) */
+/* Cards Internos do Bloco 2 — Palha Claro (#EFE4CC) sobre Container Palha Escuro (#DFCFA8) */
 .decisionCard {
-  background: #DFCFA8;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  background: #EFE4CC;
+  border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   color: #000000;
+  transition: all 0.2s ease;
+}
+
+.decisionCard:hover {
+  background: #FAF6EE;
+  border-color: #000000;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
 .decisionCardHeader {

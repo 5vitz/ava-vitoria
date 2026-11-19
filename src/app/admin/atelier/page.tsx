@@ -84,7 +84,7 @@ export default function AtelierPage() {
         </div>
 
         {/* Seletor de Abas do Atelier */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(0,0,0,0.14)', paddingBottom: '12px' }}>
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(0,0,0,0.14)', paddingBottom: '12px', overflowX: 'auto' }}>
           <button
             onClick={() => setActiveTab('collections')}
             style={{
@@ -92,12 +92,14 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'collections' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
-              color: activeTab === 'collections' ? '#FFFFFF' : '#18191B',
+              background: activeTab === 'collections' ? '#000000' : '#EFE4CC',
+              color: activeTab === 'collections' ? '#DFCFA8' : '#18181B',
               border: '1px solid',
-              borderColor: activeTab === 'collections' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
+              borderColor: activeTab === 'collections' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
-              fontWeight: 600
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
             }}
           >
             ★ Projetos &amp; Coleções (Vitrine Ativa)
@@ -110,12 +112,14 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'media' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
-              color: activeTab === 'media' ? '#FFFFFF' : '#18191B',
+              background: activeTab === 'media' ? '#000000' : '#EFE4CC',
+              color: activeTab === 'media' ? '#DFCFA8' : '#18181B',
               border: '1px solid',
-              borderColor: activeTab === 'media' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
+              borderColor: activeTab === 'media' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
-              fontWeight: 600
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
             }}
           >
             🖼️ Biblioteca Geral de Mídias (9 Colunas)
@@ -128,12 +132,14 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'artworks' ? '#111113' : 'rgba(255, 255, 255, 0.55)',
-              color: activeTab === 'artworks' ? '#FFFFFF' : '#18191B',
+              background: activeTab === 'artworks' ? '#000000' : '#EFE4CC',
+              color: activeTab === 'artworks' ? '#DFCFA8' : '#18181B',
               border: '1px solid',
-              borderColor: activeTab === 'artworks' ? '#111113' : 'rgba(0, 0, 0, 0.2)',
+              borderColor: activeTab === 'artworks' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
-              fontWeight: 600
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
             }}
           >
             🎨 Artes Matrizes 300 DPI &amp; Prompts (MDV 26)
@@ -146,7 +152,7 @@ export default function AtelierPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 className={styles.cardHeading}>Gerenciador de Coleções &amp; Vitrine Oficial</h2>
-                <p style={{ fontSize: '13px', color: '#8E8F94' }}>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Acesse o painel completo de ordenação do grid de 3 colunas, slots vazios e publicação da coleção ativa na Home.
                 </p>
               </div>
@@ -161,14 +167,14 @@ export default function AtelierPage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
-              <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontWeight: 600, color: '#FFFFFF', fontSize: '14px' }}>Coleção Sem Limites</span>
-                  <span style={{ fontSize: '10px', background: 'rgba(16,185,129,0.2)', color: '#10B981', padding: '2px 6px', fontWeight: 600 }}>
+                  <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>Coleção Sem Limites</span>
+                  <span style={{ fontSize: '10px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '2px 6px', fontWeight: 700 }}>
                     ★ Vitrine Ativa da Loja
                   </span>
                 </div>
-                <p style={{ fontSize: '12px', color: '#8E8F94', marginBottom: '12px' }}>
+                <p style={{ fontSize: '12px', color: '#374151', marginBottom: '12px' }}>
                   Coleção oficial em exibição pública no domínio www.ava-vitoria.com.br.
                 </p>
                 <Link href="/admin/grid-manager" className={styles.btnSecondary} style={{ display: 'block', textAlign: 'center', fontSize: '11px' }}>
@@ -176,14 +182,14 @@ export default function AtelierPage() {
                 </Link>
               </div>
 
-              <div style={{ padding: '16px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontWeight: 600, color: '#FFFFFF', fontSize: '14px' }}>Coleção Ava Nova Era</span>
-                  <span style={{ fontSize: '10px', background: 'rgba(255,255,255,0.08)', color: '#A0A0A5', padding: '2px 6px' }}>
+                  <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>Coleção Ava Nova Era</span>
+                  <span style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.18)', color: '#4B5563', padding: '2px 6px', fontWeight: 600 }}>
                     Em Produção
                   </span>
                 </div>
-                <p style={{ fontSize: '12px', color: '#8E8F94', marginBottom: '12px' }}>
+                <p style={{ fontSize: '12px', color: '#374151', marginBottom: '12px' }}>
                   Peças e lookbook 9:16 em preparação para futuros drops.
                 </p>
                 <Link href="/admin/grid-manager" className={styles.btnSecondary} style={{ display: 'block', textAlign: 'center', fontSize: '11px' }}>
@@ -200,7 +206,7 @@ export default function AtelierPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
                 <h2 className={styles.cardHeading}>Biblioteca Geral de Mídias (Grid Uniforme de 9 Colunas)</h2>
-                <p style={{ fontSize: '13px', color: '#8E8F94' }}>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Visualizador de imagens de alta resolução com Lightbox, ordenação e uploads vinculados à coleção ativa.
                 </p>
               </div>
@@ -209,12 +215,12 @@ export default function AtelierPage() {
               </Link>
             </div>
 
-            <div style={{ padding: '40px 20px', textAlign: 'center', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)', marginTop: '16px' }}>
+            <div style={{ padding: '40px 20px', textAlign: 'center', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', marginTop: '16px' }}>
               <div style={{ fontSize: '28px', marginBottom: '8px' }}>🖼️</div>
-              <div style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF', marginBottom: '4px' }}>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
                 Biblioteca Integrada Ativa
               </div>
-              <p style={{ fontSize: '12px', color: '#8E8F94', maxWidth: '450px', margin: '0 auto 16px auto' }}>
+              <p style={{ fontSize: '12px', color: '#374151', maxWidth: '450px', margin: '0 auto 16px auto' }}>
                 Para fazer novos uploads, inspecionar fotos em tamanho original com a lupa ou organizar mídias por coleção, abra o visualizador dedicado.
               </p>
               <Link href="/admin/media" className={styles.btnPrimary}>
@@ -237,20 +243,20 @@ export default function AtelierPage() {
                     onClick={() => setSelectedArtwork(art)}
                     style={{
                       padding: '12px',
-                      background: selectedArtwork?.id === art.id ? '#1C1D21' : '#0E0F10',
-                      border: '1px solid',
-                      borderColor: selectedArtwork?.id === art.id ? '#FFFFFF' : 'rgba(255,255,255,0.06)',
+                      background: '#EFE4CC',
+                      border: selectedArtwork?.id === art.id ? '2px solid #000000' : '1px solid rgba(0,0,0,0.12)',
+                      boxShadow: selectedArtwork?.id === art.id ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease'
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{ fontWeight: 600, color: '#FFFFFF', fontSize: '13px' }}>{art.title}</span>
-                      <span style={{ fontSize: '10px', color: art.isRegistered ? '#10B981' : '#F59E0B' }}>
+                      <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{art.title}</span>
+                      <span style={{ fontSize: '10px', fontWeight: 700, color: art.isRegistered ? '#047857' : '#92400E' }}>
                         {art.isRegistered ? '✓ Registrado' : '○ Não Registrado'}
                       </span>
                     </div>
-                    <div style={{ fontSize: '11px', color: '#A0A0A5' }}>
+                    <div style={{ fontSize: '11px', color: '#4B5563' }}>
                       Código: {art.code} · Fornecedor: {art.supplier}
                     </div>
                   </div>
@@ -264,32 +270,32 @@ export default function AtelierPage() {
                 <h2 className={styles.cardHeading}>Ficha Técnica da Matriz &amp; Prompt MDV</h2>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
                   <div>
-                    <span style={{ color: '#8E8F94' }}>Conceito Artístico:</span>
-                    <p style={{ color: '#FFFFFF', marginTop: '4px', lineHeight: '1.4' }}>{selectedArtwork.concept}</p>
+                    <span style={{ color: '#4B5563', fontWeight: 600 }}>Conceito Artístico:</span>
+                    <p style={{ color: '#000000', marginTop: '4px', lineHeight: '1.4' }}>{selectedArtwork.concept}</p>
                   </div>
 
                   <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                    <div style={{ padding: '8px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: '#8E8F94', fontSize: '10px' }}>Gabarito Dimona (Frente/Costas)</span>
-                      <div style={{ color: '#FFFFFF', fontWeight: 600 }}>{selectedArtwork.printDimona}</div>
+                    <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                      <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Gabarito Dimona (Frente/Costas)</span>
+                      <div style={{ color: '#000000', fontWeight: 700, marginTop: '2px' }}>{selectedArtwork.printDimona}</div>
                     </div>
 
-                    <div style={{ padding: '8px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
-                      <span style={{ color: '#8E8F94', fontSize: '10px' }}>Gabarito Reserva INK (Frente)</span>
-                      <div style={{ color: '#FFFFFF', fontWeight: 600 }}>{selectedArtwork.printReserva}</div>
+                    <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                      <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Gabarito Reserva INK (Frente)</span>
+                      <div style={{ color: '#000000', fontWeight: 700, marginTop: '2px' }}>{selectedArtwork.printReserva}</div>
                     </div>
                   </div>
 
-                  <div style={{ padding: '10px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <span style={{ color: '#8E8F94', fontSize: '10px' }}>Registro de Autoria SHA-256</span>
-                    <div style={{ color: '#10B981', fontFamily: 'monospace', fontSize: '11px', wordBreak: 'break-all', marginTop: '4px' }}>
+                  <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                    <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Registro de Autoria SHA-256</span>
+                    <div style={{ color: '#065F46', fontWeight: 700, fontFamily: 'monospace', fontSize: '11px', wordBreak: 'break-all', marginTop: '4px' }}>
                       {selectedArtwork.sha256}
                     </div>
                   </div>
 
-                  <div style={{ padding: '10px', background: '#0E0F10', border: '1px solid rgba(255,255,255,0.06)' }}>
-                    <span style={{ color: '#8E8F94', fontSize: '10px' }}>Matriz de Escrita (MDV 26 Chaves)</span>
-                    <div style={{ color: '#FFFFFF', marginTop: '4px' }}>
+                  <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                    <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Matriz de Escrita (MDV 26 Chaves)</span>
+                    <div style={{ color: '#000000', marginTop: '4px' }}>
                       Chaves mutadas no prompt: <strong>{selectedArtwork.mutatedKeysCount} de 26</strong> (Conforme diretriz do Diretor de Fotografia IA).
                     </div>
                   </div>

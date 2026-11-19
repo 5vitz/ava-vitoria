@@ -1,4 +1,4 @@
-/* AgentDossierModal.module.css — Dossiê dos 19 Agentes AVA */
+/* AgentDossierModal.module.css — Dossiê dos 23 Agentes AVA (Paleta Palha Escuro #DFCFA8 + Palha Claro #EFE4CC) */
 
 .overlay {
   position: fixed;
@@ -6,8 +6,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(8px);
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,21 +16,21 @@
 }
 
 .modalCard {
-  background-color: #121316;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background-color: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.25);
   max-width: 680px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
 }
 
 .modalHeader {
   padding: 20px 24px;
-  background: linear-gradient(180deg, #1B1C20 0%, #151619 100%);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: #D5C49A;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -54,9 +54,9 @@
 .agentName {
   font-family: var(--font-title), sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1px;
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .statusIndicator {
@@ -68,37 +68,38 @@
   letter-spacing: 0.8px;
   padding: 3px 8px;
   border-radius: 2px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .statusActive {
-  background: rgba(16, 185, 129, 0.15);
-  color: #10B981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(5, 150, 105, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(5, 150, 105, 0.35);
 }
 
 .statusStandby {
-  background: rgba(245, 158, 11, 0.15);
-  color: #F59E0B;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: rgba(217, 119, 6, 0.14);
+  color: #92400E;
+  border: 1px solid rgba(217, 119, 6, 0.35);
 }
 
 .agentRole {
   font-size: 12px;
-  color: #C0C0C5;
+  color: #27272A;
+  font-weight: 600;
 }
 
 .agentDepto {
   font-size: 11px;
-  color: #8E8F94;
+  color: #4B5563;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .closeButton {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #000000;
   width: 32px;
   height: 32px;
   display: flex;
@@ -108,11 +109,12 @@
   cursor: pointer;
   transition: all 0.2s ease;
   flex-shrink: 0;
+  font-weight: 700;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.08);
+  border-color: #000000;
 }
 
 .modalBody {
@@ -132,8 +134,8 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #8E8F94;
-  font-weight: 600;
+  color: #4B5563;
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -141,10 +143,11 @@
 
 .sectionText {
   font-size: 13px;
-  color: #E2E2E4;
+  color: #18181B;
   line-height: 1.6;
-  background: #0C0D0F;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #EFE4CC;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   padding: 14px 16px;
 }
 
@@ -153,8 +156,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  background: linear-gradient(180deg, #0F1713 0%, #0B110E 100%);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: #EAF5EE;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   padding: 16px 18px;
   margin-top: 4px;
 }
@@ -163,7 +167,7 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #10B981;
+  color: #065F46;
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -172,14 +176,14 @@
 
 .humanRoiText {
   font-size: 13px;
-  color: #E6F5EE;
+  color: #064E3B;
   line-height: 1.6;
 }
 
 .modalFooter {
   padding: 16px 24px;
-  background: #0E0F11;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: #D5C49A;
+  border-top: 1px solid rgba(0, 0, 0, 0.16);
   display: flex;
   justify-content: flex-end;
 }
