@@ -9,10 +9,10 @@
   flex-direction: column;
 }
 
-/* Header do Painel Admin (Card Amarelo Palha / Papel de Livro) */
+/* Header do Painel Admin (Card Palha Escuro #DFCFA8) */
 .adminHeader {
-  background: var(--admin-card-bg, #EADCC1);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+  background: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   padding: 16px 28px;
   min-height: 80px;
@@ -152,10 +152,10 @@
   width: 100%;
 }
 
-/* Banner de Boas Vindas & Conselho (Amarelo Palha) */
+/* Banner de Boas Vindas & Conselho (Palha Escuro #DFCFA8) */
 .topBanner {
-  background: var(--admin-card-bg, #EADCC1);
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 24px;
   margin-bottom: 24px;
   display: flex;
@@ -304,18 +304,25 @@
   border-color: #18181B;
 }
 
-/* BLOCO 1: Grid dos 8 Departamentos (Cards Amarelo Palha / Papel Pólen) */
+/* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #DFCFA8) */
+.deptsPanel {
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  margin-bottom: 28px;
+}
+
 .deptGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
-  margin-bottom: 32px;
 }
 
 .deptCard {
-  background: var(--admin-card-bg, #EADCC1);
-  border: 1px solid rgba(0, 0, 0, 0.16);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -328,7 +335,7 @@
 .deptCard:hover {
   border-color: #18181B;
   transform: translateY(-2px);
-  background: var(--admin-card-hover, #F2E6CE);
+  background: #E8DAB8;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -342,7 +349,7 @@
   font-family: var(--font-title), sans-serif;
   font-size: 18px;
   font-weight: 700;
-  color: rgba(0, 0, 0, 0.42);
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .deptCardIcon {
@@ -368,15 +375,15 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
   font-size: 11px;
   color: #3F3F46;
 }
 
-/* BLOCO 3: Painel de Telemetria dos 23 Agentes (Amarelo Palha / Papel Pólen) */
+/* BLOCO 3: Painel de Telemetria dos 23 Agentes (Palha Escuro #DFCFA8) */
 .agentsPanel {
-  background: var(--admin-card-bg, #EADCC1);
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
 }
@@ -395,8 +402,8 @@
 }
 
 .agentBadge {
-  background: var(--admin-subcard-bg, #DFCFAF);
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 12px;
   display: flex;
   align-items: center;
@@ -407,7 +414,7 @@
 }
 
 .agentBadge:hover {
-  background: var(--admin-card-hover, #F2E6CE);
+  background: #E8DAB8;
   border-color: #18181B;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -457,7 +464,7 @@
 }
 
 .deptModuleHeader .partnerOwnerBadge {
-  background: var(--admin-card-bg, #EADCC1);
+  background: #DFCFA8;
   border-color: rgba(0, 0, 0, 0.24);
   color: #18181B;
 }
@@ -490,8 +497,8 @@
 }
 
 .moduleCard {
-  background: var(--admin-card-bg, #EADCC1);
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
   display: flex;
@@ -510,9 +517,9 @@
   padding-bottom: 10px;
 }
 
-/* Card da Camada Soberana · Diretoria Executiva (Amarelo Palha) */
+/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #DFCFA8) */
 .executiveCommandStrip {
-  background: var(--admin-card-bg, #EADCC1);
+  background: #DFCFA8;
   border: 1px solid rgba(180, 83, 9, 0.42);
   border-left: 4px solid #B45309;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
