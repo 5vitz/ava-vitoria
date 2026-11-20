@@ -101,18 +101,18 @@
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  color: #3F3F46;
+  color: #27272A;
   border: 1px solid transparent;
   border-radius: 2px;
   transition: all 0.2s ease;
   white-space: nowrap;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .deptNavLink:hover {
   color: #000000;
-  background: rgba(0, 0, 0, 0.06);
-  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.10);
+  border-color: rgba(0, 0, 0, 0.25);
 }
 
 .deptNavLinkActive {
@@ -135,19 +135,21 @@
   gap: 5px;
   padding: 6px 10px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.06);
   border: 1px solid rgba(0, 0, 0, 0.32);
+  border-radius: 2px;
   color: #000000;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .storeLink:hover {
-  background: #000000;
-  color: #DFCFA8;
+  background: rgba(0, 0, 0, 0.14);
+  border-color: #000000;
+  color: #000000;
 }
 
 /* Área Principal */
@@ -302,21 +304,28 @@
 }
 
 .btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
   background: rgba(0, 0, 0, 0.06);
-  color: #3F3F46;
-  border: 1px solid rgba(0, 0, 0, 0.28);
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  border-radius: 2px;
   padding: 7px 13px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .btnSecondary:hover {
-  background: #000000;
-  color: #DFCFA8;
+  background: rgba(0, 0, 0, 0.14);
   border-color: #000000;
+  color: #000000;
 }
 
 /* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #DFCFA8) */
@@ -623,12 +632,13 @@
 }
 
 .btnNudge {
-  background: #000000;
-  color: #DFCFA8;
-  border: 1px solid #000000;
+  background: rgba(0, 0, 0, 0.06);
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.32);
+  border-radius: 2px;
   padding: 5px 10px;
   font-size: 10px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   cursor: pointer;
@@ -637,7 +647,9 @@
 }
 
 .btnNudge:hover {
-  opacity: 0.85;
+  background: rgba(0, 0, 0, 0.14);
+  border-color: #000000;
+  color: #000000;
 }
 
 
