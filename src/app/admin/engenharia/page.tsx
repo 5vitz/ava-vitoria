@@ -13,7 +13,7 @@ export default function EngenhariaPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 02 · Engenharia &amp; TI</h1>
+            <h1 className={styles.moduleTitle}>Depto 03 · Engenharia &amp; TI</h1>
             <p className={styles.moduleSubtitle}>
               Sócio Titular: <strong>Armando</strong> · Infraestrutura VPS Contabo, PostgreSQL, Prisma ORM, Sentinel Security e Design System
             </p>

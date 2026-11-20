@@ -47,7 +47,7 @@ const INITIAL_DECISIONS: DecisionItem[] = [
   },
   {
     id: 'DEC-POD-02',
-    depto: '03 · Produção & Fornecedores (Armando)',
+    depto: '04 · Produção & Fornecedores (Armando)',
     tag: 'Lote Piloto #755-460-927',
     title: 'Conferência das 6 Amostras Físicas Dimona (Frente + Costas)',
     description:
@@ -79,7 +79,7 @@ const INITIAL_DECISIONS: DecisionItem[] = [
   },
   {
     id: 'DEC-MKT-04',
-    depto: '05 · Vendas (Gustavo) & 06 · Marketing (Tripoint)',
+    depto: '06 · Vendas (Gustavo) & 07 · Marketing (Tripoint)',
     tag: 'Campanha & Tráfego',
     title: 'Ativação da Campanha "EU TENHO CUPOM!" (Estoque Físico 10% a 50% OFF)',
     description:
@@ -108,6 +108,16 @@ const DEPARTMENTS_DATA = [
   },
   {
     number: '02',
+    title: 'Financeiro, Fiscal & ERP',
+    owner: 'Flávio',
+    icon: '💎',
+    desc: 'Unit Economics (DRE), Conector Fiscal Bling ERP v3, Chave de 2 Posições e simulador de Precificação para votação 4/4.',
+    href: '/admin/financeiro',
+    metric: 'Margem Alvo 58%',
+    status: 'Urna de Preços'
+  },
+  {
+    number: '03',
     title: 'Engenharia & TI',
     owner: 'Armando',
     icon: '⚙️',
@@ -117,7 +127,7 @@ const DEPARTMENTS_DATA = [
     status: 'Online · PM2 OK'
   },
   {
-    number: '03',
+    number: '04',
     title: 'Produção & Fornecedores',
     owner: 'Armando',
     icon: '🏭',
@@ -127,7 +137,7 @@ const DEPARTMENTS_DATA = [
     status: 'PIX Pago · Em Prod'
   },
   {
-    number: '04',
+    number: '05',
     title: 'Atendimento & SAC',
     owner: 'Gustavo',
     icon: '💬',
@@ -137,7 +147,7 @@ const DEPARTMENTS_DATA = [
     status: 'Zero Omissão'
   },
   {
-    number: '05',
+    number: '06',
     title: 'Vendas & Canais',
     owner: 'Gustavo',
     icon: '📈',
@@ -147,7 +157,7 @@ const DEPARTMENTS_DATA = [
     status: 'Funil & Tráfego'
   },
   {
-    number: '06',
+    number: '07',
     title: 'Marketing & Branding',
     owner: 'Tripoint',
     icon: '🚀',
@@ -157,7 +167,7 @@ const DEPARTMENTS_DATA = [
     status: 'Branding Luxo'
   },
   {
-    number: '07',
+    number: '08',
     title: 'Atelier Criativo & Mídias',
     owner: 'Tripoint',
     icon: '🎨',
@@ -165,16 +175,6 @@ const DEPARTMENTS_DATA = [
     href: '/admin/atelier',
     metric: '300 DPI · MDV 26',
     status: 'Curadoria Ativa'
-  },
-  {
-    number: '08',
-    title: 'Financeiro, Fiscal & ERP',
-    owner: 'Flávio',
-    icon: '💎',
-    desc: 'Unit Economics (DRE), Conector Fiscal Bling ERP v3, Chave de 2 Posições e simulador de Precificação para votação 4/4.',
-    href: '/admin/financeiro',
-    metric: 'Margem Alvo 58%',
-    status: 'Urna de Preços'
   }
 ];
 

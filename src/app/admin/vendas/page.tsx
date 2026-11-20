@@ -131,7 +131,7 @@ export default function VendasPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 05 · Vendas, Tráfego &amp; Canais Comerciais</h1>
+            <h1 className={styles.moduleTitle}>Depto 06 · Vendas, Tráfego &amp; Canais Comerciais</h1>
             <p className={styles.moduleSubtitle}>
               Sócio Titular: <strong>Gustavo</strong> · Análise de Tráfego, Funil de Conversão, Relacionamento com os 10 Canais e Impulsionamento
             </p>
@@ -193,7 +193,7 @@ export default function VendasPage() {
                 🗳️ Propor Ajuste Comercial na Urna (4 Sócios)
               </button>
               <Link href="/admin/financeiro" className={styles.btnSecondary} style={{ textDecoration: 'none' }}>
-                Ver Simulador DRE (Depto 08) ↗
+                Ver Simulador DRE (Depto 02) ↗
               </Link>
             </div>
           </section>

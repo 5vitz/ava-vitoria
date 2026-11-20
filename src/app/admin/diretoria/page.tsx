@@ -6,28 +6,28 @@ import styles from '../admin-cockpit.module.css';
 
 const PARTNERS = [
   {
-    name: 'Armando Sinkovitz (Genera)',
-    role: 'Titular: 02 · Engenharia & TI + 03 · Produção & Fornecedores',
-    quota: '25% · Voto Soberano',
-    focus: 'Arquitetura Tecnológica, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
-  },
-  {
     name: 'Flávio',
-    role: 'Titular: 01 · Jurídico & Compliance + 08 · Financeiro, Fiscal & ERP',
+    role: 'Titular: 01 · Jurídico & Compliance + 02 · Financeiro, Fiscal & ERP',
     quota: '25% · Voto Soberano',
     focus: 'Governança Societária (MEI ➔ LTDA), INPI, LGPD/CDC, Unit Economics (DRE) e Bling ERP v3'
   },
   {
-    name: 'Tripoint',
-    role: 'Titular: 06 · Marketing & Branding + 07 · Atelier Criativo & Mídias',
+    name: 'Armando Sinkovitz (Genera)',
+    role: 'Titular: 03 · Engenharia & TI + 04 · Produção & Fornecedores',
     quota: '25% · Voto Soberano',
-    focus: 'Curadoria de Coleções (★ Vitrine Ativa), Lookbook 9:16, Matrizes 300 DPI, Trios 3x3 e Campanha Cupom'
+    focus: 'Arquitetura Tecnológica, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
   },
   {
     name: 'Gustavo',
-    role: 'Titular: 04 · Atendimento & SAC + 05 · Vendas & Canais Comerciais',
+    role: 'Titular: 05 · Atendimento & SAC + 06 · Vendas & Canais Comerciais',
     quota: '25% · Voto Soberano',
     focus: 'Análise de Tráfego, Impulsionamento (ROAS), Relacionamento com os 10 Canais de Venda e SAC 24/7'
+  },
+  {
+    name: 'Tripoint',
+    role: 'Titular: 07 · Marketing & Branding + 08 · Atelier Criativo & Mídias',
+    quota: '25% · Voto Soberano',
+    focus: 'Curadoria de Coleções (★ Vitrine Ativa), Lookbook 9:16, Matrizes 300 DPI, Trios 3x3 e Campanha Cupom'
   }
 ];
 

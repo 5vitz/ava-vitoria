@@ -73,7 +73,7 @@ export default function FinanceiroPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 08 · Financeiro, Fiscal &amp; Precificação Colegiada</h1>
+            <h1 className={styles.moduleTitle}>Depto 02 · Financeiro, Fiscal &amp; Precificação Colegiada</h1>
             <p className={styles.moduleSubtitle}>
               Sócio Titular: <strong>Flávio</strong> · Precificação sob Votação Colegiada dos 4 Sócios (4/4), Unit Economics (DRE) e Bling ERP v3
             </p>

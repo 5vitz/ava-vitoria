@@ -14,13 +14,13 @@ interface DeptLink {
 
 const DEPTS: DeptLink[] = [
   { number: '01', name: 'Jurídico', href: '/admin/juridico' },
-  { number: '02', name: 'Engenharia', href: '/admin/engenharia' },
-  { number: '03', name: 'Produção', href: '/admin/producao' },
-  { number: '04', name: 'Atendimento', href: '/admin/atendimento' },
-  { number: '05', name: 'Vendas', href: '/admin/vendas' },
-  { number: '06', name: 'Marketing', href: '/admin/marketing' },
-  { number: '07', name: 'Atelier', href: '/admin/atelier' },
-  { number: '08', name: 'Financeiro', href: '/admin/financeiro' },
+  { number: '02', name: 'Financeiro', href: '/admin/financeiro' },
+  { number: '03', name: 'Engenharia', href: '/admin/engenharia' },
+  { number: '04', name: 'Produção', href: '/admin/producao' },
+  { number: '05', name: 'Atendimento', href: '/admin/atendimento' },
+  { number: '06', name: 'Vendas', href: '/admin/vendas' },
+  { number: '07', name: 'Marketing', href: '/admin/marketing' },
+  { number: '08', name: 'Atelier', href: '/admin/atelier' },
 ];
 
 export default function AdminHeader() {
