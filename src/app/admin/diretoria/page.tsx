@@ -8,25 +8,25 @@ const PARTNERS = [
   {
     name: 'Flávio',
     role: 'Titular: 01 · Jurídico & Compliance + 02 · Financeiro, Fiscal & ERP',
-    quota: '25% · Voto Soberano',
+    quota: 'Diretoria Executiva · Voto Deliberativo',
     focus: 'Governança Societária (MEI ➔ LTDA), INPI, LGPD/CDC, Unit Economics (DRE) e Bling ERP v3'
   },
   {
     name: 'Armando Sinkovitz (Genera)',
     role: 'Titular: 03 · Engenharia & TI + 04 · Produção & Fornecedores',
-    quota: '25% · Voto Soberano',
+    quota: 'Diretoria Executiva · Voto Deliberativo',
     focus: 'Arquitetura Tecnológica, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
   },
   {
     name: 'Gustavo',
     role: 'Titular: 05 · Atendimento & SAC + 06 · Vendas & Canais Comerciais',
-    quota: '25% · Voto Soberano',
+    quota: 'Diretoria Executiva · Voto Deliberativo',
     focus: 'Análise de Tráfego, Impulsionamento (ROAS), Relacionamento com os 10 Canais de Venda e SAC 24/7'
   },
   {
     name: 'Tripoint',
     role: 'Titular: 07 · Marketing & Branding + 08 · Atelier Criativo & Mídias',
-    quota: '25% · Voto Soberano',
+    quota: 'Diretoria Executiva · Voto Deliberativo',
     focus: 'Curadoria de Coleções (★ Vitrine Ativa), Lookbook 9:16, Matrizes 300 DPI, Trios 3x3 e Campanha Cupom'
   }
 ];
@@ -48,11 +48,11 @@ export default function DiretoriaPage() {
           <div>
             <h1 className={styles.moduleTitle}>🏛️ Camada Soberana · Diretoria Executiva</h1>
             <p className={styles.moduleSubtitle}>
-              Conselho Deliberativo dos 4 Sócios (25% cada), Divisão Simétrica (2 Deptos por Sócio) e Consenso de Precificação
+              Conselho Deliberativo &amp; Governança da Diretoria Executiva, Divisão Simétrica de Pastas Operacionais e Consenso Colegiado
             </p>
           </div>
           <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px', color: '#F59E0B', borderColor: 'rgba(245,158,11,0.4)' }}>
-            🏛️ Cúpula de Comando · 4 Sócios
+            🏛️ Cúpula de Comando · Diretoria Executiva
           </span>
         </div>
 
@@ -131,7 +131,7 @@ export default function DiretoriaPage() {
         <div className={styles.moduleCard} style={{ marginTop: '20px' }}>
           <h2 className={styles.cardHeading}>Parecer Estratégico do Maestro Lincoln</h2>
           <p style={{ fontSize: '13px', color: '#27272A', lineHeight: '1.6' }}>
-            A estratégia de inauguração em <strong>01 de Dezembro</strong> com a Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A formalização da transformação para LTDA na JUCEES resguarda a cota dos 4 sócios e destrava os 10 canais sem limite tributário.
+            A estratégia de inauguração em <strong>01 de Dezembro</strong> com a Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A formalização da transformação para LTDA na JUCEES resguarda a governança societária e destrava os 10 canais sem limite tributário.
           </p>
         </div>
       </main>

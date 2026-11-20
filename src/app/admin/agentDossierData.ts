@@ -55,7 +55,7 @@ export const AGENTS_DOSSIER: Record<string, AgentDossier> = {
     department: '01 · Jurídico & Compliance (Titular: Flávio)',
     status: 'ACTIVE',
     statusLabel: 'Em Operação Ativa',
-    whatItDoes: 'Orienta a governança societária dos 4 sócios (Contrato Social 25% cada), a transição tributária MEI ➔ LTDA (Simples Nacional), o registro de marca no INPI e os termos legais (CDC e LGPD).',
+    whatItDoes: 'Orienta a governança societária da Diretoria Executiva (Contrato Social consolidado), a transição tributária MEI ➔ LTDA (Simples Nacional), o registro de marca no INPI e os termos legais (CDC e LGPD).',
     whyItDoes: 'Protege o patrimônio pessoal dos sócios contra multas fiscais da Receita Federal e autuações do Procon.',
     howItDoes: 'Aplica a legislação brasileira de comércio eletrônico (Lei 13.709/18, CDC Art. 49) e responde a consultas interativas no painel /admin/juridico.',
     humanRoi: 'Elimina custos com pareceres advocatícios avulsos para rotinas de e-commerce e protege a empresa contra processos de clientes mal-intencionados.'

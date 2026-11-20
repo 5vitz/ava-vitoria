@@ -65,9 +65,9 @@ const INITIAL_DECISIONS: DecisionItem[] = [
     id: 'DEC-JUR-03',
     depto: '01 · Jurídico & Compliance (Flávio)',
     tag: 'Gatilho Fiscal 38 Peças/Mês',
-    title: 'Transição Societária MEI ➔ LTDA (Contrato 4 Sócios · 25% cada)',
+    title: 'Transição Societária MEI ➔ LTDA (Minuta do Contrato Social)',
     description:
-      'Teto do MEI estoura com apenas 38 camisetas/mês. Votação da minuta do Contrato Social igualitário (25% por sócio) e migração para Simples Nacional Anexo I.',
+      'Teto do MEI estoura com apenas 38 camisetas/mês. Votação da minuta do Contrato Social consolidado da sociedade e migração para Simples Nacional Anexo I.',
     actionPrimary: 'Autorizar Abertura LTDA',
     timeAgo: 'Prioridade pré-inauguração',
     votes: {

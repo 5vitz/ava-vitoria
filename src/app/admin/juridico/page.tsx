@@ -90,7 +90,7 @@ export default function JuridicoPage() {
               </div>
               <ul style={{ fontSize: '12px', color: '#18181B', lineHeight: '1.6', paddingLeft: '16px' }}>
                 <li>Teto salta para R$ 360 mil até R$ 4,8 milhões/ano.</li>
-                <li>Contrato Social formalizando os 4 sócios (25% cada).</li>
+                <li>Contrato Social formalizando a diretoria e sociedade na JUCEES.</li>
                 <li>Liberação imediata nos 10 canais via Bling ERP.</li>
                 <li>Mesmo número de CNPJ preservado na transição.</li>
               </ul>

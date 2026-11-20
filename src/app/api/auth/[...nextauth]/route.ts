@@ -2,6 +2,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcrypt";
+import { ensurePartnerUsers, getPartnerDisplayName } from "@/lib/ensureUsers";
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -16,10 +17,15 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
+        // Garante que as contas societárias existam no banco com a senha inicial padrão
+        await ensurePartnerUsers();
+
+        const cleanUsername = credentials.username.toLowerCase().trim();
+
         // Buscar usuário no banco PostgreSQL
         const user = await prisma.user.findUnique({
           where: {
-            username: credentials.username
+            username: cleanUsername
           }
         });
 
@@ -34,10 +40,12 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
+        const displayName = getPartnerDisplayName(user.username);
+
         return {
           id: user.id,
-          name: user.username,
-          email: `${user.username}@avavitoria.com.br` // Email placeholder exigido pelo tipo do User do NextAuth
+          name: displayName,
+          email: `${user.username}@avavitoria.com.br`
         };
       }
     })
@@ -50,13 +58,15 @@ export const authOptions: AuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.username = user.name;
+        token.name = user.name;
+        token.username = (user as any).email?.split("@")[0] || user.name;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         (session.user as any).id = token.id;
+        session.user.name = token.name as string;
         (session.user as any).username = token.username;
       }
       return session;
