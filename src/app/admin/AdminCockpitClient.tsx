@@ -265,7 +265,7 @@ export default function AdminCockpitClient() {
             className={styles.executiveHeaderBtn}
             style={{ padding: '8px 14px' }}
           >
-            CONVOCAR REUNIÃO ↗
+            CONVOCAR REUNIÃO / VOTAR ↗
           </Link>
         </section>
 

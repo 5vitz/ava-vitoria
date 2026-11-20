@@ -25,7 +25,6 @@ const DEPTS: DeptLink[] = [
 
 export default function AdminHeader() {
   const pathname = usePathname();
-  const isDiretoria = pathname === '/admin/diretoria';
 
   return (
     <header className={styles.adminHeader}>
@@ -39,13 +38,6 @@ export default function AdminHeader() {
             className={styles.brandLogoImg}
             priority
           />
-        </Link>
-        <Link
-          href="/admin/diretoria"
-          className={`${styles.executiveHeaderBtn} ${isDiretoria ? styles.executiveHeaderBtnActive : ''}`}
-          title="Camada Soberana · Conselho dos 4 Sócios"
-        >
-          <span>🏛️</span> Diretoria
         </Link>
       </div>
 
