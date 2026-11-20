@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { getSession } from 'next-auth/react';
 import AdminHeader from './AdminHeader';
 import styles from './admin-cockpit.module.css';
 import { AGENTS_DOSSIER, AgentDossier } from './agentDossierData';
@@ -187,10 +188,47 @@ const PARTNER_LABELS: Record<keyof PartnerVotes, string> = {
   Gustavo: 'Gustavo'
 };
 
+const PARTNER_PRESENCE_ORDER: { key: keyof PartnerVotes; name: string; username: string }[] = [
+  { key: 'Flavio', name: 'Flávio', username: 'flavio' },
+  { key: 'Armando', name: 'Armando', username: 'armando' },
+  { key: 'Gustavo', name: 'Gustavo', username: 'gustavo' },
+  { key: 'Tripoint', name: 'Tripoint', username: 'tripoint' },
+];
+
 export default function AdminCockpitClient() {
   const [decisions, setDecisions] = useState<DecisionItem[]>(INITIAL_DECISIONS);
   const [selectedAgent, setSelectedAgent] = useState<AgentDossier | null>(null);
   const [nudgeToast, setNudgeToast] = useState<string | null>(null);
+  const [currentUsername, setCurrentUsername] = useState<string>('');
+  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      if (session?.user) {
+        const u = ((session.user as any).username || session.user.name || '').toLowerCase();
+        setCurrentUsername(u);
+      }
+    });
+
+    const pingPresence = async () => {
+      try {
+        const res = await fetch('/api/presence/ping', { method: 'POST' });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data.onlineUsers)) {
+            setOnlineUsers(data.onlineUsers);
+          }
+        }
+      } catch {
+        // Silencioso em caso de oscilação de rede
+      }
+    };
+
+    pingPresence();
+    const interval = setInterval(pingPresence, 45000); // Heartbeat a cada 45 segundos
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleResolve = (id: string) => {
     setDecisions((prev) => prev.filter((d) => d.id !== id));
@@ -260,13 +298,42 @@ export default function AdminCockpitClient() {
             </p>
           </div>
 
-          <Link
-            href="/admin/diretoria"
-            className={styles.executiveHeaderBtn}
-            style={{ padding: '8px 14px' }}
-          >
-            CONVOCAR REUNIÃO / VOTAR ↗
-          </Link>
+          {/* Presença em Tempo Real da Diretoria Executiva */}
+          <div className={styles.executivePresenceArea}>
+            <div className={styles.partnerStatusList}>
+              {PARTNER_PRESENCE_ORDER.map((partner) => {
+                const isOnline =
+                  onlineUsers.includes(partner.username) ||
+                  (partner.username === 'armando' && onlineUsers.includes('admin')) ||
+                  currentUsername === partner.username ||
+                  (currentUsername === 'admin' && partner.username === 'armando');
+
+                const ledClass = isOnline ? styles.ledOnline : styles.ledOffline;
+                const tooltip = isOnline
+                  ? `${partner.name}: Conectado agora no Painel`
+                  : `${partner.name}: Desconectado`;
+
+                return (
+                  <div
+                    key={partner.key}
+                    className={styles.partnerStatusChip}
+                    title={tooltip}
+                  >
+                    <span className={`${styles.ledDot} ${ledClass}`}></span>
+                    <span>{partner.name}</span>
+                  </div>
+                );
+              })}
+            </div>
+
+            <Link
+              href="/admin/diretoria"
+              className={styles.executiveHeaderBtn}
+              style={{ padding: '8px 14px' }}
+            >
+              CONVOCAR REUNIÃO / VOTAR ↗
+            </Link>
+          </div>
         </section>
 
         {/* Bloco 1: Card Container & Grid dos 8 Departamentos Operacionais (01 a 08) */}
