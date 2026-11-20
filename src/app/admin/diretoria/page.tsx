@@ -74,13 +74,13 @@ export default function DiretoriaPage() {
             </div>
           </div>
 
-          {/* Simulador de Inauguração de Natal */}
+          {/* Simulador de Inauguração / Drop Inaugural */}
           <div className={styles.moduleCard}>
-            <h2 className={styles.cardHeading}>Simulador de Inauguração (Natal 2026)</h2>
+            <h2 className={styles.cardHeading}>Simulador de Inauguração (Drop Inaugural)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>
                 <label style={{ fontSize: '12px', color: '#4B5563', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
-                  Meta de Vendas de Dezembro (Unidades): <strong>{targetUnits} peças</strong>
+                  Meta de Vendas do Lançamento (Unidades): <strong>{targetUnits} peças</strong>
                 </label>
                 <input
                   type="range"
@@ -131,7 +131,7 @@ export default function DiretoriaPage() {
         <div className={styles.moduleCard} style={{ marginTop: '20px' }}>
           <h2 className={styles.cardHeading}>Parecer Estratégico do Maestro Lincoln</h2>
           <p style={{ fontSize: '13px', color: '#27272A', lineHeight: '1.6' }}>
-            A estratégia de inauguração em <strong>01 de Dezembro</strong> com a Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A formalização da transformação para LTDA na JUCEES resguarda a governança societária e destrava os 10 canais sem limite tributário.
+            A estratégia de lançamento da Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A utilização transitória da estrutura MEI com Inscrição Estadual ativa viabiliza a emissão de NF-e e operação imediata via Bling ERP, permitindo validar vendas e tração real antes da formalização definitiva da LTDA na JUCEES.
           </p>
         </div>
       </main>

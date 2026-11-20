@@ -43,7 +43,7 @@ export const AGENTS_DOSSIER: Record<string, AgentDossier> = {
     department: '🏛️ Diretoria Executiva (Conselho dos 4 Sócios)',
     status: 'STANDBY',
     statusLabel: 'Em Prontidão',
-    whatItDoes: 'Controla o cronograma da alta temporada (Inauguração de Natal em 01/Dezembro) e prioriza as tarefas de maior impacto comercial.',
+    whatItDoes: 'Controla o cronograma da alta temporada (Inauguração da Nova Coleção PoD) e prioriza as tarefas de maior impacto comercial.',
     whyItDoes: 'Evita a dispersão de tempo da equipe com recursos secundários antes de garantir a operação das vendas.',
     howItDoes: 'Cruza os prazos de confecção das amostras na Dimona com o calendário de lançamento e reporta gargalos na Fila de Decisões.',
     humanRoi: 'Os sócios não perdem tempo criando cronogramas em planilhas que ninguém segue; o agente aponta exatamente o foco do dia.'

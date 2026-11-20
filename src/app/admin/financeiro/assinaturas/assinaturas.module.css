@@ -1,0 +1,393 @@
+/* assinaturas.module.css — Gestão de Assinaturas e Custos Fixos AVA */
+
+.container {
+  min-height: 100vh;
+  background: #EFE4CC;
+  color: #18191B;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContent {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.titleArea h1 {
+  font-size: 20px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: -0.3px;
+  margin: 0 0 4px 0;
+}
+
+.titleArea p {
+  font-size: 13px;
+  color: #4B5563;
+  margin: 0;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #000000;
+  color: #DFCFA8;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 2px;
+  border: 1px solid #000000;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.btnPrimary:hover {
+  background: #27272A;
+  color: #FFFFFF;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.05);
+  color: #18181B;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btnSecondary:hover {
+  background: rgba(0, 0, 0, 0.14);
+  border-color: #000000;
+  color: #000000;
+}
+
+/* KPI Cards Grid */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.kpiCard {
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 16px 18px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kpiLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #4B5563;
+  margin-bottom: 6px;
+}
+
+.kpiValue {
+  font-size: 22px;
+  font-weight: 800;
+  color: #000000;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.kpiSubtext {
+  font-size: 11px;
+  color: #374151;
+  line-height: 1.4;
+}
+
+/* Alert Boxes */
+.alertCard {
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.alertCardCritical {
+  border-left: 4px solid #B91C1C;
+}
+
+.alertCardInfo {
+  border-left: 4px solid #000000;
+}
+
+.alertHeading {
+  font-size: 13px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.alertText {
+  font-size: 12px;
+  color: #27272A;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Filter Bar */
+.filterBar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+  scrollbar-width: thin;
+}
+
+.filterBtn {
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #27272A;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 2px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.filterBtn:hover {
+  background: rgba(0, 0, 0, 0.14);
+  border-color: #000000;
+  color: #000000;
+}
+
+.filterBtnActive {
+  background: #000000 !important;
+  color: #DFCFA8 !important;
+  border-color: #000000 !important;
+}
+
+/* Subscriptions Table */
+.tableContainer {
+  background: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+}
+
+.subTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+}
+
+.subTable th {
+  background: rgba(0, 0, 0, 0.06);
+  color: #000000;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+
+.subTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #18181B;
+  vertical-align: middle;
+}
+
+.subTable tr:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 7px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.badgeActive {
+  background: rgba(5, 150, 105, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(5, 150, 105, 0.4);
+}
+
+.badgeUnderEval {
+  background: rgba(217, 119, 6, 0.14);
+  color: #92400E;
+  border: 1px solid rgba(217, 119, 6, 0.4);
+}
+
+.badgeStandby {
+  background: rgba(107, 114, 128, 0.14);
+  color: #374151;
+  border: 1px solid rgba(107, 114, 128, 0.35);
+}
+
+.badgePayerArmando {
+  background: rgba(185, 28, 28, 0.08);
+  color: #991B1B;
+  border: 1px solid rgba(185, 28, 28, 0.3);
+  font-weight: 700;
+}
+
+.badgePayerPJ {
+  background: rgba(0, 0, 0, 0.08);
+  color: #000000;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.badgeCritical {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FCA5A5;
+}
+
+.badgeHigh {
+  background: #FEF3C7;
+  color: #92400E;
+  border: 1px solid #FCD34D;
+}
+
+.badgeMedium {
+  background: #E0E7FF;
+  color: #3730A3;
+  border: 1px solid #C7D2FE;
+}
+
+.agentChip {
+  display: inline-block;
+  background: #EFE4CC;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  color: #27272A;
+  padding: 2px 6px;
+  font-size: 10px;
+  margin: 2px;
+  white-space: nowrap;
+}
+
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+.modalBox {
+  background: #DFCFA8;
+  border: 1px solid #000000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  max-width: 580px;
+  width: 100%;
+  padding: 24px;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  padding-bottom: 10px;
+}
+
+.modalHeader h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #000000;
+  margin: 0;
+}
+
+.closeBtn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  color: #000000;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.formGroup {
+  margin-bottom: 14px;
+}
+
+.formGroup label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #374151;
+  margin-bottom: 4px;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  background: #EFE4CC;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  color: #000000;
+  padding: 8px 10px;
+  font-size: 12px;
+  border-radius: 2px;
+  outline: none;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 1px #000000;
+}

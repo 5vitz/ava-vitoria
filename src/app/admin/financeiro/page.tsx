@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
 
@@ -81,6 +82,42 @@ export default function FinanceiroPage() {
           <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
             👤 Titular: Flávio · 🗳️ Preços sob Voto 4/4
           </span>
+        </div>
+
+        {/* Banner Gerenciar Assinaturas & APIs */}
+        <div
+          style={{
+            background: '#DFCFA8',
+            border: '1px solid rgba(0, 0, 0, 0.22)',
+            padding: '16px 20px',
+            marginBottom: '20px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '14px',
+            boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
+          }}
+        >
+          <div>
+            <div style={{ fontSize: '14px', fontWeight: 800, color: '#000000', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>📦</span>
+              <span>Matriz de Assinaturas, Ferramentas &amp; APIs dos 23 Agentes</span>
+              <span style={{ fontSize: '10px', background: '#000000', color: '#DFCFA8', padding: '2px 6px', fontWeight: 700 }}>
+                NOVO
+              </span>
+            </div>
+            <div style={{ fontSize: '12px', color: '#374151', marginTop: '4px' }}>
+              Controle de custos fixos (~R$ 489/mês), mapeamento de cartões (Armando vs PJ), fornecedores PoD (Dimona/Reserva/Montink) e votação 4/4 para novas ferramentas.
+            </div>
+          </div>
+          <Link
+            href="/admin/financeiro/assinaturas"
+            className={styles.btnPrimary}
+            style={{ textDecoration: 'none', fontSize: '11px', padding: '8px 14px' }}
+          >
+            Gerenciar Assinaturas &amp; APIs ➔
+          </Link>
         </div>
 
         {/* Lei de Ouro da Precificação Colegiada */}

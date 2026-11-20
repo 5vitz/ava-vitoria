@@ -61,7 +61,7 @@ export default function AdminHeader() {
 
         <nav className={styles.deptNav}>
           {DEPTS.map((dept) => {
-            const isActive = pathname === dept.href;
+            const isActive = pathname === dept.href || (dept.href !== '/admin' && pathname.startsWith(dept.href + '/'));
             return (
               <Link
                 key={dept.href}
