@@ -18,7 +18,14 @@
    * Diagnóstico crítico sobre **MEI vs. LTDA (Simples Nacional)**: por que o MEI estoura o limite com apenas 38 camisetas/mês, impede a inclusão formal dos 4 sócios e trava canais como Dafiti e Reserva.
    * Checklist completo de documentos fiscais, bancários e acessos digitais que a Diretoria precisa fornecer para conectarmos o **Bling ERP** e os **10 Canais de Distribuição**.
 
-3. **[REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md)**
+3. **[03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md)**
+   * Estrutura detalhada de custos fixos (~R$ 489,91/mês) e mapeamento das 14 ferramentas amarradas aos 23 agentes.
+   * Estratégia de validação imediata utilizando o **MEI com Inscrição Estadual ativa** para emissão de NF-e 55 no Bling ERP.
+   * Desbloqueio da Tabela de Lojista/Atacado na Dimona (custo de fábrica real de R$ 38 a R$ 58) sem taxa mensal.
+   * Levantamento de mercado do **Magnific AI** (~US$ 20/mês a US$ 39/mês) em teste pelo Tripoint.
+   * Separação de cartões (Armando bancando R$ 209,33/mês a ressarcir) e credenciais individuais dos 4 sócios.
+
+4. **[REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md)**
    * **PEDIDO OFICIAL DE AMOSTRAS FÍSICAS DIMONA:** `# 755-460-927`
    * Comprovante Pix de **R$ 472,80** emitido em 17/11/2026 às 02:11:53.
    * 6 peças físicas em produção (Oversized Preta, Prime Branca, Estonada Chumbo, Quality Vinho e 2 Bonés).

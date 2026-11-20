@@ -4,7 +4,33 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 18/11/2026)
+## 1. O que realizamos nesta sessão (Estado Atual — 20/11/2026)
+
+*   **🔑 LOGIN SOCIETÁRIO SEM FRICÇÃO, TROCA E RECUPERAÇÃO DE SENHA (`ensureUsers.ts` & `AdminHeader.tsx`) ✅:**
+    *   **5 Contas Individuais Provisionadas:** Usuários `admin`, `armando`, `flavio`, `tripoint`, `gustavo` criados automaticamente via script de auto-provisionamento com bcrypt e senha inicial `admin123`.
+    *   **Autonomia do Sócio:** Botão **`🔑 Senha`** integrado ao `AdminHeader` permitindo que cada sócio logado altere sua própria senha no banco PostgreSQL.
+    *   **Recuperação Discreta:** Gaveta "Esqueci minha senha" na tela `/admin/login` com validação de chave mestra ou e-mail, impedindo que qualquer sócio fique bloqueado fora do painel.
+
+*   **🟢 MONITORAMENTO DE PRESENÇA EM TEMPO REAL & AUDITORIA EXCLUSIVA DO SENTINELA (`/admin/engenharia`) ✅:**
+    *   **Desacoplamento de Votação:** Indicadores de presença em tempo real (🟢 Conectado / ⚪ Desconectado) na faixa da Diretoria Executiva em `/admin`, operando estritamente como monitoramento de presença operacional sem interferência nos crachás de votação deliberativa.
+    *   **Persistência Heartbeat:** Nova tabela `UserSessionLog` no PostgreSQL (`schema.prisma`), registrando pings automáticos a cada 45 segundos via `/api/presence/ping`.
+    *   **Painel Exclusivo do Sentinel Security:** Os relatórios diários de frequência (horário de entrada, última saída, tempo total conectado) e a trilha de auditoria recente foram alocados estritamente dentro do departamento do **Sentinel Security** (`/admin/engenharia`), com botão de atualização manual e timer de 30s.
+
+*   **📦 MATRIZ DE ASSINATURAS, APIS E CUSTOS FIXOS DOS 23 AGENTES (`/admin/financeiro/assinaturas`) ✅:**
+    *   **Página e API Operacionais:** Novo módulo `/admin/financeiro/assinaturas` (com API `/api/financeiro/subscriptions` e biblioteca `src/lib/subscriptionsData.ts`), desenhado 100% no padrão palha tone-on-tone (`#DFCFA8` / `#EFE4CC`).
+    *   **Mapeamento dos 23 Agentes:** As 14 ferramentas e APIs do ecossistema foram detalhadamente mapeadas com seus agentes dependentes diretos, sócios responsáveis e o impacto severo caso o plano não seja pago.
+    *   **Custo Fixo Mensal:**
+        *   *Cenário Enxuto / Validação (MEI Ativo):* **~R$ 489,91 / mês**.
+        *   *Cenário com Magnific AI (em teste por Tripoint):* **~R$ 604,91 a R$ 714,91 / mês**.
+        *   *Cenário Multi-Hub (com Reserva INK R$ 159/mês):* **~R$ 912,91 / mês**.
+    *   **Mapeamento de Titularidade (Ressarcimento de Armando):** Identificados **R$ 209,33/mês** atualmente pagos no cartão pessoal de Armando (Contabo VPS, Google AI Studio/Gemini, Registro.br), com recomendação de transição para a conta PJ da AVA e ressarcimento contábil após os primeiros recebimentos.
+    *   **Tabela de Lojista na Dimona:** Mapeado que a Dimona Dropsimples é R$ 0 de mensalidade fixa mas cobra preço de consumidor final sem CNPJ. Para destravar o **custo de fábrica real de R$ 38 a R$ 58**, deve-se homologar o **CNPJ e a Inscrição Estadual ativa (já existentes)** no canal B2B Corporate.
+    *   **Convocação de Votação 4/4 na Urna:** Modal integrado que permite ao Financeiro (Flávio) ou qualquer sócio convocar deliberação de nova assinatura com cobrança direta na Urna.
+
+*   **⚖️ NEUTRALIDADE INSTITUCIONAL & FLEXIBILIZAÇÃO DE CRONOGRAMA ✅:**
+    *   **Neutralidade Societária:** Removidas menções explícitas e prematuras a porcentagens societárias ("25% cada", "divisão em 4 cotas") antes da formalização do Contrato Social em reunião presencial. Substituídas por termos de governança institucional ("Diretoria Executiva · Voto Deliberativo", "Minuta do Contrato Social").
+    *   **Flexibilização de Prazos:** Substituídos prazos rígidos ("01 de Dezembro" / "Natal 2026") por termos neutros ("Drop Inaugural / Lançamento"), respeitando o tempo de desenvolvimento da coleção do Tripoint.
+    *   **Novo Documento de Reunião:** Criado [`docs/REUNIAO/03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md).
 
 *   **🏛️ REESTRUTURAÇÃO DE GOVERNANÇA SOBERANA, 8 DEPTOS SIMÉTRICOS (2 POR SÓCIO) & URNA DE VOTAÇÃO 4/4 ✅:**
     *   **Camada Soberana — Diretoria Executiva (`/admin/diretoria`):**
@@ -168,27 +194,34 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 2. 🖥️ Informações do Ambiente de Produção
+## 2. 🖥️ Informações do Ambiente de Produção & Acesso Societário
 
 *   **URL da Loja:** `https://www.ava-vitoria.com.br` (em breve transição para `https://www.avasemlimites.com.br`)
 *   **URL do Painel Admin:** `https://www.ava-vitoria.com.br/admin`
+*   **URL de Assinaturas & Custos:** `https://www.ava-vitoria.com.br/admin/financeiro/assinaturas`
 *   **Feed Meta Commerce (Instagram Shopping):** `https://www.ava-vitoria.com.br/api/catalog/meta`
-*   **Credenciais Padrão:**
-    *   **Usuário:** `admin`
-    *   **Senha:** `admin123`
+*   **Credenciais Societárias Individuais (Auto-provisionadas no DB):**
+    *   **Armando:** `armando` | senha inicial: `admin123`
+    *   **Flávio:** `flavio` | senha inicial: `admin123`
+    *   **Tripoint:** `tripoint` | senha inicial: `admin123`
+    *   **Gustavo:** `gustavo` | senha inicial: `admin123`
+    *   **Admin Master:** `admin` | senha inicial: `admin123`
+    *   *Nota:* Cada sócio pode alterar sua própria senha clicando em `🔑 Senha` no cabeçalho do painel.
 *   **Banco de Dados na VPS:** `postgresql://ava_vitoria_user:AvaVitoriaSecretPass!@localhost:5432/ava_vitoria_prod?schema=public`
 *   **Next.js PM2 Process Name:** `ava-vitoria` (porta 3000)
 
 ---
 
-## 3. Próximos Passos Imediatos (Para a Sessão de Amanhã)
+## 3. Próximos Passos Imediatos (Para a Reunião Presencial e Próxima Sessão)
 
-1.  **Iniciar a Implementação dos 8 Departamentos ([PLANO_IMPLEMENTACAO_8_DEPARTAMENTOS_AVA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/PLANO_IMPLEMENTACAO_8_DEPARTAMENTOS_AVA.md)) — Fases 1 a 5:**
-    *   **Fase 1:** Evolução do `schema.prisma`, Catálogo Multi-Supplier (`suppliers.ts`), Motor de Precificação Dinâmica com inspeção de 2h e Chave de 2 Posições (`pricingEngine.ts`) e rotas de API.
-    *   **Fase 2:** Incrementos na Loja Pública (Textura Halftone, Seção dos 10 Canais de Venda e Central `/atendimento` + `/trocas`).
-    *   **Fases 3, 4 e 5:** Cockpit Central `/admin` + os 8 Departamentos Operacionais em 100% CSS Modules (`.module.css`).
-2.  **Retorno do Sócio de Marketing (Fase Extra Condicional):**
-    *   Assim que o sócio de Marketing aprovar a estratégia enviada hoje, implementar o módulo **`[ 🔑 EU TENHO CUPOM! ]`** com Senha Única Prefixada (`1` a `5` = `10%` a `50% OFF`) e a Vitrine Secreta do Estoque Físico.
+1.  **Reuniões Presenciais com os Sócios (Alinhamento & Credenciamento):**
+    *   **Tripoint (Domingo, 24/Nov, presencial):** Apresentar o Cockpit `/admin`, orientar o login individual (`tripoint` / `admin123`), avaliar as matrizes no Atelier Criativo (`/admin/atelier`) e definir o cronograma da Nova Coleção PoD. Coletar a impressão do Tripoint sobre o teste do **Magnific AI** (~US$ 20/mês).
+    *   **Flávio (Financeiro & Jurídico):** Apresentar o módulo de **Assinaturas & Custos Fixos** (`/admin/financeiro/assinaturas`), a sistemática de ressarcimento das despesas adiantadas por Armando (R$ 209,33/mês) e o plano de validação inicial emitindo NF-e 55 no **Bling ERP através do MEI com Inscrição Estadual ativa já existente**.
+2.  **Operação e Fornecedores PoD:**
+    *   Homologar o cadastro do CNPJ/IE ativo no canal B2B Corporate da **Dimona Dropsimples** para destravar a **Tabela de Lojista/Atacado (R$ 38 a R$ 58)** e eliminar a cobrança a preço de consumidor final.
+    *   Manter a **Reserva INK** (R$ 159/mês) e **Montink** (R$ 149/mês) em status standby/contingência até deliberação 4/4 na Urna.
+3.  **Campanha "EU TENHO CUPOM!" & Vitrine Secreta:**
+    *   Assim que o conselho definir a data do Drop Inaugural, ativar o módulo com senha prefixada (`1...` a `5...` para 10% a 50% OFF) para escoar o estoque físico já confeccionado em paralelo à Nova Coleção PoD.
 
 
 
