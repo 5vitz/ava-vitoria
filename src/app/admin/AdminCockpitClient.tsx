@@ -251,12 +251,12 @@ export default function AdminCockpitClient() {
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
               <span style={{ fontSize: '18px' }}>🏛️</span>
-              <span style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#000000' }}>
-                Camada Soberana · Diretoria Executiva (Conselho dos 4 Sócios · 25% Cada)
+              <span style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#000000' }}>
+                DIRETORIA EXECUTIVA
               </span>
             </div>
             <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
-              Simetria Operacional: <strong style={{ color: '#000000' }}>Armando</strong> (02 Engenharia &amp; 03 Produção) · <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 08 Financeiro) · <strong style={{ color: '#000000' }}>Tripoint</strong> (06 Marketing &amp; 07 Atelier) · <strong style={{ color: '#000000' }}>Gustavo</strong> (04 Atendimento &amp; 05 Vendas)
+              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Engenharia &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 Atendimento &amp; 06 Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Marketing &amp; 08 Atelier)
             </p>
           </div>
 
@@ -265,7 +265,7 @@ export default function AdminCockpitClient() {
             className={styles.executiveHeaderBtn}
             style={{ padding: '8px 14px' }}
           >
-            Abrir Sala do Conselho &amp; Governança ↗
+            CONVOCAR REUNIÃO ↗
           </Link>
         </section>
 
