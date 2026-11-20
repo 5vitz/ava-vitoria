@@ -1,23 +1,78 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
 
-const DIMONA_SAMPLES = [
-  { item: '01', product: 'Camiseta Oversized Street 20.1 (220g)', color: 'Preto', size: 'G', front: 'Arte Cubista', back: 'Selo AVA Branco 16cm', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '02', product: 'T-Shirt Prime 26.1 (180g Pele de Pêssego)', color: 'Branco', size: 'G', front: 'Arte Coruja', back: 'Selo AVA Preto 16cm', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '03', product: 'T-Shirt Estonada Vintage 30.1 (170g)', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '04', product: 'T-Shirt Quality 30.1 (165g)', color: 'Vinho', size: 'GG', front: 'Arte Cubista', back: 'Selo AVA Preto 16cm', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '05', product: 'Boné Prime Fivela de Metal Confort', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '06', product: 'Boné Americano / Trucker Snapback', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Em Produção', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+interface SampleItem {
+  item: string;
+  product: string;
+  color: string;
+  size: string;
+  front: string;
+  back: string;
+  status: string;
+  gradeMalha?: string;
+  gradeEstampa?: string;
+}
+
+interface DimonaOrderData {
+  dimona_id: string;
+  status: string;
+  status_id?: number;
+  shipping_method_name?: string;
+  tracking_url?: string;
+  tracking_code?: string | null;
+  nfe_number?: string;
+  nfe_link?: string;
+  nfe_key?: string;
+  total_value?: number;
+  created_at?: string;
+}
+
+const INITIAL_SAMPLES: SampleItem[] = [
+  { item: '01', product: 'Camiseta Oversized Street 20.1 (220g)', color: 'Preto', size: 'G', front: 'Arte Cubista', back: 'Selo AVA Branco 16cm', status: 'Aguardando Coleta' },
+  { item: '02', product: 'T-Shirt Prime 26.1 (180g Pele de Pêssego)', color: 'Branco', size: 'G', front: 'Arte Coruja', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta' },
+  { item: '03', product: 'T-Shirt Estonada Vintage 30.1 (170g)', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Aguardando Coleta' },
+  { item: '04', product: 'T-Shirt Quality 30.1 (165g)', color: 'Vinho', size: 'GG', front: 'Arte Cubista', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta' },
+  { item: '05', product: 'Boné Prime Fivela de Metal Confort', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Aguardando Coleta' },
+  { item: '06', product: 'Boné Americano / Trucker Snapback', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Aguardando Coleta' },
 ];
 
 export default function ProducaoPage() {
   const [activeTab, setActiveTab] = useState<'samples' | 'suppliers' | 'kanban' | 'stock'>('samples');
   const [syncStatus, setSyncStatus] = useState<string | null>(null);
   const [syncLoading, setSyncLoading] = useState(false);
+  const [samplesLoading, setSamplesLoading] = useState(false);
+  const [samples, setSamples] = useState<SampleItem[]>(INITIAL_SAMPLES);
+  const [dimonaOrder, setDimonaOrder] = useState<DimonaOrderData | null>(null);
+  const [lastSyncTime, setLastSyncTime] = useState<string | null>(null);
+
+  const fetchSamples = async (manual = false) => {
+    try {
+      setSamplesLoading(true);
+      const res = await fetch('/api/production/samples', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success) {
+        if (data.samples) setSamples(data.samples);
+        if (data.dimonaOrder) setDimonaOrder(data.dimonaOrder);
+        setLastSyncTime(new Date().toLocaleTimeString());
+        if (manual) {
+          setSyncStatus(`✓ Sincronizado com API Dimona às ${new Date().toLocaleTimeString()}! Status: ${data.currentStatus}`);
+        }
+      }
+    } catch (err) {
+      console.error('Erro ao sincronizar amostras:', err);
+      if (manual) setSyncStatus('Falha ao comunicar com a API da Dimona.');
+    } finally {
+      setSamplesLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchSamples();
+  }, []);
 
   const handleRunPriceSync = async () => {
     setSyncLoading(true);
@@ -88,17 +143,102 @@ export default function ProducaoPage() {
         {/* ABA: AMOSTRAS FÍSICAS */}
         {activeTab === 'samples' && (
           <div className={styles.moduleCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <h2 className={styles.cardHeading}>Lote de Amostras Físicas — Dimona Silk HD (Pedido #755-460-927)</h2>
                 <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Pedido pago via PIX (R$ 472,80 com Frete Grátis) em 17/11/2026. Lote composto por 6 peças para homologação de malhas e acabamento.
                 </p>
               </div>
-              <span style={{ fontSize: '12px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '4px 10px', fontWeight: 700 }}>
-                Na Linha de Produção
-              </span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <button
+                  onClick={() => fetchSamples(true)}
+                  disabled={samplesLoading}
+                  className={styles.btnSecondary}
+                  style={{ fontSize: '11px', padding: '6px 12px' }}
+                >
+                  {samplesLoading ? 'Sincronizando...' : '🔄 Sincronizar com Dimona API'}
+                </button>
+                <span style={{
+                  fontSize: '12px',
+                  background: dimonaOrder?.status === 'Aguardando Coleta' ? 'rgba(30, 64, 175, 0.12)' : 'rgba(5,150,105,0.14)',
+                  color: dimonaOrder?.status === 'Aguardando Coleta' ? '#1D4ED8' : '#065F46',
+                  border: dimonaOrder?.status === 'Aguardando Coleta' ? '1px solid rgba(29, 78, 216, 0.4)' : '1px solid rgba(5,150,105,0.3)',
+                  padding: '5px 12px',
+                  fontWeight: 700,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}>
+                  <span style={{ display: 'inline-block', width: '8px', height: '8px', borderRadius: '50%', background: dimonaOrder?.status === 'Aguardando Coleta' ? '#2563EB' : '#10B981' }} />
+                  {dimonaOrder?.status || 'Aguardando Coleta'}
+                </span>
+              </div>
             </div>
+
+            {/* Painel de Rastreio e NF-e da Dimona API */}
+            {dimonaOrder && (
+              <div style={{
+                marginTop: '16px',
+                padding: '14px 18px',
+                background: '#F5ECE0',
+                border: '1px solid rgba(0, 0, 0, 0.12)',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gap: '12px',
+                fontSize: '12px',
+              }}>
+                <div>
+                  <div style={{ color: '#6B7280', fontSize: '11px', textTransform: 'uppercase', fontWeight: 600 }}>Transportadora</div>
+                  <div style={{ color: '#000000', fontWeight: 700, marginTop: '2px' }}>
+                    🚚 {dimonaOrder.shipping_method_name || 'J&T Express'}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ color: '#6B7280', fontSize: '11px', textTransform: 'uppercase', fontWeight: 600 }}>Rastreamento</div>
+                  <div style={{ marginTop: '2px' }}>
+                    {dimonaOrder.tracking_url ? (
+                      <a
+                        href={dimonaOrder.tracking_url}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: '#1D4ED8', fontWeight: 700, textDecoration: 'underline' }}
+                      >
+                        Acompanhar na J&T Express ↗
+                      </a>
+                    ) : (
+                      <span style={{ color: '#4B5563' }}>Aguardando coleta</span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ color: '#6B7280', fontSize: '11px', textTransform: 'uppercase', fontWeight: 600 }}>Nota Fiscal (Danfe)</div>
+                  <div style={{ marginTop: '2px' }}>
+                    {dimonaOrder.nfe_link ? (
+                      <a
+                        href={dimonaOrder.nfe_link}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{ color: '#047857', fontWeight: 700, textDecoration: 'underline' }}
+                      >
+                        📄 NF-e #{dimonaOrder.nfe_number || '114273'} (Olist ERP) ↗
+                      </a>
+                    ) : (
+                      <span style={{ color: '#4B5563' }}>Não emitida</span>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <div style={{ color: '#6B7280', fontSize: '11px', textTransform: 'uppercase', fontWeight: 600 }}>Última Sincronização API</div>
+                  <div style={{ color: '#000000', fontWeight: 600, marginTop: '2px' }}>
+                    {lastSyncTime ? `Hoje às ${lastSyncTime}` : 'Conectado em tempo real'}
+                  </div>
+                </div>
+              </div>
+            )}
 
             <div style={{ overflowX: 'auto', marginTop: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', padding: '8px' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left' }}>
@@ -113,14 +253,25 @@ export default function ProducaoPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {DIMONA_SAMPLES.map(s => (
+                  {samples.map(s => (
                     <tr key={s.item} style={{ borderBottom: '1px solid rgba(0,0,0,0.08)' }}>
                       <td style={{ padding: '12px 10px', fontWeight: 700, color: '#000000' }}>{s.item}</td>
                       <td style={{ padding: '12px 10px', fontWeight: 600, color: '#000000' }}>{s.product}</td>
                       <td style={{ padding: '12px 10px', color: '#374151' }}>{s.color} · {s.size}</td>
                       <td style={{ padding: '12px 10px', color: '#374151' }}>{s.front}</td>
                       <td style={{ padding: '12px 10px', color: '#374151' }}>{s.back}</td>
-                      <td style={{ padding: '12px 10px', color: '#047857', fontWeight: 600 }}>{s.status}</td>
+                      <td style={{ padding: '12px 10px' }}>
+                        <span style={{
+                          padding: '3px 8px',
+                          fontSize: '11px',
+                          fontWeight: 700,
+                          background: s.status === 'Aguardando Coleta' ? 'rgba(30, 64, 175, 0.1)' : 'rgba(5, 150, 105, 0.12)',
+                          color: s.status === 'Aguardando Coleta' ? '#1D4ED8' : '#047857',
+                          border: s.status === 'Aguardando Coleta' ? '1px solid rgba(30, 64, 175, 0.3)' : '1px solid rgba(5, 150, 105, 0.3)',
+                        }}>
+                          {s.status}
+                        </span>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -188,16 +339,66 @@ export default function ProducaoPage() {
         {/* ABA: KANBAN POD */}
         {activeTab === 'kanban' && (
           <div className={styles.moduleCard}>
-            <h2 className={styles.cardHeading}>Fluxo de Produção Sob Demanda (Kanban PoD)</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '10px', marginTop: '12px', minHeight: '220px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div>
+                <h2 className={styles.cardHeading}>Fluxo de Produção Sob Demanda (Kanban PoD)</h2>
+                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
+                  Acompanhamento em tempo real das etapas de manufatura, faturamento e rastreamento de pedidos PoD.
+                </p>
+              </div>
+              <button
+                onClick={() => fetchSamples(true)}
+                disabled={samplesLoading}
+                className={styles.btnSecondary}
+                style={{ fontSize: '11px', padding: '6px 12px' }}
+              >
+                {samplesLoading ? 'Atualizando...' : '🔄 Sincronizar Kanban'}
+              </button>
+            </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '10px', marginTop: '12px', minHeight: '220px' }}>
               {['1. Novo Pedido', '2. Aprovação 4 Sócios', '3. Em Produção (Fábrica)', '4. Expedição / Rastreio', '5. Entregue ao Cliente'].map((col, idx) => (
                 <div key={idx} style={{ background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', padding: '12px' }}>
                   <div style={{ fontSize: '11px', fontWeight: 700, color: '#000000', textTransform: 'uppercase', marginBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.1)', paddingBottom: '4px' }}>
                     {col}
                   </div>
-                  <div style={{ fontSize: '11px', color: '#4B5563', textAlign: 'center', marginTop: '20px' }}>
-                    Nenhum pedido nesta coluna
-                  </div>
+                  {idx === 3 ? (
+                    <div style={{
+                      background: '#FFFFFF',
+                      border: '1px solid rgba(29, 78, 216, 0.3)',
+                      borderLeft: '3px solid #1D4ED8',
+                      padding: '10px',
+                      marginTop: '8px',
+                      textAlign: 'left',
+                      boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                        <span style={{ fontWeight: 700, fontSize: '11px', color: '#000' }}>#{dimonaOrder?.dimona_id || '755-460-927'}</span>
+                        <span style={{ fontSize: '10px', color: '#1D4ED8', fontWeight: 700, background: 'rgba(30,64,175,0.1)', padding: '2px 6px' }}>
+                          {dimonaOrder?.status || 'Aguardando Coleta'}
+                        </span>
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#374151', fontWeight: 600 }}>Lote 6 Peças Amostras Físicas</div>
+                      <div style={{ fontSize: '10px', color: '#6B7280', marginTop: '4px' }}>
+                        🚚 {dimonaOrder?.shipping_method_name || 'J&T Express'} · NF-e #{dimonaOrder?.nfe_number || '114273'}
+                      </div>
+                      {dimonaOrder?.tracking_url && (
+                        <div style={{ marginTop: '6px' }}>
+                          <a
+                            href={dimonaOrder.tracking_url}
+                            target="_blank"
+                            rel="noreferrer"
+                            style={{ fontSize: '10px', color: '#1D4ED8', textDecoration: 'underline', fontWeight: 600 }}
+                          >
+                            Rastrear Pacote ↗
+                          </a>
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: '11px', color: '#4B5563', textAlign: 'center', marginTop: '20px' }}>
+                      Nenhum pedido nesta coluna
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

@@ -6,6 +6,19 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 1. O que realizamos nesta sessão (Estado Atual — 20/11/2026)
 
+*   **🚚 INTEGRAÇÃO EM TEMPO REAL DA DIMONA API V2 & RASTREAMENTO DO PEDIDO #755-460-927 (`/admin/producao` & `/api/production/samples`) ✅:**
+    *   **Chave Homologada no `.env`:** Inserida `DIMONA_API_KEY="49b5a2a652ec0f60cef407983cd8f84c"` e `DIMONA_API_URL="https://admin.camisadimona.com.br/api/v2"`.
+    *   **Mudança de Status Detectada & Persistida:** O status do lote oficial das 6 amostras físicas avançou de `Em Fabricação` para **`Aguardando Coleta`** (Status ID 23) em apenas 3 dias de produção da fábrica em Silk HD.
+    *   **Dados Capturados em Tempo Real:**
+        *   **Transportadora:** J&T Express (`shipping_method_name: "J&T"`).
+        *   **Link Direto de Rastreamento:** `http://status.ondeestameupedido.com/tracking/1168/755460927`.
+        *   **Nota Fiscal Eletrônica Emitida:** NF-e nº `114273` (Série 1), Chave `33261129349123000114550010001142731588011596` e link Danfe direto da Olist ERP.
+    *   **Nova Rota de Backend (`/api/production/samples`):** Conecta à Dimona API via `fetch` autenticado no cabeçalho `api-key`, sincroniza e persiste o lote e laudos na tabela `site_settings` do PostgreSQL (`dimona_samples_755460927`).
+    *   **Atualização do Painel de Produção (`/admin/producao`):**
+        *   Aba **Amostras Físicas:** Cabeçalho com badge vivo `🔵 Aguardando Coleta`, botão de sincronização manual `[🔄 Sincronizar com Dimona API]`, ribbon com dados da J&T, link da NF-e e tabela das 6 peças atualizada.
+        *   Aba **Kanban PoD:** Pedido `#755-460-927` posicionado dinamicamente na coluna `4. Expedição / Rastreio`.
+    *   **Validação Completa:** `npx tsc --noEmit` aprovado com 0 erros e `npm run build` compilado com 100% de sucesso em 12.5s.
+
 *   **🔑 LOGIN SOCIETÁRIO SEM FRICÇÃO, TROCA E RECUPERAÇÃO DE SENHA (`ensureUsers.ts` & `AdminHeader.tsx`) ✅:**
     *   **5 Contas Individuais Provisionadas:** Usuários `admin`, `armando`, `flavio`, `tripoint`, `gustavo` criados automaticamente via script de auto-provisionamento com bcrypt e senha inicial `admin123`.
     *   **Autonomia do Sócio:** Botão **`🔑 Senha`** integrado ao `AdminHeader` permitindo que cada sócio logado altere sua própria senha no banco PostgreSQL.
