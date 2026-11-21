@@ -4,7 +4,19 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 20/11/2026)
+## 1. O que realizamos nesta sessão (Estado Atual — 21/11/2026)
+
+*   **🔌 ESTRUTURAÇÃO COMPLETA DA CENTRAL DE INTEGRAÇÕES (`docs/INTEGRACOES/`) ✅:**
+    *   **Governança & Anti-Omissão Societária:** Criado o repositório soberano para evitar "salamada de informações" e garantir que nenhum dos 4 sócios fique bloqueado fora de nenhum departamento.
+    *   **Separação Técnica vs. Mídias:** Documentações técnicas, Swagger OpenAPI, credenciais e gabaritos separados das artes de vestuário.
+    *   **Diretórios e Manuais Criados:**
+        1. [`docs/INTEGRACOES/INDEX.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/INDEX.md): Mapa geral das 3 camadas (Canais ➔ Bling Hub ➔ Fornecedores PoD).
+        2. [`docs/INTEGRACOES/FORNECEDORES/DIMONA/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/DIMONA/README.md): API REST v2, Chave `.env`, Webhook `https://www.ava-vitoria.com.br/api/webhooks/dimona`, catálogo de 975 SKUs e planilha de pedidos em lote.
+        3. [`docs/INTEGRACOES/FORNECEDORES/PRINTFUL/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/PRINTFUL/README.md): Bearer Token homologado, análise do `openapi.json` (41 endpoints), Boné High Profile com Bordado 3D (Custo R$ 100 / Venda R$ 229 / Lucro R$ 129).
+        4. [`docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/README.md): Especificação OpenAPI `api-1.yaml`, tabelas de custos e diretriz B2B Corporativa (Uniformes empresariais/escolares com estampa frontal e prestígio da marca Reserva).
+        5. [`docs/INTEGRACOES/HUB_ERP_BLING/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/HUB_ERP_BLING/README.md): O integrador fiscal e operacional central que conecta as 10 vitrines à SEFAZ (NF-e 55) e aos fornecedores PoD.
+        6. [`docs/INTEGRACOES/CANAIS_DE_VENDA/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/CANAIS_DE_VENDA/README.md): Matriz comparativa das 10 vitrines (Amazon, ML, Shopee, Site Próprio, etc.), taxas, prazos de repasse e padrão de ficha cadastral.
+    *   **Compilação & Validação:** Next.js 16 (Turbopack) compilado com **100% de sucesso em 9.0s (`npm run build`)** com 0 erros de tipagem TypeScript.
 
 *   **🏭 NOVO COCKPIT INDUSTRIAL DE PRODUÇÃO & 3 FORNECEDORES POD (`/admin/producao`) ✅:**
     *   **Menu Polimórfico de 3 Fornecedores:**
