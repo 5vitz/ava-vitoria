@@ -6,6 +6,25 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 1. O que realizamos nesta sessão (Estado Atual — 20/11/2026)
 
+*   **🏭 NOVO COCKPIT INDUSTRIAL DE PRODUÇÃO & 3 FORNECEDORES POD (`/admin/producao`) ✅:**
+    *   **Menu Polimórfico de 3 Fornecedores:**
+        1. `[ 🏭 Dimona Dropsimples ]` (Silk HD Kornit, 6 amostras em Aguardando Coleta, NF-e #114273 e J&T Express).
+        2. `[ 🌐 Printful Brasil ]` (Token Bearer 200 OK, Bordado 3D em Bonés High Profile Mescla/Preto e Malhas Ring-Spun).
+        3. `[ 👔 Reserva INK ]` (Estratégia B2B Corporativo: Uniformes para empresas/escolas com estampa frontal e simulador de lotes).
+        4. `[ 📋 Kanban PoD ]` (5 etapas industriais unificadas com card vivo em Expedição/Rastreio).
+    *   **Implementação das 6 Melhorias do Genera:**
+        *   **Campo Quantidade (`Qtd`):** Tabela de amostras e pedidos agora com coluna explícita de unidades (`1 un`), multiplicador de custo unitário e somatório total (6 un · R$ 408,60).
+        *   **Stepper Visual de Ciclo de Vida:** Barra de progresso de 5 etapas (`Pedido/PIX` ➔ `Silk HD` ➔ `Controle Qualidade` ➔ `Aguardando Coleta` ➔ `Despacho`).
+        *   **Gabinete de Transbordo Executivo:** Botões funcionais para transbordar a Danfe para o Flávio (Financeiro) e o rastreio J&T para o Gustavo (SAC).
+        *   **Terminal de Auditoria JSON:** Gavetas retráteis `{ } Inspecionar JSON API` para inspecionar os payloads brutos da Dimona e da Printful.
+    *   **Nova Rota Printful:** `/api/production/printful/status` ativa com leitura em tempo real dos 6 escopos aprovados.
+    *   **Validação Completa:** `npx tsc --noEmit` aprovado com 0 erros e `npm run build` compilado com 100% de sucesso em 9.3s!
+
+*   **🌐 HOMOLOGAÇÃO DA PRINTFUL BRASIL API (TOKEN REST FULL ACCESS) (`.env` & `developers.printful.com`) ✅:**
+    *   **Chave Homologada no `.env`:** Inserida `PRINTFUL_API_KEY="ur14bwJFkkx2g7gUOImFKeIDKkgWn7uxAbEI5Jb3"` e `PRINTFUL_API_URL="https://api.printful.com"`.
+    *   **Teste de Conexão em Tempo Real:** Executada requisição autenticada via Bearer Token ao endpoint `/oauth/scopes` e `/products`, retornando **HTTP 200 OK** com acesso total a `orders`, `stores_list`, `sync_products`, `file_library`, `webhooks` e `product_templates`.
+    *   **Estratégia Confirmada:** Printful oficializada como segundo fornecedor estratégico da AVA (focado em bonés estruturados de luxo com bordado 3D e peças ring-spun internacionais, R$ 0 de mensalidade fixa e sem intermediação opaca da Zoop).
+
 *   **🚚 INTEGRAÇÃO EM TEMPO REAL DA DIMONA API V2 & RASTREAMENTO DO PEDIDO #755-460-927 (`/admin/producao` & `/api/production/samples`) ✅:**
     *   **Chave Homologada no `.env`:** Inserida `DIMONA_API_KEY="49b5a2a652ec0f60cef407983cd8f84c"` e `DIMONA_API_URL="https://admin.camisadimona.com.br/api/v2"`.
     *   **Mudança de Status Detectada & Persistida:** O status do lote oficial das 6 amostras físicas avançou de `Em Fabricação` para **`Aguardando Coleta`** (Status ID 23) em apenas 3 dias de produção da fábrica em Silk HD.
