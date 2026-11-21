@@ -42,9 +42,9 @@ flowchart LR
 ## 📂 Organização das Pastas
 
 ### 1. 🏭 [FORNECEDORES/](./FORNECEDORES)
-* **[DIMONA/](./FORNECEDORES/DIMONA):** API REST v2, Catálogo de 975 SKUs, Planilha de Importação em Lote, Pedido de Amostras `#755-460-927`, Danfe Olist e Webhook ativo.
-* **[PRINTFUL/](./FORNECEDORES/PRINTFUL):** Especificação completa `openapi.json` (OpenAPI 3.0), Token Bearer no `.env`, Catálogo de Bonés High Profile com Bordado 3D e malhas internacionais.
-* **[RESERVA_INK/](./FORNECEDORES/RESERVA_INK):** Especificação oficial `api-1.yaml` (`api.reserva.ink`), Tabelas de Custos, Planos e Estratégia B2B Corporativa (Uniformes e Propaganda).
+* **[DIMONA/](./FORNECEDORES/DIMONA):** API REST v2, Catálogo de 975 SKUs, Planilha de Importação em Lote, Pedido de Amostras `#755-460-927`, Danfe Olist e [Matriz de Deptos x API Dimona](./FORNECEDORES/DIMONA/MATRIZ_DEPTOS_API.md).
+* **[PRINTFUL/](./FORNECEDORES/PRINTFUL):** Especificação completa `openapi.json` (OpenAPI 3.0), Token Bearer, Mockup Generator de Estúdio, Boné Bordado 3D e [Matriz de Deptos x API Printful](./FORNECEDORES/PRINTFUL/MATRIZ_DEPTOS_API.md).
+* **[RESERVA_INK/](./FORNECEDORES/RESERVA_INK):** Especificação oficial `api-1.yaml` (`api.reserva.ink`), Saques e Extrato API, Estratégia B2B Uniformes e [Matriz de Deptos x API Reserva INK](./FORNECEDORES/RESERVA_INK/MATRIZ_DEPTOS_API.md).
 
 ### 2. ⚡ [HUB_ERP_BLING/](./HUB_ERP_BLING)
 * O coração que liga os fornecedores aos canais de venda. Emissão de NF-e (Modelo 55), conciliação com o MEI/Simples Nacional do Flávio e geração de etiquetas de envio.

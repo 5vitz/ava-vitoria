@@ -17,7 +17,7 @@ interface DeptLink {
 const DEPTS: DeptLink[] = [
   { number: '01', name: 'Jurídico', href: '/admin/juridico' },
   { number: '02', name: 'Financeiro', href: '/admin/financeiro' },
-  { number: '03', name: 'Engenharia', href: '/admin/engenharia' },
+  { number: '03', name: 'Arquitetura', href: '/admin/engenharia' },
   { number: '04', name: 'Produção', href: '/admin/producao' },
   { number: '05', name: 'Atendimento', href: '/admin/atendimento' },
   { number: '06', name: 'Vendas', href: '/admin/vendas' },

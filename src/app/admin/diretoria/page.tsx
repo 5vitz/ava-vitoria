@@ -13,9 +13,9 @@ const PARTNERS = [
   },
   {
     name: 'Armando Sinkovitz (Genera)',
-    role: 'Titular: 03 · Engenharia & TI + 04 · Produção & Fornecedores',
+    role: 'Titular: 03 · Arquitetura & TI + 04 · Produção & Fornecedores',
     quota: 'Diretoria Executiva · Voto Deliberativo',
-    focus: 'Arquitetura Tecnológica, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
+    focus: 'Arquitetura de Sistemas, Design System, Hub Multi-Supplier PoD (Dimona/Reserva) e Controle Fabril'
   },
   {
     name: 'Gustavo',
@@ -133,6 +133,43 @@ export default function DiretoriaPage() {
           <p style={{ fontSize: '13px', color: '#27272A', lineHeight: '1.6' }}>
             A estratégia de lançamento da Nova Coleção PoD na vitrine principal e escoamento do estoque físico via Campanha <strong>&quot;EU TENHO CUPOM!&quot;</strong> posiciona a AVA Sem Limites com risco zero de capital imobilizado. A utilização transitória da estrutura MEI com Inscrição Estadual ativa viabiliza a emissão de NF-e e operação imediata via Bling ERP, permitindo validar vendas e tração real antes da formalização definitiva da LTDA na JUCEES.
           </p>
+        </div>
+
+        {/* Governança Colegiada: Cultura de Reuniões Periódicas */}
+        <div className={styles.moduleCard} style={{ marginTop: '20px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', flexWrap: 'wrap', gap: '10px' }}>
+            <div>
+              <h2 className={styles.cardHeading} style={{ display: 'flex', alignItems: 'center', gap: '8px', margin: 0 }}>
+                <span>🤝</span> Cultura de Reuniões Periódicas da Mesa Redonda
+              </h2>
+              <p style={{ fontSize: '12px', color: '#4B5563', margin: '4px 0 0 0' }}>
+                Governança deliberativa entre iguais. A presença dos sócios é tratada institucionalmente nas pautas de alinhamento periódico, eliminando qualquer controle de ponto individual.
+              </p>
+            </div>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.15)', borderRadius: '2px' }}>
+              🏛️ Consenso 4/4
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '12px' }}>
+            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700 }}>Periodicidade Sugerida</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>Alinhamento Periódico</div>
+              <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Definição em consenso colegiado pelos 4 sócios (ex: semanal ou quinzenal).</div>
+            </div>
+
+            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700 }}>Pauta Operacional</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>8 Departamentos</div>
+              <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Cada sócio apresenta o progresso e gargalos das suas 2 pastas de titularidade.</div>
+            </div>
+
+            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+              <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#047857', fontWeight: 700 }}>Deliberação</div>
+              <div style={{ fontSize: '14px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>Urna de Votação 4/4</div>
+              <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Decisões de preço, investimento e contratos registradas sem atrito na plataforma.</div>
+            </div>
+          </div>
         </div>
       </main>
     </div>

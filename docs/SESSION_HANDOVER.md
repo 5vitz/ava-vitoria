@@ -6,7 +6,27 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ## 1. O que realizamos nesta sessão (Estado Atual — 21/11/2026)
 
-*   **🔌 ESTRUTURAÇÃO COMPLETA DA CENTRAL DE INTEGRAÇÕES (`docs/INTEGRACOES/`) ✅:**
+*   **📐 REBATISMO DO DEPTO 03 · ARQUITETURA & TI E ELIMINAÇÃO DO RELATÓRIO DE PONTO ✅:**
+    *   **Identidade e Titularidade:** Depto 03 oficialmente renomeado de *Engenharia & TI* para **`Depto 03 · Arquitetura & TI`** em todo o sistema (`AdminHeader.tsx`, `AdminCockpitClient.tsx`, `/admin/diretoria` e `/admin/engenharia`), homenageando a formação acadêmica do Armando em Arquitetura e a arquitetura estrutural da AVA.
+    *   **Eliminação do Risco de Desgaste Societário:** O bloco de monitoramento de expediente (tabela de entradas, saídas, tempo de permanência e IPs dos sócios) foi **100% removido** do Depto 03. Sócios não batem ponto e a presença não fica exposta no departamento do titular de TI.
+    *   **Cultura de Reuniões da Mesa Redonda:** A Diretoria Executiva (`/admin/diretoria`) recebeu a nova seção institucional para alinhamento periódico (semanal/quinzenal) e governança madura via Urna de Votação 4/4, preservando apenas o LED sutil (🟢 Conectado / ⚪ Desconectado) na barra de comando.
+
+*   **📊 3 MATRIZES ESPECÍFICAS DE DEPARTAMENTOS X DADOS DE API (DIMONA, PRINTFUL E RESERVA INK) ✅:**
+    *   **Anti-Ruído Operacional:** Criadas 3 matrizes individuais e hiper-específicas para que nenhum sócio confunda recursos exclusivos de um fornecedor cobrando de outro (ex: Tripoint cobrando Mockups Realistas da Dimona ou Flávio cobrando estampa nas costas da Reserva INK).
+    *   **Arquivos Gerados (Markdown + Planilha CSV):**
+        1. **Dimona Dropsimples:**
+           * MD: [`docs/INTEGRACOES/FORNECEDORES/DIMONA/MATRIZ_DEPTOS_API.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/DIMONA/MATRIZ_DEPTOS_API.md)
+           * CSV: [`docs/INTEGRACOES/FORNECEDORES/DIMONA/matriz_deptos_api_dimona.csv`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/DIMONA/matriz_deptos_api_dimona.csv)
+           * *Foco:* Silk HD Kornit (frente+costas), NF-e Olist com link Danfe e chave 44 dígitos, J&T Express. *Aviso:* Não possui Mockup Generator automático nem Bordado 3D.
+        2. **Printful Brasil:**
+           * MD: [`docs/INTEGRACOES/FORNECEDORES/PRINTFUL/MATRIZ_DEPTOS_API.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/PRINTFUL/MATRIZ_DEPTOS_API.md)
+           * CSV: [`docs/INTEGRACOES/FORNECEDORES/PRINTFUL/matriz_deptos_api_printful.csv`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/PRINTFUL/matriz_deptos_api_printful.csv)
+           * *Foco:* Mockup Generator de estúdio com modelos reais, Bordado 3D Puff com 15 cores de linhas, Packing Slip personalizado na caixa, estimativa prévia de custos. *Aviso:* Painel web em inglês e custo voltado a produtos de alto luxo.
+        3. **Reserva INK:**
+           * MD: [`docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/MATRIZ_DEPTOS_API.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/MATRIZ_DEPTOS_API.md)
+           * CSV: [`docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/matriz_deptos_api_reserva_ink.csv`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/FORNECEDORES/RESERVA_INK/matriz_deptos_api_reserva_ink.csv)
+           * *Foco:* Prestígio da grife para uniformes B2B corporativos e propaganda, saques e extratos via API, simulação de frete para lotes. *Aviso:* PROIBIDO solicitar estampa nas costas (apenas frente).
+    *   **Validação Técnica:** `npx tsc --noEmit` validado com 0 erros.
     *   **Governança & Anti-Omissão Societária:** Criado o repositório soberano para evitar "salamada de informações" e garantir que nenhum dos 4 sócios fique bloqueado fora de nenhum departamento.
     *   **Separação Técnica vs. Mídias:** Documentações técnicas, Swagger OpenAPI, credenciais e gabaritos separados das artes de vestuário.
     *   **Diretórios e Manuais Criados:**

@@ -119,10 +119,10 @@ const DEPARTMENTS_DATA = [
   },
   {
     number: '03',
-    title: 'Engenharia & TI',
+    title: 'Arquitetura & TI',
     owner: 'Armando',
-    icon: '⚙️',
-    desc: 'Arquitetura Next.js 16, PostgreSQL ACID, VPS Contabo, Sentinel Security, feeds XML/JSON e GEO (/llms.txt).',
+    icon: '📐',
+    desc: 'Arquitetura de Sistemas, Next.js 16, PostgreSQL ACID, VPS Contabo, Design System, feeds XML/JSON e GEO (/llms.txt).',
     href: '/admin/engenharia',
     metric: 'VPS 31.220.102.2',
     status: 'Online · PM2 OK'
@@ -294,7 +294,7 @@ export default function AdminCockpitClient() {
               </span>
             </div>
             <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
-              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Engenharia &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 Atendimento &amp; 06 Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Marketing &amp; 08 Atelier)
+              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Arquitetura &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 Atendimento &amp; 06 Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Marketing &amp; 08 Atelier)
             </p>
           </div>
 
