@@ -2,12 +2,12 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
 const DEFAULT_SAMPLES = [
-  { item: '01', product: 'Camiseta Oversized Street 20.1 (220g)', color: 'Preto', size: 'G', front: 'Arte Cubista', back: 'Selo AVA Branco 16cm', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '02', product: 'T-Shirt Prime 26.1 (180g Pele de Pêssego)', color: 'Branco', size: 'G', front: 'Arte Coruja', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '03', product: 'T-Shirt Estonada Vintage 30.1 (170g)', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '04', product: 'T-Shirt Quality 30.1 (165g)', color: 'Vinho', size: 'GG', front: 'Arte Cubista', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '05', product: 'Boné Prime Fivela de Metal Confort', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
-  { item: '06', product: 'Boné Americano / Trucker Snapback', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Aguardando Coleta', gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '01', product: 'Camiseta Oversized Street 20.1 (220g)', color: 'Preto', size: 'G', front: 'Arte Cubista', back: 'Selo AVA Branco 16cm', status: 'Pedido Enviado', unitCost: 116.46, totalCost: 116.46, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '02', product: 'T-Shirt Prime 26.1 (180g Pele de Pêssego)', color: 'Branco', size: 'G', front: 'Arte Coruja', back: 'Selo AVA Preto 16cm', status: 'Pedido Enviado', unitCost: 90.54, totalCost: 90.54, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '03', product: 'T-Shirt Estonada Vintage 30.1 (170g)', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Pedido Enviado', unitCost: 92.46, totalCost: 92.46, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '04', product: 'T-Shirt Quality 30.1 (165g)', color: 'Vinho', size: 'GG', front: 'Arte Cubista', back: 'Selo AVA Preto 16cm', status: 'Pedido Enviado', unitCost: 72.46, totalCost: 72.46, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '05', product: 'Boné Prime Fivela de Metal Confort', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Pedido Enviado', unitCost: 68.14, totalCost: 68.14, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
+  { item: '06', product: 'Boné Americano / Trucker Snapback', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Pedido Enviado', unitCost: 32.14, totalCost: 32.14, gradeMalha: 'Pendente Entrega', gradeEstampa: 'Pendente Entrega' },
 ];
 
 export async function GET() {
@@ -55,7 +55,7 @@ export async function GET() {
     }
 
     // 3. Atualiza status dos itens caso a Dimona tenha retornado novo status
-    const currentStatus = dimonaLiveOrder?.status || 'Aguardando Coleta';
+    const currentStatus = dimonaLiveOrder?.status || 'Pedido Enviado';
     samples = samples.map(s => ({
       ...s,
       status: currentStatus,
@@ -99,11 +99,15 @@ export async function GET() {
       currentStatus,
       dimonaOrder: dimonaLiveOrder || {
         dimona_id: '755-460-927',
-        status: currentStatus,
-        shipping_method_name: 'J&T',
+        status: 'Pedido Enviado',
+        status_id: 26,
+        shipping_method_name: 'J&T Express',
         tracking_url: 'http://status.ondeestameupedido.com/tracking/1168/755460927',
+        estimated_delivery: '26/11/2026',
+        shipped_at: '2026-11-23T17:24:00-03:00',
         nfe_number: '114273',
         nfe_link: 'https://erp.olist.com/doc.view?id=00058e6fe6e2a08458ab5e155887c864',
+        total_value: 472.80,
       },
       samples,
       lastSync: new Date().toISOString(),

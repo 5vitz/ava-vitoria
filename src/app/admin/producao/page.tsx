@@ -37,12 +37,12 @@ interface DimonaOrderData {
 }
 
 const INITIAL_SAMPLES: SampleItem[] = [
-  { item: '01', qty: 1, product: 'Camiseta Oversized Street 20.1 (220g)', color: 'Preto', size: 'G', front: 'Arte Cubista (3435x4680)', back: 'Selo AVA Branco 16cm', status: 'Aguardando Coleta', unitCost: 101.90, totalCost: 101.90 },
-  { item: '02', qty: 1, product: 'T-Shirt Prime 26.1 (180g Pele de Pêssego)', color: 'Branco', size: 'G', front: 'Arte Coruja (3435x4680)', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta', unitCost: 67.90, totalCost: 67.90 },
-  { item: '03', qty: 1, product: 'T-Shirt Estonada Vintage 30.1 (170g)', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Aguardando Coleta', unitCost: 73.00, totalCost: 73.00 },
-  { item: '04', qty: 1, product: 'T-Shirt Quality 30.1 (165g)', color: 'Vinho', size: 'GG', front: 'Arte Cubista (3435x4680)', back: 'Selo AVA Preto 16cm', status: 'Aguardando Coleta', unitCost: 59.90, totalCost: 59.90 },
-  { item: '05', qty: 1, product: 'Boné Prime Fivela de Metal Confort', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Aguardando Coleta', unitCost: 72.90, totalCost: 72.90 },
-  { item: '06', qty: 1, product: 'Boné Americano / Trucker Snapback', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Aguardando Coleta', unitCost: 33.00, totalCost: 33.00 },
+  { item: '01', qty: 1, product: 'Dimona Oversized Unissex Preto G Personalizada', color: 'Preto', size: 'G', front: 'Arte Cubista (3435x4680)', back: 'Selo AVA Branco 16cm', status: 'Pedido Enviado', unitCost: 116.46, totalCost: 116.46 },
+  { item: '02', qty: 1, product: 'Dimona Prime Masculina Branco G Personalizada', color: 'Branco', size: 'G', front: 'Arte Coruja (3435x4680)', back: 'Selo AVA Preto 16cm', status: 'Pedido Enviado', unitCost: 90.54, totalCost: 90.54 },
+  { item: '03', qty: 1, product: 'Dimona Estonada Prime Masculina Cinza Chumbo GG Personalizada', color: 'Cinza Chumbo', size: 'GG', front: 'Peito: Siga Fazendo o Bem', back: 'Pôster: Siga Fazendo o Bem', status: 'Pedido Enviado', unitCost: 92.46, totalCost: 92.46 },
+  { item: '04', qty: 1, product: 'Dimona Quality Masculina Vinho GG Personalizada', color: 'Vinho', size: 'GG', front: 'Arte Cubista (3435x4680)', back: 'Selo AVA Preto 16cm', status: 'Pedido Enviado', unitCost: 72.46, totalCost: 72.46 },
+  { item: '05', qty: 1, product: 'Boné Prime Comfort Acessórios Preto Único Personalizada', color: 'Preto', size: 'Único', front: 'Selo AVA Branco Circular', back: 'Liso', status: 'Pedido Enviado', unitCost: 68.14, totalCost: 68.14 },
+  { item: '06', qty: 1, product: 'Boné Quality Americano Inteiro Acessórios Branco Único Personalizada', color: 'Branco', size: 'Único', front: 'Sem Limites AVA Preto', back: 'Liso', status: 'Pedido Enviado', unitCost: 32.14, totalCost: 32.14 },
 ];
 
 export default function ProducaoPage() {
@@ -362,11 +362,11 @@ export default function ProducaoPage() {
 
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
                 <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Status da Fábrica</span>
-                <div style={{ fontSize: '16px', fontWeight: 800, color: '#1D4ED8', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#2563EB' }} />
-                  {dimonaOrder?.status || 'Aguardando Coleta'}
+                <div style={{ fontSize: '16px', fontWeight: 800, color: '#059669', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#059669' }} />
+                  {dimonaOrder?.status || 'Pedido Enviado'}
                 </div>
-                <span style={{ fontSize: '11px', color: '#4B5563' }}>Status ID: {dimonaOrder?.status_id || 23} (Pronto p/ Coleta)</span>
+                <span style={{ fontSize: '11px', color: '#4B5563' }}>Status ID: {dimonaOrder?.status_id || 26} (Em Trânsito J&T)</span>
               </div>
 
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
@@ -374,7 +374,7 @@ export default function ProducaoPage() {
                 <div style={{ fontSize: '16px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
                   🚚 {dimonaOrder?.shipping_method_name || 'J&T Express'}
                 </div>
-                <span style={{ fontSize: '11px', color: '#4B5563' }}>Frete Grátis Promocional Ativo</span>
+                <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700 }}>Previsão: 26/11/2026 (Vitória/ES)</span>
               </div>
             </div>
 
@@ -399,21 +399,21 @@ export default function ProducaoPage() {
                   { step: '1. Pedido & PIX', date: '17/11 · 02:11', status: 'concluido' },
                   { step: '2. Silk HD Kornit', date: '18/11 · 09:30', status: 'concluido' },
                   { step: '3. Controle Qualidade', date: '19/11 · 16:45', status: 'concluido' },
-                  { step: '4. Aguardando Coleta', date: '20/11 · 14:20', status: 'ativo' },
-                  { step: '5. Despacho & Trânsito', date: 'Aguardando J&T', status: 'pendente' },
+                  { step: '4. Coleta Realizada', date: '23/11 · 17:24', status: 'concluido' },
+                  { step: '5. Despacho & Trânsito', date: 'Em Trânsito · Previsão 26/11', status: 'ativo' },
                 ].map((st, i) => (
                   <div
                     key={i}
                     style={{
                       padding: '10px 6px',
-                      background: st.status === 'ativo' ? '#1D4ED8' : st.status === 'concluido' ? '#059669' : '#D1D5DB',
+                      background: st.status === 'ativo' ? '#059669' : st.status === 'concluido' ? '#047857' : '#D1D5DB',
                       color: st.status === 'pendente' ? '#374151' : '#FFFFFF',
                       borderRadius: '2px',
                       border: st.status === 'ativo' ? '2px solid #000' : 'none'
                     }}
                   >
                     <div style={{ fontSize: '11px', fontWeight: 800 }}>
-                      {st.status === 'concluido' ? '✓ ' : st.status === 'ativo' ? '🔵 ' : '⚪ '}
+                      {st.status === 'concluido' ? '✓ ' : st.status === 'ativo' ? '🚚 ' : '⚪ '}
                       {st.step}
                     </div>
                     <div style={{ fontSize: '10px', marginTop: '3px', opacity: 0.9 }}>

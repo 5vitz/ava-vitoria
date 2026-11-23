@@ -52,9 +52,9 @@ const INITIAL_DECISIONS: DecisionItem[] = [
     tag: 'Lote Piloto #755-460-927',
     title: 'Conferência das 6 Amostras Físicas Dimona (Frente + Costas)',
     description:
-      'Pedido pago via PIX (R$ 342,35). Assim que a caixa física chegar, os 4 sócios votam a aprovação do toque da malha, caimento e resistência do Silk HD após lavagem.',
+      'Pedido #755-460-927 ENVIADO pela Dimona via J&T Express em 23/11 às 17:24 (R$ 472,80 pago via PIX). Previsão de chegada em Vitória/ES: 26/11. Assim que a caixa chegar, os 4 sócios votam a aprovação das malhas e do Silk HD pós-lavagem.',
     actionPrimary: 'Homologar Qualidade Fabril',
-    timeAgo: 'Aguardando entrega física',
+    timeAgo: 'Em Trânsito J&T · Chega 26/11',
     votes: {
       Armando: 'APPROVED',
       Flavio: 'PENDING',
