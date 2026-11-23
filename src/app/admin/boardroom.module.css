@@ -31,14 +31,26 @@
 }
 
 .shadedMode {
+  top: auto !important;
+  bottom: 16px !important;
+  right: 24px !important;
+  left: auto !important;
+  width: 420px !important;
+  max-width: 90vw !important;
   height: 44px !important;
   min-height: 44px !important;
   min-width: 280px !important;
-  resize: none;
+  resize: none !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45) !important;
 }
 
 .splitMode {
-  min-width: 340px !important;
+  top: 158px !important;
+  right: 24px !important;
+  left: auto !important;
+  width: 42vw !important;
+  min-width: 360px !important;
+  height: calc(100vh - 180px) !important;
 }
 
 .maxMode {

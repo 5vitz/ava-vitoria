@@ -91,9 +91,83 @@ export default function BoardroomPopup({
   // Palco (chat vs vídeo híbrido)
   const [stageMode, setStageMode] = useState<'chat' | 'hybrid'>('chat');
   const [micActive, setMicActive] = useState<boolean>(true);
-  const [camActive, setCamActive] = useState<boolean>(true);
+  const [camActive, setCamActive] = useState<boolean>(false);
   const [screenShareActive, setScreenShareActive] = useState<boolean>(false);
   const [jitsiLive, setJitsiLive] = useState<boolean>(false);
+
+  const localVideoRef = useRef<HTMLVideoElement | null>(null);
+  const screenVideoRef = useRef<HTMLVideoElement | null>(null);
+  const localStreamRef = useRef<MediaStream | null>(null);
+  const screenStreamRef = useRef<MediaStream | null>(null);
+
+  // Controle real de Câmera e Microfone locais (WebRTC Nativo)
+  const toggleRealCamera = async () => {
+    if (camActive) {
+      if (localStreamRef.current) {
+        localStreamRef.current.getTracks().forEach((t) => t.stop());
+        localStreamRef.current = null;
+      }
+      if (localVideoRef.current) localVideoRef.current.srcObject = null;
+      setCamActive(false);
+    } else {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: micActive,
+        });
+        localStreamRef.current = stream;
+        if (localVideoRef.current) localVideoRef.current.srcObject = stream;
+        setCamActive(true);
+      } catch (err) {
+        alert('Não foi possível acessar a câmera ou permissão negada.');
+      }
+    }
+  };
+
+  const toggleRealMic = () => {
+    if (localStreamRef.current) {
+      localStreamRef.current.getAudioTracks().forEach((t) => {
+        t.enabled = !micActive;
+      });
+    }
+    setMicActive(!micActive);
+  };
+
+  // Controle real de Compartilhamento de Tela (Screen Share Nativo do Navegador)
+  const toggleRealScreenShare = async () => {
+    if (screenShareActive) {
+      if (screenStreamRef.current) {
+        screenStreamRef.current.getTracks().forEach((t) => t.stop());
+        screenStreamRef.current = null;
+      }
+      if (screenVideoRef.current) screenVideoRef.current.srcObject = null;
+      setScreenShareActive(false);
+    } else {
+      try {
+        const stream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: true,
+        });
+        screenStreamRef.current = stream;
+        if (screenVideoRef.current) screenVideoRef.current.srcObject = stream;
+        stream.getVideoTracks()[0].onended = () => {
+          setScreenShareActive(false);
+          screenStreamRef.current = null;
+        };
+        setScreenShareActive(true);
+      } catch (err) {
+        // Usuário cancelou ou navegador não suporta
+      }
+    }
+  };
+
+  // Limpa streams quando fechar o popup
+  useEffect(() => {
+    return () => {
+      localStreamRef.current?.getTracks().forEach((t) => t.stop());
+      screenStreamRef.current?.getTracks().forEach((t) => t.stop());
+    };
+  }, []);
 
   // Composer
   const [selectedRecipients, setSelectedRecipients] = useState<string[]>(['TODOS']);
@@ -317,17 +391,27 @@ export default function BoardroomPopup({
   // Alternadores de ergonomia
   const toggleShade = () => {
     const next = !isShaded;
-    setIsShaded(next);
     if (next) {
-      fitToRightCard(true);
-    } else if (winRef.current) {
-      winRef.current.style.top = '';
-      winRef.current.style.bottom = '';
-      winRef.current.style.left = '';
-      winRef.current.style.width = '';
-      winRef.current.style.right = '28px';
-      if (isSplit) {
-        fitToRightCard(false);
+      setIsMax(false);
+      setIsSplit(false);
+      setIsShaded(true);
+      if (winRef.current) {
+        winRef.current.style.top = 'auto';
+        winRef.current.style.bottom = '16px';
+        winRef.current.style.left = 'auto';
+        winRef.current.style.right = '24px';
+        winRef.current.style.width = '420px';
+        winRef.current.style.height = '44px';
+      }
+    } else {
+      setIsShaded(false);
+      if (winRef.current) {
+        winRef.current.style.top = '';
+        winRef.current.style.bottom = '';
+        winRef.current.style.left = '';
+        winRef.current.style.width = '';
+        winRef.current.style.height = '';
+        winRef.current.style.right = '28px';
       }
     }
   };
@@ -337,9 +421,7 @@ export default function BoardroomPopup({
     setIsShaded(false);
     const next = !isSplit;
     setIsSplit(next);
-    if (next) {
-      fitToRightCard(false);
-    } else if (winRef.current) {
+    if (winRef.current) {
       winRef.current.style.top = '';
       winRef.current.style.bottom = '';
       winRef.current.style.left = '';
@@ -352,15 +434,16 @@ export default function BoardroomPopup({
   const toggleMax = () => {
     setIsSplit(false);
     setIsShaded(false);
+    const next = !isMax;
+    setIsMax(next);
     if (winRef.current) {
       winRef.current.style.top = '';
       winRef.current.style.bottom = '';
       winRef.current.style.left = '';
       winRef.current.style.width = '';
       winRef.current.style.height = '';
+      winRef.current.style.right = '28px';
     }
-    const next = !isMax;
-    setIsMax(next);
     if (next) {
       setStageMode('hybrid');
     }
@@ -691,18 +774,33 @@ export default function BoardroomPopup({
           <div className={styles.videoStage}>
             {screenShareActive && (
               <div className={styles.screenShareBox}>
-                <span>
-                  🖥️ <strong>TELA COMPARTILHADA ATIVA:</strong> {currentDisplayName} está
-                  apresentando a Tabela do Painel
-                </span>
-                <button
-                  type="button"
-                  className={adminStyles.executiveHeaderBtn}
-                  style={{ background: '#DFCFA8', color: '#000000' }}
-                  onClick={() => setScreenShareActive(false)}
-                >
-                  Encerrar Tela
-                </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <span>
+                      🖥️ <strong>TELA COMPARTILHADA AO VIVO:</strong> Transmissão ativa da sua tela
+                    </span>
+                    <button
+                      type="button"
+                      className={adminStyles.executiveHeaderBtn}
+                      style={{ background: '#DFCFA8', color: '#000000' }}
+                      onClick={toggleRealScreenShare}
+                    >
+                      Encerrar Tela
+                    </button>
+                  </div>
+                  <video
+                    ref={screenVideoRef}
+                    autoPlay
+                    playsInline
+                    style={{
+                      width: '100%',
+                      maxHeight: isMax ? '320px' : '180px',
+                      background: '#000',
+                      border: '1px solid #DFCFA8',
+                      borderRadius: '2px',
+                    }}
+                  />
+                </div>
               </div>
             )}
 
@@ -724,11 +822,30 @@ export default function BoardroomPopup({
                       key={p.username}
                       className={`${styles.camCard} ${isSelf ? styles.camCardSpeaking : ''}`}
                     >
-                      <div className={styles.camInitials}>{p.initials}</div>
-                      <div className={styles.camName}>
-                        {p.name} {isSelf ? '(Você)' : ''}
-                      </div>
-                      <div className={styles.camDept}>{p.dept}</div>
+                      {isSelf && camActive ? (
+                        <video
+                          ref={localVideoRef}
+                          autoPlay
+                          playsInline
+                          muted
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            position: 'absolute',
+                            inset: 0,
+                            borderRadius: '2px',
+                          }}
+                        />
+                      ) : (
+                        <>
+                          <div className={styles.camInitials}>{p.initials}</div>
+                          <div className={styles.camName}>
+                            {p.name} {isSelf ? '(Você)' : ''}
+                          </div>
+                          <div className={styles.camDept}>{p.dept}</div>
+                        </>
+                      )}
                     </div>
                   );
                 })}
@@ -748,27 +865,30 @@ export default function BoardroomPopup({
                 className={`${adminStyles.executiveHeaderBtn} ${styles.videoToolbarBtn} ${
                   micActive ? adminStyles.executiveHeaderBtnActive : ''
                 }`}
-                onClick={() => setMicActive(!micActive)}
+                onClick={toggleRealMic}
+                title="Ativar/Desativar Microfone Local"
               >
-                🎙️ Mic
+                🎙️ {micActive ? 'Mic ON' : 'Mic Mudo'}
               </button>
               <button
                 type="button"
                 className={`${adminStyles.executiveHeaderBtn} ${styles.videoToolbarBtn} ${
                   camActive ? adminStyles.executiveHeaderBtnActive : ''
                 }`}
-                onClick={() => setCamActive(!camActive)}
+                onClick={toggleRealCamera}
+                title="Ligar/Desligar Câmera Local"
               >
-                📹 Câmera
+                📹 {camActive ? 'Câmera ON' : 'Ligar Câmera'}
               </button>
               <button
                 type="button"
                 className={`${adminStyles.executiveHeaderBtn} ${styles.videoToolbarBtn} ${
                   screenShareActive ? adminStyles.executiveHeaderBtnActive : ''
                 }`}
-                onClick={() => setScreenShareActive(!screenShareActive)}
+                onClick={toggleRealScreenShare}
+                title="Compartilhar Tela Nativa do Navegador"
               >
-                🖥️ Compartilhar Tela
+                🖥️ {screenShareActive ? 'Parar Tela' : 'Compartilhar Tela'}
               </button>
               <button
                 type="button"
@@ -776,7 +896,7 @@ export default function BoardroomPopup({
                   jitsiLive ? adminStyles.executiveHeaderBtnActive : ''
                 }`}
                 onClick={() => setJitsiLive(!jitsiLive)}
-                title="Alternar Sala WebRTC Ao Vivo"
+                title="Alternar Sala WebRTC Multiponto Ao Vivo"
               >
                 {jitsiLive ? '📡 Sala Ao Vivo ON' : '📡 Conectar Ao Vivo'}
               </button>
@@ -793,6 +913,8 @@ export default function BoardroomPopup({
                 style={{ color: '#B91C1C', borderColor: '#B91C1C' }}
                 onClick={() => {
                   setJitsiLive(false);
+                  if (camActive) toggleRealCamera();
+                  if (screenShareActive) toggleRealScreenShare();
                   setStageMode('chat');
                 }}
               >
