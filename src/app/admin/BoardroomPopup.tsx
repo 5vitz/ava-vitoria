@@ -390,29 +390,32 @@ export default function BoardroomPopup({
 
   // Alternadores de ergonomia
   const toggleShade = () => {
-    const next = !isShaded;
-    if (next) {
-      setIsMax(false);
-      setIsSplit(false);
-      setIsShaded(true);
-      if (winRef.current) {
-        winRef.current.style.top = 'auto';
-        winRef.current.style.bottom = '16px';
-        winRef.current.style.left = 'auto';
-        winRef.current.style.right = '24px';
-        winRef.current.style.width = '420px';
-        winRef.current.style.height = '44px';
-      }
-    } else {
-      setIsShaded(false);
-      if (winRef.current) {
-        winRef.current.style.top = '';
-        winRef.current.style.bottom = '';
-        winRef.current.style.left = '';
-        winRef.current.style.width = '';
-        winRef.current.style.height = '';
-        winRef.current.style.right = '28px';
-      }
+    // Minimizar: fecha a janela cheia e ativa o ícone/dock discreto flutuante no canto inferior direito
+    setIsMax(false);
+    setIsSplit(false);
+    setIsShaded(true);
+    if (winRef.current) {
+      winRef.current.style.top = '';
+      winRef.current.style.bottom = '';
+      winRef.current.style.left = '';
+      winRef.current.style.width = '';
+      winRef.current.style.height = '';
+      winRef.current.style.right = '';
+    }
+  };
+
+  const restoreFromLauncher = () => {
+    // Ao clicar no ícone minimizado, abre diretamente na configuração de Meia Página vertical
+    setIsShaded(false);
+    setIsMax(false);
+    setIsSplit(true);
+    if (winRef.current) {
+      winRef.current.style.top = '';
+      winRef.current.style.bottom = '';
+      winRef.current.style.left = '';
+      winRef.current.style.width = '';
+      winRef.current.style.height = '';
+      winRef.current.style.right = '';
     }
   };
 
@@ -427,15 +430,18 @@ export default function BoardroomPopup({
       winRef.current.style.left = '';
       winRef.current.style.width = '';
       winRef.current.style.height = '';
-      winRef.current.style.right = '28px';
+      winRef.current.style.right = next ? '0' : '28px';
     }
   };
 
   const toggleMax = () => {
-    setIsSplit(false);
     setIsShaded(false);
     const next = !isMax;
     setIsMax(next);
+    if (next) {
+      setIsSplit(false);
+      setStageMode('hybrid');
+    }
     if (winRef.current) {
       winRef.current.style.top = '';
       winRef.current.style.bottom = '';
@@ -443,9 +449,6 @@ export default function BoardroomPopup({
       winRef.current.style.width = '';
       winRef.current.style.height = '';
       winRef.current.style.right = '28px';
-    }
-    if (next) {
-      setStageMode('hybrid');
     }
   };
 
@@ -619,12 +622,29 @@ export default function BoardroomPopup({
   const totalParticipantsCount = 4 + level2Guests.length;
 
   return (
-    <aside
-      ref={winRef}
-      className={`${styles.boardroomWindow} ${isGhost ? styles.ghostMode : ''} ${
-        isShaded ? styles.shadedMode : ''
-      } ${isSplit ? styles.splitMode : ''} ${isMax ? styles.maxMode : ''}`}
-    >
+    <>
+      {/* Ícone Discreto de Chat Flutuante no Canto Inferior Direito quando Minimizado */}
+      {isShaded && (
+        <button
+          type="button"
+          className={styles.floatingLauncherBtn}
+          onClick={restoreFromLauncher}
+          title="Clique para expandir a Sala de Reuniões em Meia Página"
+        >
+          <span className={styles.floatingLauncherIcon}>💬</span>
+          <span>SALA DE REUNIÕES</span>
+          <span className={styles.floatingLauncherBadge}>
+            {level2Guests.length > 0 ? `4+${level2Guests.length}` : '4/4'}
+          </span>
+        </button>
+      )}
+
+      <aside
+        ref={winRef}
+        className={`${styles.boardroomWindow} ${isGhost ? styles.ghostMode : ''} ${
+          isShaded ? styles.shadedMode : ''
+        } ${isSplit ? styles.splitMode : ''} ${isMax ? styles.maxMode : ''}`}
+      >
       {/* 1. BARRA DE TÍTULO ARRASTÁVEL */}
       <div className={styles.windowTitlebar} onMouseDown={handleTitlebarMouseDown}>
         <div className={styles.titlebarLeft}>
@@ -1167,5 +1187,6 @@ export default function BoardroomPopup({
         </div>
       </div>
     </aside>
+    </>
   );
 }
