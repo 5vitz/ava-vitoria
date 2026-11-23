@@ -75,12 +75,12 @@
 }
 
 .executiveHeaderBtnActive {
-  background: rgba(0, 0, 0, 0.74) !important;
+  background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border-color: rgba(0, 0, 0, 0.55) !important;
+  border-color: rgba(0, 0, 0, 0.40) !important;
   color: #FAF6EE !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
 .deptNav {
@@ -120,10 +120,10 @@
 
 .deptNavLinkActive {
   color: #FAF6EE !important;
-  background: rgba(0, 0, 0, 0.74) !important;
+  background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  border-color: rgba(0, 0, 0, 0.55) !important;
+  border-color: rgba(0, 0, 0, 0.40) !important;
   font-weight: 700;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
 }
@@ -237,12 +237,12 @@
 }
 
 .actionCardBtnActive {
-  background: rgba(0, 0, 0, 0.74) !important;
+  background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   color: #FAF6EE !important;
-  border-color: rgba(0, 0, 0, 0.55) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
+  border-color: rgba(0, 0, 0, 0.40) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
 .connectedPartnersCard {
@@ -271,28 +271,47 @@
   align-items: center;
   gap: 5px;
   padding: 4px 9px;
-  background: #DFCFA8;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  background: #EFE4CC;
+  border: 1px solid rgba(0, 0, 0, 0.20);
   border-radius: 2px;
   font-size: 11px;
   font-weight: 700;
-  color: #000000;
+  color: #18191B;
   white-space: nowrap;
+  transition: all 0.2s ease;
 }
 
 .partnerPresenceCurrentUser {
-  background: rgba(0, 0, 0, 0.74) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  color: #FAF6EE !important;
-  border-color: rgba(0, 0, 0, 0.55) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+  /* Mantém a paleta palha sem preto chapado */
+  background: #FAF6EE !important;
+  border-color: rgba(0, 0, 0, 0.35) !important;
+  color: #18191B !important;
+  font-weight: 800;
+  box-shadow: none !important;
 }
 
 .partnerPresenceGuestLevel2 {
   background: #FAF6EE !important;
   border: 1px dashed #000000 !important;
   color: #000000 !important;
+}
+
+.ledDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.ledOnline {
+  background: #059669;
+  box-shadow: 0 0 6px rgba(5, 150, 105, 0.7);
+}
+
+.ledOffline {
+  background: #D97706;
+  box-shadow: 0 0 4px rgba(217, 119, 6, 0.5);
 }
 
 .row1RightAccount {
@@ -349,6 +368,16 @@
   color: #000000;
   background: rgba(0, 0, 0, 0.12);
   border-color: #000000;
+}
+
+.deptNavRow .deptNavLinkActive {
+  color: #FAF6EE !important;
+  background: rgba(0, 0, 0, 0.46) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(0, 0, 0, 0.40) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
 
@@ -487,11 +516,11 @@
 }
 
 .btnPrimary {
-  background: rgba(0, 0, 0, 0.76);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.46);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   color: #FAF6EE;
-  border: 1px solid rgba(0, 0, 0, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.40);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   padding: 7px 13px;
   font-size: 11px;
@@ -503,8 +532,8 @@
 }
 
 .btnPrimary:hover {
-  background: rgba(0, 0, 0, 0.88);
-  border-color: #000000;
+  background: rgba(0, 0, 0, 0.65);
+  border-color: rgba(0, 0, 0, 0.55);
   transform: translateY(-1px);
 }
 

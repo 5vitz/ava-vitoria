@@ -135,10 +135,19 @@ export default function AdminHeader() {
 
   const isDiretoriaActive = pathname === '/admin/diretoria' || pathname === '/admin';
 
+  const onlinePartnersCount = PARTNERS_PRESENCE.filter((p) => {
+    const isCurrent = p.username === normalizedUsername;
+    return (
+      isCurrent ||
+      onlineUsers.includes(p.username) ||
+      (p.username === 'armando' && (onlineUsers.includes('admin') || onlineUsers.includes('armando sinkovitz (genera)')))
+    );
+  }).length;
+
   return (
     <>
       <div className={styles.topHeaderWrapper} id="adminHeaderWrapper">
-        {/* LINHA 1 (CARD 1): Logo AVA Sem Limites Preta (68px) + Convocar Reunião + Sala de Reuniões + Conectados + Senha (2 Níveis) + Vitrine */}
+        {/* LINHA 1 (CARD 1): Logo AVA Sem Limites Preta (68px) + Sala de Reuniões + Conectados + Senha (2 Níveis) + Vitrine */}
         <header className={styles.headerRow1Card}>
           <div className={styles.row1Left}>
             <Link
@@ -159,19 +168,11 @@ export default function AdminHeader() {
             <div className={styles.meetingActionCards}>
               <button
                 type="button"
-                className={styles.actionCardBtn}
-                onClick={handleConvocarReuniao}
-                title="Convocar Reunião com Trava Obrigatória de Nome da Pauta"
-              >
-                🚨 CONVOCAR REUNIÃO
-              </button>
-              <button
-                type="button"
                 className={`${styles.actionCardBtn} ${
                   isRoomOpen ? styles.actionCardBtnActive : ''
                 }`}
                 onClick={handleToggleRoom}
-                title="Abrir ou Ocultar a Sala de Reuniões e Compartilhamentos"
+                title="Abrir Sala de Reuniões, Compartilhamento de Arquivos e Votação"
               >
                 💬 SALA DE REUNIÕES
               </button>
@@ -181,14 +182,14 @@ export default function AdminHeader() {
           {/* Faixa de Sócios Conectados (+ Convidados Nível 2) */}
           <div className={styles.connectedPartnersCard}>
             <span className={styles.connectedLabel}>
-              CONECTADOS (4{level2Guests.length > 0 ? `+${level2Guests.length}` : '/4'}):
+              CONECTADOS ({onlinePartnersCount}/4{level2Guests.length > 0 ? `+${level2Guests.length}` : ''}):
             </span>
             {PARTNERS_PRESENCE.map((p) => {
               const isCurrent = p.username === normalizedUsername;
               const isOnline =
                 isCurrent ||
                 onlineUsers.includes(p.username) ||
-                (p.username === 'armando' && onlineUsers.includes('admin'));
+                (p.username === 'armando' && (onlineUsers.includes('admin') || onlineUsers.includes('armando sinkovitz (genera)')));
 
               return (
                 <span
@@ -196,11 +197,11 @@ export default function AdminHeader() {
                   className={`${styles.partnerPresencePill} ${
                     isCurrent ? styles.partnerPresenceCurrentUser : ''
                   }`}
-                  title={`${p.name} (${p.title})`}
+                  title={`${p.name} (${p.title}) · ${isOnline ? '🟢 Conectado' : '🟡 Desconectado'}`}
                 >
                   <span
                     className={`${styles.ledDot} ${
-                      isOnline ? styles.ledOnline : styles.ledOnline
+                      isOnline ? styles.ledOnline : styles.ledOffline
                     }`}
                   />
                   {p.name}
