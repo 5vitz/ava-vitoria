@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
+import { AGENTS_DOSSIER, AgentDossier } from '../agentDossierData';
+import AgentDossierModal from '../AgentDossierModal';
 
 const PARTNERS = [
   {
@@ -35,6 +37,7 @@ export default function DiretoriaPage() {
   const [targetUnits, setTargetUnits] = useState(250);
   const [avgTicket, setAvgTicket] = useState(180);
   const [avgMargin, setAvgMargin] = useState(58);
+  const [selectedAgent, setSelectedAgent] = useState<AgentDossier | null>(null);
 
   const estimatedRevenue = targetUnits * avgTicket;
   const estimatedGrossProfit = estimatedRevenue * (avgMargin / 100);
@@ -192,7 +195,60 @@ export default function DiretoriaPage() {
             </div>
           </div>
         </div>
+
+        {/* Telemetria dos Agentes de IA da Mesa Redonda */}
+        <section className={styles.agentsPanel} style={{ marginTop: '24px' }}>
+          <div className={styles.agentsPanelHeader}>
+            <div>
+              <h2 className={styles.sectionHeading}>
+                Telemetria dos 16 Agentes de IA da Mesa Redonda
+              </h2>
+              <p style={{ fontSize: '11px', color: '#52525B', marginTop: '3px' }}>
+                💡 Clique em qualquer agente para ver o Dossiê de Ajuda (O que faz, Por que faz, Como faz e Economia).
+              </p>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
+                <span className={styles.agentStatusDotActive}></span> Em Atividade
+              </span>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#D97706', fontWeight: 600 }}>
+                <span className={styles.agentStatusDotStandby}></span> Em Prontidão (Stand-by)
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.agentsGrid}>
+            {Object.values(AGENTS_DOSSIER).map((agent) => (
+              <div
+                key={agent.id}
+                className={styles.agentBadge}
+                onClick={() => setSelectedAgent(agent)}
+                title={`Clique para abrir o Dossiê e Economia de ${agent.name}`}
+              >
+                <span
+                  className={
+                    agent.status === 'ACTIVE'
+                      ? styles.agentStatusDotActive
+                      : styles.agentStatusDotStandby
+                  }
+                ></span>
+                <div className={styles.agentInfo}>
+                  <span className={styles.agentName}>{agent.name}</span>
+                  <span className={styles.agentRole}>{agent.role}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
       </main>
+
+      {/* Modal do Dossiê do Agente */}
+      {selectedAgent && (
+        <AgentDossierModal
+          agent={selectedAgent}
+          onClose={() => setSelectedAgent(null)}
+        />
+      )}
     </div>
   );
 }

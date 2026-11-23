@@ -166,6 +166,16 @@ export default function AdminHeader() {
             </Link>
 
             <div className={styles.meetingActionCards}>
+              <Link
+                href="/admin/agentes"
+                className={`${styles.actionCardBtn} ${
+                  pathname === '/admin/agentes' ? styles.actionCardBtnActive : ''
+                }`}
+                style={{ textDecoration: 'none' }}
+                title="Mesa Redonda · Telemetria dos 16 Agentes de IA e Dossiês Operacionais"
+              >
+                🤖 AGENTES
+              </Link>
               <button
                 type="button"
                 className={`${styles.actionCardBtn} ${
