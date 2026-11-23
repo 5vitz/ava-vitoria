@@ -54,11 +54,13 @@
   position: fixed;
   bottom: 24px;
   right: 24px;
-  background: #000000;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: #DFCFA8;
-  border: 2px solid #DFCFA8;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-  padding: 10px 16px;
+  border: 1.5px solid rgba(223, 207, 168, 0.7);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+  padding: 10px 18px;
   border-radius: 9999px;
   display: flex;
   align-items: center;
@@ -69,16 +71,16 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   user-select: none;
 }
 
 .floatingLauncherBtn:hover {
-  background: #DFCFA8;
-  color: #000000;
-  border-color: #000000;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.92);
+  color: #FAF6EE;
+  border-color: #DFCFA8;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.38);
 }
 
 .floatingLauncherIcon {
