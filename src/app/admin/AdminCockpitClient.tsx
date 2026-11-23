@@ -523,8 +523,8 @@ export default function AdminCockpitClient() {
                       onClick={() => handleResolve(item.id)}
                       className={styles.btnPrimary}
                       style={{
-                        background: isUnanimous ? '#059669' : '#000000',
-                        color: isUnanimous ? '#FFFFFF' : '#DFCFA8'
+                        background: isUnanimous ? '#059669' : undefined,
+                        color: isUnanimous ? '#FFFFFF' : '#FAF6EE'
                       }}
                     >
                       {isUnanimous ? `✓ ${item.actionPrimary}` : `${item.actionPrimary} (${approvedCount}/4)`}

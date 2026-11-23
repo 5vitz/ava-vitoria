@@ -137,7 +137,7 @@ export default function AdminHeader() {
 
   return (
     <>
-      <div className={styles.topHeaderWrapper}>
+      <div className={styles.topHeaderWrapper} id="adminHeaderWrapper">
         {/* LINHA 1 (CARD 1): Logo AVA Sem Limites Preta (68px) + Convocar Reunião + Sala de Reuniões + Conectados + Senha (2 Níveis) + Vitrine */}
         <header className={styles.headerRow1Card}>
           <div className={styles.row1Left}>

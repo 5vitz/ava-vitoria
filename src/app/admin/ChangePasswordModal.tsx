@@ -166,10 +166,12 @@ export default function ChangePasswordModal({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Cabeçalho Preto Sólido igual ao Protótipo */}
+        {/* Cabeçalho Translúcido com Blur */}
         <div
           style={{
-            background: '#000000',
+            background: 'rgba(0, 0, 0, 0.76)',
+            backdropFilter: 'blur(14px)',
+            WebkitBackdropFilter: 'blur(14px)',
             color: '#DFCFA8',
             padding: '12px 16px',
             display: 'flex',
@@ -179,6 +181,7 @@ export default function ChangePasswordModal({
             fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: '0.8px',
+            borderBottom: '1px solid rgba(223, 207, 168, 0.25)',
           }}
         >
           <span>🔑 CONTROLE DE SENHAS &amp; ACESSO DE CONVIDADOS (2 NÍVEIS)</span>
@@ -274,9 +277,12 @@ export default function ChangePasswordModal({
                       fontWeight: 800,
                       textTransform: 'uppercase',
                       padding: '3px 7px',
-                      background: '#000000',
-                      color: '#DFCFA8',
+                      background: 'rgba(0, 0, 0, 0.76)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      color: '#FAF6EE',
                       alignSelf: 'flex-start',
+                      borderRadius: '2px',
                     }}
                   >
                     NÍVEL 1 · PAINEL
@@ -310,9 +316,12 @@ export default function ChangePasswordModal({
                       fontWeight: 800,
                       textTransform: 'uppercase',
                       padding: '3px 7px',
-                      background: '#000000',
-                      color: '#DFCFA8',
+                      background: 'rgba(0, 0, 0, 0.76)',
+                      backdropFilter: 'blur(8px)',
+                      WebkitBackdropFilter: 'blur(8px)',
+                      color: '#FAF6EE',
                       alignSelf: 'flex-start',
+                      borderRadius: '2px',
                     }}
                   >
                     NÍVEL 2 · PAINEL + SALA DE REUNIÕES

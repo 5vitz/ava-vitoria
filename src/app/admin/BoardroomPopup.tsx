@@ -85,8 +85,23 @@ export default function BoardroomPopup({
   // Controles de Janela e Ergonomia
   const [isGhost, setIsGhost] = useState<boolean>(false);
   const [isShaded, setIsShaded] = useState<boolean>(false);
-  const [isSplit, setIsSplit] = useState<boolean>(false);
+  const [isSplit, setIsSplit] = useState<boolean>(true);
   const [isMax, setIsMax] = useState<boolean>(false);
+
+  // Sincronização dinâmica da altura do Header para a Sala nunca sobrar espaço em cima nem cortar embaixo
+  useEffect(() => {
+    const updateHeaderHeight = () => {
+      const el = document.getElementById('adminHeaderWrapper');
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        const bottom = Math.max(80, Math.round(rect.bottom));
+        document.documentElement.style.setProperty('--admin-header-height', `${bottom}px`);
+      }
+    };
+    updateHeaderHeight();
+    window.addEventListener('resize', updateHeaderHeight);
+    return () => window.removeEventListener('resize', updateHeaderHeight);
+  }, []);
 
   // Palco (chat vs vídeo híbrido)
   const [stageMode, setStageMode] = useState<'chat' | 'hybrid'>('chat');

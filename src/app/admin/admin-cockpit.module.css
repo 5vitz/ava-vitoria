@@ -75,9 +75,12 @@
 }
 
 .executiveHeaderBtnActive {
-  background: #000000 !important;
-  border-color: #000000 !important;
-  color: #DFCFA8 !important;
+  background: rgba(0, 0, 0, 0.74) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(0, 0, 0, 0.55) !important;
+  color: #FAF6EE !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
 }
 
 .deptNav {
@@ -116,10 +119,13 @@
 }
 
 .deptNavLinkActive {
-  color: #DFCFA8 !important;
-  background: #000000;
-  border-color: #000000;
-  font-weight: 600;
+  color: #FAF6EE !important;
+  background: rgba(0, 0, 0, 0.74) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-color: rgba(0, 0, 0, 0.55) !important;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
 }
 
 .headerActions {
@@ -231,9 +237,12 @@
 }
 
 .actionCardBtnActive {
-  background: #000000 !important;
-  color: #DFCFA8 !important;
-  border-color: #000000 !important;
+  background: rgba(0, 0, 0, 0.74) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: #FAF6EE !important;
+  border-color: rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
 }
 
 .connectedPartnersCard {
@@ -272,9 +281,12 @@
 }
 
 .partnerPresenceCurrentUser {
-  background: #000000 !important;
-  color: #DFCFA8 !important;
-  border-color: #000000 !important;
+  background: rgba(0, 0, 0, 0.74) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: #FAF6EE !important;
+  border-color: rgba(0, 0, 0, 0.55) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
 }
 
 .partnerPresenceGuestLevel2 {
@@ -475,20 +487,25 @@
 }
 
 .btnPrimary {
-  background: #000000;
-  color: #DFCFA8;
-  border: none;
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   padding: 7px 13px;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 
 .btnPrimary:hover {
-  opacity: 0.88;
+  background: rgba(0, 0, 0, 0.88);
+  border-color: #000000;
+  transform: translateY(-1px);
 }
 
 .btnSecondary {
