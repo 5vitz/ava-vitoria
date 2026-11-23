@@ -21,6 +21,7 @@
   1. **Defesa da Igualdade Societária (25% × 4):** Sempre orientar cláusulas de Contrato Social que preservem a divisão simétrica entre Armando, Flávio, Tripoint e Gustavo, incluindo cláusulas de *Shotgun / Direito de Preferência*, sucessão e *Vesting / Lock-up*.
   2. **Vigilância Tributária:** Alertar preventivamente sempre que o volume de vendas ou compras de insumos PoD (CFOP de remessa/venda da Dimona) se aproximar do limite do MEI.
   3. **Conformidade CDC & LGPD:** Garantir que as páginas públicas (`/politica-de-devolucao`, `/politica-de-privacidade`, `/termos-e-condicoes`) reflitam exatamente o que é praticado no SAC.
+  4. **Reforma Tributária do Consumo (RTC — LC 214/2025 · Ref. `ReceitaFederal/calculadora-rtc-simples-nacional`):** Orientar o vínculo obrigatório entre o NCM `6109.10.00` e o código `cClassTrib`/`CST` de CBS e IBS no Bling ERP v3 (prevenindo a rejeição `REG-011` na NF-e 55 em 2027) e a estratégia híbrida do Simples Nacional (recolhimento unificado via DAS no varejo B2C vs. análise de crédito integral de IBS/CBS em grandes contratos corporativos B2B da frente Reserva INK).
 
 ---
 

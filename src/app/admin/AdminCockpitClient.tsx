@@ -139,33 +139,33 @@ const DEPARTMENTS_DATA = [
   },
   {
     number: '05',
-    title: 'Atendimento & SAC',
+    title: 'SAC',
     owner: 'Gustavo',
     icon: '💬',
-    desc: 'Concierge IA 24/7 na loja, Agente Discriminador (CDC Art. 49 vs Garantia PoD) e transbordo Zagueiro-Artilheiro.',
+    desc: 'Concierge IA 24/7 na loja, Agente Discriminador (CDC Art. 49 vs Garantia PoD) e gatilho BPO (5 atendimentos humanos).',
     href: '/admin/atendimento',
-    metric: 'SLA < 2 Horas',
+    metric: '98% IA · BPO N1',
     status: 'Zero Omissão'
   },
   {
     number: '06',
-    title: 'Vendas & Canais',
+    title: 'Marketing de Vendas',
     owner: 'Gustavo',
     icon: '📈',
-    desc: 'Análise de tráfego e conversão, relacionamento com os 10 Canais de Venda/Marketplaces e gestão de impulsionamento (ROAS).',
+    desc: 'Análise de KPIs de tráfego, plano de investimentos estratégicos (ROAS), votação 4/4 e performance dos 10 Canais.',
     href: '/admin/vendas',
-    metric: '10 Canais Ativos',
-    status: 'Funil & Tráfego'
+    metric: '10 Canais · ROAS',
+    status: 'Ciclo PDCA'
   },
   {
     number: '07',
-    title: 'Marketing & Branding',
+    title: 'Marketing de Produto',
     owner: 'Tripoint',
     icon: '🚀',
-    desc: 'Estrategista Trios 3x3 Balenciaga no Instagram (9:16), posicionamento de marca e campanha viral "Eu Tenho Cupom!".',
+    desc: 'Estratégia da Coleção, tema das estampas e Visual Merchandising no Instagram (Trios 3x3 9:16) e Vitrine Canônica.',
     href: '/admin/marketing',
     metric: 'Grid 3x3 9:16',
-    status: 'Branding Luxo'
+    status: 'Visual Merch'
   },
   {
     number: '08',
@@ -294,7 +294,7 @@ export default function AdminCockpitClient() {
               </span>
             </div>
             <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
-              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Arquitetura &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 Atendimento &amp; 06 Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Marketing &amp; 08 Atelier)
+              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Arquitetura &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 SAC &amp; 06 Mkt de Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Mkt de Produto &amp; 08 Atelier)
             </p>
           </div>
 
@@ -326,13 +326,20 @@ export default function AdminCockpitClient() {
               })}
             </div>
 
-            <Link
-              href="/admin/diretoria"
+            <button
+              type="button"
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent('ava:open-boardroom', {
+                    detail: { createNewLocked: true },
+                  })
+                )
+              }
               className={styles.executiveHeaderBtn}
-              style={{ padding: '8px 14px' }}
+              style={{ padding: '8px 14px', cursor: 'pointer' }}
             >
-              CONVOCAR REUNIÃO / VOTAR ↗
-            </Link>
+              🚨 CONVOCAR REUNIÃO / NOVA PAUTA
+            </button>
           </div>
         </section>
 
@@ -380,12 +387,27 @@ export default function AdminCockpitClient() {
                 Fila de Decisões Executivas &amp; Urna de Votação (Consenso 4 Sócios)
               </div>
               <p style={{ fontSize: '11px', color: '#3F3F46', marginTop: '4px' }}>
-                🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto ou dispare cobrança por WhatsApp e E-mail.
+                🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto, abra a Sala de Reuniões da pauta ou dispare cobrança por WhatsApp e E-mail.
               </p>
             </div>
-            <span style={{ fontSize: '11px', color: '#3F3F46', fontWeight: 600 }}>
-              {decisions.length} pautas em votação
-            </span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <button
+                type="button"
+                className={styles.executiveHeaderBtn}
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent('ava:open-boardroom', {
+                      detail: { createNewLocked: true },
+                    })
+                  )
+                }
+              >
+                + Nova Pauta / Reunião
+              </button>
+              <span style={{ fontSize: '11px', color: '#3F3F46', fontWeight: 600 }}>
+                {decisions.length} pautas em votação
+              </span>
+            </div>
           </div>
 
           {nudgeToast && (
@@ -483,7 +505,20 @@ export default function AdminCockpitClient() {
                     </div>
                   )}
 
-                  <div className={styles.decisionActions} style={{ marginTop: '6px' }}>
+                  <div className={styles.decisionActions} style={{ marginTop: '6px', flexWrap: 'wrap' }}>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        window.dispatchEvent(
+                          new CustomEvent('ava:open-boardroom', {
+                            detail: { pautaTitle: item.title },
+                          })
+                        )
+                      }
+                      className={styles.executiveHeaderBtn}
+                    >
+                      💬 Abrir Conversa &amp; Anexos desta Pauta
+                    </button>
                     <button
                       onClick={() => handleResolve(item.id)}
                       className={styles.btnPrimary}

@@ -4,7 +4,41 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 21/11/2026)
+## 1. O que realizamos nesta sessão (Estado Atual — 23/11/2026)
+
+*   **🏛️ PLANEJAMENTO & PROTÓTIPO HOMOLOGADO DA SALA DE REUNIÕES E COMPARTILHAMENTOS (`AVA BOARDROOM`) (`docs/CHAT/`) ✅:**
+    *   **Arquivos Criados & Homologados:**
+        1. **Plano Técnico Completo:** [`docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md)
+        2. **Protótipo Interativo Funcional (CSS Real do Painel `#EFE4CC` / `#DFCFA8` / `#000000`):** [`docs/CHAT/prototipo_chat_societario.html`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/CHAT/prototipo_chat_societario.html)
+    *   **Novo Topo do Painel em 2 Linhas (2 Cards Horizontais Independentes):**
+        *   **Linha 1 (Card Superior):** Logo Oficial Preta ampliada (`68px`, `/imagens/AMOSTRAS/LOGOS/LOGO SEM LIMITES PRETO.png`, substituindo o antigo card "COCKPIT") + Card **`[ 🚨 CONVOCAR REUNIÃO ]`** + Card **`[ 💬 SALA DE REUNIÕES ]`** + Faixa **`CONECTADOS (4/4)`** (`🟢 Armando`, `🟢 Flávio`, `🟢 Tripoint`, `🟢 Gustavo` + Convidados Nível 2) + Botão **`🔑 Senha`** + **`↗ Vitrine`** (sem botão redundante de "Centralizar Sala").
+        *   **Linha 2 (Card Inferior):** **`🏛️ Diretoria`** + os **8 Departamentos** em linha única limpa e uniforme.
+    *   **Trava Obrigatória de "Nomear a Pauta" ao Convocar Reunião:** Quando um sócio clica em `🚨 CONVOCAR REUNIÃO` (ou `+ NOVA`), a Sala abre com todas as funções travadas/desabilitadas até que ele digite e grave o **Nome da Pauta** (que passa a figurar na lista de Pautas e preenche automaticamente o campo **Assunto**), impedindo conversas desorganizadas.
+    *   **Hub Oficial de Documentos Corporativos (Não-Mídia):** Porta única para anexar documentos jurídicos, fiscais, contábeis e comerciais com campo de Assunto e explicação contextual, seletor **`🎯 ANEXAR / ENVIAR PARA: [TODOS | Flávio | Armando | Tripoint | Gustavo | 🔑 Convidado Nível 2]`**, caixinha **`☑️ Enviar para mim também`** e botão compacto de envio com **Flecha em 45° para cima (`↗`)**.
+    *   **Agente Porteiro do Conselho (Arauto Societário):** Publica recibo oficial na Sala e dispara aviso via WhatsApp/E-mail para os sócios selecionados (e cópia para o remetente, se marcado) informando o anexo e seu Assunto.
+    *   **Controle de Senhas em 2 Níveis de Acesso (`🔑 Senha`):**
+        *   **Nível 1 (Somente Painel):** Para convidados ou operadores externos (como atendente terceirizado do SAC) que acessam apenas o Painel sem entrar na Sala de Reuniões.
+        *   **Nível 2 (Painel + Sala de Reuniões):** Para especialistas como o **Contador**, que ao entrar aparece em `CONECTADOS (4+1)`, entra automaticamente como botão selecionável em **`ANEXAR / ENVIAR PARA`** e participa da **Sala de Vídeo** com compartilhamento de tela.
+    *   **Próximo Passo na Próxima Sessão:** Executar a implantação do código nas 5 fases descritas em [`docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md).
+
+*   **📈 DIVISÃO CONCEITUAL DO MARKETING (`06` vs. `07`), NOMENCLATURA ENXUTA (`05 · SAC`) & POLÍTICA DE TERCEIRIZAÇÃO DO SAC (`docs/REUNIAO/04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md`) ✅:**
+    *   **Nomenclatura Definitiva dos Departamentos `05`, `06` e `07`:**
+        *   **`05 · SAC` (Gustavo):** Eliminado o pleonasmo *"Atendimento & SAC"*.
+        *   **`06 · Marketing de Vendas` (Gustavo):** Substitui *"Vendas, Tráfego & Canais"*. Quem vende é o E-commerce e os Canais; o departamento analisa KPIs de tráfego, traça o plano de investimentos estratégicos, convoca reunião, investe segundo o consenso 4/4, analisa resultados e repete o ciclo.
+        *   **`07 · Marketing de Produto` (Tripoint):** Substitui *"Marketing & Branding"*. Cria a estratégia da Coleção, o tema das estampas e a exposição visual da mercadoria (Visual Merchandising) no Instagram (Trios 3x3) e na Vitrine Canônica.
+    *   **Cláusula Anti-Sobrecarga e Gatilho de Terceirização do SAC (5 Atendimentos Humanos):**
+        *   95% a 98% dos atendimentos são resolvidos pelos Agentes de IA (`Concierge 24/7` e `Discriminador de Ocorrências`).
+        *   Ao atingir o gatilho de **5 atendimentos humanos recorrentes**, a fila humana é terceirizada para um **Secretariado Virtual Compartilhado / Call Center BPO** (custo levantado no Brasil: **R$ 600 a R$ 850/mês** para franquia de **75 a 150 chamados humanos/mês**, equivalente ao lucro de ~6 camisetas/mês), operando no Painel com **Senha Convidado Nível 1**.
+        *   Documentado em [`docs/REUNIAO/04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md) e indexado em [`docs/REUNIAO/INDEX.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/INDEX.md).
+
+---
+
+## 1.1. Histórico Imediato Anterior (21/11/2026)
+
+*   **⚖️ INTELIGÊNCIA FISCAL REFORMA TRIBUTÁRIA (RTC — LC 214/2025 · CBS & IBS NO SIMPLES NACIONAL) (`/admin/juridico` & `Dr. Lex`) ✅:**
+    *   **Auditoria do Motor Oficial da Receita Federal (`ReceitaFederal/calculadora-rtc-simples-nacional` v1.0.2):** Decisão arquitetural de **não instalar o container Java 25 / Spring Boot na VPS Contabo** (0% overhead de JVM, pois a montagem e validação do grupo XML `<IBSCBS>` na NF-e 55 são executadas nativamente na camada do **Bling ERP v3**).
+    *   **Trava Fiscal `REG-011` (`NCM × cClassTrib`):** Adicionado o item #15 ao Checklist Fiscal do Bling ERP e painel visual em [`/admin/juridico`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/juridico/page.tsx) orientando o vínculo obrigatório do NCM `6109.10.00` (vestuário de algodão) com o código `cClassTrib` e `CST` de IBS/CBS na virada 2026 ➔ 2027.
+    *   **Estratégia Híbrida B2C (Pelo DAS) vs. B2B (Crédito Integral):** Incorporada ao consultor **Dr. Lex** e à documentação do Bling ([`docs/INTEGRACOES/HUB_ERP_BLING/README.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/INTEGRACOES/HUB_ERP_BLING/README.md)) a distinção da LC 214/2025 entre o recolhimento por dentro do DAS (Anexo I reduzido para o varejo B2C) e a opção pelo regime regular para transferência de crédito integral de CBS/IBS em grandes contratos B2B corporativos (Uniformes Reserva INK).
 
 *   **📐 REBATISMO DO DEPTO 03 · ARQUITETURA & TI E ELIMINAÇÃO DO RELATÓRIO DE PONTO ✅:**
     *   **Identidade e Titularidade:** Depto 03 oficialmente renomeado de *Engenharia & TI* para **`Depto 03 · Arquitetura & TI`** em todo o sistema (`AdminHeader.tsx`, `AdminCockpitClient.tsx`, `/admin/diretoria` e `/admin/engenharia`), homenageando a formação acadêmica do Armando em Arquitetura e a arquitetura estrutural da AVA.
@@ -282,9 +316,12 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
     *   **Tripoint (Domingo, 24/Nov, presencial):** Apresentar o Cockpit `/admin`, orientar o login individual (`tripoint` / `admin123`), avaliar as matrizes no Atelier Criativo (`/admin/atelier`) e definir o cronograma da Nova Coleção PoD. Coletar a impressão do Tripoint sobre o teste do **Magnific AI** (~US$ 20/mês).
     *   **Flávio (Financeiro & Jurídico):** Apresentar o módulo de **Assinaturas & Custos Fixos** (`/admin/financeiro/assinaturas`), a sistemática de ressarcimento das despesas adiantadas por Armando (R$ 209,33/mês) e o plano de validação inicial emitindo NF-e 55 no **Bling ERP através do MEI com Inscrição Estadual ativa já existente**.
 2.  **Operação e Fornecedores PoD:**
+    *   **Estorno Reserva INK (R$ 159,00):** Orientar Gustavo a solicitar o reembolso integral dos R$ 159,00 pagos no cartão de crédito via painel/suporte da Reserva INK (Art. 49 do CDC / garantia de 7 dias), eliminando cobranças fixas desnecessárias.
     *   Homologar o cadastro do CNPJ/IE ativo no canal B2B Corporate da **Dimona Dropsimples** para destravar a **Tabela de Lojista/Atacado (R$ 38 a R$ 58)** e eliminar a cobrança a preço de consumidor final.
-    *   Manter a **Reserva INK** (R$ 159/mês) e **Montink** (R$ 149/mês) em status standby/contingência até deliberação 4/4 na Urna.
-3.  **Campanha "EU TENHO CUPOM!" & Vitrine Secreta:**
+    *   Operar a **Printful Brasil** (API v1/v2 com token Bearer gratuito) para Bonés com Bordado 3D Puff e maquetes fotorealistas de estúdio.
+3.  **GEO & Arquitetura de IA (`/llms.txt`):**
+    *   Atualizar [`src/app/llms.txt/route.ts`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/llms.txt/route.ts) adicionando a seção de **Experiência do Cliente & Suporte 24/7 (Concierge Digital)**, garantindo pontuação máxima de confiança (E-E-A-T) nas respostas do ChatGPT, Gemini e Perplexity.
+4.  **Campanha "EU TENHO CUPOM!" & Vitrine Secreta:**
     *   Assim que o conselho definir a data do Drop Inaugural, ativar o módulo com senha prefixada (`1...` a `5...` para 10% a 50% OFF) para escoar o estoque físico já confeccionado em paralelo à Nova Coleção PoD.
 
 

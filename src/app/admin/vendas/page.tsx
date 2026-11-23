@@ -131,9 +131,9 @@ export default function VendasPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 06 · Vendas, Tráfego &amp; Canais Comerciais</h1>
+            <h1 className={styles.moduleTitle}>Depto 06 · Marketing de Vendas</h1>
             <p className={styles.moduleSubtitle}>
-              Sócio Titular: <strong>Gustavo</strong> · Análise de Tráfego, Funil de Conversão, Relacionamento com os 10 Canais e Impulsionamento
+              Sócio Titular: <strong>Gustavo</strong> · Análise de KPIs de Tráfego, Plano de Investimentos Estratégicos (ROAS), Consenso 4/4 e 10 Canais
             </p>
           </div>
           <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>

@@ -19,15 +19,15 @@ const PARTNERS = [
   },
   {
     name: 'Gustavo',
-    role: 'Titular: 05 · Atendimento & SAC + 06 · Vendas & Canais Comerciais',
+    role: 'Titular: 05 · SAC + 06 · Marketing de Vendas',
     quota: 'Diretoria Executiva · Voto Deliberativo',
-    focus: 'Análise de Tráfego, Impulsionamento (ROAS), Relacionamento com os 10 Canais de Venda e SAC 24/7'
+    focus: 'Análise de KPIs de Tráfego, Plano de Investimentos (ROAS), 10 Canais de Venda e SAC (IA 24/7 + Gatilho BPO 5 atendimentos)'
   },
   {
     name: 'Tripoint',
-    role: 'Titular: 07 · Marketing & Branding + 08 · Atelier Criativo & Mídias',
+    role: 'Titular: 07 · Marketing de Produto + 08 · Atelier Criativo & Mídias',
     quota: 'Diretoria Executiva · Voto Deliberativo',
-    focus: 'Curadoria de Coleções (★ Vitrine Ativa), Lookbook 9:16, Matrizes 300 DPI, Trios 3x3 e Campanha Cupom'
+    focus: 'Estratégia da Coleção, Tema das Estampas, Visual Merchandising (Trios 3x3 Instagram & Vitrine Canônica) e Matrizes 300 DPI'
   }
 ];
 
@@ -51,9 +51,30 @@ export default function DiretoriaPage() {
               Conselho Deliberativo &amp; Governança da Diretoria Executiva, Divisão Simétrica de Pastas Operacionais e Consenso Colegiado
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px', color: '#F59E0B', borderColor: 'rgba(245,158,11,0.4)' }}>
-            🏛️ Cúpula de Comando · Diretoria Executiva
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className={styles.actionCardBtn}
+              onClick={() =>
+                window.dispatchEvent(
+                  new CustomEvent('ava:open-boardroom', {
+                    detail: { createNewLocked: true },
+                  })
+                )
+              }
+            >
+              🚨 CONVOCAR REUNIÃO / NOVA PAUTA
+            </button>
+            <button
+              type="button"
+              className={styles.executiveHeaderBtn}
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent('ava:open-boardroom', { detail: {} }))
+              }
+            >
+              💬 ABRIR SALA DE REUNIÕES
+            </button>
+          </div>
         </div>
 
         <div className={styles.moduleGrid2Cols}>
@@ -75,7 +96,7 @@ export default function DiretoriaPage() {
           </div>
 
           {/* Simulador de Inauguração / Drop Inaugural */}
-          <div className={styles.moduleCard}>
+          <div className={styles.moduleCard} data-boardroom-anchor="right-card">
             <h2 className={styles.cardHeading}>Simulador de Inauguração (Drop Inaugural)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div>

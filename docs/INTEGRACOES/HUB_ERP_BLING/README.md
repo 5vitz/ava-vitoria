@@ -62,3 +62,18 @@ Para garantir que nenhum sócio fique no escuro:
 * As credenciais de acesso da conta principal e subcontas de operadores devem constar neste repositório.
 * Todas as notas fiscais emitidas disparam automaticamente uma cópia em PDF para a pasta compartilhada do Depto 08 (Flávio).
 * O status de transporte de cada envio é refletido automaticamente no painel `/admin/producao` para o Depto 04 (Armando e Gustavo).
+
+---
+
+## ⚖️ 5. Inteligência Fiscal: Reforma Tributária do Consumo (RTC — LC 214/2025 · CBS & IBS)
+
+Referência técnica auditada: [`ReceitaFederal/calculadora-rtc-simples-nacional`](https://github.com/ReceitaFederal/calculadora-rtc-simples-nacional) (v1.0.2 / Release 15).
+
+1. **Delegação do Motor Java ao Bling ERP (Zero Overhead na VPS Contabo):**
+   * O motor oficial da Receita Federal (Java 25 + Spring Boot 4.1.2 + SQLite) é voltado aos provedores de ERP/emissores de DFe. Na arquitetura da AVA, o **Bling ERP v3** processa nativamente o grupo XML `<IBSCBS>` da NF-e Modelo 55, mantendo nossa VPS Contabo 100% enxuta sem necessidade de rodar uma JVM local.
+2. **Vínculo Obrigatório `NCM × cClassTrib` (Prevenção do Erro `REG-011`):**
+   * Na parametrização de natureza de operação para 2027 no Bling ERP, o NCM padrão de vestuário (`6109.10.00` — camisetas e regatas de malha de algodão) deve estar vinculado ao código **`cClassTrib`** e **`CST`** de IBS/CBS correspondentes, evitando rejeição HTTP 422 / `REG-011` (*"NCM não vinculada à Classificação Tributária"*).
+3. **Estratégia Híbrida Simples Nacional (B2C vs. B2B):**
+   * **Varejo B2C (Loja Oficial + Marketplaces):** Recolhimento de CBS e IBS **por dentro do DAS** (Anexo I do Simples Nacional com alíquota reduzida).
+   * **Contratos Corporativos B2B (Uniformes Reserva INK):** A LC 214/2025 permite avaliar a opção pelo **regime regular de IBS/CBS** quando uma grande empresa compradora exigir destaque e transferência de **crédito tributário integral** na NF-e.
+

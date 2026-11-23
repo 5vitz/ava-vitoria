@@ -1,0 +1,1929 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Protótipo V4 · Sala de Reuniões e Compartilhamentos (AVA Sem Limites)</title>
+  <style>
+    /* ==========================================================================
+       DESIGN TOKENS OFICIAIS (src/app/admin/admin-cockpit.module.css)
+       ========================================================================== */
+    :root {
+      --palha-bg: #EFE4CC;
+      --palha-container: #DFCFA8;
+      --palha-hover: #E8DAB8;
+      --palha-light: #FAF6EE;
+      --black-solid: #000000;
+      --text-main: #18191B;
+      --text-muted: #3F3F46;
+      --border-soft: rgba(0, 0, 0, 0.18);
+      --border-strong: rgba(0, 0, 0, 0.32);
+      --green-ok: #047857;
+      --amber-warn: #B45309;
+      --red-alert: #B91C1C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background: var(--palha-bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* Textura Halftone oficial do globals.css */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: radial-gradient(rgba(0, 0, 0, 0.07) 0.8px, transparent 0.8px);
+      background-size: 3.5px 3.5px;
+      pointer-events: none;
+      z-index: 9998;
+    }
+
+    /* ==========================================================================
+       TOPO EM 2 LINHAS (2 CARDS DISTINTOS E LIMPOS)
+       ========================================================================== */
+    .topHeaderWrapper {
+      padding: 14px 24px 0 24px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* LINHA 1 (CARD 1): Logo AVA Sem Limites Preta + Convocar Reunião + Sala de Reuniões + Conectados + Senha (2 Níveis) */
+    .headerRow1Card {
+      background: var(--palha-container);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 10px 18px;
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .row1Left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Logo Oficial: LOGO SEM LIMITES PRETO.png (Ampliada para melhor leitura) */
+    .avaBlackLogoBox {
+      display: flex;
+      align-items: center;
+      padding-right: 16px;
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .avaOfficialLogoImg {
+      height: 68px;
+      width: auto;
+      max-width: 260px;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Cards de Comando de Reunião na Linha 1 */
+    .meetingActionCards {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .actionCardBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 13px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #000000;
+      background: var(--palha-bg);
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .actionCardBtn:hover {
+      background: var(--palha-light);
+      border-color: #000000;
+      transform: translateY(-1px);
+    }
+
+    .actionCardBtnActive {
+      background: #000000 !important;
+      color: var(--palha-container) !important;
+      border-color: #000000 !important;
+    }
+
+    /* Espaço para as Pessoas Conectadas (4 Sócios + eventual Convidado Nível 2) */
+    .connectedPartnersCard {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--palha-bg);
+      border: 1px solid rgba(0, 0, 0, 0.22);
+      padding: 6px 10px;
+      border-radius: 2px;
+      flex-wrap: wrap;
+    }
+
+    .connectedLabel {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-right: 2px;
+      white-space: nowrap;
+    }
+
+    .partnerPresencePill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 9px;
+      background: var(--palha-container);
+      border: 1px solid rgba(0, 0, 0, 0.22);
+      border-radius: 2px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #000000;
+      white-space: nowrap;
+    }
+
+    .partnerPresencePill.currentUser {
+      background: #000000;
+      color: var(--palha-container);
+      border-color: #000000;
+    }
+
+    .partnerPresencePill.guestLevel2 {
+      background: #FAF6EE;
+      border: 1px dashed #000000;
+      color: #000000;
+    }
+
+    .ledDot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 4px rgba(16, 185, 129, 0.8);
+    }
+
+    .row1RightAccount {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* LINHA 2 (CARD 2): Diretoria + 8 Departamentos em linha única limpa */
+    .headerRow2Card {
+      background: var(--palha-container);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .deptNavRow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      gap: 6px;
+    }
+
+    .deptNavLink {
+      flex: 1;
+      text-align: center;
+      padding: 8px 10px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #27272A;
+      background: rgba(0, 0, 0, 0.04);
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      border-radius: 2px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .deptNavLink:hover {
+      color: #000000;
+      background: rgba(0, 0, 0, 0.12);
+      border-color: #000000;
+    }
+
+    .deptNavLinkActive {
+      color: var(--palha-container) !important;
+      background: #000000 !important;
+      border-color: #000000 !important;
+    }
+
+    .executiveHeaderBtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 7px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #000000;
+      background: rgba(0, 0, 0, 0.06);
+      border: 1px solid var(--border-strong);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .executiveHeaderBtn:hover {
+      background: rgba(0, 0, 0, 0.14);
+      border-color: #000000;
+    }
+
+    .executiveHeaderBtnActive {
+      background: #000000 !important;
+      border-color: #000000 !important;
+      color: var(--palha-container) !important;
+    }
+
+    /* ==========================================================================
+       MODAL DE SENHA & ACESSO DE CONVIDADOS (NÍVEL 1 E NÍVEL 2)
+       ========================================================================== */
+    .passwordModalOverlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      z-index: 9800;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .passwordModalOverlay.active {
+      display: flex;
+    }
+
+    .passwordModalCard {
+      background: var(--palha-container);
+      border: 2px solid #000000;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      width: 580px;
+      max-width: 94vw;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .passwordModalHeader {
+      background: #000000;
+      color: var(--palha-container);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .passwordModalBody {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .levelCardsGrid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .levelOptionCard {
+      background: var(--palha-bg);
+      border: 2px solid rgba(0, 0, 0, 0.22);
+      padding: 12px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.15s ease;
+    }
+
+    .levelOptionCard.selected {
+      background: var(--palha-light);
+      border-color: #000000;
+    }
+
+    .levelBadge {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 7px;
+      background: #000000;
+      color: var(--palha-container);
+      align-self: flex-start;
+    }
+
+    .levelTitle {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #000000;
+    }
+
+    .levelDesc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .formLabel {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #000000;
+    }
+
+    .formInput {
+      background: #FFFFFF;
+      border: 1px solid #000000;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #000000;
+    }
+
+    /* ==========================================================================
+       CONTEÚDO DE FUNDO DO PAINEL ADMIN
+       ========================================================================== */
+    .mainContainer {
+      flex: 1;
+      padding: 18px 24px 48px 24px;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 20px;
+    }
+
+    .deptsPanel {
+      background: var(--palha-container);
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .sectionHeading {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: #000000;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+      padding-bottom: 10px;
+    }
+
+    .decisionCard {
+      background: var(--palha-bg);
+      border: 1px solid rgba(0, 0, 0, 0.16);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      transition: all 0.2s ease;
+    }
+
+    .decisionCard:hover {
+      background: var(--palha-light);
+      border-color: #000000;
+    }
+
+    .votesGrid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+
+    .voteItem {
+      background: var(--palha-container);
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      padding: 6px 8px;
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .voteItem.rev {
+      border-color: var(--red-alert);
+      background: rgba(185, 28, 28, 0.08);
+    }
+
+    .avaTable {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .avaTable th {
+      text-align: left;
+      padding: 8px;
+      border-bottom: 2px solid #000000;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #000000;
+    }
+
+    .avaTable td {
+      padding: 9px 8px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      color: var(--text-main);
+      user-select: text;
+    }
+
+    .tableInput {
+      background: var(--palha-light);
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      padding: 4px 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      width: 110px;
+      color: #000000;
+    }
+
+    /* ==========================================================================
+       JANELA FLUTUANTE, ARRASTÁVEL E REDIMENSIONÁVEL
+       (SALA DE REUNIÕES E COMPARTILHAMENTOS)
+       ========================================================================== */
+    .boardroom-window {
+      position: fixed;
+      top: 154px;
+      right: 28px;
+      width: 520px;
+      height: 640px;
+      min-width: 380px;
+      min-height: 320px;
+      max-width: 96vw;
+      max-height: 90vh;
+      background: var(--palha-container);
+      border: 2px solid #000000;
+      box-shadow: 0 22px 55px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      z-index: 9500;
+      resize: both;
+      overflow: hidden;
+      transition: opacity 0.2s ease;
+    }
+
+    .boardroom-window.ghost-mode {
+      opacity: 0.24;
+    }
+    .boardroom-window.ghost-mode:hover {
+      opacity: 0.96;
+    }
+
+    .boardroom-window.shaded-mode {
+      height: 44px !important;
+      min-height: 44px !important;
+      min-width: 280px !important;
+      resize: none;
+    }
+
+    .boardroom-window.split-mode {
+      min-width: 340px !important;
+    }
+
+    .boardroom-window.max-mode {
+      top: 24px !important;
+      left: 2.5vw !important;
+      width: 95vw !important;
+      height: calc(100vh - 48px) !important;
+    }
+
+    .window-titlebar {
+      height: 44px;
+      background: #000000;
+      color: var(--palha-container);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px;
+      cursor: grab;
+      flex-shrink: 0;
+    }
+
+    .window-titlebar:active {
+      cursor: grabbing;
+    }
+
+    .titlebar-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .window-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--palha-container);
+    }
+
+    .status-badge {
+      background: rgba(223, 207, 168, 0.16);
+      border: 1px solid var(--palha-container);
+      color: var(--palha-container);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 2px;
+    }
+
+    .titlebar-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .win-btn {
+      background: rgba(223, 207, 168, 0.12);
+      border: 1px solid rgba(223, 207, 168, 0.4);
+      color: var(--palha-container);
+      width: 26px;
+      height: 26px;
+      border-radius: 2px;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .win-btn:hover, .win-btn.active {
+      background: var(--palha-container);
+      color: #000000;
+      border-color: var(--palha-container);
+    }
+
+    /* TRAVA OBRIGATÓRIA: NOMEAR A PAUTA */
+    .pauta-lock-banner {
+      display: none;
+      background: #FAF6EE;
+      border-bottom: 2px solid #000000;
+      padding: 14px;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .pauta-lock-banner.active {
+      display: flex;
+    }
+
+    .lock-title {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--red-alert);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .lock-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .lock-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .lock-input {
+      flex: 1;
+      background: #FFFFFF;
+      border: 2px solid #000000;
+      padding: 8px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #000000;
+      outline: none;
+    }
+
+    .boardroom-body-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: opacity 0.2s ease;
+    }
+
+    .boardroom-body-wrapper.locked {
+      opacity: 0.32;
+      pointer-events: none;
+      filter: grayscale(0.5);
+    }
+
+    .pauta-selector-strip {
+      background: var(--palha-bg);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 8px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .pauta-select-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .pauta-dropdown {
+      flex: 1;
+      min-width: 0;
+      text-overflow: ellipsis;
+      background: var(--palha-light);
+      border: 1px solid var(--border-strong);
+      color: #000000;
+      padding: 5px 8px;
+      font-size: 11.5px;
+      font-weight: 700;
+      border-radius: 2px;
+    }
+
+    .stage-mode-group {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    /* PALCO DE VÍDEO */
+    .video-stage {
+      display: none;
+      background: var(--palha-bg);
+      border-bottom: 2px solid #000000;
+      padding: 10px;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .video-stage.visible {
+      display: flex;
+    }
+
+    .screen-share-box {
+      display: none;
+      background: #000000;
+      color: var(--palha-container);
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .screen-share-box.active {
+      display: flex;
+    }
+
+    .video-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
+      min-height: 112px;
+    }
+
+    .boardroom-window.max-mode .video-grid-4 {
+      grid-template-columns: repeat(4, 1fr);
+      min-height: 220px;
+    }
+
+    .cam-card {
+      background: #18181B;
+      color: var(--palha-bg);
+      border: 1px solid #000000;
+      padding: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .cam-card.speaking {
+      outline: 2px solid var(--green-ok);
+    }
+
+    .cam-initials {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--palha-container);
+      color: #000000;
+      font-weight: 800;
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3px;
+    }
+
+    .cam-name {
+      font-size: 10.5px;
+      font-weight: 700;
+    }
+
+    .cam-dept {
+      font-size: 9px;
+      color: #A1A1AA;
+    }
+
+    .video-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 5px;
+      width: 100%;
+    }
+
+    .video-toolbar .executiveHeaderBtn {
+      flex: 1 1 auto;
+      justify-content: center;
+      padding: 6px 7px;
+      font-size: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    /* MENSAGENS E DOCUMENTOS (Zero rolagem horizontal) */
+    .messages-container {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--palha-bg);
+      user-select: text;
+    }
+
+    .msg-bubble {
+      background: var(--palha-container);
+      border: 1px solid rgba(0, 0, 0, 0.22);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+      max-width: 100%;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .msg-bubble.own {
+      align-self: flex-end;
+      background: var(--palha-light);
+      border: 1px solid #000000;
+    }
+
+    .msg-bubble.porteiro {
+      align-self: center;
+      width: 100%;
+      max-width: 100%;
+      background: #E5D5B0;
+      border: 1px dashed #000000;
+      padding: 8px 11px;
+    }
+
+    .msg-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10.5px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      padding-bottom: 4px;
+    }
+
+    .msg-author {
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      color: #000000;
+    }
+
+    .msg-time {
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .msg-subject-line {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: #000000;
+      background: rgba(0, 0, 0, 0.06);
+      padding: 3px 7px;
+      border-left: 3px solid #000000;
+    }
+
+    .msg-recipients-line {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--green-ok);
+    }
+
+    .msg-body {
+      font-size: 12px;
+      line-height: 1.45;
+      color: var(--text-main);
+    }
+
+    .doc-attachment-card {
+      background: var(--palha-light);
+      border: 1px solid #000000;
+      padding: 8px 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 2px;
+      width: 100%;
+    }
+
+    .doc-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #000000;
+      word-break: break-all;
+      flex: 1 1 100%;
+    }
+
+    /* COMPOSER */
+    .composer-panel {
+      background: var(--palha-container);
+      border-top: 2px solid #000000;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .recipients-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: var(--palha-bg);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      padding: 6px 8px;
+    }
+
+    .recipients-left {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .rec-label {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #000000;
+      margin-right: 2px;
+    }
+
+    .rec-pill {
+      background: rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      color: #000000;
+      padding: 3px 7px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+    }
+
+    .rec-pill.selected {
+      background: #000000;
+      color: var(--palha-container);
+      border-color: #000000;
+    }
+
+    .rec-pill.self-disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    .copy-me-check {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #000000;
+      cursor: pointer;
+    }
+
+    .subject-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .subject-input {
+      flex: 1;
+      background: var(--palha-light);
+      border: 1px solid rgba(0, 0, 0, 0.35);
+      padding: 6px 9px;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #000000;
+      outline: none;
+    }
+
+    .pending-file-bar {
+      display: none;
+      background: var(--palha-light);
+      border: 1px dashed #000000;
+      padding: 5px 9px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #000000;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pending-file-bar.active {
+      display: flex;
+    }
+
+    .input-action-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .msg-input {
+      flex: 1;
+      background: var(--palha-light);
+      border: 1px solid rgba(0, 0, 0, 0.38);
+      padding: 8px 10px;
+      font-size: 12px;
+      color: #000000;
+      outline: none;
+    }
+
+    .btnPrimary {
+      background: #000000;
+      color: var(--palha-container);
+      border: 1px solid #000000;
+      padding: 8px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* Botão quadrado com Flecha em 45° para cima (libera espaço para a caixa de texto) */
+    .sendArrowBtn {
+      background: #000000;
+      color: var(--palha-container);
+      border: 1px solid #000000;
+      width: 36px;
+      height: 36px;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .sendArrowBtn:hover {
+      opacity: 0.88;
+      transform: translate(1px, -1px);
+    }
+
+    .footer-hint {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================================
+       TOPO EM 2 LINHAS (2 CARDS DISTINTOS E LIMPOS)
+       ========================================================================== -->
+  <div class="topHeaderWrapper">
+
+    <!-- LINHA 1 (CARD 1): Logo AVA Sem Limites Preta + Convocar Reunião + Sala de Reuniões + Conectados + Senha (2 Níveis) -->
+    <header class="headerRow1Card">
+      <div class="row1Left">
+        <!-- 1. Logo Oficial LOGO SEM LIMITES PRETO.png -->
+        <div class="avaBlackLogoBox" title="Início · Painel Executivo AVA Sem Limites">
+          <img
+            src="../../public/imagens/AMOSTRAS/LOGOS/LOGO%20SEM%20LIMITES%20PRETO.png"
+            alt="AVA Sem Limites"
+            class="avaOfficialLogoImg"
+          />
+        </div>
+
+        <!-- 2. Card CONVOCAR REUNIÃO + 3. Card SALA DE REUNIÕES -->
+        <div class="meetingActionCards">
+          <button class="actionCardBtn" onclick="openLockedNewPautaModal()">
+            🚨 CONVOCAR REUNIÃO
+          </button>
+          <button class="actionCardBtn actionCardBtnActive" id="btnToggleRoom" onclick="toggleWindow()">
+            💬 SALA DE REUNIÕES
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Espaço para as 4 Pessoas Conectadas (+ Convidado Nível 2 quando ativo) -->
+      <div class="connectedPartnersCard" id="connectedBar">
+        <span class="connectedLabel" id="connectedCountLabel">CONECTADOS (4/4):</span>
+        <span class="partnerPresencePill currentUser" title="Logado agora (Titular: 03 · Arquitetura & 04 · Produção)">
+          <span class="ledDot"></span> Armando (Você)
+        </span>
+        <span class="partnerPresencePill" title="Conectado (Titular: 01 · Jurídico & 02 · Financeiro)">
+          <span class="ledDot"></span> Flávio
+        </span>
+        <span class="partnerPresencePill" title="Conectado (Titular: 07 · Marketing & 08 · Atelier)">
+          <span class="ledDot"></span> Tripoint
+        </span>
+        <span class="partnerPresencePill" title="Conectado (Titular: 05 · Atendimento & 06 · Vendas)">
+          <span class="ledDot"></span> Gustavo
+        </span>
+      </div>
+
+      <!-- 5. Botão SENHA (Gerenciador de Senhas e Convidados Nível 1 e Nível 2) + Vitrine -->
+      <div class="row1RightAccount">
+        <button class="executiveHeaderBtn" onclick="openPasswordModal()" title="Gerenciar Senhas de Acesso (Nível 1: Painel | Nível 2: Painel + Sala de Reuniões)">
+          🔑 Senha
+        </button>
+        <button class="executiveHeaderBtn">↗ Vitrine</button>
+      </div>
+    </header>
+
+    <!-- LINHA 2 (CARD 2): Diretoria + 8 Departamentos em linha única limpa -->
+    <nav class="headerRow2Card">
+      <div class="deptNavRow">
+        <span class="deptNavLink deptNavLinkActive">🏛️ Diretoria</span>
+        <span class="deptNavLink">01 · Jurídico</span>
+        <span class="deptNavLink">02 · Financeiro</span>
+        <span class="deptNavLink">03 · Arquitetura</span>
+        <span class="deptNavLink">04 · Produção</span>
+        <span class="deptNavLink">05 · SAC</span>
+        <span class="deptNavLink">06 · Mkt de Vendas</span>
+        <span class="deptNavLink">07 · Mkt de Produto</span>
+        <span class="deptNavLink">08 · Atelier</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DO BOTÃO "🔑 SENHA" (CONTROLE DE ACESSO EM 2 NÍVEIS: NÍVEL 1 E NÍVEL 2)
+       ========================================================================== -->
+  <div class="passwordModalOverlay" id="passwordModal">
+    <div class="passwordModalCard">
+      <div class="passwordModalHeader">
+        <span>🔑 CONTROLE DE SENHAS & ACESSO DE CONVIDADOS (2 NÍVEIS)</span>
+        <button class="win-btn" onclick="closePasswordModal()">✕</button>
+      </div>
+      <div class="passwordModalBody">
+        <div style="font-size:12px; color:var(--text-muted); line-height:1.45;">
+          O Painel Executivo é protegido por senha com <strong>2 Níveis de Acesso</strong>. Você pode emitir uma senha para um convidado externo (ex.: Contador, Advogado, Consultor) escolhendo o nível abaixo:
+        </div>
+
+        <div class="levelCardsGrid">
+          <!-- NÍVEL 1 -->
+          <div class="levelOptionCard" id="cardLevel1" onclick="selectAccessLevel(1)">
+            <span class="levelBadge">NÍVEL 1 · PAINEL</span>
+            <div class="levelTitle">Acesso Somente ao Painel</div>
+            <div class="levelDesc">
+              O convidado visualiza os indicadores e tabelas autorizadas do Painel, <strong>sem acesso à Sala de Reuniões</strong> e sem voto na Urna.
+            </div>
+          </div>
+
+          <!-- NÍVEL 2 -->
+          <div class="levelOptionCard selected" id="cardLevel2" onclick="selectAccessLevel(2)">
+            <span class="levelBadge">NÍVEL 2 · PAINEL + SALA DE REUNIÕES</span>
+            <div class="levelTitle">Painel + Sala de Reuniões</div>
+            <div class="levelDesc">
+              Ideal para <strong>Contador / Consultor</strong>: acessa o Painel <strong>e entra na Sala de Reuniões</strong> (chat, anexos e chamada de vídeo com os 4 sócios).
+            </div>
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <label class="formLabel">Identificação do Convidado:</label>
+          <input type="text" class="formInput" id="guestNameInput" value="Contador (Contabilidade)" placeholder="Ex: Contador / Consultor Fiscal" />
+        </div>
+
+        <div class="formGroup">
+          <label class="formLabel">Senha Temporária Gerada:</label>
+          <input type="text" class="formInput" id="guestPassInput" value="AVA-N2-CONTADOR-2026" />
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; padding-top:6px;">
+          <button class="executiveHeaderBtn" onclick="alert('Abrir troca da sua senha pessoal de Sócio (Armando)')">
+            Minha Senha de Sócio
+          </button>
+          <div style="display:flex; gap:8px;">
+            <button class="executiveHeaderBtn" onclick="closePasswordModal()">Fechar</button>
+            <button class="btnPrimary" onclick="activateGuestAccess()">Ativar Senha Convidado</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL DE FUNDO (URNA DE VOTAÇÃO + TABELA OPERACIONAL) -->
+  <main class="mainContainer">
+
+    <!-- COLUNA 1: URNA DE VOTAÇÃO SOCIETÁRIA -->
+    <section class="deptsPanel">
+      <div class="sectionHeading">
+        <span>🗳️ Urna de Votação Societária & Pautas Ativas</span>
+        <button class="executiveHeaderBtn" onclick="openLockedNewPautaModal()">+ Nova Pauta / Reunião</button>
+      </div>
+
+      <div class="decisionCard" id="urnaListContainer">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:12.5px;">Pauta #03 · Plano de Custos Fixos (~R$ 489,91/mês) & MEI</strong>
+          <span style="font-size:10.5px; font-weight:800; color:var(--red-alert);">🔴 1 PEDIDO DE REVISÃO</span>
+        </div>
+        <div class="votesGrid">
+          <div class="voteItem"><strong>Armando</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+          <div class="voteItem"><strong>Flávio</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+          <div class="voteItem rev"><strong>Tripoint</strong><span style="color:var(--red-alert); font-weight:700;">🔴 Revisão</span></div>
+          <div class="voteItem"><strong>Gustavo</strong><span style="color:var(--amber-warn); font-weight:700;">🟡 Pendente</span></div>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:4px;">
+          <button class="executiveHeaderBtn" onclick="selectExistingPauta('Pauta #03 · Custos Fixos & Magnific AI')">
+            💬 Abrir Conversa & Anexos desta Pauta
+          </button>
+        </div>
+      </div>
+
+      <div class="decisionCard">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:12.5px;">Pauta #01 · Estratégia "Eu Tenho Cupom!" (1AVA a 5AVA)</strong>
+          <span style="font-size:10.5px; font-weight:800; color:var(--green-ok);">🟢 4/4 HOMOLOGADA</span>
+        </div>
+        <div class="votesGrid">
+          <div class="voteItem"><strong>Armando</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+          <div class="voteItem"><strong>Flávio</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+          <div class="voteItem"><strong>Tripoint</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+          <div class="voteItem"><strong>Gustavo</strong><span style="color:var(--green-ok); font-weight:700;">🟢 Aprovou</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COLUNA 2: TABELA DE DADOS NO FUNDO -->
+    <section class="deptsPanel">
+      <div class="sectionHeading">
+        <span>📊 Tabela de Custos & Simulação (Teste ler com o chat aberto)</span>
+      </div>
+      <table class="avaTable">
+        <thead>
+          <tr>
+            <th>Item Operacional</th>
+            <th>Responsável</th>
+            <th>Custo Mensal</th>
+            <th>Ajuste Direto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Camiseta Classic Silk HD (F+C)</strong></td>
+            <td>04 · Produção (Dimona)</td>
+            <td>R$ 44,90</td>
+            <td><input class="tableInput" type="text" value="R$ 179,90" /></td>
+          </tr>
+          <tr>
+            <td><strong>Boné High Profile Bordado 3D</strong></td>
+            <td>04 · Produção (Printful)</td>
+            <td>R$ 100,00</td>
+            <td><input class="tableInput" type="text" value="R$ 229,00" /></td>
+          </tr>
+          <tr>
+            <td><strong>Bling ERP v3 (Hub Fiscal)</strong></td>
+            <td>02 · Financeiro (Flávio)</td>
+            <td>R$ 55,00/mês</td>
+            <td><input class="tableInput" type="text" value="R$ 55,00" /></td>
+          </tr>
+          <tr>
+            <td><strong>Ressarcimento VPS Contabo + IA</strong></td>
+            <td>03 · Arquitetura (Armando)</td>
+            <td>R$ 209,33/mês</td>
+            <td><input class="tableInput" type="text" value="R$ 209,33" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- ==========================================================================
+       SALA DE REUNIÕES E COMPARTILHAMENTOS (POPUP MÓVEL E REDIMENSIONÁVEL)
+       ========================================================================== -->
+  <aside class="boardroom-window" id="boardroomWindow">
+
+    <!-- 1. BARRA DE TÍTULO ARRASTÁVEL -->
+    <div class="window-titlebar" id="windowTitlebar">
+      <div class="titlebar-left">
+        <span>⋮⋮</span>
+        <span class="window-title">🏛️ SALA DE REUNIÕES & COMPARTILHAMENTOS</span>
+        <span class="status-badge" id="roomStatusBadge">4/4 Sócios</span>
+      </div>
+
+      <div class="titlebar-controls">
+        <button class="win-btn" id="btnGhost" title="Modo Fantasma (Transparência para ver a tabela atrás)" onclick="toggleGhostMode()">👁️</button>
+        <button class="win-btn" id="btnShade" title="Encolher para Barra Fina" onclick="toggleShadeMode()">▁</button>
+        <button class="win-btn" id="btnSplit" title="Ancorar na Lateral Direita" onclick="toggleSplitMode()">◫</button>
+        <button class="win-btn" id="btnMax" title="Maximizar para Reunião por Vídeo" onclick="toggleMaxMode()">⛶</button>
+      </div>
+    </div>
+
+    <!-- 2. TRAVA OBRIGATÓRIA DE CRIAÇÃO DE PAUTA (QUANDO CONVOCA REUNIÃO / NOVA CONVERSA) -->
+    <div class="pauta-lock-banner" id="pautaLockBanner">
+      <div class="lock-title">🔒 OBRIGATÓRIO: NOMEAR A PAUTA ANTES DE INICIAR</div>
+      <div class="lock-desc">
+        Para evitar conversas soltas sem organização, grave primeiro o <strong>Nome da Pauta / Assunto</strong>. Ele será registrado na lista de Pautas da Diretoria e liberará os anexos, o chat e a chamada de vídeo.
+      </div>
+      <div class="lock-input-row">
+        <input
+          type="text"
+          class="lock-input"
+          id="newPautaNameInput"
+          placeholder="Ex: Pauta #04 · Homologação Tabela Atacado B2B Dimona"
+          onkeydown="if(event.key==='Enter') confirmNewPautaName()"
+        />
+        <button class="btnPrimary" onclick="confirmNewPautaName()">Gravar Pauta & Liberar Sala</button>
+        <button class="executiveHeaderBtn" onclick="cancelNewPautaLock()">Cancelar</button>
+      </div>
+    </div>
+
+    <!-- CORPO DA SALA (FICA DESABILITADO ENQUANTO A PAUTA NÃO FOR NOMEADA) -->
+    <div class="boardroom-body-wrapper" id="boardroomBody">
+
+      <!-- 3. SELETOR DE PAUTA ATIVA + BOTÕES DE PALCO -->
+      <div class="pauta-selector-strip">
+        <div class="pauta-select-group">
+          <strong style="font-size:10.5px; text-transform:uppercase;">📌 Pauta:</strong>
+          <select class="pauta-dropdown" id="pautaSelect" onchange="syncSubjectWithPauta()">
+            <option value="Pauta #03 · Custos Fixos & Magnific AI">Pauta #03 · Custos Fixos & Magnific AI</option>
+            <option value="Pauta #02 · Documentação Fiscal Bling & MEI">Pauta #02 · Documentação Fiscal Bling & MEI</option>
+            <option value="Pauta #01 · Estratégia Eu Tenho Cupom">Pauta #01 · Estratégia Eu Tenho Cupom</option>
+          </select>
+          <button class="executiveHeaderBtn" title="Criar Nova Pauta Obrigatória" onclick="openLockedNewPautaModal()">+ Nova</button>
+        </div>
+
+        <div class="stage-mode-group">
+          <button class="executiveHeaderBtn executiveHeaderBtnActive" id="btnModeChat" onclick="setStage('chat')">💬 Chat</button>
+          <button class="executiveHeaderBtn" id="btnModeVideo" onclick="setStage('hybrid')">📹 Vídeo (4)</button>
+        </div>
+      </div>
+
+      <!-- 4. PALCO DE VÍDEO & COMPARTILHAMENTO DE TELA -->
+      <div class="video-stage" id="videoStage">
+        <div class="screen-share-box" id="screenShareBox">
+          <span>🖥️ <strong>TELA COMPARTILHADA ATIVA:</strong> Armando está apresentando a Tabela do Painel</span>
+          <button class="executiveHeaderBtn" style="background:var(--palha-container);" onclick="toggleScreenShare()">Encerrar Tela</button>
+        </div>
+
+        <div class="video-grid-4" id="videoGrid">
+          <div class="cam-card speaking">
+            <div class="cam-initials">AR</div>
+            <div class="cam-name">Armando (Você)</div>
+            <div class="cam-dept">03 · Arq & TI / 04 · Produção</div>
+          </div>
+          <div class="cam-card">
+            <div class="cam-initials">FL</div>
+            <div class="cam-name">Flávio</div>
+            <div class="cam-dept">01 · Jurídico / 02 · Financeiro</div>
+          </div>
+          <div class="cam-card">
+            <div class="cam-initials">TR</div>
+            <div class="cam-name">Tripoint</div>
+            <div class="cam-dept">07 · Marketing / 08 · Atelier</div>
+          </div>
+          <div class="cam-card">
+            <div class="cam-initials">GU</div>
+            <div class="cam-name">Gustavo</div>
+            <div class="cam-dept">05 · SAC / 06 · Vendas</div>
+          </div>
+        </div>
+
+        <div class="video-toolbar">
+          <button class="executiveHeaderBtn executiveHeaderBtnActive" onclick="this.classList.toggle('executiveHeaderBtnActive')">🎙️ Mic</button>
+          <button class="executiveHeaderBtn executiveHeaderBtnActive" onclick="this.classList.toggle('executiveHeaderBtnActive')">📹 Câmera</button>
+          <button class="executiveHeaderBtn" id="btnShare" onclick="toggleScreenShare()">🖥️ Compartilhar Tela</button>
+          <button class="executiveHeaderBtn" onclick="toggleMaxMode()">⛶ Maximizar</button>
+          <button class="executiveHeaderBtn" style="color:var(--red-alert); border-color:var(--red-alert);" onclick="setStage('chat')">✕ Sair Vídeo</button>
+        </div>
+      </div>
+
+      <!-- 5. LISTA DE MENSAGENS, DOCUMENTOS E AVISOS DO AGENTE PORTEIRO -->
+      <div class="messages-container" id="messagesContainer">
+
+        <div class="msg-bubble">
+          <div class="msg-meta">
+            <span class="msg-author">Flávio (01 · Jurídico & 02 · Financeiro)</span>
+            <span class="msg-time">Hoje · 04:20</span>
+          </div>
+          <div class="msg-subject-line">📌 Assunto: Minuta de Enquadramento MEI + IE Ativa para Emissão NF-e Bling</div>
+          <div class="msg-recipients-line">🎯 Anexado para: TODOS (Armando, Tripoint, Gustavo) · ☑️ Cópia enviada para Flávio</div>
+          <div class="msg-body">
+            Pessoal, anexei a certidão da Inscrição Estadual ativa do MEI e o checklist fiscal da trava REG-011. Como é apenas informativo para o cadastro na Dimona B2B, não precisamos abrir reunião agora, mas qualquer dúvida me chamem aqui!
+          </div>
+          <div class="doc-attachment-card">
+            <div>
+              <div class="doc-title">📄 Certidao_IE_SEFAZ_ES_e_Checklist_Bling.pdf (1.4 MB)</div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="executiveHeaderBtn" onclick="alert('Abrindo documento PDF...')">Baixar / Abrir</button>
+              <button class="executiveHeaderBtn" onclick="convocarReuniaoDoAnexo('Certidao_IE_SEFAZ_ES_e_Checklist_Bling.pdf')">🚨 Convocar Reunião</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg-bubble porteiro">
+          <div class="msg-meta">
+            <span class="msg-author">🤖 Agente Porteiro do Conselho (Arauto Societário)</span>
+            <span class="msg-time">Hoje · 04:20</span>
+          </div>
+          <div class="msg-body">
+            ✅ <strong>Aviso de Anexo Disparado:</strong> Notifiquei <strong>Armando, Tripoint e Gustavo</strong> (mais cópia para <strong>Flávio</strong>) via WhatsApp/E-mail com o Assunto: <em>"Minuta de Enquadramento MEI + IE Ativa para Emissão NF-e Bling"</em>.
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 6. COMPOSER COMPLETO -->
+      <div class="composer-panel">
+
+        <div class="recipients-bar">
+          <div class="recipients-left" id="recipientsList">
+            <span class="rec-label">🎯 Anexar / Enviar Para:</span>
+            <button type="button" class="rec-pill selected" id="recAll" onclick="toggleRecipient('TODOS')">TODOS</button>
+            <button type="button" class="rec-pill" id="recFlavio" onclick="toggleRecipient('Flávio')">Flávio</button>
+            <button type="button" class="rec-pill" id="recTripoint" onclick="toggleRecipient('Tripoint')">Tripoint</button>
+            <button type="button" class="rec-pill" id="recGustavo" onclick="toggleRecipient('Gustavo')">Gustavo</button>
+            <button type="button" class="rec-pill self-disabled" title="Você é o remetente logado">Armando (Você)</button>
+          </div>
+
+          <label class="copy-me-check">
+            <input type="checkbox" id="chkCopyMe" checked />
+            <span>Enviar para mim também</span>
+          </label>
+        </div>
+
+        <div class="subject-row">
+          <input
+            type="text"
+            class="subject-input"
+            id="subjectInput"
+            value="Pauta #03 · Custos Fixos & Magnific AI"
+            placeholder="Assunto obrigatório do Anexo / Mensagem..."
+          />
+        </div>
+
+        <div class="pending-file-bar" id="pendingFileBar">
+          <span id="pendingFileLabel">📎 documento.pdf</span>
+          <button class="executiveHeaderBtn" onclick="clearFile()">✕ Remover</button>
+        </div>
+
+        <div class="input-action-row">
+          <input type="file" id="fileInput" style="display:none" onchange="onFilePicked(event)" />
+          <button class="executiveHeaderBtn" onclick="document.getElementById('fileInput').click()" title="Anexar Documento">
+            📎 Anexar Doc
+          </button>
+          <input
+            type="text"
+            class="msg-input"
+            id="msgInput"
+            placeholder="Explique o documento, tire dúvidas sobre o voto ou responda aos sócios..."
+            onkeydown="if(event.key==='Enter') sendMessageOrDoc()"
+          />
+          <button class="sendArrowBtn" onclick="sendMessageOrDoc()" title="Enviar & Notificar Sócios (Enter)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="6" y1="18" x2="18" y2="6"></line>
+              <polyline points="9 6 18 6 18 15"></polyline>
+            </svg>
+          </button>
+        </div>
+
+        <div class="footer-hint">
+          <span>🤖 O Agente Porteiro avisa os sócios selecionados sobre cada anexo/assunto</span>
+          <span>⟿ Arraste pelo topo · Redimensione pelo canto</span>
+        </div>
+
+      </div>
+
+    </div>
+  </aside>
+
+  <script>
+    const win = document.getElementById('boardroomWindow');
+    const titlebar = document.getElementById('windowTitlebar');
+    const lockBanner = document.getElementById('pautaLockBanner');
+    const bodyWrapper = document.getElementById('boardroomBody');
+    const pautaSelect = document.getElementById('pautaSelect');
+    const subjectInput = document.getElementById('subjectInput');
+    const messagesContainer = document.getElementById('messagesContainer');
+    const videoStage = document.getElementById('videoStage');
+
+    let selectedRecipients = ['TODOS'];
+    let pickedFile = null;
+    let selectedGuestLevel = 2;
+
+    /* 1. ARRASTE LIVRE DA JANELA */
+    let dragging = false;
+    let offX = 0;
+    let offY = 0;
+
+    titlebar.addEventListener('mousedown', (e) => {
+      if (e.target.closest('.win-btn')) return;
+      if (win.classList.contains('split-mode') || win.classList.contains('max-mode')) {
+        win.classList.remove('split-mode', 'max-mode');
+      }
+      dragging = true;
+      const r = win.getBoundingClientRect();
+      offX = e.clientX - r.left;
+      offY = e.clientY - r.top;
+      win.style.right = 'auto';
+      win.style.left = r.left + 'px';
+      win.style.top = r.top + 'px';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!dragging) return;
+      const x = Math.max(6, Math.min(window.innerWidth - 140, e.clientX - offX));
+      const y = Math.max(10, Math.min(window.innerHeight - 50, e.clientY - offY));
+      win.style.left = x + 'px';
+      win.style.top = y + 'px';
+    });
+
+    document.addEventListener('mouseup', () => {
+      dragging = false;
+    });
+
+    function toggleWindow() {
+      const isHidden = win.style.display === 'none';
+      win.style.display = isHidden ? 'flex' : 'none';
+      document.getElementById('btnToggleRoom').classList.toggle('actionCardBtnActive', isHidden);
+    }
+
+    /* ========================================================================
+       MODAL DE SENHAS & ACESSO DE CONVIDADOS (NÍVEL 1 vs NÍVEL 2)
+       ======================================================================== */
+    function openPasswordModal() {
+      document.getElementById('passwordModal').classList.add('active');
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').classList.remove('active');
+    }
+
+    function selectAccessLevel(lvl) {
+      selectedGuestLevel = lvl;
+      document.getElementById('cardLevel1').classList.toggle('selected', lvl === 1);
+      document.getElementById('cardLevel2').classList.toggle('selected', lvl === 2);
+      document.getElementById('guestPassInput').value = lvl === 1
+        ? 'AVA-N1-PAINEL-2026'
+        : 'AVA-N2-CONTADOR-2026';
+    }
+
+    function activateGuestAccess() {
+      const guestName = document.getElementById('guestNameInput').value.trim() || 'Contador';
+      const pass = document.getElementById('guestPassInput').value.trim();
+
+      if (selectedGuestLevel === 1) {
+        alert(`✅ Senha Nível 1 (${pass}) ativada para "${guestName}".\nPermissão: Acesso somente ao Painel (Sem Sala de Reuniões).`);
+        closePasswordModal();
+        return;
+      }
+
+      // Nível 2: Convidado entra no Painel E na Sala de Reuniões
+      const connectedBar = document.getElementById('connectedBar');
+      if (!document.getElementById('guestPresencePill')) {
+        const pill = document.createElement('span');
+        pill.className = 'partnerPresencePill guestLevel2';
+        pill.id = 'guestPresencePill';
+        pill.title = `Convidado Nível 2 (Acesso Painel + Sala de Reuniões) · Senha: ${pass}`;
+        pill.innerHTML = `<span class="ledDot"></span> 🔑 ${guestName} (Nível 2)`;
+        connectedBar.appendChild(pill);
+        document.getElementById('connectedCountLabel').textContent = 'CONECTADOS (4+1):';
+      }
+
+      // Adiciona automaticamente o Convidado Nível 2 no seletor "ANEXAR / ENVIAR PARA:"
+      const recipientsList = document.getElementById('recipientsList');
+      if (!document.getElementById('recGuestN2')) {
+        const guestRecBtn = document.createElement('button');
+        guestRecBtn.type = 'button';
+        guestRecBtn.className = 'rec-pill';
+        guestRecBtn.id = 'recGuestN2';
+        guestRecBtn.style.borderStyle = 'dashed';
+        guestRecBtn.textContent = `🔑 ${guestName}`;
+        guestRecBtn.onclick = () => toggleRecipient(guestName, 'recGuestN2');
+        recipientsList.insertBefore(guestRecBtn, recipientsList.lastElementChild);
+      }
+
+      // Adiciona câmera do Convidado Nível 2 no palco de vídeo
+      const videoGrid = document.getElementById('videoGrid');
+      if (!document.getElementById('camGuestN2')) {
+        const cam = document.createElement('div');
+        cam.className = 'cam-card';
+        cam.id = 'camGuestN2';
+        cam.innerHTML = `
+          <div class="cam-initials">CT</div>
+          <div class="cam-name">🔑 ${guestName}</div>
+          <div class="cam-dept">Convidado Especial · Nível 2</div>
+        `;
+        videoGrid.appendChild(cam);
+      }
+
+      appendPorteiroMessage(
+        `🔑 <strong>Acesso Convidado Nível 2 Liberado:</strong> <strong>${guestName}</strong> recebeu credencial Nível 2 (<code>${pass}</code>), entrou na barra de Conectados e já está disponível no seletor <strong>"ANEXAR / ENVIAR PARA"</strong> e na Sala de Vídeo.`
+      );
+
+      closePasswordModal();
+    }
+
+    /* 2. TRAVA OBRIGATÓRIA DE NOMEAR A PAUTA */
+    function openLockedNewPautaModal() {
+      win.style.display = 'flex';
+      document.getElementById('btnToggleRoom').classList.add('actionCardBtnActive');
+      win.classList.remove('shaded-mode');
+      lockBanner.classList.add('active');
+      bodyWrapper.classList.add('locked');
+      document.getElementById('roomStatusBadge').textContent = '🔒 Aguardando Nome da Pauta';
+      const inp = document.getElementById('newPautaNameInput');
+      inp.value = '';
+      inp.focus();
+    }
+
+    function confirmNewPautaName() {
+      const inp = document.getElementById('newPautaNameInput');
+      const pautaName = inp.value.trim();
+      if (!pautaName) {
+        alert('Por favor, digite o Nome da Pauta / Assunto para destravar a Sala de Reuniões.');
+        inp.focus();
+        return;
+      }
+
+      const opt = document.createElement('option');
+      opt.value = pautaName;
+      opt.textContent = pautaName;
+      pautaSelect.insertBefore(opt, pautaSelect.firstChild);
+      pautaSelect.value = pautaName;
+
+      subjectInput.value = pautaName;
+
+      const urnaList = document.getElementById('urnaListContainer');
+      const newCard = document.createElement('div');
+      newCard.className = 'decisionCard';
+      newCard.style.marginTop = '10px';
+      newCard.style.borderColor = '#000000';
+      newCard.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:12.5px;">${pautaName}</strong>
+          <span style="font-size:10.5px; font-weight:800; color:var(--amber-warn);">🟡 EM REUNIÃO / DEBATE</span>
+        </div>
+      `;
+      urnaList.parentNode.insertBefore(newCard, urnaList);
+
+      lockBanner.classList.remove('active');
+      bodyWrapper.classList.remove('locked');
+      document.getElementById('roomStatusBadge').textContent = '🟢 Sala Destravada';
+
+      appendPorteiroMessage(
+        `🏛️ <strong>Nova Pauta Gravada & Reunião Convocada:</strong> <em>"${pautaName}"</em> foi adicionada à lista de Pautas da Diretoria por <strong>Armando</strong>. Sala liberada para anexos, mensagens e vídeo.`
+      );
+    }
+
+    function cancelNewPautaLock() {
+      lockBanner.classList.remove('active');
+      bodyWrapper.classList.remove('locked');
+      document.getElementById('roomStatusBadge').textContent = '4/4 Sócios';
+    }
+
+    function syncSubjectWithPauta() {
+      subjectInput.value = pautaSelect.value;
+    }
+
+    function selectExistingPauta(pautaName) {
+      win.style.display = 'flex';
+      document.getElementById('btnToggleRoom').classList.add('actionCardBtnActive');
+      cancelNewPautaLock();
+      pautaSelect.value = pautaName;
+      subjectInput.value = pautaName;
+    }
+
+    /* 3. SELETOR "ANEXAR PARA" (Suporta Sócios + Convidado Nível 2 dinâmico) */
+    function toggleRecipient(name, customId) {
+      const btnAll = document.getElementById('recAll');
+      const map = {
+        'Flávio': document.getElementById('recFlavio'),
+        'Tripoint': document.getElementById('recTripoint'),
+        'Gustavo': document.getElementById('recGustavo')
+      };
+      if (customId && document.getElementById(customId)) {
+        map[name] = document.getElementById(customId);
+      } else if (document.getElementById('recGuestN2')) {
+        const gBtn = document.getElementById('recGuestN2');
+        const gName = gBtn.textContent.replace('🔑 ', '');
+        map[gName] = gBtn;
+      }
+
+      if (name === 'TODOS') {
+        selectedRecipients = ['TODOS'];
+        btnAll.classList.add('selected');
+        Object.values(map).forEach(b => b && b.classList.remove('selected'));
+        return;
+      }
+
+      btnAll.classList.remove('selected');
+      selectedRecipients = selectedRecipients.filter(r => r !== 'TODOS');
+
+      if (selectedRecipients.includes(name)) {
+        selectedRecipients = selectedRecipients.filter(r => r !== name);
+        if (map[name]) map[name].classList.remove('selected');
+      } else {
+        selectedRecipients.push(name);
+        if (map[name]) map[name].classList.add('selected');
+      }
+
+      if (selectedRecipients.length === 0) {
+        selectedRecipients = ['TODOS'];
+        btnAll.classList.add('selected');
+        Object.values(map).forEach(b => b && b.classList.remove('selected'));
+      }
+    }
+
+    /* 4. ANEXAR DOCUMENTO E ENVIAR MENSAGEM */
+    function onFilePicked(e) {
+      const f = e.target.files[0];
+      if (!f) return;
+      pickedFile = {
+        name: f.name,
+        size: (f.size / 1024).toFixed(1) + ' KB'
+      };
+      document.getElementById('pendingFileLabel').textContent = `📎 ${pickedFile.name} (${pickedFile.size})`;
+      document.getElementById('pendingFileBar').classList.add('active');
+    }
+
+    function clearFile() {
+      pickedFile = null;
+      document.getElementById('fileInput').value = '';
+      document.getElementById('pendingFileBar').classList.remove('active');
+    }
+
+    function sendMessageOrDoc() {
+      const msgInput = document.getElementById('msgInput');
+      const text = msgInput.value.trim();
+      const subject = subjectInput.value.trim() || pautaSelect.value;
+      const copyMe = document.getElementById('chkCopyMe').checked;
+
+      if (!text && !pickedFile) return;
+
+      const timeStr = new Date().toTimeString().slice(0, 5);
+      const destLabel = selectedRecipients.includes('TODOS')
+        ? 'TODOS (Flávio, Tripoint, Gustavo)'
+        : selectedRecipients.join(', ');
+      const copyMeLabel = copyMe ? ' · ☑️ Cópia enviada para Armando (Você)' : '';
+
+      const bubble = document.createElement('div');
+      bubble.className = 'msg-bubble own';
+
+      let docHTML = '';
+      if (pickedFile) {
+        docHTML = `
+          <div class="doc-attachment-card">
+            <div class="doc-title">📄 ${pickedFile.name} (${pickedFile.size})</div>
+            <div style="display:flex; gap:6px;">
+              <button class="executiveHeaderBtn" onclick="alert('Abrindo ${pickedFile.name}')">Baixar / Abrir</button>
+              <button class="executiveHeaderBtn" onclick="convocarReuniaoDoAnexo('${pickedFile.name}')">🚨 Convocar Reunião</button>
+            </div>
+          </div>
+        `;
+      }
+
+      bubble.innerHTML = `
+        <div class="msg-meta">
+          <span class="msg-author">Armando (03 · Arquitetura & 04 · Produção)</span>
+          <span class="msg-time">Agora · ${timeStr}</span>
+        </div>
+        <div class="msg-subject-line">📌 Assunto: ${subject}</div>
+        <div class="msg-recipients-line">🎯 Para: ${destLabel}${copyMeLabel}</div>
+        ${text ? `<div class="msg-body">${text}</div>` : ''}
+        ${docHTML}
+      `;
+
+      messagesContainer.appendChild(bubble);
+
+      const fileNotice = pickedFile ? `o documento <strong>"${pickedFile.name}"</strong>` : 'uma mensagem';
+      appendPorteiroMessage(
+        `✅ <strong>Agente Porteiro notificou [${destLabel}]${copyMe ? ' + [Cópia para Armando]' : ''}:</strong> Enviado alerta sobre ${fileNotice} com Assunto: <em>"${subject}"</em>.`
+      );
+
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      msgInput.value = '';
+      clearFile();
+    }
+
+    function appendPorteiroMessage(htmlText) {
+      const timeStr = new Date().toTimeString().slice(0, 5);
+      const p = document.createElement('div');
+      p.className = 'msg-bubble porteiro';
+      p.innerHTML = `
+        <div class="msg-meta">
+          <span class="msg-author">🤖 Agente Porteiro do Conselho (Arauto Societário)</span>
+          <span class="msg-time">Agora · ${timeStr}</span>
+        </div>
+        <div class="msg-body">${htmlText}</div>
+      `;
+      messagesContainer.appendChild(p);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    function convocarReuniaoDoAnexo(fileName) {
+      setStage('hybrid');
+      appendPorteiroMessage(
+        `🚨 <strong>Reunião de Vídeo Convocada sobre o Anexo "${fileName}":</strong> O Agente Porteiro disparou chamado imediato para os sócios entrarem na Sala de Vídeo.`
+      );
+    }
+
+    /* 5. CONTROLES DE ERGONOMIA E VÍDEO */
+    function toggleGhostMode() {
+      win.classList.toggle('ghost-mode');
+      document.getElementById('btnGhost').classList.toggle('active');
+    }
+
+    function fitToRightCard(isShaded) {
+      const cards = document.querySelectorAll('.deptsPanel');
+      const rightCard = cards[1];
+      if (!rightCard) return;
+      const rect = rightCard.getBoundingClientRect();
+      // Deixa 12px de margem interna em relação às bordas laterais e inferior do card
+      const inset = 12;
+      win.style.left = (rect.left + inset) + 'px';
+      win.style.right = 'auto';
+      win.style.width = (rect.width - inset * 2) + 'px';
+      if (isShaded) {
+        win.style.top = (rect.bottom - 44 - inset) + 'px';
+        win.style.bottom = 'auto';
+      } else {
+        win.style.top = rect.top + 'px';
+        win.style.height = rect.height + 'px';
+      }
+    }
+
+    function toggleShadeMode() {
+      const willShade = !win.classList.contains('shaded-mode');
+      win.classList.toggle('shaded-mode', willShade);
+      document.getElementById('btnShade').classList.toggle('active', willShade);
+      if (willShade) {
+        fitToRightCard(true);
+      } else {
+        win.style.top = '';
+        win.style.left = '';
+        win.style.width = '';
+        win.style.right = '28px';
+        if (win.classList.contains('split-mode')) {
+          fitToRightCard(false);
+        }
+      }
+    }
+
+    function toggleSplitMode() {
+      win.classList.remove('max-mode', 'shaded-mode');
+      document.getElementById('btnShade').classList.remove('active');
+      document.getElementById('btnMax').classList.remove('active');
+      const willSplit = !win.classList.contains('split-mode');
+      win.classList.toggle('split-mode', willSplit);
+      document.getElementById('btnSplit').classList.toggle('active', willSplit);
+      if (willSplit) {
+        fitToRightCard(false);
+      } else {
+        win.style.top = '';
+        win.style.left = '';
+        win.style.width = '';
+        win.style.height = '';
+        win.style.right = '28px';
+      }
+    }
+
+    function toggleMaxMode() {
+      win.classList.remove('split-mode', 'shaded-mode');
+      document.getElementById('btnShade').classList.remove('active');
+      document.getElementById('btnSplit').classList.remove('active');
+      win.style.top = '';
+      win.style.left = '';
+      win.style.width = '';
+      win.style.height = '';
+      win.classList.toggle('max-mode');
+      document.getElementById('btnMax').classList.toggle('active');
+      if (win.classList.contains('max-mode')) {
+        setStage('hybrid');
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (win.classList.contains('shaded-mode')) fitToRightCard(true);
+      else if (win.classList.contains('split-mode')) fitToRightCard(false);
+    });
+
+    function setStage(mode) {
+      document.getElementById('btnModeChat').classList.toggle('executiveHeaderBtnActive', mode === 'chat');
+      document.getElementById('btnModeVideo').classList.toggle('executiveHeaderBtnActive', mode === 'hybrid');
+      if (mode === 'hybrid') {
+        videoStage.classList.add('visible');
+      } else {
+        videoStage.classList.remove('visible');
+      }
+    }
+
+    function toggleScreenShare() {
+      document.getElementById('screenShareBox').classList.toggle('active');
+      document.getElementById('btnShare').classList.toggle('executiveHeaderBtnActive');
+    }
+  </script>
+</body>
+</html>

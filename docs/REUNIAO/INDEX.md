@@ -25,7 +25,12 @@
    * Levantamento de mercado do **Magnific AI** (~US$ 20/mês a US$ 39/mês) em teste pelo Tripoint.
    * Separação de cartões (Armando bancando R$ 209,33/mês a ressarcir) e credenciais individuais dos 4 sócios.
 
-4. **[REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md)**
+4. **[04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md)**
+   * Nomenclatura enxuta e definitiva dos Departamentos `05 · SAC`, `06 · Marketing de Vendas` (Gustavo) e `07 · Marketing de Produto` (Tripoint).
+   * Ciclo PDCA de investimentos estratégicos de tráfego (Gustavo) vs. Visual Merchandising da Vitrine Canônica e Grid 3x3 (Tripoint).
+   * **Cláusula Anti-Sobrecarga do SAC:** Estudo de viabilidade, franquia mínima e custos de mercado no Brasil (R$ 600 a R$ 850/mês para 75-150 chamados humanos via Secretariado Compartilhado / BPO) ao atingir o gatilho de **5 atendimentos humanos**, operando com **Senha Convidado Nível 1**.
+
+5. **[REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/Fornecedores/REGISTRO_PEDIDO_AMOSTRAS_DIMONA.md)**
    * **PEDIDO OFICIAL DE AMOSTRAS FÍSICAS DIMONA:** `# 755-460-927`
    * Comprovante Pix de **R$ 472,80** emitido em 17/11/2026 às 02:11:53.
    * 6 peças físicas em produção (Oversized Preta, Prime Branca, Estonada Chumbo, Quality Vinho e 2 Bonés).
