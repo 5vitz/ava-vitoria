@@ -61,6 +61,7 @@ export default async function MediaLibraryPage({ searchParams }: PageProps) {
 
       <main className={styles.adminMain}>
         <MediaLibraryClient
+          key={collectionId}
           initialMedia={mediaList}
           collectionsList={collections}
           initialCollectionId={collectionId}

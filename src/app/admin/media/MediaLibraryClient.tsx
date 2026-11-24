@@ -69,10 +69,12 @@ export default function MediaLibraryClient({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [zoomedAsset]);
 
-  // Sincronizar o estado da lista quando as props mudam
+  // Sincronizar o estado da lista e coleção quando as props mudam
   useEffect(() => {
     setMediaList(initialMedia);
-  }, [initialMedia]);
+    setFilterCollectionId(initialCollectionId);
+    setActiveStoreColId(activeStoreCollectionId || null);
+  }, [initialMedia, initialCollectionId, activeStoreCollectionId]);
 
   // Mostrar mensagens temporárias
   const triggerFeedback = (type: "success" | "error", message: string) => {
@@ -82,7 +84,7 @@ export default function MediaLibraryClient({
     }, 4000);
   };
 
-  // Alterar filtro de coleção (muda a URL e re-busca os dados via Next.js)
+  // Alterar filtro de coleção (força carregamento limpo do servidor)
   const handleFilterChange = (colId: string) => {
     setFilterCollectionId(colId);
     
@@ -90,7 +92,11 @@ export default function MediaLibraryClient({
     if (colId !== "Todos") {
       params.set("collection", colId);
     }
-    router.push(`${pathname}?${params.toString()}`);
+    if (selectingForProduct) {
+      params.set("selectingForProduct", selectingForProduct);
+    }
+    const query = params.toString();
+    window.location.href = query ? `${pathname}?${query}` : pathname;
   };
 
   // Upload em lote de mídias direto na coleção selecionada

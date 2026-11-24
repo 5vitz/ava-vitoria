@@ -81,7 +81,7 @@ export default function GridManagerClient({
 
   // Controladores de UI
   const [activeStoreColId, setActiveStoreColId] = useState<string | null>(activeStoreCollectionId || null);
-  const [isStorefrontActive, setIsStorefrontActive] = useState(initialIsStorefrontActive);
+  const isStorefrontActive = currentCollection.id === activeStoreColId;
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
     type: null,
@@ -96,6 +96,13 @@ export default function GridManagerClient({
     }, 4000);
   };
 
+  // Sincronizar produtos e coleção caso o componente não tenha sido desmontado
+  useEffect(() => {
+    setProducts(initialProducts);
+    setSelectedProduct(initialProducts.length > 0 ? initialProducts[0] : null);
+    setActiveStoreColId(activeStoreCollectionId || null);
+  }, [currentCollection.id, initialProducts, activeStoreCollectionId]);
+
   // Publicar esta coleção na Vitrine da Loja
   const handlePublishToStorefront = async () => {
     setLoading(true);
@@ -108,7 +115,6 @@ export default function GridManagerClient({
       const data = await res.json();
       if (data.success) {
         setActiveStoreColId(currentCollection.id);
-        setIsStorefrontActive(true);
         triggerFeedback("success", `★ Coleção "${currentCollection.name}" publicada na vitrine com sucesso!`);
         router.refresh();
       } else {
@@ -351,7 +357,9 @@ export default function GridManagerClient({
             <select
               className={styles.collectionSwitchSelect}
               value={currentCollection.id}
-              onChange={(e) => router.push(`/admin/grid-manager?collection=${e.target.value}`)}
+              onChange={(e) => {
+                window.location.href = `/admin/grid-manager?collection=${e.target.value}`;
+              }}
             >
               {collectionsList.map((c) => (
                 <option key={c.id} value={c.id}>

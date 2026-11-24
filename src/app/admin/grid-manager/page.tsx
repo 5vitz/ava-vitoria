@@ -112,6 +112,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
 
       <main className={styles.adminMain}>
         <GridManagerClient 
+          key={currentCollection.id}
           initialProducts={products} 
           collectionsList={collections}
           currentCollection={currentCollection}
