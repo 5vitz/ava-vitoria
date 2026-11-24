@@ -1,85 +1,37 @@
+/* stock.module.css — Gestão de Estoque Estética Palha/Marfim AVA */
+
 .adminContainer {
   min-height: 100vh;
-  background-color: #000000;
-  color: var(--color-text-primary);
+  background-color: #EFE4CC;
+  color: #18191B;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-body), sans-serif;
-  font-weight: var(--body-weight);
-}
-
-.adminHeader {
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: #000000;
-  backdrop-filter: blur(10px);
-  flex-shrink: 0;
-}
-
-.headerTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.adminTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0;
-}
-
-.adminBadge {
-  background-color: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.adminNav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navLink {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-}
-
-.navLink:hover {
-  color: var(--color-accent);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .adminMain {
   flex: 1;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 76px);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Split Layout de Estoque */
 .stockSplitLayout {
   display: grid;
-  grid-template-columns: 360px 1fr;
+  grid-template-columns: minmax(360px, 1fr) 520px;
+  gap: 20px;
   height: 100%;
+  padding: 20px 24px;
+  box-sizing: border-box;
   overflow: hidden;
 }
 
-/* Coluna de Produtos (Esquerda) */
+/* Painel de Lista de Produtos */
 .listSection {
-  background-color: #000000;
-  border-right: 1px solid var(--color-border);
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -87,9 +39,14 @@
 }
 
 .listHeader {
-  padding: 15px 20px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: rgba(0, 0, 0, 0.2);
+  padding: 14px 20px;
+  background-color: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .fieldGroupInline {
@@ -99,345 +56,333 @@
 }
 
 .filterLabel {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-text-secondary);
+  letter-spacing: 0.8px;
+  color: #000000;
+  white-space: nowrap;
 }
 
 .selectSmall {
-  flex: 1;
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-  padding: 6px 10px;
-  font-size: 0.8rem;
-  outline: none;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #18191B;
+  padding: 6px 12px;
+  height: 36px;
+  font-size: 0.82rem;
   font-family: var(--font-body), sans-serif;
-  transition: border-color 0.2s ease;
+  outline: none;
+  min-width: 200px;
+  cursor: pointer;
 }
 
 .selectSmall:focus {
-  border-color: var(--color-accent);
+  border-color: #000000;
 }
 
 .productsList {
   flex: 1;
   overflow-y: auto;
+  padding: 12px 16px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .productItemRow {
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 10px 14px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 12px 20px;
+  justify-content: space-between;
+  gap: 14px;
   cursor: pointer;
-  border-bottom: 1px solid var(--color-border);
   transition: all 0.2s ease;
-  user-select: none;
 }
 
 .productItemRow:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  border-color: rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
 }
 
 .rowSelected {
-  background-color: rgba(212, 175, 55, 0.05);
-  border-left: 3px solid var(--color-accent);
-  padding-left: 17px;
+  border: 2px solid #000000 !important;
+  background-color: #FAF6EE !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .prodThumb {
-  width: 50px;
-  height: 65px;
-  background-color: #000;
-  border: 1px solid var(--color-border);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 44px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  mix-blend-mode: multiply;
   flex-shrink: 0;
 }
 
-.prodThumb img,
-.prodThumb video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .emptyThumb {
-  color: var(--color-text-secondary);
-  font-size: 0.8rem;
+  width: 44px;
+  aspect-ratio: 9 / 16;
+  background-color: #EFE4CC;
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: #6B7280;
+  flex-shrink: 0;
 }
 
 .prodInfo {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  overflow: hidden;
 }
 
 .prodName {
-  font-family: var(--font-title), sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 0;
-  color: var(--color-text-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 2px;
 }
 
 .prodStockTotal {
-  font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  color: #4B5563;
 }
 
-.prodStockTotal strong {
-  color: var(--color-accent);
-}
-
-/* Badges de Status Geral do Produto */
-.statusBadge {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 4px 8px;
+/* Badges de Status de Estoque */
+.statusBadge,
+.badgeStatus {
+  font-size: 0.7rem;
   font-weight: 700;
-  text-align: center;
-  min-width: 75px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
 }
 
+.statusGreen,
+.badgeOk {
+  background-color: rgba(5, 150, 105, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(5, 150, 105, 0.35);
+}
+
+.statusYellow,
+.badgeYellow {
+  background-color: rgba(217, 119, 6, 0.14);
+  color: #92400E;
+  border: 1px solid rgba(217, 119, 6, 0.35);
+}
+
+.statusRed,
+.badgeRed,
 .statusEmpty {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: var(--color-text-secondary);
-  border: 1px dashed var(--color-border);
+  background-color: rgba(220, 38, 38, 0.14);
+  color: #991B1B;
+  border: 1px solid rgba(220, 38, 38, 0.35);
 }
 
-.statusRed {
-  background-color: rgba(255, 77, 77, 0.1);
-  color: #ff4d4d;
-  border: 1px solid rgba(255, 77, 77, 0.2);
-}
-
-.statusYellow {
-  background-color: rgba(212, 175, 55, 0.1);
-  color: var(--color-accent);
-  border: 1px solid rgba(212, 175, 55, 0.2);
-}
-
-.statusGreen {
-  background-color: rgba(46, 92, 70, 0.19);
-  color: #9cdcb2;
-  border: 1px solid rgba(46, 92, 70, 0.4);
-}
-
-/* Coluna do Formulário (Direita) */
+/* Painel de Edição de Grade e Estoque */
 .editorSection {
-  flex: 1;
-  height: 100%;
-  overflow-y: auto;
-  padding: 30px 40px;
-  box-sizing: border-box;
-  background-color: #000000;
-}
-
-.editorWrapper {
-  max-width: 750px;
-  margin: 0 auto;
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .editorHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 15px;
+  padding: 14px 20px;
+  background-color: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
 }
 
 .editorTitle {
   font-family: var(--font-title), sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.05rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0;
-  color: var(--color-accent);
+  margin: 0 0 2px 0;
+  letter-spacing: 0.8px;
+  color: #000000;
 }
 
 .editorSubtitle {
-  font-size: 0.85rem;
-  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  color: #4B5563;
+  margin: 0;
+}
+
+.editorWrapper {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 20px;
 }
 
 .stockForm {
   display: flex;
   flex-direction: column;
-  gap: 30px;
-  padding-bottom: 50px;
+  gap: 18px;
 }
 
-/* Grupos do Formulário */
 .formGroup {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-top: 1px solid var(--color-border);
-  padding-top: 20px;
+  gap: 8px;
 }
 
 .formGroupTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
-  margin: 0 0 5px 0;
-  font-weight: 600;
+  letter-spacing: 0.6px;
+  color: #000000;
 }
 
-/* Tamanhos Checkboxes */
+/* Grade de Tamanhos Checkbox */
 .checkboxSizesGrid {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 12px;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 12px;
 }
 
 .checkboxLabel {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   cursor: pointer;
   user-select: none;
 }
 
 .checkboxInput {
-  accent-color: var(--color-accent);
-  width: 18px;
-  height: 18px;
+  accent-color: #000000;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
 .checkboxText {
-  font-size: 0.9rem;
-  color: var(--color-text-primary);
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #18191B;
 }
 
 /* Cores Manager */
 .colorInputRow {
   display: flex;
-  gap: 10px;
-  max-width: 400px;
+  gap: 8px;
 }
 
 .textInputColor {
   flex: 1;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #000000;
   padding: 8px 12px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   outline: none;
-  font-family: var(--font-body), sans-serif;
 }
 
 .textInputColor:focus {
-  border-color: var(--color-accent);
+  border-color: #000000;
 }
 
 .addColorBtn {
-  background-color: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
-  padding: 8px 18px;
-  font-size: 0.8rem;
-  cursor: pointer;
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 8px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .addColorBtn:hover {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #DFCFA8;
 }
 
 .colorsTagList {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .colorTag {
-  background-color: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--color-accent);
-  color: var(--color-text-primary);
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #000000;
   font-size: 0.75rem;
+  font-weight: 600;
   padding: 4px 10px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .removeColorBtn {
   background: transparent;
   border: none;
-  color: #ff4d4d;
-  font-size: 1.1rem;
+  color: #DC2626;
+  font-size: 1rem;
   cursor: pointer;
   line-height: 1;
   padding: 0;
-  display: flex;
-  align-items: center;
-}
-
-.removeColorBtn:hover {
-  color: #ff1a1a;
 }
 
 .noColorsMsg,
 .emptyStockAlert {
-  font-size: 0.8rem;
-  color: var(--color-text-secondary);
+  font-size: 0.75rem;
+  color: #6B7280;
   font-style: italic;
-  margin: 5px 0;
 }
 
-/* Tabela de Grade de Estoque */
+/* Tabela de Variações */
 .variantsStockGrid {
-  border: 1px solid var(--color-border);
-  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background-color: #FEFCF5;
   display: flex;
   flex-direction: column;
 }
 
 .variantsHeader {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  padding: 10px 15px;
-  background-color: #000000;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.75rem;
+  grid-template-columns: 1.2fr 1fr;
+  padding: 8px 12px;
+  background-color: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  font-size: 0.72rem;
   text-transform: uppercase;
-  color: var(--color-text-secondary);
-  font-weight: 600;
+  color: #000000;
+  font-weight: 700;
   letter-spacing: 0.5px;
 }
 
 .variantRow {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  padding: 10px 15px;
+  grid-template-columns: 1.2fr 1fr;
+  padding: 8px 12px;
   align-items: center;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .variantRow:last-child {
@@ -445,131 +390,79 @@
 }
 
 .variantLabel {
-  font-size: 0.85rem;
-  font-family: var(--font-title), sans-serif;
-  color: var(--color-text-primary);
-  font-weight: 500;
-}
-
-/* Badges de Variação Individual */
-.badgeStatus {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  padding: 2px 6px;
-  border-radius: 2px;
-  display: inline-block;
-  width: max-content;
-}
-
-.badgeOk {
-  background-color: rgba(46, 92, 70, 0.15);
-  color: #8edba6;
-  border: 1px solid rgba(46, 92, 70, 0.3);
-}
-
-.badgeYellow {
-  background-color: rgba(212, 175, 55, 0.15);
-  color: var(--color-accent);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-}
-
-.badgeRed {
-  background-color: rgba(255, 77, 77, 0.15);
-  color: #ff4d4d;
-  border: 1px solid rgba(255, 77, 77, 0.3);
+  font-size: 0.82rem;
+  color: #000000;
+  font-weight: 600;
 }
 
 .variantInput {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #000000;
   padding: 6px 10px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
   outline: none;
   text-align: right;
-  width: 80px;
-  justify-self: end;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .variantInput:focus {
-  border-color: var(--color-accent);
+  border-color: #000000;
 }
 
-/* Botões de Ação */
 .btnRow {
-  display: flex;
   margin-top: 10px;
 }
 
 .saveStockBtn {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
-  border: 1px solid var(--color-accent);
-  padding: 12px 25px;
-  font-family: var(--font-title), sans-serif;
-  font-size: 0.85rem;
+  width: 100%;
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 12px 18px;
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
+  text-align: center;
 }
 
-.saveStockBtn:hover:not(:disabled) {
-  background-color: transparent;
-  color: var(--color-accent);
-}
-
-.saveStockBtn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
+.saveStockBtn:hover {
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #DFCFA8;
+  transform: translateY(-1px);
 }
 
 .noSelectedWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  font-style: italic;
+  padding: 60px 20px;
+  text-align: center;
+  color: #6B7280;
+  font-size: 0.85rem;
 }
 
-/* Toast Feedback */
+/* Toast */
 .feedbackToast {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
+  bottom: 24px;
+  right: 24px;
   padding: 12px 20px;
   font-size: 0.85rem;
-  border: 1px solid var(--color-border);
-  z-index: 100;
-  animation: slideUp 0.3s ease-out;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .toastSuccess {
-  background-color: #1f3d2f;
-  color: #9cdcb2;
-  border-color: #2e5c46;
+  background-color: #065F46;
+  color: #FAF6EE;
 }
 
 .toastError {
-  background-color: #3d1f1f;
-  color: #dc9c9c;
-  border-color: #5c2e2e;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  background-color: #991B1B;
+  color: #FAF6EE;
 }

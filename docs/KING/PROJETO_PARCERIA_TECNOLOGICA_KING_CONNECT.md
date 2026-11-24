@@ -87,28 +87,35 @@ A solução desenvolvida pela engenharia da AVA contemplará:
 
 ---
 
-## 7. Roteiro de Abordagem Comercial (Pitch para Adriane / Diretoria King)
+## 7. Mensagem Executiva Enviada (Disparada em 23/11/2026 às 23:26 via WhatsApp)
 
-### Mensagem de Abordagem Inicial (WhatsApp / E-mail Executivo):
+A mensagem foi enviada diretamente pelo Genera Armando para o WhatsApp oficial de atendimento da Fábrica King (`11 95360-5184` — Adriane / Anderson):
 
-> *"Olá, Adriane e diretoria da Fábrica King!*  
->  
-> *Recebemos o retorno de vocês sobre a alta demanda por e-mail e identificamos uma oportunidade muito maior do que sermos apenas um cliente convencional.*  
->  
-> *Nós somos da AVA Sem Limites, uma marca de streetwear e plataforma de tecnologia e-commerce. Notamos que vocês têm uma excelente capacidade produtiva em São Paulo, mas o processo de receber artes e pedidos por e-mail cria um gargalo natural de tempo para a equipe de vocês.*  
->  
-> *Nossa equipe de engenharia desenvolveu uma infraestrutura de automação que conecta e-commerces diretamente às esteiras de impressão (API de pedidos, upload automático de artes 300 DPI e disparo de rastreios).*  
->  
-> *Gostaríamos de propor uma parceria estratégica: **nós implantamos a tecnologia de automação para a King, e a remuneração desse desenvolvimento é viabilizada em créditos de produção / permuta de confecção**, sem desembolso financeiro do caixa de vocês. Vocês ganham uma operação automatizada para atender dezenas de marcas sem sobrecarregar o atendimento, e nós produzimos parte de nossas coleções com vocês.*  
->  
-> *Podemos agendar uma call rápida de 15 minutos com a diretoria técnica/comercial para apresentar o plano?"*
+```text
+Anderson e Adriane, bom dia!
+
+Estivemos olhando com calma o site e o atendimento de vocês. Dá para ver de longe que vocês têm uma fábrica de verdade, costura boa e capacidade produtiva de respeito, em São Paulo.
+Mas também vimos o outro lado da moeda: a equipe de vocês está atolada no WhatsApp, a correria do dia a dia da fábrica engole tudo, e uma solução que desafogue, nunca chega...
+Para fins de referência, entrem no site da Dimona, de estamparia sob demanda. Vejam como eles montam o pedido de modo super automático:
+https://www.camisadimona.com.br/estudio/
+Essa é a solução que gostaríamos de oferecer a vocês.
+Como temos e-commerce próprio nesse ramo, temos interesse em estudar um modelo baseado em permuta: seus produtos pelo nosso sistema.
+Se fizer sentido para vocês, damos prosseguimento a essa ideia
+```
 
 ---
 
-## 8. Próximos Passos (Após a Homologação do Chat da AVA)
+## 8. Dossiê de Auditoria Técnica de Apoio (REA)
 
-1. Executar a varredura profunda com o **MCP REA** no domínio `fabricaking.com.br` para mapear stack, rotas e gargalos de rede.
-2. Estruturar o Pitch Deck em 5 slides municiado com os dados de auditoria do REA.
-3. Enviar mensagem de abordagem inicial para o contato comercial da King.
-4. Formalizar a parceria de desenvolvimento por permuta de produtos para as coleções da AVA.
+Os detalhes técnicos das tecnologias identificadas, os códigos decompilados da King, as travas de 5 MB e a estrutura de banco de dados no Glide estão arquivados no documento:
+- [`AUDITORIA_ENGENHARIA_REVERSA_REA_FABRICA_KING.md`](./AUDITORIA_ENGENHARIA_REVERSA_REA_FABRICA_KING.md)
+
+---
+
+## 9. Próximos Passos (Aguardando Retorno do Anderson/Adriane)
+
+1. Aguardar retorno do WhatsApp oficial da Fábrica King.
+2. Com a resposta positiva, agendar alinhamento rápido de 10 a 15 minutos em vídeo (Google Meet) para apresentar a proposta da PoC do Gateway.
+3. Prosseguir com os testes de homologação do chat multiusuário e presença dos 4 sócios da AVA enquanto a King avalia a proposta.
+
 

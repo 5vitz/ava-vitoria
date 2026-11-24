@@ -14,21 +14,35 @@ interface PageProps {
 
 export default async function GridManagerPage({ searchParams }: PageProps) {
   const resolvedSearchParams = await searchParams;
-  const collectionId = resolvedSearchParams.collection as string;
+  let collectionId = resolvedSearchParams.collection as string;
   const selectingForProduct = (resolvedSearchParams.selectingForProduct as string) || "";
 
-  // Se não houver coleção selecionada, redireciona para a Página de Projetos
+  // Resolver ID da coleção ativa caso não tenha sido passado explicitamente na URL
+  const activeStoreCollectionId = await getActiveStoreCollectionId();
+
   if (!collectionId) {
-    redirect("/admin/atelier");
+    if (activeStoreCollectionId) {
+      collectionId = activeStoreCollectionId;
+    } else {
+      const latestCol = await prisma.collection.findFirst({
+        orderBy: { created_at: "desc" },
+      });
+      if (latestCol) {
+        collectionId = latestCol.id;
+      }
+    }
+    // Redireciona para URL canônica com o collectionId resolvido
+    if (collectionId) {
+      redirect(`/admin/grid-manager?collection=${collectionId}`);
+    } else {
+      redirect("/admin/atelier");
+    }
   }
 
-  // Buscar a Coleção atual e a Coleção Ativa da Loja
-  const [currentCollection, activeStoreCollectionId] = await Promise.all([
-    prisma.collection.findUnique({
-      where: { id: collectionId },
-    }),
-    getActiveStoreCollectionId(),
-  ]);
+  // Buscar a Coleção atual
+  const currentCollection = await prisma.collection.findUnique({
+    where: { id: collectionId },
+  });
 
   if (!currentCollection) {
     redirect("/admin/atelier");

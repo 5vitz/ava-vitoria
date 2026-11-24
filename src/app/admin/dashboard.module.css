@@ -1,447 +1,234 @@
+/* dashboard.module.css — Centro de Projetos e Coleções Estética Palha/Marfim AVA */
+
 .adminContainer {
   min-height: 100vh;
-  background: #EFE4CC;
-  color: var(--color-text-primary);
+  background-color: #EFE4CC;
+  color: #18191B;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-body), sans-serif;
-  font-weight: var(--body-weight);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.adminHeader {
-  height: 70px;
+.dashboardContainer {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px 24px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: #000000;
-  backdrop-filter: blur(10px);
+  flex-direction: column;
+  gap: 24px;
+  box-sizing: border-box;
 }
 
-.headerTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 15px;
+.introSection {
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  padding: 24px;
 }
 
-.adminTitle {
+.dashboardTitle {
   font-family: var(--font-title), sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.8px;
+  color: #000000;
+  margin: 0 0 6px 0;
+}
+
+.dashboardSubtitle {
+  font-size: 0.85rem;
+  color: #4B5563;
   margin: 0;
 }
 
-.adminBadge {
-  background-color: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.adminNav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navLink {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-}
-
-.navLink:hover {
-  color: var(--color-accent);
-}
-
-.adminMain {
-  flex: 1;
-  overflow-y: auto;
-}
-
-/* Dashboard Container */
-.dashboardContainer {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 40px 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-}
-
-/* Banner do Modo de Seleção */
 .selectionModeBanner {
-  background-color: rgba(212, 175, 55, 0.08);
-  border: 1px solid var(--color-accent);
-  padding: 15px 20px;
+  background-color: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  animation: slideDown 0.3s ease-out;
+  gap: 16px;
 }
 
 .bannerInfo {
   display: flex;
   align-items: center;
-  gap: 15px;
-}
-
-.bannerIcon {
-  font-size: 1.5rem;
+  gap: 12px;
 }
 
 .bannerInfo strong {
-  font-family: var(--font-title), sans-serif;
-  color: var(--color-accent);
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
+  font-size: 0.85rem;
+  color: #000000;
+  display: block;
+  margin-bottom: 2px;
 }
 
 .bannerInfo p {
-  margin: 2px 0 0 0;
-  font-size: 0.8rem;
-  color: var(--color-text-primary);
+  font-size: 0.78rem;
+  color: #374151;
+  margin: 0;
 }
 
 .bannerCancelBtn {
-  background-color: transparent;
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 8px 16px;
   font-size: 0.75rem;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.bannerCancelBtn:hover {
-  background-color: var(--color-accent);
-  color: var(--color-bg);
-}
-
-/* Intro Section */
-.introSection {
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 15px;
-}
-
-.dashboardTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.8rem;
   font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 8px 0;
-  letter-spacing: 1px;
+  cursor: pointer;
 }
 
-.dashboardSubtitle {
-  font-size: 0.9rem;
-  color: var(--color-text-secondary);
-  margin: 0;
-  line-height: 1.4;
-}
-
-/* Search Bar Row */
 .searchBarRow {
   display: flex;
-  gap: 20px;
+  gap: 16px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .searchContainer {
   flex: 1;
+  min-width: 260px;
 }
 
 .searchInput {
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-  padding: 15px;
-  font-size: 0.95rem;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #18191B;
+  padding: 10px 14px;
+  font-size: 0.85rem;
   font-family: var(--font-body), sans-serif;
   outline: none;
-  transition: border-color 0.2s ease;
   box-sizing: border-box;
 }
 
 .searchInput:focus {
-  border-color: var(--color-accent);
+  border-color: #000000;
 }
 
 .newProjectBtn {
-  background-color: transparent;
-  border: 1px solid #D4AF37;
-  color: #D4AF37;
-  padding: 15px 25px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 10px 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.8px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .newProjectBtn:hover {
-  background-color: #D4AF37;
-  color: #000000;
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #DFCFA8;
+  transform: translateY(-1px);
 }
 
-/* Create Form */
 .createForm {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  padding: 25px;
+  background-color: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  animation: fadeIn 0.3s ease-out;
+  gap: 16px;
 }
 
 .formTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 5px 0;
-  letter-spacing: 1px;
+  color: #000000;
+  margin: 0;
 }
 
 .formGridFields {
   display: grid;
-  grid-template-columns: 2fr 1fr 1.5fr;
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--color-text-secondary);
+  color: #374151;
 }
 
 .textInput,
 .select {
-  background-color: rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-  padding: 12px;
-  font-size: 0.9rem;
-  font-family: var(--font-body), sans-serif;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #000000;
+  padding: 8px 12px;
+  font-size: 0.85rem;
   outline: none;
-  transition: border-color 0.2s ease;
-}
-
-.textInput:focus,
-.select:focus {
-  border-color: var(--color-accent);
 }
 
 .saveBtn {
   align-self: flex-start;
-  background-color: var(--color-accent);
-  border: 1px solid var(--color-accent);
-  color: var(--color-bg);
-  padding: 12px 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 10px 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.saveBtn:hover {
-  background-color: transparent;
-  color: var(--color-accent);
-}
-
-.formError {
-  background-color: rgba(255, 77, 77, 0.1);
-  border: 1px solid #ff4d4d;
-  color: #ff4d4d;
-  padding: 10px;
-  font-size: 0.8rem;
-}
-
-/* Projects Grid */
 .projectsGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-}
-
-.emptyGridMessage {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px 0;
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  border: 1px dashed var(--color-border);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
 }
 
 .projectCard {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  padding: 25px;
-  cursor: pointer;
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 180px;
 }
 
 .projectCard:hover {
-  border-color: var(--color-accent);
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .projectCardActive {
-  border-color: #D4AF37 !important;
-  box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
-}
-
-.storefrontSwitchRow {
-  margin-top: 4px;
-}
-
-.activeStoreBadge {
-  display: inline-block;
-  background-color: rgba(212, 175, 55, 0.15);
-  border: 1px solid #D4AF37;
-  color: #D4AF37;
-  font-size: 0.7rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 6px 10px;
-}
-
-.setStorefrontBtn {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--color-text-secondary);
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 6px 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.setStorefrontBtn:hover {
-  background-color: #D4AF37;
-  color: #000000;
-  border-color: #D4AF37;
-}
-
-.toastSuccess {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  background-color: #1f3d2f;
-  color: #9cdcb2;
-  border: 1px solid #2e5c46;
-  padding: 12px 20px;
-  font-size: 0.85rem;
-  z-index: 9999;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  border: 2px solid #000000 !important;
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .colYear {
-  font-family: var(--font-title), sans-serif;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #D4AF37;
-}
-
-.colSeason {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 3px 8px;
-  color: var(--color-text-secondary);
-}
-
-.colName {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin: 0;
-  line-height: 1.2;
-}
-
-.openCardLabel {
   font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #D4AF37;
-  font-weight: 600;
-  margin-top: auto;
-  transition: transform 0.2s ease;
-}
-
-.projectCard:hover .openCardLabel {
-  transform: translateX(5px);
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  font-weight: 700;
+  color: #4B5563;
 }
 
 .headerRight {
@@ -450,24 +237,75 @@
   gap: 8px;
 }
 
-.deleteColBtn {
-  background-color: transparent;
-  border: none;
-  color: #ff4d4d;
-  font-size: 1.25rem;
-  font-weight: 700;
-  cursor: pointer;
-  line-height: 1;
+.colSeason {
+  font-size: 0.72rem;
+  background-color: rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.14);
   padding: 2px 6px;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  color: #374151;
+  font-weight: 600;
 }
 
-.deleteColBtn:hover {
-  background-color: rgba(255, 77, 77, 0.15);
-  color: #ff1a1a;
-  transform: scale(1.15);
+.deleteColBtn {
+  background: transparent;
+  border: none;
+  color: #DC2626;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.colName {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000000;
+  margin: 0 0 14px 0;
+}
+
+.storefrontSwitchRow {
+  margin-bottom: 14px;
+}
+
+.activeStoreBadge {
+  display: inline-block;
+  font-size: 0.72rem;
+  background-color: rgba(5, 150, 105, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(5, 150, 105, 0.3);
+  padding: 4px 8px;
+  font-weight: 700;
+}
+
+.setStorefrontBtn {
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #000000;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.setStorefrontBtn:hover {
+  background-color: #000000;
+  color: #FAF6EE;
+}
+
+.openCardLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.emptyGridMessage {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  color: #6B7280;
+  font-size: 0.85rem;
 }

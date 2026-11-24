@@ -1,167 +1,113 @@
+/* media-library.module.css — Biblioteca de Mídias Estética Palha/Marfim AVA */
+
 .adminContainer {
   min-height: 100vh;
-  background-color: #000000;
-  color: var(--color-text-primary);
+  background-color: #EFE4CC;
+  color: #18191B;
   display: flex;
   flex-direction: column;
-  font-family: var(--font-body), sans-serif;
-  font-weight: var(--body-weight);
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.adminHeader {
-  height: 70px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 30px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: #000000;
-  backdrop-filter: blur(10px);
-}
-
-.headerTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.adminTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  margin: 0;
-}
-
-.adminBadge {
-  background-color: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.adminNav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navLink {
-  color: var(--color-text-secondary);
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
-}
-
-.navLink:hover {
-  color: var(--color-accent);
-}
-
-.adminMain {
-  flex: 1;
-  width: 100%;
-}
-
-/* Media Library Container (Layout Vertical: Controles no Topo + Galeria Abaixo) */
 .mediaContainer {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
-/* Barra de Controles Horizontal Unificada (Acima dos Cards) */
+/* Barra de Controles e Filtros */
 .controlsSection {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  padding: 14px 20px;
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  padding: 16px 20px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
   gap: 20px;
-  width: 100%;
-  box-sizing: border-box;
+  flex-wrap: wrap;
 }
 
 .toolbarLeft {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: 16px;
-  flex: 1;
-  max-width: 650px;
+  flex-wrap: wrap;
 }
 
 .toolbarRight {
   display: flex;
   align-items: center;
-}
-
-.counterBadge {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  padding: 8px 16px;
-  height: 40px;
-  box-sizing: border-box;
-}
-
-.counterNumber {
-  font-family: var(--font-title), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #D4AF37;
-}
-
-.counterLabel {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-text-secondary);
+  gap: 16px;
 }
 
 .fieldGroup {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  flex: 1;
-  min-width: 240px;
+  align-items: center;
+  gap: 10px;
 }
 
 .label {
   font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-text-secondary);
+  letter-spacing: 0.8px;
+  color: #000000;
+  white-space: nowrap;
 }
 
 .select {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-  padding: 10px 12px;
-  height: 40px;
-  box-sizing: border-box;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #18191B;
+  padding: 8px 12px;
+  height: 38px;
   font-size: 0.85rem;
   font-family: var(--font-body), sans-serif;
   outline: none;
+  min-width: 220px;
+  cursor: pointer;
   transition: border-color 0.2s ease;
-  width: 100%;
 }
 
 .select:focus {
-  border-color: var(--color-accent);
+  border-color: #000000;
 }
 
+.counterBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  padding: 6px 12px;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+.counterLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: #4B5563;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.counterNumber {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Upload Group */
 .uploadGroup {
-  flex-shrink: 0;
+  display: flex;
+  align-items: center;
 }
 
 .fileInputHidden {
@@ -169,125 +115,138 @@
 }
 
 .uploadBtn {
+  background-color: #000000;
+  color: #FAF6EE;
+  border: 1px solid #000000;
+  padding: 8px 18px;
+  height: 38px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
-  box-sizing: border-box;
-  background-color: transparent;
-  border: 1px dashed #D4AF37;
-  color: #D4AF37;
-  padding: 0 20px;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
   white-space: nowrap;
 }
 
 .uploadBtn:hover:not(.uploadBtnDisabled) {
-  background-color: rgba(212, 175, 55, 0.12);
-  border-style: solid;
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #DFCFA8;
+  transform: translateY(-1px);
 }
 
 .uploadBtnDisabled {
-  border-color: rgba(255, 255, 255, 0.2);
-  color: rgba(255, 255, 255, 0.35);
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* Seção da Galeria (Abaixo dos Controles) */
+/* Galeria de Mídias (Grid Uniforme de 9 Colunas Balenciaga) */
 .gallerySection {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
 }
 
 .galleryHeader {
-  padding: 15px 20px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: #000000;
+  padding: 16px 20px;
+  background-color: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .galleryTitle {
   font-family: var(--font-title), sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.05rem;
+  font-weight: 700;
   text-transform: uppercase;
-  margin: 0 0 4px 0;
-  letter-spacing: 1px;
+  margin: 0 0 2px 0;
+  letter-spacing: 0.8px;
+  color: #000000;
 }
 
 .gallerySubtitle {
   font-size: 0.75rem;
-  color: var(--color-text-secondary);
+  color: #4B5563;
   margin: 0;
 }
 
-/* Grid de 9 Colunas Uniformes (Múltiplo de 3 da Vitrine) */
 .mediaGrid {
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(9, minmax(0, 1fr));
   gap: 12px;
-  align-content: start;
-  width: 100%;
-  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .mediaGrid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .mediaGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .emptyGallery {
   grid-column: 1 / -1;
   text-align: center;
-  padding: 80px 0;
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
+  padding: 60px 20px;
+  color: #6B7280;
+  font-size: 0.85rem;
 }
 
 .mediaCard {
-  border: 1px solid var(--color-border);
-  background-color: #000000;
-  padding: 6px;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  box-sizing: border-box;
   position: relative;
-  min-width: 0;
-  width: 100%;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+  overflow: hidden;
 }
 
 .mediaCard:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(0, 0, 0, 0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.mediaCardSelectable {
+  cursor: pointer;
 }
 
 .mediaThumbWrapper {
-  width: 100%;
   aspect-ratio: 9 / 16;
-  background-color: #000000;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
+  background-color: #FEFCF5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .mediaThumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
+  mix-blend-mode: multiply;
 }
 
 .zoomBtn {
   position: absolute;
   top: 6px;
-  left: 6px;
-  background-color: rgba(0, 0, 0, 0.68);
+  right: 6px;
+  background-color: rgba(0, 0, 0, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  color: #FFFFFF;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -295,238 +254,39 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  padding: 0;
-  line-height: 1;
+  font-size: 0.75rem;
   transition: all 0.2s ease;
+  z-index: 5;
 }
 
 .zoomBtn:hover {
-  background-color: #D4AF37;
-  color: #000000;
-  border-color: #D4AF37;
-}
-
-.deleteBtn {
-  position: absolute;
-  top: 6px;
-  right: 6px;
-  background-color: rgba(0, 0, 0, 0.68);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ff4d4d;
-  font-size: 1.05rem;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  padding: 0;
-  line-height: 1;
-  transition: all 0.2s ease;
-}
-
-.deleteBtn:hover {
-  background-color: #ff4d4d;
-  color: #fff;
-  border-color: #ff4d4d;
+  background-color: #000000;
+  transform: scale(1.1);
 }
 
 .mediaDetails {
+  padding: 8px 10px;
+  background-color: #FEFCF5;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 0;
-  width: 100%;
+  gap: 4px;
 }
 
 .filename {
-  font-size: 0.65rem;
-  color: var(--color-text-primary);
-  text-overflow: ellipsis;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #000000;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-  display: block;
-  width: 100%;
 }
 
 .collectionBadge {
-  font-size: 0.6rem;
-  color: #D4AF37;
-  text-transform: uppercase;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  text-overflow: ellipsis;
+  font-size: 0.62rem;
+  color: #4B5563;
   overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-/* Modal Lightbox de Inspeção em Tamanho Original */
-.zoomModalOverlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.88);
-  backdrop-filter: blur(6px);
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  box-sizing: border-box;
-}
-
-.zoomModalContent {
-  background-color: #000000;
-  border: 1px solid var(--color-border);
-  max-width: 92vw;
-  max-height: 92vh;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85);
-}
-
-.zoomModalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--color-border);
-  background-color: #000000;
-}
-
-.zoomModalFilename {
-  font-size: 0.8rem;
-  color: var(--color-text-primary);
-  letter-spacing: 0.5px;
-}
-
-.zoomModalCloseBtn {
-  background: transparent;
-  border: 1px solid var(--color-border);
-  color: var(--color-text-primary);
-  width: 28px;
-  height: 28px;
-  font-size: 1.2rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.zoomModalCloseBtn:hover {
-  background-color: #ff4d4d;
-  border-color: #ff4d4d;
-  color: #ffffff;
-}
-
-.zoomModalBody {
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: auto;
-  max-height: calc(92vh - 55px);
-}
-
-.zoomModalMedia {
-  max-width: 88vw;
-  max-height: calc(92vh - 80px);
-  width: auto;
-  height: auto;
-  object-fit: contain;
-  display: block;
-}
-
-/* Feedback Toast Notification */
-.feedbackToast {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 12px 20px;
-  font-size: 0.85rem;
-  border: 1px solid var(--color-border);
-  z-index: 100;
-  animation: slideUp 0.3s ease-out;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-}
-
-.toastSuccess {
-  background-color: #1f3d2f;
-  color: #9cdcb2;
-  border-color: #2e5c46;
-}
-
-.toastError {
-  background-color: #3d1f1f;
-  color: #dc9c9c;
-  border-color: #5c2e2e;
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Banner de Modo de Seleção Ativa */
-.selectionBanner {
-  background-color: rgba(212, 175, 55, 0.1);
-  border: 1px solid var(--color-accent);
-  padding: 15px 20px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-}
-
-.selectionBannerText {
-  font-family: var(--font-body), sans-serif;
-  font-size: 0.9rem;
-  color: var(--color-text-primary);
-}
-
-.selectionBannerText span {
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--color-accent);
-  margin-right: 5px;
-  letter-spacing: 0.5px;
-}
-
-.cancelSelectionBtn {
-  background-color: transparent;
-  border: 1px solid #ff4d4d;
-  color: #ff4d4d;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.cancelSelectionBtn:hover {
-  background-color: #ff4d4d;
-  color: #fff;
-}
-
-/* Card Selecionável */
-.mediaCardSelectable {
-  cursor: pointer;
-}
-
-.mediaCardSelectable:hover {
-  border-color: var(--color-accent) !important;
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
 }
 
 .mediaFooterRow {
@@ -536,19 +296,125 @@
   margin-top: 4px;
 }
 
-.selectAssetBtn {
-  background-color: #D4AF37;
-  color: #000000;
-  border: 1px solid #D4AF37;
-  padding: 3px 8px;
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
+.deleteBtn {
+  background: transparent;
+  border: none;
+  color: #DC2626;
+  font-size: 0.72rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 2px 4px;
+  font-weight: 600;
+}
+
+.deleteBtn:hover {
+  text-decoration: underline;
+}
+
+.selectAssetBtn {
+  background-color: #000000;
+  color: #FAF6EE;
+  border: none;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  cursor: pointer;
 }
 
 .selectAssetBtn:hover {
-  background-color: transparent;
-  color: #D4AF37;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #DFCFA8;
+}
+
+/* Modal de Zoom / Lightbox */
+.zoomModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.zoomModalContent {
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.zoomModalHeader {
+  padding: 12px 18px;
+  background-color: #DFCFA8;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.zoomModalFilename {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #000000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.zoomModalCloseBtn {
+  background: transparent;
+  border: none;
+  color: #000000;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.zoomModalBody {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FEFCF5;
+}
+
+.zoomModalMedia {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* Toast */
+.feedbackToast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.toastSuccess {
+  background-color: #065F46;
+  color: #FAF6EE;
+}
+
+.toastError {
+  background-color: #991B1B;
+  color: #FAF6EE;
 }

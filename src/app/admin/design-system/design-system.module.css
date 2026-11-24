@@ -1,308 +1,221 @@
+/* design-system.module.css — Customização da Alma Dinâmica Estética Palha/Marfim AVA */
+
 .adminContainer {
   min-height: 100vh;
-  background-color: #000000;
-  color: #FFFFFF;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 300;
+  background-color: #EFE4CC;
+  color: #18191B;
   display: flex;
   flex-direction: column;
-}
-
-.adminHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 40px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
-}
-
-.headerTitleGroup {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.adminTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #FF4D1C;
-}
-
-.adminBadge {
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  border: 1px solid rgba(255, 77, 28, 0.3);
-  color: #FF4D1C;
-  padding: 4px 8px;
-  font-weight: 400;
-}
-
-.adminNav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.navLink {
-  font-size: 0.85rem;
-  color: #A0A0A0;
-  transition: color 0.3s ease;
-}
-
-.navLink:hover {
-  color: #FF4D1C;
-}
-
-.logoutButton {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #FFFFFF;
-  padding: 8px 16px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.logoutButton:hover {
-  background: #FFFFFF;
-  color: #120408;
-  border-color: #FFFFFF;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .adminMain {
-  max-width: 1200px;
+  max-width: 1100px;
   width: 100%;
   margin: 0 auto;
-  padding: 40px;
+  padding: 30px 24px 60px 24px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 24px;
 }
 
 .introCard {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(255, 255, 255, 0.02);
-  padding: 25px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  padding: 24px;
 }
 
 .introCard h2 {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #FFFFFF;
+  font-family: var(--font-title), sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #000000;
+  margin: 0 0 6px 0;
 }
 
 .introCard p {
-  font-size: 0.9rem;
-  color: #A0A0A0;
+  font-size: 0.85rem;
+  color: #4B5563;
+  margin: 0;
   line-height: 1.5;
+}
+
+.panelSection {
+  background-color: #FAF6EE;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sectionTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #000000;
+  margin: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .formGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-
-@media (max-width: 900px) {
-  .formGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.panelSection {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.4);
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.sectionTitle {
-  font-family: 'Outfit', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #FF4D1C;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #A0A0A0;
-  font-weight: 400;
+  letter-spacing: 0.6px;
+  color: #374151;
 }
 
 .colorPickerWrapper {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  padding: 4px 8px;
+  height: 38px;
+  box-sizing: border-box;
 }
 
 .colorPicker {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  width: 45px;
-  height: 45px;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 26px;
+  height: 26px;
+  background: none;
+  border: none;
   cursor: pointer;
   padding: 0;
-  outline: none;
+}
+
+.colorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
 }
 
 .colorPicker::-webkit-color-swatch {
-  border: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 .colorInput {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  padding: 10px 15px;
-  font-size: 0.9rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  outline: none;
-  flex-grow: 1;
-}
-
-.colorInput:focus {
-  border-color: #FF4D1C;
-}
-
-.select {
-  background: rgba(0, 0, 0, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  padding: 12px 15px;
-  font-size: 0.95rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 300;
-  outline: none;
-  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: #000000;
+  font-size: 0.82rem;
+  font-family: monospace;
   width: 100%;
-  transition: border-color 0.3s ease;
+  outline: none;
 }
 
-.select:focus {
-  border-color: #FF4D1C;
-}
-
+.select,
 .inputNumber {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  padding: 12px 15px;
-  font-size: 0.95rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.22);
+  color: #18191B;
+  padding: 8px 12px;
+  height: 38px;
+  font-size: 0.85rem;
+  font-family: var(--font-body), sans-serif;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.2s ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
+.select:focus,
 .inputNumber:focus {
-  border-color: #FF4D1C;
+  border-color: #000000;
 }
 
+/* Preview Box */
 .previewBox {
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(0, 0, 0, 0.2);
-  padding: 30px;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 250px;
-  transition: all 0.3s ease;
+  gap: 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .previewTitle {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  color: #000000;
+  margin: 0;
 }
 
 .previewBody {
-  font-size: 1rem;
+  font-size: 0.85rem;
+  color: #4B5563;
+  margin: 0;
   line-height: 1.6;
-  max-width: 450px;
 }
 
+/* Ações */
 .actionsSection {
-  grid-column: 1 / -1;
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-}
-
-.saveButton {
-  background: #FF4D1C;
-  color: #120408;
-  border: 1px solid #FF4D1C;
-  padding: 16px 40px;
-  font-size: 0.9rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.saveButton:hover:not(:disabled) {
-  background: transparent;
-  color: #FF4D1C;
-}
-
-.saveButton:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.statusMessage {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 15px;
-  border: 1px solid transparent;
-  font-size: 0.9rem;
+  justify-content: flex-end;
+  gap: 16px;
   margin-top: 10px;
 }
 
+.saveButton {
+  background-color: #000000;
+  border: 1px solid #000000;
+  color: #FAF6EE;
+  padding: 12px 24px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveButton:hover {
+  background-color: rgba(0, 0, 0, 0.82);
+  color: #DFCFA8;
+  transform: translateY(-1px);
+}
+
+.statusMessage {
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
 .statusSuccess {
-  background: rgba(46, 204, 113, 0.1);
-  border-color: rgba(46, 204, 113, 0.2);
-  color: #2ECC71;
+  background-color: rgba(5, 150, 105, 0.14);
+  color: #065F46;
+  border: 1px solid rgba(5, 150, 105, 0.35);
 }
 
 .statusError {
-  background: rgba(231, 76, 60, 0.1);
-  border-color: rgba(231, 76, 60, 0.2);
-  color: #E74C3C;
+  background-color: rgba(220, 38, 38, 0.14);
+  color: #991B1B;
+  border: 1px solid rgba(220, 38, 38, 0.35);
 }

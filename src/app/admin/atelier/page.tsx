@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
@@ -61,10 +61,98 @@ const SAMPLE_ARTWORKS: ArtworkEntry[] = [
   }
 ];
 
+interface CollectionItem {
+  id: string;
+  name: string;
+  slug: string;
+  year: number;
+  season: string;
+  productsCount: number;
+  isActiveStorefront: boolean;
+}
+
 export default function AtelierPage() {
   const [activeTab, setActiveTab] = useState<'artworks' | 'media' | 'collections'>('collections');
   const [artworks, setArtworks] = useState<ArtworkEntry[]>(SAMPLE_ARTWORKS);
   const [selectedArtwork, setSelectedArtwork] = useState<ArtworkEntry | null>(SAMPLE_ARTWORKS[0]);
+
+  // Coleções reais do banco de dados
+  const [collections, setCollections] = useState<CollectionItem[]>([]);
+  const [activeCollectionId, setActiveCollectionId] = useState<string | null>(null);
+  const [loadingCols, setLoadingCols] = useState(false);
+  const [showCreateCol, setShowCreateCol] = useState(false);
+  const [newColName, setNewColName] = useState('');
+  const [newColYear, setNewColYear] = useState(new Date().getFullYear().toString());
+  const [newColSeason, setNewColSeason] = useState('Outono');
+
+  const fetchCollections = async () => {
+    setLoadingCols(true);
+    try {
+      const res = await fetch('/api/collections');
+      const data = await res.json();
+      if (data.success) {
+        setCollections(data.collections);
+        setActiveCollectionId(data.activeCollectionId);
+      }
+    } catch (err) {
+      console.error('Erro ao buscar coleções:', err);
+    } finally {
+      setLoadingCols(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchCollections();
+  }, []);
+
+  const handleSetActiveStorefront = async (collectionId: string) => {
+    try {
+      const res = await fetch('/api/collections', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ collectionId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveCollectionId(collectionId);
+        setCollections((prev) =>
+          prev.map((c) => ({
+            ...c,
+            isActiveStorefront: c.id === collectionId,
+          }))
+        );
+      }
+    } catch (err) {
+      alert('Erro ao ativar coleção na vitrine.');
+    }
+  };
+
+  const handleCreateCollection = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newColName.trim()) return;
+
+    try {
+      const res = await fetch('/api/collections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: newColName,
+          year: newColYear,
+          season: newColSeason,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setNewColName('');
+        setShowCreateCol(false);
+        fetchCollections();
+      }
+    } catch (err) {
+      alert('Erro ao criar coleção.');
+    }
+  };
+
+  const activeOrFirstColId = activeCollectionId || collections[0]?.id || '';
 
   return (
     <div className={styles.adminLayout}>
@@ -149,15 +237,26 @@ export default function AtelierPage() {
         {/* ABA 1: PROJETOS E COLEÇÕES (VITRINE ATIVA) */}
         {activeTab === 'collections' && (
           <div className={styles.moduleCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
               <div>
                 <h2 className={styles.cardHeading}>Gerenciador de Coleções &amp; Vitrine Oficial</h2>
                 <p style={{ fontSize: '13px', color: '#3F3F46' }}>
                   Acesse o painel completo de ordenação do grid de 3 colunas, slots vazios e publicação da coleção ativa na Home.
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: '10px' }}>
-                <Link href="/admin/grid-manager" className={styles.btnPrimary}>
+              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowCreateCol(!showCreateCol)}
+                  className={styles.btnSecondary}
+                  style={{ fontSize: '12px', padding: '8px 14px' }}
+                >
+                  {showCreateCol ? '✕ Fechar Formulário' : '+ Nova Coleção'}
+                </button>
+                <Link
+                  href={activeOrFirstColId ? `/admin/grid-manager?collection=${activeOrFirstColId}` : '/admin/grid-manager'}
+                  className={styles.btnPrimary}
+                >
                   Abrir Grid Manager da Vitrine ↗
                 </Link>
                 <Link href="/" target="_blank" className={styles.btnSecondary}>
@@ -166,37 +265,137 @@ export default function AtelierPage() {
               </div>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
-              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>Coleção Sem Limites</span>
-                  <span style={{ fontSize: '10px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '2px 6px', fontWeight: 700 }}>
-                    ★ Vitrine Ativa da Loja
-                  </span>
+            {/* Formulário de Criação de Coleção */}
+            {showCreateCol && (
+              <form onSubmit={handleCreateCollection} style={{ marginTop: '20px', padding: '16px', background: '#DFCFA8', border: '1px solid rgba(0,0,0,0.18)', borderRadius: '2px' }}>
+                <h3 style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', color: '#000000' }}>
+                  + Cadastrar Nova Coleção
+                </h3>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Nome da Coleção</label>
+                    <input
+                      type="text"
+                      placeholder="Ex: Coleção Inverno 2026"
+                      value={newColName}
+                      onChange={(e) => setNewColName(e.target.value)}
+                      required
+                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', color: '#000000', fontSize: '13px' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Ano</label>
+                    <input
+                      type="number"
+                      value={newColYear}
+                      onChange={(e) => setNewColYear(e.target.value)}
+                      required
+                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', color: '#000000', fontSize: '13px' }}
+                    />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Estação</label>
+                    <select
+                      value={newColSeason}
+                      onChange={(e) => setNewColSeason(e.target.value)}
+                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', color: '#000000', fontSize: '13px' }}
+                    >
+                      <option value="Outono">Outono</option>
+                      <option value="Inverno">Inverno</option>
+                      <option value="Primavera">Primavera</option>
+                      <option value="Verão">Verão</option>
+                      <option value="Especial">Especial (Colab/Cápsula)</option>
+                    </select>
+                  </div>
                 </div>
-                <p style={{ fontSize: '12px', color: '#374151', marginBottom: '12px' }}>
-                  Coleção oficial em exibição pública no domínio www.ava-vitoria.com.br.
-                </p>
-                <Link href="/admin/grid-manager" className={styles.btnSecondary} style={{ display: 'block', textAlign: 'center', fontSize: '11px' }}>
-                  Editar Grid &amp; Produtos ↗
-                </Link>
-              </div>
+                <button
+                  type="submit"
+                  className={styles.btnPrimary}
+                  style={{ marginTop: '14px', fontSize: '11px', padding: '8px 16px' }}
+                >
+                  Gravar e Iniciar Coleção
+                </button>
+              </form>
+            )}
 
-              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
-                  <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>Coleção Ava Nova Era</span>
-                  <span style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.18)', color: '#4B5563', padding: '2px 6px', fontWeight: 600 }}>
-                    Em Produção
-                  </span>
-                </div>
-                <p style={{ fontSize: '12px', color: '#374151', marginBottom: '12px' }}>
-                  Peças e lookbook 9:16 em preparação para futuros drops.
-                </p>
-                <Link href="/admin/grid-manager" className={styles.btnSecondary} style={{ display: 'block', textAlign: 'center', fontSize: '11px' }}>
-                  Editar Grid &amp; Produtos ↗
-                </Link>
+            {/* Grid de Coleções do Banco */}
+            {loadingCols ? (
+              <div style={{ padding: '30px', textAlign: 'center', color: '#52525B', fontSize: '13px' }}>
+                Carregando coleções do catálogo...
               </div>
-            </div>
+            ) : collections.length === 0 ? (
+              <div style={{ padding: '30px', textAlign: 'center', color: '#52525B', fontSize: '13px' }}>
+                Nenhuma coleção cadastrada. Clique em "+ Nova Coleção" para começar.
+              </div>
+            ) : (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
+                {collections.map((col) => {
+                  const isStoreActive = col.isActiveStorefront || col.id === activeCollectionId;
+
+                  return (
+                    <div
+                      key={col.id}
+                      style={{
+                        padding: '16px',
+                        background: isStoreActive ? '#FAF6EE' : '#EFE4CC',
+                        border: isStoreActive ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
+                        boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <div>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                          <span style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>{col.name}</span>
+                          {isStoreActive ? (
+                            <span style={{ fontSize: '10px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '2px 6px', fontWeight: 700 }}>
+                              ★ Vitrine Ativa da Loja
+                            </span>
+                          ) : (
+                            <span style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.18)', color: '#4B5563', padding: '2px 6px', fontWeight: 600 }}>
+                              {col.season} · {col.year}
+                            </span>
+                          )}
+                        </div>
+                        <p style={{ fontSize: '12px', color: '#374151', marginBottom: '14px' }}>
+                          {col.productsCount} {col.productsCount === 1 ? 'produto cadastrado' : 'produtos cadastrados'} nesta coleção.
+                        </p>
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
+                        <Link
+                          href={`/admin/grid-manager?collection=${col.id}`}
+                          className={styles.btnSecondary}
+                          style={{ display: 'block', textAlign: 'center', fontSize: '11px', textDecoration: 'none' }}
+                        >
+                          Editar Grid &amp; Produtos ↗
+                        </Link>
+                        {!isStoreActive && (
+                          <button
+                            type="button"
+                            onClick={() => handleSetActiveStorefront(col.id)}
+                            style={{
+                              padding: '6px 10px',
+                              fontSize: '10px',
+                              textTransform: 'uppercase',
+                              letterSpacing: '0.6px',
+                              background: '#FFFFFF',
+                              border: '1px solid rgba(0,0,0,0.22)',
+                              color: '#000000',
+                              cursor: 'pointer',
+                              fontWeight: 600,
+                            }}
+                          >
+                            ⚡ Definir como Vitrine Ativa
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 

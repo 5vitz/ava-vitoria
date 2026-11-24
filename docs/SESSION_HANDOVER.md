@@ -4,9 +4,34 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 23/11/2026)
+## 1. O que realizamos nesta sessão (Estado Atual — 23/11/2026 · Noite)
 
-*   **🏛️ PLANEJAMENTO & PROTÓTIPO HOMOLOGADO DA SALA DE REUNIÕES E COMPARTILHAMENTOS (`AVA BOARDROOM`) (`docs/CHAT/`) ✅:**
+*   **👑 ENGENHARIA REVERSA (REA) COMPLETA DA FÁBRICA KING & PITCH DE PERMUTA DISPARADO (`docs/KING/`) ✅:**
+    *   **Pasta Dedicada Criada:** `docs/KING/` criada fora de Fornecedores, isolando o projeto estratégico de expansão fabril e criação de novo polo próprio em SP.
+    *   **Auditoria REA nos Bundles de Produção da King (`fabricaking.com.br`):**
+        *   **Stack Real Identificada:** Construtor **Lovable.dev** (Project ID `lovp_0b309z81x28fpt8hqbk1bqwear`), **TanStack Start / TanStack Router (TSR)**, runtime Rolldown/Vite (`rolldown-runtime-hePW80VL.js`), Cloudflare R2 (`pub-bb2e...r2.dev`) com proxy `/__l5e/assets-v1/...`.
+        *   **Banco de Dados Operacional Real:** As Ordens de Produção (OPs) rodam em um aplicativo **Glide Apps** (`status_glide`).
+        *   **O Gargalo de Ouro Comprovado pelo Código:** No bundle `op-detalhe-DzUAJHRz.js`, a origem dos pedidos é estritamente: `l.origem === 'manual' ? 'Lançamento manual' : 'Lote de PDFs'`. A fábrica **NÃO possui API**; os pedidos são digitados à mão ou baixados de PDFs de e-mail/WhatsApp.
+        *   **A Trava de 5 MB:** No bundle `enviar-arte-DkfQQFaL.js`, o código bloqueia qualquer upload acima de 5 MB (`5242880` bytes), impedindo que marcas enviem matrizes profissionais em 300 DPI (15 MB a 50 MB) e redirecionando o cliente de volta para o WhatsApp da Adriane.
+    *   **Dossiê Técnico Salvo:** [`docs/KING/AUDITORIA_ENGENHARIA_REVERSA_REA_FABRICA_KING.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/KING/AUDITORIA_ENGENHARIA_REVERSA_REA_FABRICA_KING.md) e projeto atualizado em [`docs/KING/PROJETO_PARCERIA_TECNOLOGICA_KING_CONNECT.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/KING/PROJETO_PARCERIA_TECNOLOGICA_KING_CONNECT.md).
+    *   **Mensagem Executiva de Abordagem Disparada (WhatsApp · 23/11 às 23:26):**
+        *   Enviada pelo Genera Armando com tom extremamente didático, coloquial, sem jargões em inglês e com alta inteligência psicológica:
+        *   *"Anderson e Adriane, bom dia! Estivemos olhando com calma o site e o atendimento de vocês... Para fins de referência, entrem no site da Dimona, de estamparia sob demanda (https://www.camisadimona.com.br/estudio/)... Como temos e-commerce próprio nesse ramo, temos interesse em estudar um modelo baseado em permuta: seus produtos pelo nosso sistema. Se fizer sentido para vocês, damos prosseguimento a essa ideia"*.
+
+*   **🤖 NOVO BOTÃO `AGENTES`, HUB `/admin/agentes` & TELEMETRIA NA DIRETORIA EXECUTIVA ✅:**
+    *   **Botão `🤖 AGENTES` no Header Principal:** Removido o botão redundante `🚨 CONVOCAR REUNIÃO` de perto da Logo, substituindo-o pelo botão com visual vidro fumê `🤖 AGENTES` no `AdminHeader.tsx`.
+    *   **Nova Página Dedicada (`/admin/agentes`):** Hub completo de monitoramento dos 16 agentes autônomos da Mesa Redonda com filtros por diretoria e status em tempo real.
+    *   **Telemetria Reincorporada à Diretoria:** A seção de Telemetria foi reinserida na base da página de Diretoria Executiva (`/admin/diretoria`), com cards clicáveis que abrem o dossiê modal de atribuições de cada agente (`AgentDossierModal`).
+    *   **Correção dos LEDs de Presença Societária:** Apenas o sócio logado (`armando`) exibe LED verde (`#059669`). Sócios ausentes (`flavio`, `tripoint`, `gustavo`) agora exibem LED âmbar/amarelo (`#D97706`). Fundo preto chapado do nome do sócio removido, mantendo o tom palha nobre (`#FAF6EE`).
+    *   **Substituição do Preto Chapado por Vidro Fumê Translúcido:** Botões ativos (`🏛️ Diretoria`, cards de decisão e controles) padronizados com `rgba(0, 0, 0, 0.46)` e `backdrop-filter: blur(12px)`.
+
+*   **🚚 ATUALIZAÇÃO DO PEDIDO DIMONA #755-460-927 ("PEDIDO ENVIADO" VIA J&T EXPRESS) ✅:**
+    *   Auditoria do e-mail oficial recebido da Dimona em 23/11/2026 às 17:24 (`docs/Fornecedores/Dimona/Gmail - Pedido enviado ;D.pdf`).
+    *   Status do lote físico das 6 amostras avançou para **`Pedido Enviado`** (ID 26) via transportadora **J&T Express**, total R$ 472,80 pago via PIX, com previsão de entrega em Vitória/ES em **26/11/2026**.
+    *   Atualizados: `/admin/producao` (Stepper com etapa 4 concluída e etapa 5 ativa), rota `/api/production/samples` e card de decisão executiva `DEC-POD-02`.
+    *   **Compilação Turbopack / Next.js:** Build executado e validado com **100% de sucesso (`Exit code 0`)**.
+
+*   **🏛️ PLANEJAMENTO & PROTÓTIPO DA SALA DE REUNIÕES E CHAT SOCIETÁRIO (`docs/CHAT/`) ✅:**
     *   **Arquivos Criados & Homologados:**
         1. **Plano Técnico Completo:** [`docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/CHAT/PLANO_IMPLEMENTACAO_SALA_REUNIOES_CHAT.md)
         2. **Protótipo Interativo Funcional (CSS Real do Painel `#EFE4CC` / `#DFCFA8` / `#000000`):** [`docs/CHAT/prototipo_chat_societario.html`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/CHAT/prototipo_chat_societario.html)
@@ -310,19 +335,24 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 3. Próximos Passos Imediatos (Para a Reunião Presencial e Próxima Sessão)
+## 3. Próximos Passos Imediatos (Para a Próxima Sessão)
 
-1.  **Reuniões Presenciais com os Sócios (Alinhamento & Credenciamento):**
-    *   **Tripoint (Domingo, 24/Nov, presencial):** Apresentar o Cockpit `/admin`, orientar o login individual (`tripoint` / `admin123`), avaliar as matrizes no Atelier Criativo (`/admin/atelier`) e definir o cronograma da Nova Coleção PoD. Coletar a impressão do Tripoint sobre o teste do **Magnific AI** (~US$ 20/mês).
-    *   **Flávio (Financeiro & Jurídico):** Apresentar o módulo de **Assinaturas & Custos Fixos** (`/admin/financeiro/assinaturas`), a sistemática de ressarcimento das despesas adiantadas por Armando (R$ 209,33/mês) e o plano de validação inicial emitindo NF-e 55 no **Bling ERP através do MEI com Inscrição Estadual ativa já existente**.
-2.  **Operação e Fornecedores PoD:**
-    *   **Estorno Reserva INK (R$ 159,00):** Orientar Gustavo a solicitar o reembolso integral dos R$ 159,00 pagos no cartão de crédito via painel/suporte da Reserva INK (Art. 49 do CDC / garantia de 7 dias), eliminando cobranças fixas desnecessárias.
-    *   Homologar o cadastro do CNPJ/IE ativo no canal B2B Corporate da **Dimona Dropsimples** para destravar a **Tabela de Lojista/Atacado (R$ 38 a R$ 58)** e eliminar a cobrança a preço de consumidor final.
-    *   Operar a **Printful Brasil** (API v1/v2 com token Bearer gratuito) para Bonés com Bordado 3D Puff e maquetes fotorealistas de estúdio.
-3.  **GEO & Arquitetura de IA (`/llms.txt`):**
-    *   Atualizar [`src/app/llms.txt/route.ts`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/llms.txt/route.ts) adicionando a seção de **Experiência do Cliente & Suporte 24/7 (Concierge Digital)**, garantindo pontuação máxima de confiança (E-E-A-T) nas respostas do ChatGPT, Gemini e Perplexity.
-4.  **Campanha "EU TENHO CUPOM!" & Vitrine Secreta:**
-    *   Assim que o conselho definir a data do Drop Inaugural, ativar o módulo com senha prefixada (`1...` a `5...` para 10% a 50% OFF) para escoar o estoque físico já confeccionado em paralelo à Nova Coleção PoD.
+1.  **🧪 Homologação e Testes Multiusuário do Chat & Sala de Reuniões (Prioridade Imediata):**
+    *   Simular os **4 Sócios Conectados Concomitantemente** na mesma máquina (`armando`, `flavio`, `tripoint`, `gustavo` com senha `admin123`) utilizando janelas anônimas ou perfis de usuário isolados no navegador.
+    *   Testar a virada das 4 luzes para **`🟢 CONECTADOS (4/4)`** no cabeçalho em tempo real.
+    *   Validar: troca de mensagens de chat identificadas por sócio, anexo e download de documentos corporativos, permissões de microfone/câmera e criação de nova pauta travada.
+2.  **👑 Acompanhamento da Parceria Fábrica King (`docs/KING/`):**
+    *   Monitorar o retorno da mensagem enviada no WhatsApp (`11 95360-5184` - Anderson/Adriane).
+    *   Com a resposta positiva, agendar call rápida de 10 a 15 minutos em vídeo e iniciar o desenho da PoC do **King Connect Gateway** (estúdio visual similar ao da Dimona + webhook direto para o Glide da King sem travas de 5 MB).
+3.  **🚚 Rastreio do Pedido de Amostras Dimona (`#755-460-927`):**
+    *   Acompanhar o trânsito da J&T Express previsto para chegar em Vitória/ES em **26/11/2026**.
+4.  **Reuniões Presenciais com os Sócios (Alinhamento & Credenciamento):**
+    *   **Tripoint:** Apresentar o Cockpit `/admin`, login individual (`tripoint`), avaliar matrizes no Atelier Criativo (`/admin/atelier`) e cronograma do Drop Inaugural.
+    *   **Flávio (Financeiro & Jurídico):** Apresentar o módulo de Assinaturas e ressarcimento dos R$ 209,33/mês adiantados por Armando.
+5.  **Operação e Fornecedores PoD:**
+    *   **Estorno Reserva INK (R$ 159,00):** Orientar Gustavo a solicitar o reembolso integral via painel da Reserva INK (garantia CDC Art. 49).
+    *   Homologar CNPJ/IE no canal B2B da Dimona para destravar tabela de atacado (R$ 38 a R$ 58).
+
 
 
 
