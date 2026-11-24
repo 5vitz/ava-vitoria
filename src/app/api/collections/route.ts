@@ -85,7 +85,27 @@ export async function PUT(req: Request) {
       return NextResponse.json({ success: false, error: "collectionId é obrigatório." }, { status: 400 });
     }
 
-    await setActiveStoreCollection(collectionId);
+    await prisma.siteSettings.upsert({
+      where: { config_key: "active_collection" },
+      update: {
+        config_value: { collection_id: collectionId },
+      },
+      create: {
+        config_key: "active_collection",
+        config_value: { collection_id: collectionId },
+      },
+    });
+
+    try {
+      const { revalidatePath } = await import("next/cache");
+      revalidatePath("/");
+      revalidatePath("/admin");
+      revalidatePath("/admin/media");
+      revalidatePath("/admin/grid-manager");
+      revalidatePath("/admin/atelier");
+    } catch (e) {
+      // ignore
+    }
 
     return NextResponse.json({ success: true, activeCollectionId: collectionId });
   } catch (error: any) {

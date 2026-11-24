@@ -1,6 +1,6 @@
 import React from "react";
 import { prisma } from "@/lib/db";
-import { getMediaAssets } from "../grid-manager/actions";
+import { getMediaAssets, getActiveStoreCollectionId } from "../grid-manager/actions";
 import MediaLibraryClient from "./MediaLibraryClient";
 import AdminHeader from "../AdminHeader";
 import styles from "./media-library.module.css";
@@ -16,17 +16,16 @@ export default async function MediaLibraryPage({ searchParams }: PageProps) {
   const collectionId = (resolvedSearchParams.collection as string) || "Todos";
   const selectingForProduct = (resolvedSearchParams.selectingForProduct as string) || null;
 
-  // 1. Buscar todas as mídias da coleção selecionada (ou todas)
-  const rawMedia = await getMediaAssets(collectionId);
+  // 1. Buscar todas as mídias da coleção selecionada (ou todas) e a vitrine ativa
+  const [rawMedia, rawCollections, activeStoreCollectionId] = await Promise.all([
+    getMediaAssets(collectionId),
+    prisma.collection.findMany({
+      orderBy: { created_at: "desc" },
+    }),
+    getActiveStoreCollectionId(),
+  ]);
 
-  // 2. Buscar todas as coleções para preencher o filtro e upload dropdowns
-  const rawCollections = await prisma.collection.findMany({
-    orderBy: {
-      created_at: "desc",
-    },
-  });
-
-  // 3. Buscar nome do produto alvo se estiver em modo de seleção
+  // 2. Buscar nome do produto alvo se estiver em modo de seleção
   let targetProductName: string | null = null;
   if (selectingForProduct) {
     const prod = await prisma.product.findUnique({
@@ -67,6 +66,7 @@ export default async function MediaLibraryPage({ searchParams }: PageProps) {
           initialCollectionId={collectionId}
           selectingForProduct={selectingForProduct}
           targetProductName={targetProductName}
+          activeStoreCollectionId={activeStoreCollectionId}
         />
       </main>
     </div>

@@ -117,6 +117,7 @@ export default async function GridManagerPage({ searchParams }: PageProps) {
           currentCollection={currentCollection}
           initialSelectingForProduct={selectingForProduct}
           initialIsStorefrontActive={activeStoreCollectionId === currentCollection.id}
+          activeStoreCollectionId={activeStoreCollectionId}
         />
       </main>
     </div>

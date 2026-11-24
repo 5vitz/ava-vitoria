@@ -50,6 +50,7 @@ interface GridManagerClientProps {
   currentCollection: CollectionType;
   initialSelectingForProduct: string;
   initialIsStorefrontActive?: boolean;
+  activeStoreCollectionId?: string | null;
 }
 
 export default function GridManagerClient({
@@ -58,6 +59,7 @@ export default function GridManagerClient({
   currentCollection,
   initialSelectingForProduct,
   initialIsStorefrontActive = false,
+  activeStoreCollectionId = null,
 }: GridManagerClientProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -78,6 +80,7 @@ export default function GridManagerClient({
   const [targetPosition, setTargetPosition] = useState<string>("");
 
   // Controladores de UI
+  const [activeStoreColId, setActiveStoreColId] = useState<string | null>(activeStoreCollectionId || null);
   const [isStorefrontActive, setIsStorefrontActive] = useState(initialIsStorefrontActive);
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
@@ -97,10 +100,20 @@ export default function GridManagerClient({
   const handlePublishToStorefront = async () => {
     setLoading(true);
     try {
-      await setActiveStoreCollection(currentCollection.id);
-      setIsStorefrontActive(true);
-      triggerFeedback("success", `Coleção "${currentCollection.name}" publicada na vitrine com sucesso!`);
-      router.refresh();
+      const res = await fetch("/api/collections", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ collectionId: currentCollection.id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveStoreColId(currentCollection.id);
+        setIsStorefrontActive(true);
+        triggerFeedback("success", `★ Coleção "${currentCollection.name}" publicada na vitrine com sucesso!`);
+        router.refresh();
+      } else {
+        triggerFeedback("error", data.error || "Erro ao publicar na vitrine.");
+      }
     } catch (err: any) {
       triggerFeedback("error", "Erro ao publicar: " + err.message);
     } finally {
@@ -342,7 +355,7 @@ export default function GridManagerClient({
             >
               {collectionsList.map((c) => (
                 <option key={c.id} value={c.id}>
-                  {c.name} ({c.year} - {c.season})
+                  {c.id === activeStoreColId ? "★ " : ""}{c.name} ({c.year} - {c.season}){c.id === activeStoreColId ? " [Vitrine Ativa]" : ""}
                 </option>
               ))}
             </select>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { uploadMediaAction, deleteMediaAsset, getMediaAssets, associateMediaToProduct } from "../grid-manager/actions";
 import styles from "./media-library.module.css";
@@ -28,6 +29,7 @@ interface MediaLibraryClientProps {
   initialCollectionId: string;
   selectingForProduct?: string | null;
   targetProductName?: string | null;
+  activeStoreCollectionId?: string | null;
 }
 
 export default function MediaLibraryClient({
@@ -36,6 +38,7 @@ export default function MediaLibraryClient({
   initialCollectionId,
   selectingForProduct = null,
   targetProductName = null,
+  activeStoreCollectionId = null,
 }: MediaLibraryClientProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -43,7 +46,9 @@ export default function MediaLibraryClient({
   // Estados
   const [mediaList, setMediaList] = useState<MediaAsset[]>(initialMedia);
   const [filterCollectionId, setFilterCollectionId] = useState(initialCollectionId);
+  const [activeStoreColId, setActiveStoreColId] = useState<string | null>(activeStoreCollectionId || null);
   const [uploading, setUploading] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [zoomedAsset, setZoomedAsset] = useState<MediaAsset | null>(null);
   const [feedback, setFeedback] = useState<{ type: "success" | "error" | null; message: string }>({
     type: null,
@@ -163,6 +168,31 @@ export default function MediaLibraryClient({
     }
   };
 
+  // Publicar coleção na Vitrine da Loja diretamente da Biblioteca
+  const handlePublishStorefront = async (colId: string) => {
+    setPublishing(true);
+    try {
+      const res = await fetch("/api/collections", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ collectionId: colId }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setActiveStoreColId(colId);
+        const colName = collectionsList.find((c) => c.id === colId)?.name || "Coleção";
+        triggerFeedback("success", `★ "${colName}" definida como Vitrine Ativa da Loja!`);
+        router.refresh();
+      } else {
+        triggerFeedback("error", data.error || "Erro ao publicar na vitrine.");
+      }
+    } catch (err: any) {
+      triggerFeedback("error", "Erro ao publicar: " + err.message);
+    } finally {
+      setPublishing(false);
+    }
+  };
+
   const isCollectionSelected = filterCollectionId !== "Todos" && !!filterCollectionId;
   const currentCollection = collectionsList.find((c) => c.id === filterCollectionId);
 
@@ -172,7 +202,7 @@ export default function MediaLibraryClient({
       <section className={styles.controlsSection}>
         <div className={styles.toolbarLeft}>
           <div className={styles.fieldGroup}>
-            <label className={styles.label}>Coleção Ativa</label>
+            <label className={styles.label}>Pasta da Coleção:</label>
             <select
               className={styles.select}
               value={filterCollectionId}
@@ -181,11 +211,85 @@ export default function MediaLibraryClient({
               <option value="Todos">Exibir Todas as Coleções</option>
               {collectionsList.map((col) => (
                 <option key={col.id} value={col.id}>
-                  {col.name} ({col.year} - {col.season})
+                  {col.name} ({col.year} - {col.season}) {col.id === activeStoreColId ? "★ (Vitrine Ativa)" : ""}
                 </option>
               ))}
             </select>
           </div>
+
+          {/* Controle Direto de Publicação na Vitrine da Loja */}
+          {isCollectionSelected && (
+            <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+              {filterCollectionId === activeStoreColId ? (
+                <span
+                  style={{
+                    backgroundColor: "rgba(5, 150, 105, 0.14)",
+                    border: "1px solid rgba(5, 150, 105, 0.35)",
+                    color: "#065F46",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                    padding: "8px 12px",
+                    height: "38px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    boxSizing: "border-box",
+                  }}
+                >
+                  ★ Vitrine Ativa do Site
+                </span>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => handlePublishStorefront(filterCollectionId)}
+                  disabled={publishing}
+                  style={{
+                    backgroundColor: "#000000",
+                    border: "1px solid #000000",
+                    color: "#FAF6EE",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.6px",
+                    padding: "8px 16px",
+                    height: "38px",
+                    cursor: "pointer",
+                    whiteSpace: "nowrap",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    boxSizing: "border-box",
+                    transition: "all 0.2s ease",
+                  }}
+                  title="Publicar os produtos desta coleção na vitrine oficial da loja"
+                >
+                  {publishing ? "Publicando..." : "⚡ Definir como Vitrine Ativa"}
+                </button>
+              )}
+
+              <Link
+                href={`/admin/grid-manager?collection=${filterCollectionId}`}
+                style={{
+                  backgroundColor: "#FAF6EE",
+                  border: "1px solid rgba(0, 0, 0, 0.22)",
+                  color: "#000000",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  padding: "8px 12px",
+                  height: "38px",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  textDecoration: "none",
+                  boxSizing: "border-box",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                Abrir Grid Manager ↗
+              </Link>
+            </div>
+          )}
 
           <div className={styles.uploadGroup}>
             <input
