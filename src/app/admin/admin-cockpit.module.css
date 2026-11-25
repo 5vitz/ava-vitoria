@@ -18,7 +18,7 @@
 
   /* NÍVEL 2 — BANDEJAS / CONTAINERS ARQUITETÔNICOS (.moduleCard, .headerRow1Card, .deptsPanel, .tabStripContainer) */
   --admin-surface-container: #EEEEF2;
-  --admin-border-container: 1px solid rgba(0, 0, 0, 0.18);
+  --admin-border-container: 1px solid #000000;
   --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   /* NÍVEL 3 — CARDS INTERNOS FLUTUANTES (.innerCard, .kpiCard, .deptCard, .decisionCard, .agentBadge, .dataTableWrapper) */
