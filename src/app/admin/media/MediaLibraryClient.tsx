@@ -253,7 +253,7 @@ export default function MediaLibraryClient({
                   style={{
                     backgroundColor: "#000000",
                     border: "1px solid #000000",
-                    color: "#FAF6EE",
+                    color: "#FEFCF5",
                     fontSize: "11px",
                     fontWeight: 700,
                     textTransform: "uppercase",
@@ -276,7 +276,7 @@ export default function MediaLibraryClient({
               <Link
                 href={`/admin/grid-manager?collection=${filterCollectionId}`}
                 style={{
-                  backgroundColor: "#FAF6EE",
+                  backgroundColor: "#FEFCF5",
                   border: "1px solid rgba(0, 0, 0, 0.22)",
                   color: "#000000",
                   fontSize: "11px",

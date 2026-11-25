@@ -3,42 +3,41 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #000000;
-  color: #FFFFFF;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  padding: 20px;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
+  color: #000000;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  padding: 24px;
 }
 
 .loginCard {
   width: 100%;
-  max-width: 400px;
-  background: rgba(0, 0, 0, 0.6); /* Efeito glassmorphism */
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 40px 30px;
+  max-width: 440px;
+  background-color: #FEFCF5;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 48px 36px;
   display: flex;
   flex-direction: column;
 }
 
 .header {
-  margin-bottom: 35px;
+  margin-bottom: 32px;
   text-align: center;
 }
 
 .title {
-  font-family: 'Outfit', sans-serif;
+  font-family: var(--font-title), sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: #FF4D1C; /* Laranja Ferrugem padrão */
+  color: #000000;
   margin-bottom: 8px;
 }
 
 .subtitle {
   font-size: 0.85rem;
-  color: #A0A0A0;
-  font-weight: 300;
+  color: #3F3F46;
+  font-weight: 400;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -46,57 +45,55 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 18px;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: #A0A0A0;
-  font-weight: 400;
+  color: #3F3F46;
+  font-weight: 600;
 }
 
 .input {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  padding: 12px 15px;
+  background-color: #FEFCF5;
+  border: 1px solid #000000;
+  color: #000000;
+  padding: 13px 15px;
   font-size: 0.95rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 300;
+  font-family: var(--font-body), sans-serif;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.2s ease;
 }
 
-.input:focus {
-  border-color: #FF4D1C;
+.input::placeholder {
+  color: rgba(0, 0, 0, 0.45);
 }
 
 .button {
-  background: #FF4D1C;
-  color: #000000;
-  border: 1px solid #FF4D1C;
-  padding: 14px;
-  font-size: 0.9rem;
-  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #000000;
+  color: #FEFCF5;
+  border: 1px solid #000000;
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-family: var(--font-body), sans-serif;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  transition: opacity 0.2s ease;
+  margin-top: 8px;
 }
 
 .button:hover:not(:disabled) {
-  background: transparent;
-  color: #FF4D1C;
+  opacity: 0.85;
 }
 
 .button:disabled {
@@ -105,11 +102,11 @@
 }
 
 .error {
-  background: rgba(255, 75, 75, 0.1);
-  border: 1px solid rgba(255, 75, 75, 0.2);
-  color: #FF6B6B;
+  background: rgba(185, 28, 28, 0.08);
+  border: 1px solid rgba(185, 28, 28, 0.35);
+  color: #B91C1C;
   padding: 12px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   text-align: center;
-  font-weight: 300;
+  font-weight: 500;
 }

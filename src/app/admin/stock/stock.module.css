@@ -2,7 +2,7 @@
 
 .adminContainer {
   min-height: 100vh;
-  background-color: #EFE4CC;
+  background-color: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: #18191B;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
 
 /* Painel de Lista de Produtos */
 .listSection {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -40,7 +40,7 @@
 
 .listHeader {
   padding: 14px 20px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -109,7 +109,7 @@
 
 .rowSelected {
   border: 2px solid #000000 !important;
-  background-color: #FAF6EE !important;
+  background-color: #FEFCF5 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -126,7 +126,7 @@
 .emptyThumb {
   width: 44px;
   aspect-ratio: 9 / 16;
-  background-color: #EFE4CC;
+  background-color: #F4F4F6;
   border: 1px dashed rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
@@ -193,7 +193,7 @@
 
 /* Painel de Edição de Grade e Estoque */
 .editorSection {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -204,7 +204,7 @@
 
 .editorHeader {
   padding: 14px 20px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
 }
 
@@ -304,7 +304,7 @@
 .addColorBtn {
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 8px 16px;
   font-size: 0.75rem;
   font-weight: 700;
@@ -316,7 +316,7 @@
 
 .addColorBtn:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
 }
 
 .colorsTagList {
@@ -368,7 +368,7 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   padding: 8px 12px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   font-size: 0.72rem;
   text-transform: uppercase;
@@ -420,7 +420,7 @@
   width: 100%;
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 12px 18px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -433,7 +433,7 @@
 
 .saveStockBtn:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -459,10 +459,10 @@
 
 .toastSuccess {
   background-color: #065F46;
-  color: #FAF6EE;
+  color: #FEFCF5;
 }
 
 .toastError {
   background-color: #991B1B;
-  color: #FAF6EE;
+  color: #FEFCF5;
 }

@@ -86,7 +86,7 @@ export default function DiretoriaPage() {
             <h2 className={styles.cardHeading}>Conselho Societário (4 Sócios da AVA)</h2>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
               {PARTNERS.map((p, i) => (
-                <div key={i} style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div key={i} style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
                     <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{p.name}</span>
                     <span style={{ fontSize: '11px', color: '#047857', fontWeight: 700 }}>{p.quota}</span>
@@ -133,14 +133,14 @@ export default function DiretoriaPage() {
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '8px' }}>
-                <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>Faturamento Bruto</div>
                   <div style={{ fontSize: '20px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                     R$ {estimatedRevenue.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                   </div>
                 </div>
 
-                <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(5, 150, 105, 0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(5, 150, 105, 0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <div style={{ fontSize: '11px', color: '#065F46', textTransform: 'uppercase', fontWeight: 600 }}>Margem Bruta (58%)</div>
                   <div style={{ fontSize: '20px', fontWeight: 700, color: '#065F46', marginTop: '4px' }}>
                     R$ {estimatedGrossProfit.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
@@ -170,25 +170,25 @@ export default function DiretoriaPage() {
                 Governança deliberativa entre iguais. A presença dos sócios é tratada institucionalmente nas pautas de alinhamento periódico, eliminando qualquer controle de ponto individual.
               </p>
             </div>
-            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.15)', borderRadius: '2px' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.15)', borderRadius: '2px' }}>
               🏛️ Consenso 4/4
             </span>
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '12px' }}>
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)' }}>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700 }}>Periodicidade Sugerida</div>
               <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>Alinhamento Periódico</div>
               <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Definição em consenso colegiado pelos 4 sócios (ex: semanal ou quinzenal).</div>
             </div>
 
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)' }}>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700 }}>Pauta Operacional</div>
               <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>8 Departamentos</div>
               <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Cada sócio apresenta o progresso e gargalos das suas 2 pastas de titularidade.</div>
             </div>
 
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)' }}>
               <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#047857', fontWeight: 700 }}>Deliberação</div>
               <div style={{ fontSize: '14px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>Urna de Votação 4/4</div>
               <div style={{ fontSize: '11px', color: '#52525B', marginTop: '4px' }}>Decisões de preço, investimento e contratos registradas sem atrito na plataforma.</div>

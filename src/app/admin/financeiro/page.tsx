@@ -87,7 +87,7 @@ export default function FinanceiroPage() {
         {/* Banner Gerenciar Assinaturas & APIs */}
         <div
           style={{
-            background: '#DFCFA8',
+            background: '#E4E4E7',
             border: '1px solid rgba(0, 0, 0, 0.22)',
             padding: '16px 20px',
             marginBottom: '20px',
@@ -103,7 +103,7 @@ export default function FinanceiroPage() {
             <div style={{ fontSize: '14px', fontWeight: 800, color: '#000000', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span>📦</span>
               <span>Matriz de Assinaturas, Ferramentas &amp; APIs dos 23 Agentes</span>
-              <span style={{ fontSize: '10px', background: '#000000', color: '#DFCFA8', padding: '2px 6px', fontWeight: 700 }}>
+              <span style={{ fontSize: '10px', background: '#000000', color: '#FEFCF5', padding: '2px 6px', fontWeight: 700 }}>
                 NOVO
               </span>
             </div>
@@ -124,7 +124,7 @@ export default function FinanceiroPage() {
         <div
           style={{
             padding: '14px 18px',
-            background: '#EFE4CC',
+            background: '#F4F4F6',
             border: '1px solid rgba(217, 119, 6, 0.45)',
             boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
             color: '#18181B',
@@ -143,7 +143,7 @@ export default function FinanceiroPage() {
         </div>
 
         {saveStatus && (
-          <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.4)', color: '#065F46', fontSize: '13px', marginBottom: '20px', fontWeight: 600 }}>
+          <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(5,150,105,0.4)', color: '#065F46', fontSize: '13px', marginBottom: '20px', fontWeight: 600 }}>
             {saveStatus}
           </div>
         )}
@@ -160,7 +160,7 @@ export default function FinanceiroPage() {
               onClick={() => setIndexingMode('INDEXED')}
               style={{
                 padding: '16px',
-                background: '#EFE4CC',
+                background: '#F4F4F6',
                 border: indexingMode === 'INDEXED' ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
                 boxShadow: indexingMode === 'INDEXED' ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
                 cursor: 'pointer',
@@ -182,7 +182,7 @@ export default function FinanceiroPage() {
               onClick={() => setIndexingMode('HOLD_ON_DROP')}
               style={{
                 padding: '16px',
-                background: '#EFE4CC',
+                background: '#F4F4F6',
                 border: indexingMode === 'HOLD_ON_DROP' ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
                 boxShadow: indexingMode === 'HOLD_ON_DROP' ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
                 cursor: 'pointer',
@@ -216,7 +216,7 @@ export default function FinanceiroPage() {
                 { code: 'MOLETOM', label: 'Moletons (Crewneck & Canguru)' },
                 { code: 'BONE', label: 'Bonés (Americano & Prime Fivela)' },
               ].map(cat => (
-                <div key={cat.code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div key={cat.code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <span style={{ fontSize: '13px', fontWeight: 600, color: '#000000' }}>{cat.label}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <input
@@ -227,7 +227,7 @@ export default function FinanceiroPage() {
                       onChange={(e) => setMargins({ ...margins, [cat.code]: Number(e.target.value) })}
                       style={{
                         width: '60px',
-                        background: '#FAF6EE',
+                        background: '#FEFCF5',
                         border: '1px solid rgba(0,0,0,0.25)',
                         color: '#000000',
                         fontWeight: 600,
@@ -285,7 +285,7 @@ export default function FinanceiroPage() {
                 />
               </div>
 
-              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+              <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: '#4B5563' }}>Preço de Venda Sugerido:</span>
                   <span style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>R$ {salePrice.toFixed(2)}</span>
@@ -309,7 +309,7 @@ export default function FinanceiroPage() {
               </div>
 
               {/* Conector Bling ERP */}
-              <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>Conector Bling ERP (API v3)</div>

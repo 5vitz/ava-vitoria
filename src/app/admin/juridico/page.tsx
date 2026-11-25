@@ -88,7 +88,7 @@ export default function JuridicoPage() {
         <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
           <h2 className={styles.cardHeading}>Diagnóstico Fiscal Crítico: MEI vs. LTDA (Simples Nacional)</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(220,38,38,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+            <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(220,38,38,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
               <div style={{ color: '#991B1B', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
                 ⚠️ Gargalos do MEI Atual
               </div>
@@ -100,7 +100,7 @@ export default function JuridicoPage() {
               </ul>
             </div>
 
-            <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+            <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(5,150,105,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
               <div style={{ color: '#065F46', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
                 ✅ Vantagens da LTDA (Simples Nacional)
               </div>
@@ -120,12 +120,12 @@ export default function JuridicoPage() {
             <h2 className={styles.cardHeading} style={{ margin: 0 }}>
               ⚖️ Inteligência Reforma Tributária (RTC — LC 214/2025 · CBS &amp; IBS no Simples Nacional)
             </h2>
-            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.2)', color: '#18181B' }}>
+            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.2)', color: '#18181B' }}>
               Ref. Oficial: ReceitaFederal/calculadora-rtc-simples-nacional (v1.0.2)
             </span>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.16)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.16)' }}>
               <div style={{ fontWeight: 700, fontSize: '12px', color: '#18181B', marginBottom: '6px' }}>
                 1. Trava Fiscal NCM × cClassTrib (Regra REG-011)
               </div>
@@ -134,7 +134,7 @@ export default function JuridicoPage() {
               </p>
             </div>
 
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.16)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.16)' }}>
               <div style={{ fontWeight: 700, fontSize: '12px', color: '#065F46', marginBottom: '6px' }}>
                 2. Estratégia B2C (Pelo DAS) vs. B2B (Crédito Integral)
               </div>
@@ -143,7 +143,7 @@ export default function JuridicoPage() {
               </p>
             </div>
 
-            <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.16)' }}>
+            <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.16)' }}>
               <div style={{ fontWeight: 700, fontSize: '12px', color: '#18181B', marginBottom: '6px' }}>
                 3. Zero Overhead na VPS Contabo (Delegado ao Bling)
               </div>
@@ -200,28 +200,28 @@ export default function JuridicoPage() {
               <button
                 type="button"
                 onClick={() => askLexTopic('Como funciona a Reforma Tributária (RTC — CBS, IBS e cClassTrib) na AVA?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                style={{ fontSize: '11px', padding: '5px 9px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
               >
                 ⚖️ Reforma Tributária (CBS/IBS &amp; cClassTrib)
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Qual a estratégia de transição MEI para LTDA no Simples Nacional?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                style={{ fontSize: '11px', padding: '5px 9px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
               >
                 🏛️ Transição MEI ➔ LTDA
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Como registrar a marca AVA no INPI nas classes 25 e 35?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                style={{ fontSize: '11px', padding: '5px 9px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
               >
                 ®️ Marca INPI (Classes 25 e 35)
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Como funciona a regra de trocas CDC Art. 49 vs defeito PoD?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                style={{ fontSize: '11px', padding: '5px 9px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.22)', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
               >
                 🛡️ Trocas CDC Art. 49
               </button>
@@ -234,7 +234,7 @@ export default function JuridicoPage() {
                 value={lexQuestion}
                 onChange={(e) => setLexQuestion(e.target.value)}
                 style={{
-                  background: '#EFE4CC',
+                  background: '#F4F4F6',
                   border: '1px solid rgba(0, 0, 0, 0.22)',
                   padding: '12px',
                   color: '#000000',
@@ -250,7 +250,7 @@ export default function JuridicoPage() {
             </form>
 
             {lexAnswer && (
-              <div style={{ padding: '16px', background: '#EFE4CC', border: '1px solid rgba(0, 0, 0, 0.16)', fontSize: '13px', lineHeight: '1.5', color: '#18181B', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.04)' }}>
+              <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(0, 0, 0, 0.16)', fontSize: '13px', lineHeight: '1.5', color: '#18181B', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.04)' }}>
                 {lexAnswer}
               </div>
             )}

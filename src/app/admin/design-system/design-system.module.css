@@ -2,7 +2,7 @@
 
 .adminContainer {
   min-height: 100vh;
-  background-color: #EFE4CC;
+  background-color: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: #18191B;
   display: flex;
   flex-direction: column;
@@ -21,7 +21,7 @@
 }
 
 .introCard {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
@@ -45,7 +45,7 @@
 }
 
 .panelSection {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
@@ -186,7 +186,7 @@
 .saveButton {
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 12px 24px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -198,7 +198,7 @@
 
 .saveButton:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 

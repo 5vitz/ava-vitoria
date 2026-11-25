@@ -156,7 +156,7 @@ export default function ChangePasswordModal({
     >
       <div
         style={{
-          background: '#DFCFA8',
+          background: '#E4E4E7',
           border: '2px solid #000000',
           boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
           width: '580px',
@@ -172,7 +172,7 @@ export default function ChangePasswordModal({
             background: 'rgba(0, 0, 0, 0.76)',
             backdropFilter: 'blur(14px)',
             WebkitBackdropFilter: 'blur(14px)',
-            color: '#DFCFA8',
+            color: '#FEFCF5',
             padding: '12px 16px',
             display: 'flex',
             alignItems: 'center',
@@ -191,7 +191,7 @@ export default function ChangePasswordModal({
             style={{
               background: 'rgba(223, 207, 168, 0.12)',
               border: '1px solid rgba(223, 207, 168, 0.4)',
-              color: '#DFCFA8',
+              color: '#FEFCF5',
               width: '26px',
               height: '26px',
               borderRadius: '2px',
@@ -261,7 +261,7 @@ export default function ChangePasswordModal({
                 <div
                   onClick={() => handleSelectLevel(1)}
                   style={{
-                    background: selectedLevel === 1 ? '#FAF6EE' : '#EFE4CC',
+                    background: selectedLevel === 1 ? '#FEFCF5' : '#F4F4F6',
                     border:
                       selectedLevel === 1 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
                     padding: '12px',
@@ -280,7 +280,7 @@ export default function ChangePasswordModal({
                       background: 'rgba(0, 0, 0, 0.76)',
                       backdropFilter: 'blur(8px)',
                       WebkitBackdropFilter: 'blur(8px)',
-                      color: '#FAF6EE',
+                      color: '#FEFCF5',
                       alignSelf: 'flex-start',
                       borderRadius: '2px',
                     }}
@@ -300,7 +300,7 @@ export default function ChangePasswordModal({
                 <div
                   onClick={() => handleSelectLevel(2)}
                   style={{
-                    background: selectedLevel === 2 ? '#FAF6EE' : '#EFE4CC',
+                    background: selectedLevel === 2 ? '#FEFCF5' : '#F4F4F6',
                     border:
                       selectedLevel === 2 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
                     padding: '12px',
@@ -319,7 +319,7 @@ export default function ChangePasswordModal({
                       background: 'rgba(0, 0, 0, 0.76)',
                       backdropFilter: 'blur(8px)',
                       WebkitBackdropFilter: 'blur(8px)',
-                      color: '#FAF6EE',
+                      color: '#FEFCF5',
                       alignSelf: 'flex-start',
                       borderRadius: '2px',
                     }}

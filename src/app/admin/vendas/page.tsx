@@ -145,7 +145,7 @@ export default function VendasPage() {
           <div
             style={{
               padding: '14px 18px',
-              background: '#EFE4CC',
+              background: '#F4F4F6',
               border: '1px solid #D97706',
               boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
               color: '#92400E',
@@ -167,7 +167,7 @@ export default function VendasPage() {
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '8px' }}>
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>1. Taxa de Inspeção na Vitrine 9:16 (1º Clique)</div>
                 <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
                   34,8% dos visitantes inspecionam as peças
@@ -177,7 +177,7 @@ export default function VendasPage() {
                 </div>
               </div>
 
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>2. Sensibilidade de Preço no Checkout</div>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   Faixa Ideal Homologada: R$ 149,90 a R$ 189,90 (T-Shirt Prime / Oversized)
@@ -220,25 +220,25 @@ export default function VendasPage() {
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Visitas Qualificadas / Dia</span>
                 <div style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   ~{estimatedClicks} visitas
                 </div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Pedidos Estimados (Conv. 2,5%)</span>
                 <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
                   {estimatedOrders} pedidos/dia
                 </div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Faturamento Bruto Projetado</span>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
                   R$ {estimatedRevenue.toFixed(2)}/dia
                 </div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#EFE4CC', border: '1px solid rgba(5,150,105,0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(5,150,105,0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 600 }}>ROAS Projetado (Retorno)</span>
                 <div style={{ fontSize: '16px', fontWeight: 700, color: '#065F46', marginTop: '4px' }}>
                   {estimatedRoas}x sobre o anúncio
@@ -265,7 +265,7 @@ export default function VendasPage() {
                 key={ch.id}
                 style={{
                   padding: '16px',
-                  background: '#EFE4CC',
+                  background: '#F4F4F6',
                   border: '1px solid rgba(0,0,0,0.12)',
                   boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
                   display: 'flex',

@@ -1,4 +1,4 @@
-/* AgentDossierModal.module.css — Dossiê dos 23 Agentes AVA (Paleta Palha Escuro #DFCFA8 + Palha Claro #EFE4CC) */
+/* AgentDossierModal.module.css — Dossiê dos 23 Agentes AVA (Paleta Palha Escuro #E4E4E7 + Palha Claro #F4F4F6) */
 
 .overlay {
   position: fixed;
@@ -16,7 +16,7 @@
 }
 
 .modalCard {
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.25);
   max-width: 680px;
   width: 100%;
@@ -146,7 +146,7 @@
   font-size: 13px;
   color: #18181B;
   line-height: 1.6;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   padding: 14px 16px;

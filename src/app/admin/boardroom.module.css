@@ -10,7 +10,7 @@
   max-height: calc(100vh - var(--admin-header-height, 120px) - 16px);
   min-width: 380px;
   min-height: 320px;
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 2px solid #000000;
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.35);
   display: flex;
@@ -57,7 +57,7 @@
   background: rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  color: #DFCFA8;
+  color: #FEFCF5;
   border: 1px solid rgba(223, 207, 168, 0.45);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
   padding: 10px 18px;
@@ -77,8 +77,8 @@
 
 .floatingLauncherBtn:hover {
   background: rgba(0, 0, 0, 0.70);
-  color: #FAF6EE;
-  border-color: #DFCFA8;
+  color: #FEFCF5;
+  border-color: #FEFCF5;
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.32);
 }
@@ -114,7 +114,7 @@
   background: rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  color: #DFCFA8;
+  color: #FEFCF5;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -140,7 +140,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.8px;
-  color: #DFCFA8;
+  color: #FEFCF5;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -148,8 +148,8 @@
 
 .statusBadge {
   background: rgba(223, 207, 168, 0.16);
-  border: 1px solid #DFCFA8;
-  color: #DFCFA8;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  color: #FEFCF5;
   font-size: 10px;
   font-weight: 700;
   padding: 2px 7px;
@@ -168,7 +168,7 @@
 .winBtn {
   background: rgba(223, 207, 168, 0.12);
   border: 1px solid rgba(223, 207, 168, 0.4);
-  color: #DFCFA8;
+  color: #FEFCF5;
   width: 26px;
   height: 26px;
   border-radius: 2px;
@@ -182,14 +182,14 @@
 
 .winBtn:hover,
 .winBtnActive {
-  background: #DFCFA8 !important;
+  background: #E4E4E7 !important;
   color: #000000 !important;
-  border-color: #DFCFA8 !important;
+  border-color: #FEFCF5 !important;
 }
 
 /* TRAVA OBRIGATÓRIA: NOMEAR A PAUTA */
 .pautaLockBanner {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border-bottom: 2px solid #000000;
   padding: 14px;
   display: flex;
@@ -248,7 +248,7 @@
 }
 
 .pautaSelectorStrip {
-  background: #EFE4CC;
+  background: #F4F4F6;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   padding: 8px 12px;
   display: flex;
@@ -271,7 +271,7 @@
   flex: 1;
   min-width: 0;
   text-overflow: ellipsis;
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.32);
   color: #000000;
   padding: 5px 8px;
@@ -288,7 +288,7 @@
 
 /* PALCO DE VÍDEO */
 .videoStage {
-  background: #EFE4CC;
+  background: #F4F4F6;
   border-bottom: 2px solid #000000;
   padding: 10px;
   display: flex;
@@ -299,7 +299,7 @@
 
 .screenShareBox {
   background: #000000;
-  color: #DFCFA8;
+  color: #FEFCF5;
   padding: 8px 10px;
   font-size: 11px;
   font-weight: 600;
@@ -324,7 +324,7 @@
 
 .camCard {
   background: #18181B;
-  color: #EFE4CC;
+  color: #F4F4F6;
   border: 1px solid #000000;
   padding: 7px;
   display: flex;
@@ -342,7 +342,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #DFCFA8;
+  background: #E4E4E7;
   color: #000000;
   font-weight: 800;
   font-size: 11.5px;
@@ -388,12 +388,12 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  background: #EFE4CC;
+  background: #F4F4F6;
   user-select: text;
 }
 
 .msgBubble {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 10px 12px;
   display: flex;
@@ -407,7 +407,7 @@
 
 .msgBubbleOwn {
   align-self: flex-end;
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px solid #000000;
 }
 
@@ -465,7 +465,7 @@
 }
 
 .docAttachmentCard {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px solid #000000;
   padding: 8px 10px;
   display: flex;
@@ -487,7 +487,7 @@
 
 /* COMPOSER */
 .composerPanel {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border-top: 2px solid #000000;
   padding: 10px 12px;
   display: flex;
@@ -502,7 +502,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 6px;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 6px 8px;
 }
@@ -538,7 +538,7 @@
   background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
-  color: #FAF6EE !important;
+  color: #FEFCF5 !important;
   border-color: rgba(0, 0, 0, 0.40) !important;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15) !important;
 }
@@ -567,7 +567,7 @@
 
 .subjectInput {
   flex: 1;
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.35);
   padding: 6px 9px;
   font-size: 11.5px;
@@ -577,7 +577,7 @@
 }
 
 .pendingFileBar {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px dashed #000000;
   padding: 5px 9px;
   font-size: 11px;
@@ -597,7 +597,7 @@
 
 .msgInput {
   flex: 1;
-  background: #FAF6EE;
+  background: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.38);
   padding: 8px 10px;
   font-size: 12px;
@@ -609,7 +609,7 @@
   background: rgba(0, 0, 0, 0.48);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  color: #FAF6EE;
+  color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.40);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   width: 36px;

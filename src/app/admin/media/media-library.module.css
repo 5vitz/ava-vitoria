@@ -2,7 +2,7 @@
 
 .adminContainer {
   min-height: 100vh;
-  background-color: #EFE4CC;
+  background-color: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: #18191B;
   display: flex;
   flex-direction: column;
@@ -22,7 +22,7 @@
 
 /* Barra de Controles e Filtros */
 .controlsSection {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 16px 20px;
@@ -116,7 +116,7 @@
 
 .uploadBtn {
   background-color: #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   border: 1px solid #000000;
   padding: 8px 18px;
   height: 38px;
@@ -134,7 +134,7 @@
 
 .uploadBtn:hover:not(.uploadBtnDisabled) {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -145,7 +145,7 @@
 
 /* Galeria de Mídias (Grid Uniforme de 9 Colunas Balenciaga) */
 .gallerySection {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -154,7 +154,7 @@
 
 .galleryHeader {
   padding: 16px 20px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -312,7 +312,7 @@
 
 .selectAssetBtn {
   background-color: #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   border: none;
   font-size: 0.65rem;
   font-weight: 700;
@@ -323,7 +323,7 @@
 
 .selectAssetBtn:hover {
   background-color: rgba(0, 0, 0, 0.8);
-  color: #DFCFA8;
+  color: #FEFCF5;
 }
 
 /* Modal de Zoom / Lightbox */
@@ -344,7 +344,7 @@
 }
 
 .zoomModalContent {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   max-width: 600px;
@@ -356,7 +356,7 @@
 
 .zoomModalHeader {
   padding: 12px 18px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -411,10 +411,10 @@
 
 .toastSuccess {
   background-color: #065F46;
-  color: #FAF6EE;
+  color: #FEFCF5;
 }
 
 .toastError {
   background-color: #991B1B;
-  color: #FAF6EE;
+  color: #FEFCF5;
 }

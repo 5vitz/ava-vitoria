@@ -2,16 +2,16 @@
 
 .adminLayout {
   min-height: 100vh;
-  background: #EFE4CC;
+  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: #18191B;
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-/* Header do Painel Admin (Card Palha Escuro #DFCFA8) */
+/* Header do Painel Admin (Card Palha Escuro #E4E4E7) */
 .adminHeader {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   padding: 14px 20px;
@@ -79,7 +79,7 @@
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   border-color: rgba(0, 0, 0, 0.40) !important;
-  color: #FAF6EE !important;
+  color: #FEFCF5 !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
@@ -119,7 +119,7 @@
 }
 
 .deptNavLinkActive {
-  color: #FAF6EE !important;
+  color: #FEFCF5 !important;
   background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -172,7 +172,7 @@
 }
 
 .headerRow1Card {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 10px 18px;
@@ -222,7 +222,7 @@
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #000000;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 2px;
   cursor: pointer;
@@ -231,7 +231,7 @@
 }
 
 .actionCardBtn:hover {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border-color: #000000;
   transform: translateY(-1px);
 }
@@ -240,7 +240,7 @@
   background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  color: #FAF6EE !important;
+  color: #FEFCF5 !important;
   border-color: rgba(0, 0, 0, 0.40) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
@@ -249,7 +249,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 6px 10px;
   border-radius: 2px;
@@ -271,7 +271,7 @@
   align-items: center;
   gap: 5px;
   padding: 4px 9px;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.20);
   border-radius: 2px;
   font-size: 11px;
@@ -283,7 +283,7 @@
 
 .partnerPresenceCurrentUser {
   /* Mantém a paleta palha sem preto chapado */
-  background: #FAF6EE !important;
+  background: #FEFCF5 !important;
   border-color: rgba(0, 0, 0, 0.35) !important;
   color: #18191B !important;
   font-weight: 800;
@@ -291,7 +291,7 @@
 }
 
 .partnerPresenceGuestLevel2 {
-  background: #FAF6EE !important;
+  background: #FEFCF5 !important;
   border: 1px dashed #000000 !important;
   color: #000000 !important;
 }
@@ -322,7 +322,7 @@
 }
 
 .headerRow2Card {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 8px 18px;
@@ -371,7 +371,7 @@
 }
 
 .deptNavRow .deptNavLinkActive {
-  color: #FAF6EE !important;
+  color: #FEFCF5 !important;
   background: rgba(0, 0, 0, 0.46) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
@@ -390,9 +390,9 @@
   width: 100%;
 }
 
-/* Banner de Boas Vindas & Conselho (Palha Escuro #DFCFA8) */
+/* Banner de Boas Vindas & Conselho (Palha Escuro #E4E4E7) */
 .topBanner {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 24px;
   margin-bottom: 24px;
@@ -416,9 +416,9 @@
   line-height: 1.6;
 }
 
-/* BLOCO 2: Fila de Decisões dos 4 Sócios (Uniformizado em Palha Escuro #DFCFA8 + Preto/Grafite) */
+/* BLOCO 2: Fila de Decisões dos 4 Sócios (Uniformizado em Palha Escuro #E4E4E7 + Preto/Grafite) */
 .decisionQueueSection {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -460,9 +460,9 @@
   gap: 14px;
 }
 
-/* Cards Internos do Bloco 2 — Palha Claro (#EFE4CC) sobre Container Palha Escuro (#DFCFA8) */
+/* Cards Internos do Bloco 2 — Palha Claro (#F4F4F6) sobre Container Palha Escuro (#E4E4E7) */
 .decisionCard {
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 16px;
@@ -474,7 +474,7 @@
 }
 
 .decisionCard:hover {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -519,7 +519,7 @@
   background: rgba(0, 0, 0, 0.46);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: #FAF6EE;
+  color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.40);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   padding: 7px 13px;
@@ -562,9 +562,9 @@
   color: #000000;
 }
 
-/* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #DFCFA8) */
+/* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #E4E4E7) */
 .deptsPanel {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -578,7 +578,7 @@
 }
 
 .deptCard {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.22);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 20px;
@@ -593,7 +593,7 @@
 .deptCard:hover {
   border-color: #000000;
   transform: translateY(-2px);
-  background: #E8DAB8;
+  background: #ECECEF;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -638,9 +638,9 @@
   color: #3F3F46;
 }
 
-/* BLOCO 3: Painel de Telemetria dos 23 Agentes (Palha Escuro #DFCFA8) */
+/* BLOCO 3: Painel de Telemetria dos 23 Agentes (Palha Escuro #E4E4E7) */
 .agentsPanel {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -660,7 +660,7 @@
 }
 
 .agentBadge {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 12px;
   display: flex;
@@ -672,7 +672,7 @@
 }
 
 .agentBadge:hover {
-  background: #E8DAB8;
+  background: #ECECEF;
   border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -717,7 +717,7 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 18px 24px;
 }
@@ -756,7 +756,7 @@
 }
 
 .moduleCard {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -776,9 +776,9 @@
   padding-bottom: 10px;
 }
 
-/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #DFCFA8 + Preto/Grafite) */
+/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #E4E4E7 + Preto/Grafite) */
 .executiveCommandStrip {
-  background: #DFCFA8;
+  background: #E4E4E7;
   border: 1px solid rgba(0, 0, 0, 0.22);
   border-left: 4px solid #000000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -810,7 +810,7 @@
   align-items: center;
   gap: 7px;
   padding: 6px 11px;
-  background: #EFE4CC;
+  background: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 2px;
   font-size: 11px;
@@ -821,7 +821,7 @@
 }
 
 .partnerStatusChip:hover {
-  background: #FAF6EE;
+  background: #FEFCF5;
   border-color: #000000;
 }
 
@@ -869,7 +869,7 @@
   color: #3F3F46;
 }
 
-/* Urna de Votação dos 4 Sócios & Cobrança Automática (Sobre Card Palha Escuro #DFCFA8) */
+/* Urna de Votação dos 4 Sócios & Cobrança Automática (Sobre Card Palha Escuro #E4E4E7) */
 .voterGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

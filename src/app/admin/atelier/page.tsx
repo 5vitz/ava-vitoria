@@ -344,7 +344,7 @@ export default function AtelierPage() {
             style={{
               padding: '12px 16px',
               marginBottom: '18px',
-              background: '#FAF6EE',
+              background: '#FEFCF5',
               border: '2px solid #047857',
               color: '#065F46',
               fontSize: '12px',
@@ -364,8 +364,8 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'artworks' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'artworks' ? '#DFCFA8' : '#18181B',
+              background: activeTab === 'artworks' ? '#000000' : '#F4F4F6',
+              color: activeTab === 'artworks' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
               borderColor: activeTab === 'artworks' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
@@ -384,8 +384,8 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'collections' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'collections' ? '#DFCFA8' : '#18181B',
+              background: activeTab === 'collections' ? '#000000' : '#F4F4F6',
+              color: activeTab === 'collections' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
               borderColor: activeTab === 'collections' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
@@ -404,8 +404,8 @@ export default function AtelierPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '1px',
-              background: activeTab === 'media' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'media' ? '#DFCFA8' : '#18181B',
+              background: activeTab === 'media' ? '#000000' : '#F4F4F6',
+              color: activeTab === 'media' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
               borderColor: activeTab === 'media' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
               cursor: 'pointer',
@@ -449,7 +449,7 @@ export default function AtelierPage() {
 
               {/* Resumo dos 3 Estágios do MDV */}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginTop: '14px' }}>
-                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                <div style={{ padding: '10px 12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                   <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>
                     Estágio 1 · Scanner Matemático (Python)
                   </div>
@@ -461,7 +461,7 @@ export default function AtelierPage() {
                   </div>
                 </div>
 
-                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                <div style={{ padding: '10px 12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                   <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#92400E' }}>
                     Estágio 2 · Desvinculação Autoral (≥ 7 Chaves)
                   </div>
@@ -473,7 +473,7 @@ export default function AtelierPage() {
                   </div>
                 </div>
 
-                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                <div style={{ padding: '10px 12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                   <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#065F46' }}>
                     Estágio 3 · Prompt to Image &amp; COA SHA-256
                   </div>
@@ -493,7 +493,7 @@ export default function AtelierPage() {
                   style={{
                     marginTop: '16px',
                     padding: '16px',
-                    background: '#DFCFA8',
+                    background: '#E4E4E7',
                     border: '1px solid rgba(0,0,0,0.25)',
                   }}
                 >
@@ -607,8 +607,8 @@ export default function AtelierPage() {
                       fontSize: '11px',
                       fontWeight: 700,
                       cursor: 'pointer',
-                      background: folderFilter === folder ? '#000000' : '#FAF6EE',
-                      color: folderFilter === folder ? '#DFCFA8' : '#18181B',
+                      background: folderFilter === folder ? '#000000' : '#FEFCF5',
+                      color: folderFilter === folder ? '#E4E4E7' : '#18181B',
                       border: '1px solid rgba(0,0,0,0.2)',
                     }}
                   >
@@ -639,7 +639,7 @@ export default function AtelierPage() {
                           onClick={() => setSelectedArtwork(art)}
                           style={{
                             padding: '12px',
-                            background: isSelected ? '#FAF6EE' : '#EFE4CC',
+                            background: isSelected ? '#FEFCF5' : '#F4F4F6',
                             border: isSelected ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
                             boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
                             cursor: 'pointer',
@@ -654,7 +654,7 @@ export default function AtelierPage() {
                                 width: '64px',
                                 height: '64px',
                                 flexShrink: 0,
-                                background: '#DFCFA8',
+                                background: '#E4E4E7',
                                 border: '1px solid rgba(0,0,0,0.15)',
                                 overflow: 'hidden',
                                 display: 'flex',
@@ -746,9 +746,9 @@ export default function AtelierPage() {
                   </div>
 
                   {/* Cabeçalho Visual + Metadados Principais */}
-                  <div style={{ display: 'grid', gridTemplateColumns: selectedArtwork.preview_image_url ? '140px 1fr' : '1fr', gap: '14px', marginBottom: '16px', padding: '12px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: selectedArtwork.preview_image_url ? '140px 1fr' : '1fr', gap: '14px', marginBottom: '16px', padding: '12px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.14)' }}>
                     {selectedArtwork.preview_image_url && (
-                      <div style={{ width: '140px', height: '140px', background: '#DFCFA8', border: '1px solid rgba(0,0,0,0.2)', overflow: 'hidden' }}>
+                      <div style={{ width: '140px', height: '140px', background: '#E4E4E7', border: '1px solid rgba(0,0,0,0.2)', overflow: 'hidden' }}>
                         <img
                           src={selectedArtwork.preview_image_url}
                           alt={selectedArtwork.title}
@@ -765,7 +765,7 @@ export default function AtelierPage() {
                             type="text"
                             value={selectedArtwork.title}
                             onChange={(e) => setSelectedArtwork({ ...selectedArtwork, title: e.target.value })}
-                            style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
+                            style={{ width: '100%', padding: '6px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
                           />
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px', gap: '6px' }}>
@@ -775,7 +775,7 @@ export default function AtelierPage() {
                               type="text"
                               value={selectedArtwork.project_folder}
                               onChange={(e) => setSelectedArtwork({ ...selectedArtwork, project_folder: e.target.value })}
-                              style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                              style={{ width: '100%', padding: '6px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
                             />
                           </div>
                           <div>
@@ -786,7 +786,7 @@ export default function AtelierPage() {
                               max={26}
                               value={selectedArtwork.mutated_keys_count}
                               onChange={(e) => setSelectedArtwork({ ...selectedArtwork, mutated_keys_count: Number(e.target.value) })}
-                              style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
+                              style={{ width: '100%', padding: '6px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
                             />
                           </div>
                         </div>
@@ -798,18 +798,18 @@ export default function AtelierPage() {
                           rows={2}
                           value={selectedArtwork.concept}
                           onChange={(e) => setSelectedArtwork({ ...selectedArtwork, concept: e.target.value })}
-                          style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '11px' }}
+                          style={{ width: '100%', padding: '6px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.2)', fontSize: '11px' }}
                         />
                       </div>
 
-                      <div style={{ fontSize: '10px', fontFamily: 'monospace', color: '#065F46', background: '#FAF6EE', padding: '6px 8px', border: '1px solid rgba(4,120,87,0.3)', wordBreak: 'break-all' }}>
+                      <div style={{ fontSize: '10px', fontFamily: 'monospace', color: '#065F46', background: '#FEFCF5', padding: '6px 8px', border: '1px solid rgba(4,120,87,0.3)', wordBreak: 'break-all' }}>
                         <strong>COA SHA-256 (JSON de Escrita):</strong> {selectedArtwork.coa_hash_sha256}
                       </div>
                     </div>
                   </div>
 
                   {/* COMPILADOR PROMPT TO IMAGE AO VIVO */}
-                  <div style={{ marginBottom: '16px', padding: '12px', background: '#FAF6EE', border: '2px solid #000000' }}>
+                  <div style={{ marginBottom: '16px', padding: '12px', background: '#FEFCF5', border: '2px solid #000000' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                       <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#000000' }}>
                         ⚡ Prompt to Image Compilado (Síntese Automática das 26 Chaves)
@@ -827,7 +827,7 @@ export default function AtelierPage() {
                       style={{
                         margin: 0,
                         padding: '10px',
-                        background: '#EFE4CC',
+                        background: '#F4F4F6',
                         border: '1px solid rgba(0,0,0,0.15)',
                         fontSize: '11px',
                         fontFamily: 'monospace',
@@ -864,8 +864,8 @@ export default function AtelierPage() {
                             fontSize: '10px',
                             fontWeight: 700,
                             cursor: 'pointer',
-                            background: axisFilter === ax.id ? '#000000' : '#EFE4CC',
-                            color: axisFilter === ax.id ? '#DFCFA8' : '#18181B',
+                            background: axisFilter === ax.id ? '#000000' : '#F4F4F6',
+                            color: axisFilter === ax.id ? '#E4E4E7' : '#18181B',
                             border: '1px solid rgba(0,0,0,0.2)',
                           }}
                         >
@@ -893,7 +893,7 @@ export default function AtelierPage() {
                           key={meta.key}
                           style={{
                             padding: '10px',
-                            background: '#EFE4CC',
+                            background: '#F4F4F6',
                             border: '1px solid rgba(0,0,0,0.14)',
                           }}
                         >
@@ -909,7 +909,7 @@ export default function AtelierPage() {
                                 fontSize: '10px',
                                 fontWeight: 700,
                                 padding: '1px 6px',
-                                background: '#FAF6EE',
+                                background: '#FEFCF5',
                                 border: '1px solid rgba(0,0,0,0.16)',
                               }}
                             >
@@ -926,7 +926,7 @@ export default function AtelierPage() {
                             style={{
                               width: '100%',
                               padding: '6px 8px',
-                              background: '#FAF6EE',
+                              background: '#FEFCF5',
                               border: '1px solid rgba(0,0,0,0.22)',
                               fontSize: '11px',
                               color: '#000000',
@@ -976,7 +976,7 @@ export default function AtelierPage() {
 
             {/* Formulário de Criação de Coleção */}
             {showCreateCol && (
-              <form onSubmit={handleCreateCollection} style={{ marginTop: '20px', padding: '16px', background: '#DFCFA8', border: '1px solid rgba(0,0,0,0.18)', borderRadius: '2px' }}>
+              <form onSubmit={handleCreateCollection} style={{ marginTop: '20px', padding: '16px', background: '#E4E4E7', border: '1px solid rgba(0,0,0,0.18)', borderRadius: '2px' }}>
                 <h3 style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', color: '#000000' }}>
                   + Cadastrar Nova Coleção
                 </h3>
@@ -1046,7 +1046,7 @@ export default function AtelierPage() {
                       key={col.id}
                       style={{
                         padding: '16px',
-                        background: isStoreActive ? '#FAF6EE' : '#EFE4CC',
+                        background: isStoreActive ? '#FEFCF5' : '#F4F4F6',
                         border: isStoreActive ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
                         boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                         display: 'flex',
@@ -1123,7 +1123,7 @@ export default function AtelierPage() {
               </Link>
             </div>
 
-            <div style={{ padding: '40px 20px', textAlign: 'center', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', marginTop: '16px' }}>
+            <div style={{ padding: '40px 20px', textAlign: 'center', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', marginTop: '16px' }}>
               <div style={{ fontSize: '28px', marginBottom: '8px' }}>🖼️</div>
               <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
                 Biblioteca Integrada Ativa

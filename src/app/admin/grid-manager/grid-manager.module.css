@@ -2,7 +2,7 @@
 
 .adminContainer {
   min-height: 100vh;
-  background-color: #EFE4CC;
+  background-color: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   color: #18191B;
   display: flex;
   flex-direction: column;
@@ -20,7 +20,7 @@
 /* Barra Superior de Seleção de Coleção e Publicação na Vitrine */
 .collectionToolbarRow {
   padding: 12px 24px;
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   border-bottom: 1px solid rgba(0, 0, 0, 0.16);
   display: flex;
   justify-content: space-between;
@@ -91,7 +91,7 @@
   align-items: center;
   gap: 8px;
   background-color: #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   border: 1px solid #000000;
   font-size: 0.75rem;
   font-weight: 700;
@@ -107,7 +107,7 @@
 
 .publishBtn:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -124,7 +124,7 @@
 
 /* Painel da Vitrine (Grid Preview) */
 .gridPreview {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -136,7 +136,7 @@
 .sectionHeaderFlex {
   padding: 14px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #DFCFA8;
+  background-color: #FEFCF5;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -214,7 +214,7 @@
 .addCardBtnGroup {
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 8px 14px;
   font-size: 0.72rem;
   font-weight: 700;
@@ -229,7 +229,7 @@
 
 .addCardBtnGroup:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -306,7 +306,7 @@
   top: 10px;
   left: 10px;
   background-color: #000000;
-  color: #DFCFA8;
+  color: #FEFCF5;
   font-weight: 700;
   font-size: 0.72rem;
   width: 24px;
@@ -350,7 +350,7 @@
 
 /* Painel Lateral do Editor */
 .editorPanel {
-  background-color: #FAF6EE;
+  background-color: #FEFCF5;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -453,7 +453,7 @@
 .linkMediaBtn {
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 10px 18px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -467,7 +467,7 @@
 
 .linkMediaBtn:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -523,7 +523,7 @@
 
 .typeBtn {
   flex: 1;
-  background-color: #EFE4CC;
+  background-color: #F4F4F6;
   border: 1px solid rgba(0, 0, 0, 0.18);
   color: #374151;
   padding: 8px 4px;
@@ -539,7 +539,7 @@
 .typeBtnActive {
   background-color: #000000;
   border-color: #000000;
-  color: #DFCFA8;
+  color: #FEFCF5;
   font-weight: 700;
 }
 
@@ -558,7 +558,7 @@
 .saveBtn {
   background-color: #000000;
   border: 1px solid #000000;
-  color: #FAF6EE;
+  color: #FEFCF5;
   padding: 10px 16px;
   font-size: 0.78rem;
   font-weight: 700;
@@ -571,7 +571,7 @@
 
 .saveBtn:hover {
   background-color: rgba(0, 0, 0, 0.82);
-  color: #DFCFA8;
+  color: #FEFCF5;
   transform: translateY(-1px);
 }
 
@@ -703,13 +703,13 @@
 
 .toastSuccess {
   background-color: #065F46;
-  color: #FAF6EE;
+  color: #FEFCF5;
   border-color: #047857;
 }
 
 .toastError {
   background-color: #991B1B;
-  color: #FAF6EE;
+  color: #FEFCF5;
   border-color: #B91C1C;
 }
 

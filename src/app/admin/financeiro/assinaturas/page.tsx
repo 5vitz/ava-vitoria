@@ -173,7 +173,7 @@ export default function AssinaturasPage() {
           <div
             style={{
               padding: '12px 18px',
-              background: '#EFE4CC',
+              background: '#F4F4F6',
               border: '1px solid rgba(5, 150, 105, 0.5)',
               color: '#065F46',
               fontSize: '13px',
@@ -312,14 +312,14 @@ export default function AssinaturasPage() {
             <button
               onClick={() => { setFilterPayer('PESSOAL_ARMANDO'); setFilterCategory('ALL'); setFilterCriticality('ALL'); }}
               className={`${styles.filterBtn} ${filterPayer === 'PESSOAL_ARMANDO' ? styles.filterBtnActive : ''}`}
-              style={{ color: filterPayer === 'PESSOAL_ARMANDO' ? '#DFCFA8' : '#991B1B' }}
+              style={{ color: filterPayer === 'PESSOAL_ARMANDO' ? '#E4E4E7' : '#991B1B' }}
             >
               👤 Cartão Armando ({personalArmandoItems.length})
             </button>
             <button
               onClick={() => { setFilterCriticality('CRITICA'); setFilterCategory('ALL'); setFilterPayer('ALL'); }}
               className={`${styles.filterBtn} ${filterCriticality === 'CRITICA' ? styles.filterBtnActive : ''}`}
-              style={{ color: filterCriticality === 'CRITICA' ? '#DFCFA8' : '#B91C1C' }}
+              style={{ color: filterCriticality === 'CRITICA' ? '#E4E4E7' : '#B91C1C' }}
             >
               🚨 Críticas ({criticalItems.length})
             </button>
@@ -485,7 +485,7 @@ export default function AssinaturasPage() {
 
                     {/* Linha expansível de Impacto de Inadimplência */}
                     {isExpanded && (
-                      <tr style={{ background: '#EFE4CC' }}>
+                      <tr style={{ background: '#F4F4F6' }}>
                         <td colSpan={10} style={{ padding: '14px 18px', borderBottom: '2px solid rgba(0,0,0,0.2)' }}>
                           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                             <div style={{ fontSize: '12px', fontWeight: 700, color: '#B91C1C' }}>

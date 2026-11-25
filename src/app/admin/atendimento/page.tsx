@@ -207,7 +207,7 @@ export default function AtendimentoAdminPage() {
           <div
             style={{
               padding: '14px',
-              background: '#FAF6EE',
+              background: '#FEFCF5',
               border: '2px solid #047857',
               color: '#065F46',
               fontSize: '13px',
@@ -238,8 +238,8 @@ export default function AtendimentoAdminPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '0.8px',
-              background: activeTab === 'logistics' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'logistics' ? '#DFCFA8' : '#18181B',
+              background: activeTab === 'logistics' ? '#000000' : '#F4F4F6',
+              color: activeTab === 'logistics' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
               borderColor: activeTab === 'logistics' ? '#000000' : 'rgba(0,0,0,0.18)',
               cursor: 'pointer',
@@ -258,8 +258,8 @@ export default function AtendimentoAdminPage() {
               fontSize: '12px',
               textTransform: 'uppercase',
               letterSpacing: '0.8px',
-              background: activeTab === 'tickets' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'tickets' ? '#DFCFA8' : '#18181B',
+              background: activeTab === 'tickets' ? '#000000' : '#F4F4F6',
+              color: activeTab === 'tickets' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
               borderColor: activeTab === 'tickets' ? '#000000' : 'rgba(0,0,0,0.18)',
               cursor: 'pointer',
@@ -311,7 +311,7 @@ export default function AtendimentoAdminPage() {
                     placeholder="Nº Pedido ou Link Intelipost..."
                     style={{
                       padding: '7px 12px',
-                      background: '#FAF6EE',
+                      background: '#FEFCF5',
                       border: '1px solid rgba(0,0,0,0.25)',
                       fontSize: '12px',
                       fontWeight: 700,
@@ -370,7 +370,7 @@ export default function AtendimentoAdminPage() {
                     marginTop: '16px',
                   }}
                 >
-                  <div style={{ padding: '12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Pedido &amp; Transportadora
                     </span>
@@ -382,7 +382,7 @@ export default function AtendimentoAdminPage() {
                     </span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Último Micro-Status na API
                     </span>
@@ -394,7 +394,7 @@ export default function AtendimentoAdminPage() {
                     </span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FEFCF5', border: '1px solid rgba(0,0,0,0.14)' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Previsão Oficial de Entrega
                     </span>
@@ -417,7 +417,7 @@ export default function AtendimentoAdminPage() {
 
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
                     {/* Fase 1: Produção */}
-                    <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(4,120,87,0.35)' }}>
+                    <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(4,120,87,0.35)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                         <span style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', color: '#065F46' }}>
                           1. {trackingData.slaDiagnostics.productionPhase.owner}
@@ -441,7 +441,7 @@ export default function AtendimentoAdminPage() {
                     <div
                       style={{
                         padding: '14px',
-                        background: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#FEF2F2' : '#EFE4CC',
+                        background: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#FEF2F2' : '#F4F4F6',
                         border: `2px solid ${trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#DC2626' : 'rgba(4,120,87,0.35)'}`,
                       }}
                     >
@@ -495,7 +495,7 @@ export default function AtendimentoAdminPage() {
                     </div>
 
                     {/* Fase 3: Trânsito Rodoviário & Última Milha (SAC) */}
-                    <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(29,78,216,0.35)' }}>
+                    <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(29,78,216,0.35)' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
                         <span style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', color: '#1E40AF' }}>
                           3. {trackingData.slaDiagnostics.carrierTransitPhase.owner}
@@ -547,7 +547,7 @@ export default function AtendimentoAdminPage() {
                           key={idx}
                           style={{
                             padding: '12px',
-                            background: idx === 0 ? '#FAF6EE' : '#EFE4CC',
+                            background: idx === 0 ? '#FEFCF5' : '#F4F4F6',
                             border: idx === 0 ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
                           }}
                         >
@@ -600,7 +600,7 @@ export default function AtendimentoAdminPage() {
                       style={{
                         width: '100%',
                         padding: '10px',
-                        background: '#FAF6EE',
+                        background: '#FEFCF5',
                         border: '1px solid rgba(0,0,0,0.22)',
                         fontSize: '12px',
                         color: '#000000',
@@ -628,7 +628,7 @@ export default function AtendimentoAdminPage() {
                     </button>
                   </div>
 
-                  <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.14)' }}>
                     <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#000000', marginBottom: '6px' }}>
                       📌 Governança do Fluxo Produção ➔ SAC:
                     </div>
@@ -664,7 +664,7 @@ export default function AtendimentoAdminPage() {
                     key={ticket.id}
                     style={{
                       padding: '14px',
-                      background: '#EFE4CC',
+                      background: '#F4F4F6',
                       border: '1px solid rgba(0,0,0,0.12)',
                       boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
                     }}
@@ -737,7 +737,7 @@ export default function AtendimentoAdminPage() {
                   95% a 98% dos atendimentos são resolvidos 24/7 pelos Agentes de IA (<strong>Concierge IA</strong> e <strong>Discriminador de Ocorrências</strong>). O sócio titular (<strong>Gustavo</strong>) atua como Diretor da Pasta.
                 </p>
 
-                <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.18)', marginBottom: '12px' }}>
+                <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.18)', marginBottom: '12px' }}>
                   <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
                     🎯 Gatilho Objetivo (Marca de 5 Atendimentos Humanos Recorrentes):
                   </div>
@@ -746,14 +746,14 @@ export default function AtendimentoAdminPage() {
                   </p>
                 </div>
 
-                <div style={{ padding: '14px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '12px' }}>
+                <div style={{ padding: '14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '12px' }}>
                   <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>Filosofia do Zagueiro-Artilheiro (Transbordo Automático):</div>
                   <p style={{ fontSize: '12px', color: '#374151' }}>
                     Se o titular do dia não acionar a autorização em 2 horas, o sistema escala imediatamente para os <strong>outros 3 sócios</strong> via WhatsApp com deep link de aprovação instantânea.
                   </p>
                 </div>
 
-                <div style={{ padding: '12px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ padding: '12px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Status do Concierge IA 24/7 na Loja Pública:</span>
                   <div style={{ fontSize: '12px', color: '#065F46', fontWeight: 700, marginTop: '2px' }}>
                     ● Operando online em /atendimento respondendo dúvidas de modelagem, prazos e cuidados.
