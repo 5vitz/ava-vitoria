@@ -29,7 +29,7 @@
 
 /* Painel de Lista de Produtos */
 .listSection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -40,7 +40,7 @@
 
 .listHeader {
   padding: 14px 20px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -91,7 +91,7 @@
 }
 
 .productItemRow {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 10px 14px;
   display: flex;
@@ -117,7 +117,7 @@
   width: 44px;
   aspect-ratio: 9 / 16;
   object-fit: cover;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.1);
   mix-blend-mode: multiply;
   flex-shrink: 0;
@@ -126,7 +126,7 @@
 .emptyThumb {
   width: 44px;
   aspect-ratio: 9 / 16;
-  background-color: #F4F4F6;
+  background-color: #FFFFFF;
   border: 1px dashed rgba(0, 0, 0, 0.2);
   display: flex;
   align-items: center;
@@ -193,7 +193,7 @@
 
 /* Painel de Edição de Grade e Estoque */
 .editorSection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -204,7 +204,7 @@
 
 .editorHeader {
   padding: 14px 20px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
 }
 
@@ -255,7 +255,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.12);
   padding: 12px;
 }
@@ -327,7 +327,7 @@
 }
 
 .colorTag {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   color: #000000;
   font-size: 0.75rem;
@@ -359,7 +359,7 @@
 /* Tabela de Variações */
 .variantsStockGrid {
   border: 1px solid rgba(0, 0, 0, 0.14);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
 }
@@ -368,7 +368,7 @@
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   padding: 8px 12px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   font-size: 0.72rem;
   text-transform: uppercase;

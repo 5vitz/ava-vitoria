@@ -392,3 +392,8 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 
 
+
+### Atualização Estética Rápida — Cards e Botões 100% Branco Puro (#FFFFFF)
+- **Fundo Root Mantido:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
+- **Cards e Botões:** Atualizados para `#FFFFFF` em todo o `/admin` (`admin-cockpit.module.css`, páginas departamentais, modais, boardroom e botões de ação), gerando alto contraste minimalista com bordas nítidas de 1px.
+- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).

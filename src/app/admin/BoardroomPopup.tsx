@@ -817,7 +817,7 @@ export default function BoardroomPopup({
                     <button
                       type="button"
                       className={adminStyles.executiveHeaderBtn}
-                      style={{ background: '#E4E4E7', color: '#000000' }}
+                      style={{ background: '#FFFFFF', color: '#000000' }}
                       onClick={toggleRealScreenShare}
                     >
                       Encerrar Tela

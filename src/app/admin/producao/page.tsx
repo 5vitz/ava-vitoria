@@ -226,7 +226,7 @@ export default function ProducaoPage() {
                   padding: '10px 18px',
                   fontSize: '12px',
                   letterSpacing: '0.5px',
-                  background: isActive ? '#000000' : '#F4F4F6',
+                  background: isActive ? '#000000' : '#FFFFFF',
                   color: isActive ? '#E4E4E7' : '#18181B',
                   border: '1px solid',
                   borderColor: isActive ? '#000000' : 'rgba(0, 0, 0, 0.18)',
@@ -344,7 +344,7 @@ export default function ProducaoPage() {
               gap: '12px',
               marginTop: '18px'
             }}>
-              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.1)' }}>
+              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)' }}>
                 <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Lead Time Fabril (Produção)</span>
                 <div style={{ fontSize: '18px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
                   3.0 Dias <span style={{ fontSize: '11px', color: '#059669', fontWeight: 600 }}>(79h 18m)</span>
@@ -352,7 +352,7 @@ export default function ProducaoPage() {
                 <span style={{ fontSize: '11px', color: '#4B5563' }}>PIX 17/11 02:11 ➔ Doca 20/11 09:30</span>
               </div>
 
-              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.1)' }}>
+              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)' }}>
                 <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Custo Fixo Recorrente</span>
                 <div style={{ fontSize: '18px', fontWeight: 800, color: '#059669', marginTop: '4px' }}>
                   R$ 0,00 / mês
@@ -360,7 +360,7 @@ export default function ProducaoPage() {
                 <span style={{ fontSize: '11px', color: '#4B5563' }}>Cobrança pura sob demanda (PoD)</span>
               </div>
 
-              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.1)' }}>
+              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)' }}>
                 <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Alçada Produção (Armando)</span>
                 <div style={{ fontSize: '15px', fontWeight: 800, color: '#059669', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#059669' }} />
@@ -369,7 +369,7 @@ export default function ProducaoPage() {
                 <span style={{ fontSize: '11px', color: '#4B5563' }}>Etiqueta &amp; Despacho CD: 20/11 às 09:30</span>
               </div>
 
-              <div style={{ padding: '12px 14px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.1)' }}>
+              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.1)' }}>
                 <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Pós-Coleta &amp; Cliente (Handoff)</span>
                 <div style={{ fontSize: '15px', fontWeight: 800, color: '#1D4ED8', marginTop: '4px' }}>
                   🎧🚚 Alçada SAC (Gustavo)
@@ -382,7 +382,7 @@ export default function ProducaoPage() {
             <div style={{
               marginTop: '18px',
               padding: '16px',
-              background: '#F4F4F6',
+              background: '#FFFFFF',
               border: '1px solid rgba(0,0,0,0.14)',
               boxShadow: '0 1px 4px rgba(0,0,0,0.03)'
             }}>
@@ -433,7 +433,7 @@ export default function ProducaoPage() {
             <div style={{
               marginTop: '18px',
               padding: '16px',
-              background: '#F4F4F6',
+              background: '#FFFFFF',
               border: '1px solid rgba(0,0,0,0.14)',
               display: 'flex',
               justifyContent: 'space-between',
@@ -538,7 +538,7 @@ export default function ProducaoPage() {
                 </span>
               </div>
 
-              <div style={{ overflowX: 'auto', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', padding: '8px' }}>
+              <div style={{ overflowX: 'auto', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', padding: '8px' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '12px', textAlign: 'left' }}>
                   <thead>
                     <tr style={{ borderBottom: '2px solid rgba(0,0,0,0.14)', color: '#4B5563' }}>
@@ -593,7 +593,7 @@ export default function ProducaoPage() {
             </div>
 
             {/* Critérios de Avaliação Têxtil */}
-            <div style={{ marginTop: '20px', padding: '16px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)' }}>
+            <div style={{ marginTop: '20px', padding: '16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)' }}>
               <h3 style={{ fontSize: '13px', color: '#000000', fontWeight: 700, marginBottom: '6px' }}>
                 Protocolo do Genera para Inspeção Têxtil na Chegada da Caixa:
               </h3>
@@ -677,7 +677,7 @@ export default function ProducaoPage() {
             <div style={{
               marginTop: '20px',
               padding: '20px',
-              background: '#F4F4F6',
+              background: '#FFFFFF',
               border: '2px solid rgba(0,0,0,0.16)',
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -720,7 +720,7 @@ export default function ProducaoPage() {
                 </div>
               </div>
 
-              <div style={{ padding: '16px', background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', textAlign: 'center' }}>
+              <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', textAlign: 'center' }}>
                 <span style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700 }}>
                   Vantagens do Canal Printful para a AVA
                 </span>
@@ -755,7 +755,7 @@ export default function ProducaoPage() {
                 </p>
               </div>
 
-              <span style={{ fontSize: '11px', background: '#F4F4F6', color: '#4B5563', padding: '6px 12px', border: '1px solid rgba(0,0,0,0.14)', fontWeight: 600 }}>
+              <span style={{ fontSize: '11px', background: '#FFFFFF', color: '#4B5563', padding: '6px 12px', border: '1px solid rgba(0,0,0,0.14)', fontWeight: 600 }}>
                 Status: Aguardando Resposta de Ticket Zoop
               </span>
             </div>
@@ -764,7 +764,7 @@ export default function ProducaoPage() {
             <div style={{
               marginTop: '20px',
               padding: '20px',
-              background: '#F4F4F6',
+              background: '#FFFFFF',
               border: '1px solid rgba(0,0,0,0.14)'
             }}>
               <h3 style={{ fontSize: '15px', fontWeight: 800, color: '#000000', marginBottom: '12px' }}>
@@ -874,7 +874,7 @@ export default function ProducaoPage() {
                 { title: '4. Expedição / Rastreio', badge: '1 Ativo' },
                 { title: '5. Entregue ao Cliente', badge: '0' },
               ].map((col, idx) => (
-                <div key={idx} style={{ background: '#F4F4F6', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', padding: '12px' }}>
+                <div key={idx} style={{ background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', padding: '12px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px', borderBottom: '1px solid rgba(0,0,0,0.1)', paddingBottom: '4px' }}>
                     <span style={{ fontSize: '11px', fontWeight: 800, color: '#000000', textTransform: 'uppercase' }}>
                       {col.title}

@@ -156,7 +156,7 @@ export default function ChangePasswordModal({
     >
       <div
         style={{
-          background: '#E4E4E7',
+          background: '#FFFFFF',
           border: '2px solid #000000',
           boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
           width: '580px',
@@ -261,7 +261,7 @@ export default function ChangePasswordModal({
                 <div
                   onClick={() => handleSelectLevel(1)}
                   style={{
-                    background: selectedLevel === 1 ? '#FEFCF5' : '#F4F4F6',
+                    background: selectedLevel === 1 ? '#FFFFFF' : '#F4F4F6',
                     border:
                       selectedLevel === 1 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
                     padding: '12px',
@@ -300,7 +300,7 @@ export default function ChangePasswordModal({
                 <div
                   onClick={() => handleSelectLevel(2)}
                   style={{
-                    background: selectedLevel === 2 ? '#FEFCF5' : '#F4F4F6',
+                    background: selectedLevel === 2 ? '#FFFFFF' : '#F4F4F6',
                     border:
                       selectedLevel === 2 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
                     padding: '12px',

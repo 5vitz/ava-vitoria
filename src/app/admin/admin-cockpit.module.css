@@ -11,7 +11,7 @@
 
 /* Header do Painel Admin (Card Palha Escuro #E4E4E7) */
 .adminHeader {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
   padding: 14px 20px;
@@ -61,7 +61,7 @@
   text-transform: uppercase;
   letter-spacing: 0.7px;
   color: #000000;
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 2px;
   transition: all 0.2s ease;
@@ -144,7 +144,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 2px;
   color: #000000;
@@ -172,7 +172,7 @@
 }
 
 .headerRow1Card {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 10px 18px;
@@ -222,7 +222,7 @@
   text-transform: uppercase;
   letter-spacing: 0.6px;
   color: #000000;
-  background: #F4F4F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.35);
   border-radius: 2px;
   cursor: pointer;
@@ -231,7 +231,7 @@
 }
 
 .actionCardBtn:hover {
-  background: #FEFCF5;
+  background: #FFFFFF;
   border-color: #000000;
   transform: translateY(-1px);
 }
@@ -249,7 +249,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #F4F4F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 6px 10px;
   border-radius: 2px;
@@ -271,7 +271,7 @@
   align-items: center;
   gap: 5px;
   padding: 4px 9px;
-  background: #F4F4F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.20);
   border-radius: 2px;
   font-size: 11px;
@@ -283,7 +283,7 @@
 
 .partnerPresenceCurrentUser {
   /* Mantém a paleta palha sem preto chapado */
-  background: #FEFCF5 !important;
+  background: #FFFFFF !important;
   border-color: rgba(0, 0, 0, 0.35) !important;
   color: #18191B !important;
   font-weight: 800;
@@ -291,7 +291,7 @@
 }
 
 .partnerPresenceGuestLevel2 {
-  background: #FEFCF5 !important;
+  background: #FFFFFF !important;
   border: 1px dashed #000000 !important;
   color: #000000 !important;
 }
@@ -322,7 +322,7 @@
 }
 
 .headerRow2Card {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 8px 18px;
@@ -354,7 +354,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: #27272A;
-  background: rgba(0, 0, 0, 0.04);
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.16);
   border-radius: 2px;
   font-weight: 700;
@@ -392,7 +392,7 @@
 
 /* Banner de Boas Vindas & Conselho (Palha Escuro #E4E4E7) */
 .topBanner {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 24px;
   margin-bottom: 24px;
@@ -418,7 +418,7 @@
 
 /* BLOCO 2: Fila de Decisões dos 4 Sócios (Uniformizado em Palha Escuro #E4E4E7 + Preto/Grafite) */
 .decisionQueueSection {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -462,7 +462,7 @@
 
 /* Cards Internos do Bloco 2 — Palha Claro (#F4F4F6) sobre Container Palha Escuro (#E4E4E7) */
 .decisionCard {
-  background: #F4F4F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 16px;
@@ -474,7 +474,7 @@
 }
 
 .decisionCard:hover {
-  background: #FEFCF5;
+  background: #FFFFFF;
   border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -498,7 +498,7 @@
   padding: 2px 8px;
   font-size: 10px;
   font-weight: 600;
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   color: #000000;
   border: 1px solid rgba(0, 0, 0, 0.24);
 }
@@ -542,7 +542,7 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   color: #000000;
   border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 2px;
@@ -564,7 +564,7 @@
 
 /* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #E4E4E7) */
 .deptsPanel {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -578,7 +578,7 @@
 }
 
 .deptCard {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.22);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   padding: 20px;
@@ -593,7 +593,7 @@
 .deptCard:hover {
   border-color: #000000;
   transform: translateY(-2px);
-  background: #ECECEF;
+  background: #FFFFFF;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -640,7 +640,7 @@
 
 /* BLOCO 3: Painel de Telemetria dos 23 Agentes (Palha Escuro #E4E4E7) */
 .agentsPanel {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -660,7 +660,7 @@
 }
 
 .agentBadge {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.22);
   padding: 12px;
   display: flex;
@@ -672,7 +672,7 @@
 }
 
 .agentBadge:hover {
-  background: #ECECEF;
+  background: #FFFFFF;
   border-color: #000000;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -717,13 +717,13 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 24px;
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 18px 24px;
 }
 
 .deptModuleHeader .partnerOwnerBadge {
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   border-color: rgba(0, 0, 0, 0.24);
   color: #000000;
 }
@@ -756,7 +756,7 @@
 }
 
 .moduleCard {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 24px;
@@ -778,7 +778,7 @@
 
 /* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #E4E4E7 + Preto/Grafite) */
 .executiveCommandStrip {
-  background: #E4E4E7;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.22);
   border-left: 4px solid #000000;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -810,7 +810,7 @@
   align-items: center;
   gap: 7px;
   padding: 6px 11px;
-  background: #F4F4F6;
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   border-radius: 2px;
   font-size: 11px;
@@ -821,7 +821,7 @@
 }
 
 .partnerStatusChip:hover {
-  background: #FEFCF5;
+  background: #FFFFFF;
   border-color: #000000;
 }
 
@@ -864,7 +864,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.7px;
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.22);
   color: #3F3F46;
 }
@@ -905,7 +905,7 @@
 }
 
 .voterPending {
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.28);
   color: #3F3F46;
 }
@@ -930,7 +930,7 @@
 }
 
 .btnNudge {
-  background: rgba(0, 0, 0, 0.06);
+  background: #FFFFFF;
   color: #000000;
   border: 1px solid rgba(0, 0, 0, 0.32);
   border-radius: 2px;

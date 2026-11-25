@@ -21,7 +21,7 @@
 }
 
 .introSection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
@@ -44,7 +44,7 @@
 }
 
 .selectionModeBanner {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 16px 20px;
   display: flex;
@@ -132,7 +132,7 @@
 }
 
 .createForm {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   padding: 20px;
   display: flex;
@@ -196,7 +196,7 @@
 }
 
 .projectCard {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 20px;

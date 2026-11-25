@@ -21,7 +21,7 @@
 }
 
 .introCard {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
@@ -45,7 +45,7 @@
 }
 
 .panelSection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
@@ -150,7 +150,7 @@
 
 /* Preview Box */
 .previewBox {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   padding: 24px;
   display: flex;

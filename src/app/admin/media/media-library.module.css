@@ -22,7 +22,7 @@
 
 /* Barra de Controles e Filtros */
 .controlsSection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 16px 20px;
@@ -145,7 +145,7 @@
 
 /* Galeria de Mídias (Grid Uniforme de 9 Colunas Balenciaga) */
 .gallerySection {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -154,7 +154,7 @@
 
 .galleryHeader {
   padding: 16px 20px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -205,7 +205,7 @@
 }
 
 .mediaCard {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -229,7 +229,7 @@
   aspect-ratio: 9 / 16;
   position: relative;
   overflow: hidden;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -266,7 +266,7 @@
 
 .mediaDetails {
   padding: 8px 10px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -344,7 +344,7 @@
 }
 
 .zoomModalContent {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   max-width: 600px;
@@ -356,7 +356,7 @@
 
 .zoomModalHeader {
   padding: 12px 18px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.14);
   display: flex;
   justify-content: space-between;
@@ -386,7 +386,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
 }
 
 .zoomModalMedia {

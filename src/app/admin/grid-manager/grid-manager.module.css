@@ -20,7 +20,7 @@
 /* Barra Superior de Seleção de Coleção e Publicação na Vitrine */
 .collectionToolbarRow {
   padding: 12px 24px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.16);
   display: flex;
   justify-content: space-between;
@@ -124,7 +124,7 @@
 
 /* Painel da Vitrine (Grid Preview) */
 .gridPreview {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -136,7 +136,7 @@
 .sectionHeaderFlex {
   padding: 14px 20px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -246,7 +246,7 @@
 
 .productCardWrapper {
   border: 1px solid rgba(0, 0, 0, 0.12);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -271,7 +271,7 @@
   aspect-ratio: 9 / 16;
   position: relative;
   overflow: hidden;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
@@ -289,7 +289,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px dashed rgba(0, 0, 0, 0.2);
   color: #6B7280;
   font-size: 0.78rem;
@@ -321,7 +321,7 @@
 
 .cardDetails {
   padding: 12px 14px;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
 }
 
 .cardName {
@@ -350,7 +350,7 @@
 
 /* Painel Lateral do Editor */
 .editorPanel {
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.14);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
@@ -371,7 +371,7 @@
   aspect-ratio: 9 / 16;
   margin: 15px auto;
   border: 1px solid rgba(0, 0, 0, 0.14);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
@@ -383,7 +383,7 @@
   aspect-ratio: 93 / 80;
   margin: 15px auto;
   border: 1px solid rgba(0, 0, 0, 0.14);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
@@ -395,7 +395,7 @@
   aspect-ratio: 141 / 80;
   margin: 15px auto;
   border: 1px solid rgba(0, 0, 0, 0.14);
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
@@ -523,7 +523,7 @@
 
 .typeBtn {
   flex: 1;
-  background-color: #F4F4F6;
+  background-color: #FFFFFF;
   border: 1px solid rgba(0, 0, 0, 0.18);
   color: #374151;
   padding: 8px 4px;
@@ -647,7 +647,7 @@
 .carouselThumb {
   width: 70px;
   aspect-ratio: 9 / 16;
-  background-color: #FEFCF5;
+  background-color: #FFFFFF;
   position: relative;
   border: 1px solid rgba(0, 0, 0, 0.14);
   overflow: hidden;
