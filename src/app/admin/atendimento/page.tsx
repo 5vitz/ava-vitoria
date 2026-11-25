@@ -225,7 +225,7 @@ export default function AtendimentoAdminPage() {
             display: 'flex',
             gap: '8px',
             marginBottom: '22px',
-            background: '#CFD0D6',
+            background: '#EEEEF2',
             border: '1px solid #000000',
             padding: '8px 12px',
             overflowX: 'auto',

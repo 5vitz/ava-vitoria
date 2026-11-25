@@ -422,3 +422,9 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
   - Cards de Decisão do Conselho (`.decisionCard`) e Dossiê dos 23 Agentes (`.agentBadge`);
   - Cards e sub-cards de métricas de todos os 8 módulos departamentais internos.
 - **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).
+
+### Teste Estético de Contraste — Containers Cinza Claro Luminoso (#EEEEF2)
+- **Fundo Root:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
+- **Cards Containers:** Atualizados para `#EEEEF2` (tom de cinza alumínio luminoso, mais claro que o fundo prata `#E2E2E4`).
+- **Cards e Botões Internos:** Fundo Branco Puro (`#FFFFFF`) com bordas pretas sólidas de 1px (`border: 1px solid #000000`), no padrão da tela de bloqueio (`SiteLockGate`).
+- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).

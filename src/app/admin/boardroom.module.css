@@ -10,7 +10,7 @@
   max-height: calc(100vh - var(--admin-header-height, 120px) - 16px);
   min-width: 380px;
   min-height: 320px;
-  background: #CFD0D6;
+  background: #EEEEF2;
   border: 2px solid #000000;
   box-shadow: 0 22px 55px rgba(0, 0, 0, 0.35);
   display: flex;

@@ -356,7 +356,7 @@ export default function AtelierPage() {
         )}
 
         {/* Seletor de Abas do Atelier */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', background: '#CFD0D6', border: '1px solid #000000', padding: '8px 12px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', background: '#EEEEF2', border: '1px solid #000000', padding: '8px 12px', overflowX: 'auto' }}>
           <button
             onClick={() => setActiveTab('artworks')}
             style={{

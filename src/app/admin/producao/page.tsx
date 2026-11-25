@@ -183,7 +183,7 @@ export default function ProducaoPage() {
           display: 'flex',
           gap: '8px',
           marginBottom: '24px',
-          background: '#CFD0D6',
+          background: '#EEEEF2',
           border: '1px solid #000000',
           padding: '8px 12px',
           overflowX: 'auto'
