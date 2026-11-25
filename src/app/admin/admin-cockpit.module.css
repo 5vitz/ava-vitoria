@@ -10,7 +10,7 @@
 
 .adminLayout {
   /* NÍVEL 1 — FUNDO ROOT DA PÁGINA */
-  --admin-bg-page: linear-gradient(180deg, #C4C4CA 0%, #9C9CA4 100%);
+  --admin-bg-page: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
   --admin-text-primary: #000000;
   --admin-text-body: #18191B;
   --admin-text-secondary: #3F3F46;
