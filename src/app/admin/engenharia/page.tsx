@@ -18,7 +18,7 @@ export default function ArquiteturaPage() {
               Sócio Titular: <strong>Armando</strong> · Arquitetura de Sistemas, Infraestrutura VPS Contabo, PostgreSQL, Prisma ORM e Design System
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Armando
           </span>
         </div>
@@ -27,25 +27,25 @@ export default function ArquiteturaPage() {
           {/* Servidor VPS & PM2 */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Infraestrutura de Produção (VPS Contabo)</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Servidor / IP</span>
-                <span style={{ fontWeight: 600, color: '#000000' }}>Contabo Cloud VPS (31.220.102.2)</span>
+            <div className={styles.flexColStack}>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Servidor / IP</span>
+                <span className={styles.textPrimaryBold}>Contabo Cloud VPS (31.220.102.2)</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Domínio / SSL</span>
-                <span style={{ fontWeight: 600, color: '#047857' }}>HTTPS Ativo (Let&apos;s Encrypt / Certbot)</span>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Domínio / SSL</span>
+                <span className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>HTTPS Ativo (Let&apos;s Encrypt / Certbot)</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Processo Node.js</span>
-                <span style={{ fontWeight: 600, color: '#047857' }}>PM2: ava-vitoria (Porta 3000)</span>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Processo Node.js</span>
+                <span className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>PM2: ava-vitoria (Porta 3000)</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Deploy Automatizado</span>
-                <span style={{ fontWeight: 600, color: '#000000' }}>scripts/deploy.sh (Soberania Genera)</span>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Deploy Automatizado</span>
+                <span className={styles.textPrimaryBold}>scripts/deploy.sh (Soberania Genera)</span>
               </div>
             </div>
           </div>
@@ -53,52 +53,52 @@ export default function ArquiteturaPage() {
           {/* Banco de Dados & Rota GEO */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Banco Relacional &amp; Arquitetura GEO / IA</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Banco de Dados</span>
-                <span style={{ fontWeight: 600, color: '#000000' }}>PostgreSQL Nativo (ACID Compliant)</span>
+            <div className={styles.flexColStack}>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Banco de Dados</span>
+                <span className={styles.textPrimaryBold}>PostgreSQL Nativo (ACID Compliant)</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Camada ORM</span>
-                <span style={{ fontWeight: 600, color: '#047857' }}>Prisma Client v7.8.0 (@prisma/adapter-pg)</span>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Camada ORM</span>
+                <span className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>Prisma Client v7.8.0 (@prisma/adapter-pg)</span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Indexação de Agentes</span>
-                <a href="/llms.txt" target="_blank" style={{ color: '#047857', textDecoration: 'underline', fontWeight: 600 }}>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Indexação de Agentes</span>
+                <a href="/llms.txt" target="_blank" className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>
                   /llms.txt (Ativo) ↗
                 </a>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ color: '#4B5563' }}>Estilo &amp; CSS</span>
-                <span style={{ fontWeight: 600, color: '#000000' }}>100% CSS Modules Semântico Puro</span>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textMutedSmall}>Estilo &amp; CSS</span>
+                <span className={styles.textPrimaryBold}>100% CSS Modules Semântico Puro</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Módulos Integrados da AVA */}
-        <div className={styles.moduleCard} style={{ marginTop: '24px' }}>
+        <div className={`${styles.moduleCard} ${styles.moduleCardTopSpaced}`}>
           <h2 className={styles.cardHeading}>Acessos Integrados do Ecossistema AVA</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '20px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>🎨 Design System Dinâmico</div>
-              <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>
-                Gerencie paletas de cores, variáveis de tipografia, espessura de bordas e os tons Palha Claro e Palha Escuro.
+          <div className={styles.autoGridCards}>
+            <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+              <div className={styles.decisionTitle}>🎨 Design System Dinâmico</div>
+              <p className={styles.textBodySmall}>
+                Gerencie paletas de cores, variáveis de tipografia, espessura de bordas e os tokens visuais da Vitrine e do Painel.
               </p>
-              <Link href="/admin/design-system" className={styles.btnPrimary} style={{ textAlign: 'center', marginTop: 'auto' }}>
+              <Link href="/admin/design-system" className={styles.btnPrimary}>
                 Abrir Design System ↗
               </Link>
             </div>
 
-            <div style={{ padding: '20px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <div style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>🔒 Portaria da Loja (SiteLock)</div>
-              <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>
+            <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+              <div className={styles.decisionTitle}>🔒 Portaria da Loja (SiteLock)</div>
+              <p className={styles.textBodySmall}>
                 Controle o cadeado de visualização da loja pública, tela de pré-lançamento e senhas para visitantes VIP.
               </p>
-              <Link href="/admin/design-system" className={styles.btnSecondary} style={{ textAlign: 'center', marginTop: 'auto' }}>
+              <Link href="/admin/design-system" className={styles.btnSecondary}>
                 Gerenciar Portaria ↗
               </Link>
             </div>

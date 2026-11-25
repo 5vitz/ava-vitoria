@@ -28,7 +28,7 @@ export default function JuridicoPage() {
   const [lexAnswer, setLexAnswer] = useState<string | null>(null);
 
   const toggleCheck = (id: number) => {
-    setChecklist(prev => prev.map(item => item.id === id ? { ...item, checked: !item.checked } : item));
+    setChecklist((prev) => prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)));
   };
 
   const askLexTopic = (questionText: string) => {
@@ -64,7 +64,7 @@ export default function JuridicoPage() {
     askLexTopic(lexQuestion);
   };
 
-  const completedCount = checklist.filter(c => c.checked).length;
+  const completedCount = checklist.filter((c) => c.checked).length;
   const progressPercent = Math.round((completedCount / checklist.length) * 100);
 
   return (
@@ -79,20 +79,20 @@ export default function JuridicoPage() {
               Sócio Titular: <strong>Flávio</strong> · Governança Fiscal, Reforma Tributária (LC 214/2025 — CBS/IBS), Transição MEI ➔ LTDA, INPI e Dr. Lex
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Flávio
           </span>
         </div>
 
         {/* Diagnóstico MEI vs LTDA */}
-        <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
+        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
           <h2 className={styles.cardHeading}>Diagnóstico Fiscal Crítico: MEI vs. LTDA (Simples Nacional)</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid rgba(220,38,38,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-              <div style={{ color: '#991B1B', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
+          <div className={styles.autoGridCards}>
+            <div className={`${styles.innerCard} ${styles.innerCardDanger}`}>
+              <div className={`${styles.decisionTitle} ${styles.textDanger}`}>
                 ⚠️ Gargalos do MEI Atual
               </div>
-              <ul style={{ fontSize: '12px', color: '#18181B', lineHeight: '1.6', paddingLeft: '16px' }}>
+              <ul className={styles.textBodySmall}>
                 <li>Limite de 38 peças/mês (R$ 81 mil/ano).</li>
                 <li>Proibição legal de inclusão dos 4 sócios.</li>
                 <li>Bloqueio de cadastro na Dafiti e Reserva.</li>
@@ -100,11 +100,11 @@ export default function JuridicoPage() {
               </ul>
             </div>
 
-            <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid rgba(5,150,105,0.35)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
-              <div style={{ color: '#065F46', fontWeight: 700, fontSize: '13px', marginBottom: '8px' }}>
+            <div className={`${styles.innerCard} ${styles.innerCardSuccess}`}>
+              <div className={`${styles.decisionTitle} ${styles.textSuccess}`}>
                 ✅ Vantagens da LTDA (Simples Nacional)
               </div>
-              <ul style={{ fontSize: '12px', color: '#18181B', lineHeight: '1.6', paddingLeft: '16px' }}>
+              <ul className={styles.textBodySmall}>
                 <li>Teto salta para R$ 360 mil até R$ 4,8 milhões/ano.</li>
                 <li>Contrato Social formalizando a diretoria e sociedade na JUCEES.</li>
                 <li>Liberação imediata nos 10 canais via Bling ERP.</li>
@@ -115,39 +115,39 @@ export default function JuridicoPage() {
         </section>
 
         {/* Inteligência Reforma Tributária do Consumo (RTC — LC 214/2025) */}
-        <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
-            <h2 className={styles.cardHeading} style={{ margin: 0 }}>
+        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+          <div className={styles.flexRowBetween}>
+            <h2 className={styles.cardHeadingNoBorder}>
               ⚖️ Inteligência Reforma Tributária (RTC — LC 214/2025 · CBS &amp; IBS no Simples Nacional)
             </h2>
-            <span style={{ fontSize: '11px', fontWeight: 700, padding: '4px 10px', background: '#FFFFFF', border: '1px solid #000000', color: '#18181B' }}>
+            <span className={styles.statusPill}>
               Ref. Oficial: ReceitaFederal/calculadora-rtc-simples-nacional (v1.0.2)
             </span>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
-            <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000' }}>
-              <div style={{ fontWeight: 700, fontSize: '12px', color: '#18181B', marginBottom: '6px' }}>
+          <div className={styles.autoGridCards}>
+            <div className={styles.innerCard}>
+              <div className={styles.decisionTitle}>
                 1. Trava Fiscal NCM × cClassTrib (Regra REG-011)
               </div>
-              <p style={{ fontSize: '12px', color: '#27272A', lineHeight: '1.55', margin: 0 }}>
+              <p className={styles.textBodySmall}>
                 Na virada 2026 ➔ 2027, o motor da Receita valida o vínculo estrito entre o <strong>NCM 6109.10.00</strong> (camisetas e regatas de malha de algodão) e os códigos <strong>cClassTrib</strong> e <strong>CST</strong> do grupo <code>&lt;IBSCBS&gt;</code> na NF-e Modelo 55 para evitar rejeição (HTTP 422 / REG-011).
               </p>
             </div>
 
-            <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000' }}>
-              <div style={{ fontWeight: 700, fontSize: '12px', color: '#065F46', marginBottom: '6px' }}>
+            <div className={styles.innerCard}>
+              <div className={`${styles.decisionTitle} ${styles.textSuccess}`}>
                 2. Estratégia B2C (Pelo DAS) vs. B2B (Crédito Integral)
               </div>
-              <p style={{ fontSize: '12px', color: '#27272A', lineHeight: '1.55', margin: 0 }}>
+              <p className={styles.textBodySmall}>
                 A LC 214/2025 permite recolher CBS/IBS <strong>por dentro do DAS</strong> (Anexo I com alíquota reduzida — ideal para o nosso Varejo B2C) ou pelo <strong>regime regular</strong> para transferir crédito integral de CBS/IBS em grandes lotes corporativos B2B (Uniformes Reserva INK).
               </p>
             </div>
 
-            <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000' }}>
-              <div style={{ fontWeight: 700, fontSize: '12px', color: '#18181B', marginBottom: '6px' }}>
+            <div className={styles.innerCard}>
+              <div className={styles.decisionTitle}>
                 3. Zero Overhead na VPS Contabo (Delegado ao Bling)
               </div>
-              <p style={{ fontSize: '12px', color: '#27272A', lineHeight: '1.55', margin: 0 }}>
+              <p className={styles.textBodySmall}>
                 O motor Java 25 / Spring Boot da Receita Federal é processado nativamente pelo <strong>Bling ERP v3</strong> na emissão do XML da NF-e 55, mantendo nosso servidor Next.js/PostgreSQL 100% leve e sem consumo extra de memória RAM.
               </p>
             </div>
@@ -157,32 +157,21 @@ export default function JuridicoPage() {
         <div className={styles.moduleGrid2Cols}>
           {/* Checklist de Documentação */}
           <div className={styles.moduleCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h2 className={styles.cardHeading}>Checklist Bling ERP &amp; 10 Canais</h2>
-              <span style={{ fontSize: '12px', color: '#065F46', fontWeight: 700 }}>{progressPercent}% Completo</span>
+            <div className={styles.flexRowBetween}>
+              <h2 className={styles.cardHeadingNoBorder}>Checklist Bling ERP &amp; 10 Canais</h2>
+              <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>{progressPercent}% Completo</span>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-              {checklist.map(item => (
-                <label
-                  key={item.id}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '10px',
-                    fontSize: '12px',
-                    color: item.checked ? '#18181B' : '#52525B',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={item.checked}
-                    onChange={() => toggleCheck(item.id)}
-                    style={{ accentColor: '#059669', width: '16px', height: '16px' }}
-                  />
-                  <span style={{ textDecoration: item.checked ? 'line-through' : 'none', opacity: item.checked ? 0.75 : 1 }}>
-                    {item.label}
+            <div className={styles.flexColTight}>
+              {checklist.map((item) => (
+                <label key={item.id} className={styles.innerRowItem}>
+                  <span className={styles.flexRowStart}>
+                    <input
+                      type="checkbox"
+                      checked={item.checked}
+                      onChange={() => toggleCheck(item.id)}
+                    />
+                    <span>{item.label}</span>
                   </span>
                 </label>
               ))}
@@ -192,66 +181,59 @@ export default function JuridicoPage() {
           {/* Chat Dr. Lex */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Consultoria Jurídica IA · Dr. Lex</h2>
-            <p style={{ fontSize: '12px', color: '#3F3F46' }}>
+            <p className={styles.textBodySmall}>
               Tire dúvidas rápidas sobre contratos, Reforma Tributária (CBS/IBS — LC 214/2025), Simples Nacional, proteção de marca no INPI e direito do consumidor.
             </p>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '10px' }}>
+            <div className={styles.flexRowStart}>
               <button
                 type="button"
                 onClick={() => askLexTopic('Como funciona a Reforma Tributária (RTC — CBS, IBS e cClassTrib) na AVA?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#FFFFFF', border: '1px solid #000000', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                className={styles.btnSecondary}
               >
                 ⚖️ Reforma Tributária (CBS/IBS &amp; cClassTrib)
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Qual a estratégia de transição MEI para LTDA no Simples Nacional?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#FFFFFF', border: '1px solid #000000', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                className={styles.btnSecondary}
               >
                 🏛️ Transição MEI ➔ LTDA
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Como registrar a marca AVA no INPI nas classes 25 e 35?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#FFFFFF', border: '1px solid #000000', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                className={styles.btnSecondary}
               >
                 ®️ Marca INPI (Classes 25 e 35)
               </button>
               <button
                 type="button"
                 onClick={() => askLexTopic('Como funciona a regra de trocas CDC Art. 49 vs defeito PoD?')}
-                style={{ fontSize: '11px', padding: '5px 9px', background: '#FFFFFF', border: '1px solid #000000', cursor: 'pointer', color: '#18181B', fontWeight: 600 }}
+                className={styles.btnSecondary}
               >
                 🛡️ Trocas CDC Art. 49
               </button>
             </div>
 
-            <form onSubmit={handleAskLex} style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <form onSubmit={handleAskLex} className={styles.flexColStack}>
               <textarea
                 rows={3}
                 placeholder="Ex: Como funciona a Reforma Tributária (CBS/IBS e cClassTrib) no Simples Nacional?"
                 value={lexQuestion}
                 onChange={(e) => setLexQuestion(e.target.value)}
-                style={{
-                  background: '#FFFFFF',
-                  border: '1px solid #000000',
-                  padding: '12px',
-                  color: '#000000',
-                  fontFamily: 'inherit',
-                  fontSize: '13px',
-                  outline: 'none',
-                  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.04)'
-                }}
+                className={styles.formTextarea}
               />
-              <button type="submit" className={styles.btnPrimary} style={{ alignSelf: 'flex-start' }}>
-                Consultar Dr. Lex
-              </button>
+              <div>
+                <button type="submit" className={styles.btnPrimary}>
+                  Consultar Dr. Lex
+                </button>
+              </div>
             </form>
 
             {lexAnswer && (
-              <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '13px', lineHeight: '1.5', color: '#18181B', boxShadow: '0 1px 4px rgba(0, 0, 0, 0.04)' }}>
-                {lexAnswer}
+              <div className={styles.innerCard}>
+                <p className={styles.textBodySmall}>{lexAnswer}</p>
               </div>
             )}
           </div>

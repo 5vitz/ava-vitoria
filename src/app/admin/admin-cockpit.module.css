@@ -1,165 +1,82 @@
-/* admin-cockpit.module.css — Estética da Subtração aplicada ao Painel Executivo AVA */
+/* ==========================================================================
+   admin-cockpit.module.css — Sistema Unificado de Classes & Tokens do Painel
+   ==========================================================================
+   ARQUITETURA EM 4 NÍVEIS (1 COMANDO ALTERA TODA A CLASSE EM TODO O PAINEL):
+   1. NÍVEL 1 (Página):       var(--admin-bg-page)
+   2. NÍVEL 2 (Containers):   var(--admin-surface-container) + var(--admin-border-container)
+   3. NÍVEL 3 (Cards/Itens):  var(--admin-surface-card)      + var(--admin-border-card)
+   4. NÍVEL 4 (Controles):    var(--admin-btn-bg), var(--admin-btn-active-bg), inputs, abas
+   ========================================================================== */
 
 .adminLayout {
+  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA */
+  --admin-bg-page: linear-gradient(180deg, #C4C4CA 0%, #9C9CA4 100%);
+  --admin-text-primary: #000000;
+  --admin-text-body: #18191B;
+  --admin-text-secondary: #3F3F46;
+  --admin-text-muted: #4B5563;
+
+  /* NÍVEL 2 — BANDEJAS / CONTAINERS ARQUITETÔNICOS (.moduleCard, .headerRow1Card, .deptsPanel, .tabStripContainer) */
+  --admin-surface-container: #EEEEF2;
+  --admin-border-container: 1px solid rgba(0, 0, 0, 0.18);
+  --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* NÍVEL 3 — CARDS INTERNOS FLUTUANTES (.innerCard, .kpiCard, .deptCard, .decisionCard, .agentBadge, .dataTableWrapper) */
+  --admin-surface-card: #FFFFFF;
+  --admin-surface-card-highlight: #FEFCF5;
+  --admin-surface-card-subtle: #F4F4F6;
+  --admin-border-card: 1px solid #000000;
+  --admin-border-card-active: 2px solid #000000;
+  --admin-border-card-subtle: 1px solid rgba(0, 0, 0, 0.18);
+  --admin-shadow-card: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  /* NÍVEL 4 — BOTÕES, ABAS E INPUTS */
+  --admin-btn-bg: #FFFFFF;
+  --admin-btn-text: #000000;
+  --admin-btn-border: 1px solid #000000;
+  --admin-btn-hover-bg: rgba(0, 0, 0, 0.12);
+
+  --admin-btn-active-bg: rgba(0, 0, 0, 0.46);
+  --admin-btn-active-hover-bg: rgba(0, 0, 0, 0.65);
+  --admin-btn-active-text: #FEFCF5;
+  --admin-btn-active-border: 1px solid rgba(0, 0, 0, 0.40);
+  --admin-btn-active-blur: blur(12px);
+
+  --admin-input-bg: #FFFFFF;
+  --admin-input-border: 1px solid #000000;
+  --admin-input-text: #000000;
+
+  /* TOKENS DE STATUS SEMÂNTICOS */
+  --admin-color-success: #047857;
+  --admin-color-success-dark: #065F46;
+  --admin-bg-success-soft: rgba(5, 150, 105, 0.14);
+  --admin-border-success: 1px solid rgba(5, 150, 105, 0.38);
+
+  --admin-color-warning: #B45309;
+  --admin-color-warning-dark: #92400E;
+  --admin-bg-warning-soft: rgba(217, 119, 6, 0.14);
+  --admin-border-warning: 1px solid rgba(217, 119, 6, 0.38);
+
+  --admin-color-danger: #B91C1C;
+  --admin-color-danger-dark: #991B1B;
+  --admin-bg-danger-soft: rgba(220, 38, 38, 0.12);
+  --admin-border-danger: 1px solid rgba(220, 38, 38, 0.38);
+
+  --admin-color-info: #1D4ED8;
+  --admin-color-info-dark: #1E40AF;
+  --admin-bg-info-soft: rgba(29, 78, 216, 0.12);
+  --admin-border-info: 1px solid rgba(29, 78, 216, 0.38);
+
   min-height: 100vh;
-  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
-  color: #18191B;
+  background: var(--admin-bg-page);
+  color: var(--admin-text-body);
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
 }
 
-/* Header do Painel Admin (Card Palha Escuro #E4E4E7) */
-.adminHeader {
-  background: #EEEEF2;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-  padding: 14px 20px;
-  min-height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.brandArea {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.brandLogoLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.brandLogoLink:hover {
-  opacity: 0.85;
-  transform: scale(1.05);
-}
-
-.brandLogoImg {
-  object-fit: contain;
-  width: 50px;
-  height: 50px;
-  filter: brightness(0); /* Converte o selo branco em preto sólido sobre o fundo palha */
-}
-
-.executiveHeaderBtn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  color: #000000;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.executiveHeaderBtn:hover {
-  background: rgba(0, 0, 0, 0.14);
-  border-color: #000000;
-  color: #000000;
-}
-
-.executiveHeaderBtnActive {
-  background: rgba(0, 0, 0, 0.46) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-color: rgba(0, 0, 0, 0.40) !important;
-  color: #FEFCF5 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
-}
-
-.deptNav {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 4px 0;
-  margin: 0 10px;
-  flex: 1;
-  justify-content: center;
-}
-
-.deptNav::-webkit-scrollbar {
-  display: none;
-}
-
-.deptNavLink {
-  padding: 6px 8px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  color: #27272A;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  font-weight: 600;
-}
-
-.deptNavLink:hover {
-  color: #000000;
-  background: rgba(0, 0, 0, 0.10);
-  border-color: rgba(0, 0, 0, 0.25);
-}
-
-.deptNavLinkActive {
-  color: #FEFCF5 !important;
-  background: rgba(0, 0, 0, 0.46) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-color: rgba(0, 0, 0, 0.40) !important;
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
-}
-
-.headerActions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.storeLink {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.7px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  border-radius: 2px;
-  color: #000000;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-}
-
-.storeLink:hover {
-  background: rgba(0, 0, 0, 0.14);
-  border-color: #000000;
-  color: #000000;
-}
-
 /* ==========================================================================
-   TOPO EM 2 LINHAS (2 CARDS DISTINTOS E LIMPOS — AVA BOARDROOM)
+   TOPO EM 2 LINHAS (2 CARDS CONTAINERS DISTINTOS E LIMPOS)
    ========================================================================== */
 .topHeaderWrapper {
   padding: 14px 24px 0 24px;
@@ -172,9 +89,9 @@
 }
 
 .headerRow1Card {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: var(--admin-surface-container);
+  border: var(--admin-border-container);
+  box-shadow: var(--admin-shadow-container);
   padding: 10px 18px;
   min-height: 70px;
   display: flex;
@@ -221,27 +138,28 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: #000000;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  color: var(--admin-btn-text);
+  background: var(--admin-btn-bg);
+  border: var(--admin-btn-border);
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .actionCardBtn:hover {
-  background: #FFFFFF;
+  background: var(--admin-btn-hover-bg);
   border-color: #000000;
   transform: translateY(-1px);
 }
 
 .actionCardBtnActive {
-  background: rgba(0, 0, 0, 0.46) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  color: #FEFCF5 !important;
-  border-color: rgba(0, 0, 0, 0.40) !important;
+  background: var(--admin-btn-active-bg) !important;
+  backdrop-filter: var(--admin-btn-active-blur) !important;
+  -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
+  color: var(--admin-btn-active-text) !important;
+  border: var(--admin-btn-active-border) !important;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
@@ -249,8 +167,8 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
   padding: 6px 10px;
   border-radius: 2px;
   flex-wrap: wrap;
@@ -261,7 +179,7 @@
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #3F3F46;
+  color: var(--admin-text-secondary);
   margin-right: 2px;
   white-space: nowrap;
 }
@@ -271,29 +189,28 @@
   align-items: center;
   gap: 5px;
   padding: 4px 9px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
   border-radius: 2px;
   font-size: 11px;
   font-weight: 700;
-  color: #18191B;
+  color: var(--admin-text-body);
   white-space: nowrap;
   transition: all 0.2s ease;
 }
 
 .partnerPresenceCurrentUser {
-  /* Mantém a paleta palha sem preto chapado */
-  background: #FFFFFF !important;
-  border-color: rgba(0, 0, 0, 0.35) !important;
-  color: #18191B !important;
+  background: var(--admin-surface-card) !important;
+  border: var(--admin-border-card) !important;
+  color: var(--admin-text-primary) !important;
   font-weight: 800;
   box-shadow: none !important;
 }
 
 .partnerPresenceGuestLevel2 {
-  background: #FFFFFF !important;
+  background: var(--admin-surface-card) !important;
   border: 1px dashed #000000 !important;
-  color: #000000 !important;
+  color: var(--admin-text-primary) !important;
 }
 
 .ledDot {
@@ -314,6 +231,18 @@
   box-shadow: 0 0 4px rgba(217, 119, 6, 0.5);
 }
 
+.ledDelayed {
+  background: #DC2626;
+  box-shadow: 0 0 6px #DC2626, 0 0 10px rgba(220, 38, 38, 0.6);
+  animation: pulseLed 1.6s infinite ease-in-out;
+}
+
+@keyframes pulseLed {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
 .row1RightAccount {
   display: flex;
   align-items: center;
@@ -321,10 +250,69 @@
   flex-shrink: 0;
 }
 
+.executiveHeaderBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: var(--admin-btn-text);
+  background: var(--admin-btn-bg);
+  border: var(--admin-btn-border);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.executiveHeaderBtn:hover {
+  background: var(--admin-btn-hover-bg);
+  border-color: #000000;
+  color: #000000;
+}
+
+.executiveHeaderBtnActive {
+  background: var(--admin-btn-active-bg) !important;
+  backdrop-filter: var(--admin-btn-active-blur) !important;
+  -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
+  border: var(--admin-btn-active-border) !important;
+  color: var(--admin-btn-active-text) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
+}
+
+.storeLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  background: var(--admin-btn-bg);
+  border: var(--admin-btn-border);
+  border-radius: 2px;
+  color: var(--admin-btn-text);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.storeLink:hover {
+  background: var(--admin-btn-hover-bg);
+  border-color: #000000;
+  color: #000000;
+}
+
 .headerRow2Card {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  background: var(--admin-surface-container);
+  border: var(--admin-border-container);
+  box-shadow: var(--admin-shadow-container);
   padding: 8px 18px;
   display: flex;
   align-items: center;
@@ -346,16 +334,16 @@
   display: none;
 }
 
-.deptNavRow .deptNavLink {
+.deptNavLink {
   flex: 1;
   text-align: center;
   padding: 8px 10px;
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #27272A;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  color: var(--admin-btn-text);
+  background: var(--admin-btn-bg);
+  border: var(--admin-btn-border);
   border-radius: 2px;
   font-weight: 700;
   cursor: pointer;
@@ -364,24 +352,25 @@
   text-decoration: none;
 }
 
-.deptNavRow .deptNavLink:hover {
+.deptNavLink:hover {
   color: #000000;
-  background: rgba(0, 0, 0, 0.12);
+  background: var(--admin-btn-hover-bg);
   border-color: #000000;
 }
 
-.deptNavRow .deptNavLinkActive {
-  color: #FEFCF5 !important;
-  background: rgba(0, 0, 0, 0.46) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  border-color: rgba(0, 0, 0, 0.40) !important;
+.deptNavLinkActive {
+  color: var(--admin-btn-active-text) !important;
+  background: var(--admin-btn-active-bg) !important;
+  backdrop-filter: var(--admin-btn-active-blur) !important;
+  -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
+  border: var(--admin-btn-active-border) !important;
   font-weight: 700;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
 }
 
-
-/* Área Principal */
+/* ==========================================================================
+   ÁREA PRINCIPAL & CONTAINERS DE MÓDULOS (NÍVEL 2)
+   ========================================================================== */
 .mainContainer {
   flex: 1;
   padding: 28px 24px 60px 24px;
@@ -390,398 +379,11 @@
   width: 100%;
 }
 
-/* Banner de Boas Vindas & Conselho (Palha Escuro #E4E4E7) */
-.topBanner {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  padding: 24px;
-  margin-bottom: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.bannerTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: #000000;
-  text-transform: uppercase;
-}
-
-.bannerSubtitle {
-  font-size: 13px;
-  color: #3F3F46;
-  line-height: 1.6;
-}
-
-/* BLOCO 2: Fila de Decisões dos 4 Sócios (Uniformizado em Palha Escuro #E4E4E7 + Preto/Grafite) */
-.decisionQueueSection {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  margin-bottom: 28px;
-}
-
-.decisionQueueHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.sectionHeading {
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  color: #000000;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.decisionQueueSection .sectionHeading {
-  color: #000000;
-}
-
-.badgePulse {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #059669;
-}
-
-.decisionCardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 14px;
-}
-
-/* Cards Internos do Bloco 2 — Palha Claro (#F4F4F6) sobre Container Palha Escuro (#E4E4E7) */
-.decisionCard {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  color: #000000;
-  transition: all 0.2s ease;
-}
-
-.decisionCard:hover {
-  background: #FFFFFF;
-  border-color: #000000;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
-}
-
-.decisionCardHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 11px;
-}
-
-.decisionCardDepto {
-  color: #3F3F46;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.decisionCardTag {
-  padding: 2px 8px;
-  font-size: 10px;
-  font-weight: 600;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid rgba(0, 0, 0, 0.24);
-}
-
-.decisionText {
-  font-size: 13px;
-  color: #3F3F46;
-  line-height: 1.45;
-}
-
-.decisionActions {
-  display: flex;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.btnPrimary {
-  background: rgba(0, 0, 0, 0.46);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #FEFCF5;
-  border: 1px solid rgba(0, 0, 0, 0.40);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-  padding: 7px 13px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btnPrimary:hover {
-  background: rgba(0, 0, 0, 0.65);
-  border-color: rgba(0, 0, 0, 0.55);
-  transform: translateY(-1px);
-}
-
-.btnSecondary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
-  border-radius: 2px;
-  padding: 7px 13px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.btnSecondary:hover {
-  background: rgba(0, 0, 0, 0.14);
-  border-color: #000000;
-  color: #000000;
-}
-
-/* BLOCO 1: Card Container & Grid dos 8 Departamentos (Palha Escuro #E4E4E7) */
-.deptsPanel {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  margin-bottom: 28px;
-}
-
-.deptGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.deptCard {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  transition: all 0.25s ease;
-  position: relative;
-}
-
-.deptCard:hover {
-  border-color: #000000;
-  transform: translateY(-2px);
-  background: #FFFFFF;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-}
-
-.deptCardTop {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.deptNumber {
-  font-family: var(--font-title), sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #3F3F46;
-}
-
-.deptCardIcon {
-  font-size: 20px;
-}
-
-.deptTitle {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  color: #000000;
-  margin-bottom: 6px;
-}
-
-.deptDesc {
-  font-size: 12px;
-  color: #3F3F46;
-  line-height: 1.5;
-}
-
-.deptMetrics {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14);
-  font-size: 11px;
-  color: #3F3F46;
-}
-
-/* BLOCO 3: Painel de Telemetria dos 23 Agentes (Palha Escuro #E4E4E7) */
-.agentsPanel {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-}
-
-.agentsPanelHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.agentsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 12px;
-}
-
-.agentBadge {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  padding: 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-}
-
-.agentBadge:hover {
-  background: #FFFFFF;
-  border-color: #000000;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-.agentStatusDotActive {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #059669;
-  box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
-  flex-shrink: 0;
-}
-
-.agentStatusDotStandby {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #D97706;
-  flex-shrink: 0;
-}
-
-.agentInfo {
-  display: flex;
-  flex-direction: column;
-}
-
-.agentName {
-  font-size: 12px;
-  font-weight: 700;
-  color: #000000;
-}
-
-.agentRole {
-  font-size: 10px;
-  color: #3F3F46;
-}
-
-/* Módulos Internos de Departamentos */
-.deptModuleHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  padding: 18px 24px;
-}
-
-.deptModuleHeader .partnerOwnerBadge {
-  background: #FFFFFF;
-  border-color: rgba(0, 0, 0, 0.24);
-  color: #000000;
-}
-
-.moduleTitle {
-  font-family: var(--font-title), sans-serif;
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: #000000;
-  text-transform: uppercase;
-}
-
-.moduleSubtitle {
-  font-size: 13px;
-  color: #3F3F46;
-  margin-top: 4px;
-}
-
-.moduleGrid2Cols {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-}
-
-@media (min-width: 900px) {
-  .moduleGrid2Cols {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.moduleCard {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.18);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  color: #000000;
-}
-
-.cardHeading {
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #000000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
-  padding-bottom: 10px;
-}
-
-/* Card da Camada Soberana · Diretoria Executiva (Palha Escuro #E4E4E7 + Preto/Grafite) */
 .executiveCommandStrip {
-  background: #EEEEF2;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  background: var(--admin-surface-container);
+  border: var(--admin-border-container);
   border-left: 4px solid #000000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--admin-shadow-container);
   padding: 18px 24px;
   margin-bottom: 28px;
   display: flex;
@@ -798,78 +400,457 @@
   flex-wrap: wrap;
 }
 
-.partnerStatusList {
+.deptModuleHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 24px;
+  background: var(--admin-surface-container);
+  border: var(--admin-border-container);
+  box-shadow: var(--admin-shadow-container);
+  padding: 18px 24px;
+}
+
+.moduleTitle {
+  font-family: var(--font-title), sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: var(--admin-text-primary);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.moduleSubtitle {
+  font-size: 13px;
+  color: var(--admin-text-secondary);
+  margin: 4px 0 0 0;
+}
+
+.deptsPanel,
+.decisionQueueSection,
+.agentsPanel,
+.moduleCard {
+  background: var(--admin-surface-container);
+  border: var(--admin-border-container);
+  box-shadow: var(--admin-shadow-container);
+  padding: 24px;
+}
+
+.deptsPanel,
+.decisionQueueSection {
+  margin-bottom: 28px;
+}
+
+.moduleCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--admin-text-primary);
+}
+
+.moduleCardSpaced {
+  margin-bottom: 24px;
+}
+
+.moduleCardTopSpaced {
+  margin-top: 24px;
+}
+
+.moduleGrid2Cols {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 900px) {
+  .moduleGrid2Cols {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.sectionHeading {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--admin-text-primary);
+  font-weight: 700;
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-wrap: wrap;
+  margin: 0;
 }
 
-.partnerStatusChip {
+.cardHeading {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--admin-text-primary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  padding-bottom: 10px;
+  margin: 0;
+}
+
+.cardHeadingNoBorder {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--admin-text-primary);
+  margin: 0;
+}
+
+/* ==========================================================================
+   BARRAS DE ABAS & FILTROS DEPARTAMENTAIS (UNIFICADAS EM 1 CLASSE)
+   ========================================================================== */
+.tabStripContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  background: var(--admin-surface-container);
+  border: var(--admin-border-card);
+  padding: 8px 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.tabBtn {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px 11px;
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  background: var(--admin-btn-bg);
+  color: var(--admin-btn-text);
+  border: var(--admin-btn-border);
   border-radius: 2px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #18181B;
+  cursor: pointer;
+  white-space: nowrap;
   transition: all 0.2s ease;
-  user-select: none;
 }
 
-.partnerStatusChip:hover {
+.tabBtn:hover {
+  background: var(--admin-btn-hover-bg);
+  color: #000000;
+}
+
+.tabBtnActive {
+  background: var(--admin-btn-active-bg) !important;
+  backdrop-filter: var(--admin-btn-active-blur) !important;
+  -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
+  color: var(--admin-btn-active-text) !important;
+  border: var(--admin-btn-active-border) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16) !important;
+}
+
+.tabBadge {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--admin-text-primary);
+}
+
+.tabBtnActive .tabBadge {
   background: #FFFFFF;
+  color: #000000;
+}
+
+/* ==========================================================================
+   CARDS INTERNOS FLUTUANTES, SUB-CARDS & KPIS (NÍVEL 3)
+   ========================================================================== */
+.innerCard {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 16px;
+  color: var(--admin-text-body);
+}
+
+.innerCardCompact {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 12px 14px;
+  color: var(--admin-text-body);
+}
+
+.innerCardSelected {
+  background: var(--admin-surface-card-highlight) !important;
+  border: var(--admin-border-card-active) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+.innerCardInteractive {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.innerCardInteractive:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.innerCardSuccess {
+  border-color: rgba(5, 150, 105, 0.45);
+}
+
+.innerCardDanger {
+  border-color: rgba(220, 38, 38, 0.45);
+}
+
+.innerCardWarning {
+  border-color: rgba(217, 119, 6, 0.45);
+}
+
+.innerCardInfo {
+  border-color: rgba(29, 78, 216, 0.45);
+}
+
+.innerRowItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  font-size: 13px;
+}
+
+/* Grids de KPIs e Sub-Cards */
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.kpiCard {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.kpiLabel {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--admin-text-muted);
+}
+
+.kpiValue {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--admin-text-primary);
+  margin-top: 2px;
+}
+
+.kpiSub {
+  font-size: 11px;
+  color: var(--admin-text-secondary);
+}
+
+.autoGridCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.autoGridSmall {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+/* ==========================================================================
+   GRID DOS 8 DEPARTAMENTOS, URNA DE DECISÕES & AGENTES
+   ========================================================================== */
+.deptGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.deptCard {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  transition: all 0.25s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+.deptCard:hover {
   border-color: #000000;
+  transform: translateY(-2px);
+  background: var(--admin-surface-card);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
-.ledDot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
+.deptCardTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-.ledOnline {
-  background: #059669;
-  box-shadow: 0 0 6px #059669, 0 0 10px rgba(5, 150, 105, 0.5);
+.deptNumber {
+  font-family: var(--font-title), sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--admin-text-secondary);
 }
 
-.ledDelayed {
-  background: #DC2626;
-  box-shadow: 0 0 6px #DC2626, 0 0 10px rgba(220, 38, 38, 0.6);
-  animation: pulseLed 1.6s infinite ease-in-out;
+.deptCardIcon {
+  font-size: 20px;
 }
 
-.ledOffline {
-  background: rgba(0, 0, 0, 0.22);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+.deptTitle {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--admin-text-primary);
+  margin: 8px 0 6px 0;
 }
 
-@keyframes pulseLed {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.3); opacity: 1; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+.deptDesc {
+  font-size: 12px;
+  color: var(--admin-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.deptMetrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  font-size: 11px;
+  color: var(--admin-text-secondary);
 }
 
 .partnerOwnerBadge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 3px 8px;
-  font-size: 10px;
-  font-weight: 600;
+  padding: 4px 10px;
+  font-size: 10.5px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
-  background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
-  color: #3F3F46;
+  letter-spacing: 0.6px;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  color: var(--admin-text-primary);
 }
 
-/* Urna de Votação dos 4 Sócios & Cobrança Automática (Sobre Card Palha Escuro #E4E4E7) */
+/* Fila de Decisões & Urna 4/4 */
+.decisionQueueHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.badgePulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #059669;
+}
+
+.decisionCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.decisionCard {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--admin-text-primary);
+  transition: all 0.2s ease;
+}
+
+.decisionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.decisionCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.decisionCardDepto {
+  color: var(--admin-text-secondary);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.decisionCardTag {
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 600;
+  background: var(--admin-surface-card);
+  color: var(--admin-text-primary);
+  border: var(--admin-border-card-subtle);
+}
+
+.decisionTitle {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--admin-text-primary);
+}
+
+.decisionText {
+  font-size: 13px;
+  color: var(--admin-text-secondary);
+  line-height: 1.45;
+  margin: 0;
+}
+
+.decisionActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+}
+
 .voterGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -899,21 +880,21 @@
 }
 
 .voterApproved {
-  background: rgba(5, 150, 105, 0.16);
+  background: var(--admin-bg-success-soft);
   border: 1px solid #059669;
-  color: #065F46;
+  color: var(--admin-color-success-dark);
 }
 
 .voterPending {
-  background: #FFFFFF;
+  background: var(--admin-surface-card);
   border: 1px solid rgba(0, 0, 0, 0.28);
-  color: #3F3F46;
+  color: var(--admin-text-secondary);
 }
 
 .voterRejected {
-  background: rgba(220, 38, 38, 0.14);
+  background: var(--admin-bg-danger-soft);
   border: 1px solid #DC2626;
-  color: #991B1B;
+  color: var(--admin-color-danger-dark);
 }
 
 .nudgeStrip {
@@ -922,17 +903,17 @@
   justify-content: space-between;
   gap: 8px;
   padding: 8px 10px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
   border: 1px dashed rgba(0, 0, 0, 0.28);
   font-size: 11px;
-  color: #3F3F46;
+  color: var(--admin-text-secondary);
   margin-top: 4px;
 }
 
 .btnNudge {
-  background: #FFFFFF;
-  color: #000000;
-  border: 1px solid #000000;
+  background: var(--admin-btn-bg);
+  color: var(--admin-btn-text);
+  border: var(--admin-btn-border);
   border-radius: 2px;
   padding: 5px 10px;
   font-size: 10px;
@@ -945,9 +926,441 @@
 }
 
 .btnNudge:hover {
-  background: rgba(0, 0, 0, 0.14);
+  background: var(--admin-btn-hover-bg);
+}
+
+/* Telemetria dos Agentes */
+.agentsPanelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.agentsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.agentBadge {
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.agentBadge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.agentStatusDotActive {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #059669;
+  box-shadow: 0 0 6px rgba(5, 150, 105, 0.5);
+  flex-shrink: 0;
+}
+
+.agentStatusDotStandby {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D97706;
+  flex-shrink: 0;
+}
+
+.agentInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.agentName {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--admin-text-primary);
+}
+
+.agentRole {
+  font-size: 10px;
+  color: var(--admin-text-secondary);
+}
+
+/* ==========================================================================
+   BOTÕES, INPUTS, TABELAS, BADGES & MODAIS UNIFICADOS (NÍVEL 4)
+   ========================================================================== */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--admin-btn-active-bg);
+  backdrop-filter: var(--admin-btn-active-blur);
+  -webkit-backdrop-filter: var(--admin-btn-active-blur);
+  color: var(--admin-btn-active-text);
+  border: var(--admin-btn-active-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btnPrimary:hover:not(:disabled) {
+  background: var(--admin-btn-active-hover-bg);
+  transform: translateY(-1px);
+}
+
+.btnPrimary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--admin-btn-bg);
+  color: var(--admin-btn-text);
+  border: var(--admin-btn-border);
+  border-radius: 2px;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btnSecondary:hover:not(:disabled) {
+  background: var(--admin-btn-hover-bg);
   border-color: #000000;
   color: #000000;
 }
 
+.btnSuccess {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--admin-color-success);
+  color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
 
+.btnInfo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--admin-color-info);
+  color: #FFFFFF;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  padding: 7px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+/* Inputs, Selects & Labels */
+.formLabel {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--admin-text-muted);
+  margin-bottom: 4px;
+}
+
+.formInput,
+.formSelect,
+.formTextarea {
+  width: 100%;
+  background: var(--admin-input-bg);
+  border: var(--admin-input-border);
+  color: var(--admin-input-text);
+  padding: 8px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  border-radius: 2px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formTextarea:focus {
+  box-shadow: 0 0 0 1px #000000;
+}
+
+.rangeSlider {
+  width: 100%;
+  accent-color: #000000;
+  cursor: pointer;
+}
+
+/* Tabelas de Dados Padronizadas */
+.dataTableWrapper {
+  overflow-x: auto;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  box-shadow: var(--admin-shadow-card);
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.dataTable th {
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--admin-text-primary);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  white-space: nowrap;
+}
+
+.dataTable td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--admin-text-body);
+  vertical-align: middle;
+}
+
+.dataTable tr:hover {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+/* Badges & Pílulas de Status */
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  border-radius: 2px;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  color: var(--admin-text-primary);
+  white-space: nowrap;
+}
+
+.statusPillSuccess {
+  background: var(--admin-bg-success-soft);
+  color: var(--admin-color-success-dark);
+  border: var(--admin-border-success);
+}
+
+.statusPillWarning {
+  background: var(--admin-bg-warning-soft);
+  color: var(--admin-color-warning-dark);
+  border: var(--admin-border-warning);
+}
+
+.statusPillDanger {
+  background: var(--admin-bg-danger-soft);
+  color: var(--admin-color-danger-dark);
+  border: var(--admin-border-danger);
+}
+
+.statusPillInfo {
+  background: var(--admin-bg-info-soft);
+  color: var(--admin-color-info-dark);
+  border: var(--admin-border-info);
+}
+
+/* Banners de Feedback e Alertas */
+.alertBanner {
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  background: var(--admin-surface-card);
+  border: var(--admin-border-card);
+  color: var(--admin-text-primary);
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: var(--admin-shadow-card);
+}
+
+.alertBannerSuccess {
+  border: 2px solid var(--admin-color-success);
+  color: var(--admin-color-success-dark);
+}
+
+.alertBannerWarning {
+  border: 2px solid #D97706;
+  color: var(--admin-color-warning-dark);
+}
+
+.alertBannerDanger {
+  border: 2px solid var(--admin-color-danger);
+  color: var(--admin-color-danger-dark);
+}
+
+/* Terminal de Inspeção JSON */
+.jsonInspectorDrawer {
+  margin-top: 16px;
+  padding: 16px;
+  background: #0C0D0E;
+  color: #10B981;
+  border: 1px solid #000000;
+  font-family: monospace;
+  font-size: 11px;
+  overflow-x: auto;
+  max-height: 320px;
+}
+
+.jsonInspectorHeader {
+  display: flex;
+  justify-content: space-between;
+  color: #9CA3AF;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 4px;
+}
+
+/* Modais Unificados do Admin */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.58);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+
+.modalWindow {
+  background: var(--admin-surface-card);
+  border: 2px solid #000000;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.42);
+  width: 580px;
+  max-width: 94vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeaderGlass {
+  background: rgba(0, 0, 0, 0.76);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: #FEFCF5;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modalCloseBtn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #FEFCF5;
+  width: 26px;
+  height: 26px;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalCloseBtn:hover {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+.modalBody {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Utilitários de Layout Semânticos (Substituem style={{ display: 'flex'... }}) */
+.flexRowBetween {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.flexRowStart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.flexColStack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.flexColTight {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.textSuccess { color: var(--admin-color-success-dark) !important; }
+.textWarning { color: var(--admin-color-warning-dark) !important; }
+.textDanger { color: var(--admin-color-danger-dark) !important; }
+.textInfo { color: var(--admin-color-info-dark) !important; }
+.textPrimaryBold { color: var(--admin-text-primary); font-weight: 700; }
+.textMutedSmall { font-size: 11px; color: var(--admin-text-muted); }
+.textBodySmall { font-size: 12px; color: var(--admin-text-secondary); line-height: 1.5; margin: 0; }

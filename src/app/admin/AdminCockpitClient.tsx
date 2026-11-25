@@ -5,8 +5,6 @@ import Link from 'next/link';
 import { getSession } from 'next-auth/react';
 import AdminHeader from './AdminHeader';
 import styles from './admin-cockpit.module.css';
-import { AGENTS_DOSSIER, AgentDossier } from './agentDossierData';
-import AgentDossierModal from './AgentDossierModal';
 
 type VoteState = 'APPROVED' | 'PENDING' | 'REJECTED';
 
@@ -104,7 +102,7 @@ const DEPARTMENTS_DATA = [
     icon: '⚖️',
     desc: 'Contrato Social dos 4 Sócios, transição MEI ➔ LTDA, blindagem INPI, termos CDC/LGPD e assistente Dr. Lex.',
     href: '/admin/juridico',
-    metric: '14 Docs Legais',
+    metric: '15 Docs Legais',
     status: 'Alerta MEI (38 pçs)'
   },
   {
@@ -132,17 +130,17 @@ const DEPARTMENTS_DATA = [
     title: 'Produção & Fornecedores',
     owner: 'Armando',
     icon: '🏭',
-    desc: 'Hub Multi-Supplier (Dimona/Reserva), controle de amostras físicas (#755-460-927), auditoria 2h e estoque físico.',
+    desc: 'Hub Multi-Supplier (Dimona/Printful/Reserva), controle de amostras físicas (#755-460-927), auditoria 2h e estoque físico.',
     href: '/admin/producao',
     metric: '6 Amostras PoD',
-    status: 'PIX Pago · Em Prod'
+    status: 'SLA Doca 100% OK'
   },
   {
     number: '05',
     title: 'SAC',
     owner: 'Gustavo',
     icon: '💬',
-    desc: 'Concierge IA 24/7 na loja, Agente Discriminador (CDC Art. 49 vs Garantia PoD) e gatilho BPO (5 atendimentos humanos).',
+    desc: 'Torre Logística Pós-Coleta (J&T/Intelipost), Concierge IA 24/7, Agente Discriminador e gatilho BPO (5 atendimentos).',
     href: '/admin/atendimento',
     metric: '98% IA · BPO N1',
     status: 'Zero Omissão'
@@ -188,46 +186,12 @@ const PARTNER_LABELS: Record<keyof PartnerVotes, string> = {
   Gustavo: 'Gustavo'
 };
 
-const PARTNER_PRESENCE_ORDER: { key: keyof PartnerVotes; name: string; username: string }[] = [
-  { key: 'Flavio', name: 'Flávio', username: 'flavio' },
-  { key: 'Armando', name: 'Armando', username: 'armando' },
-  { key: 'Gustavo', name: 'Gustavo', username: 'gustavo' },
-  { key: 'Tripoint', name: 'Tripoint', username: 'tripoint' },
-];
-
 export default function AdminCockpitClient() {
   const [decisions, setDecisions] = useState<DecisionItem[]>(INITIAL_DECISIONS);
-  const [selectedAgent, setSelectedAgent] = useState<AgentDossier | null>(null);
   const [nudgeToast, setNudgeToast] = useState<string | null>(null);
-  const [currentUsername, setCurrentUsername] = useState<string>('');
-  const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
 
   useEffect(() => {
-    getSession().then((session) => {
-      if (session?.user) {
-        const u = ((session.user as any).username || session.user.name || '').toLowerCase();
-        setCurrentUsername(u);
-      }
-    });
-
-    const pingPresence = async () => {
-      try {
-        const res = await fetch('/api/presence/ping', { method: 'POST' });
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data.onlineUsers)) {
-            setOnlineUsers(data.onlineUsers);
-          }
-        }
-      } catch {
-        // Silencioso em caso de oscilação de rede
-      }
-    };
-
-    pingPresence();
-    const interval = setInterval(pingPresence, 45000); // Heartbeat a cada 45 segundos
-
-    return () => clearInterval(interval);
+    getSession();
   }, []);
 
   const handleResolve = (id: string) => {
@@ -277,8 +241,6 @@ export default function AdminCockpitClient() {
     setTimeout(() => setNudgeToast(null), 5500);
   };
 
-  const totalAgents = Object.keys(AGENTS_DOSSIER).length;
-
   return (
     <div className={styles.adminLayout}>
       <AdminHeader />
@@ -287,18 +249,18 @@ export default function AdminCockpitClient() {
         {/* Camada Soberana de Governança · Diretoria Executiva */}
         <section className={styles.executiveCommandStrip}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-              <span style={{ fontSize: '18px' }}>🏛️</span>
-              <span style={{ fontSize: '14px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1.2px', color: '#000000' }}>
-                DIRETORIA EXECUTIVA
-              </span>
+            <div className={styles.flexRowStart}>
+              <span>🏛️</span>
+              <span className={styles.sectionHeading}>DIRETORIA EXECUTIVA</span>
             </div>
-            <p style={{ fontSize: '12px', color: '#3F3F46', margin: 0 }}>
-              Simetria Operacional: <strong style={{ color: '#000000' }}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) · <strong style={{ color: '#000000' }}>Armando</strong> (03 Arquitetura &amp; 04 Produção) · <strong style={{ color: '#000000' }}>Gustavo</strong> (05 SAC &amp; 06 Mkt de Vendas) · <strong style={{ color: '#000000' }}>Tripoint</strong> (07 Mkt de Produto &amp; 08 Atelier)
+            <p className={styles.moduleSubtitle}>
+              Simetria Operacional: <strong className={styles.textPrimaryBold}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) ·{' '}
+              <strong className={styles.textPrimaryBold}>Armando</strong> (03 Arquitetura &amp; 04 Produção) ·{' '}
+              <strong className={styles.textPrimaryBold}>Gustavo</strong> (05 SAC &amp; 06 Mkt de Vendas) ·{' '}
+              <strong className={styles.textPrimaryBold}>Tripoint</strong> (07 Mkt de Produto &amp; 08 Atelier)
             </p>
           </div>
 
-          {/* Ação Rápida da Diretoria Executiva */}
           <div className={styles.executivePresenceArea}>
             <button
               type="button"
@@ -309,8 +271,7 @@ export default function AdminCockpitClient() {
                   })
                 )
               }
-              className={styles.executiveHeaderBtn}
-              style={{ padding: '8px 14px', cursor: 'pointer' }}
+              className={styles.actionCardBtn}
             >
               🚨 CONVOCAR REUNIÃO / NOVA PAUTA
             </button>
@@ -319,11 +280,11 @@ export default function AdminCockpitClient() {
 
         {/* Bloco 1: Card Container & Grid dos 8 Departamentos Operacionais (01 a 08) */}
         <section className={styles.deptsPanel}>
-          <div style={{ marginBottom: '18px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}>
+          <div className={styles.decisionQueueHeader}>
             <h2 className={styles.sectionHeading}>
               8 Departamentos Operacionais da Empresa (2 por Sócio)
             </h2>
-            <Link href="/admin/atelier" style={{ fontSize: '11px', color: '#18181B', fontWeight: 600, textDecoration: 'underline' }}>
+            <Link href="/admin/atelier" className={styles.btnSecondary}>
               Acessar Atelier &amp; Gestão de Coleções ↗
             </Link>
           </div>
@@ -339,20 +300,20 @@ export default function AdminCockpitClient() {
                     </span>
                     <span className={styles.deptCardIcon}>{dept.icon}</span>
                   </div>
-                  <h3 className={styles.deptTitle} style={{ marginTop: '8px' }}>{dept.title}</h3>
+                  <h3 className={styles.deptTitle}>{dept.title}</h3>
                   <p className={styles.deptDesc}>{dept.desc}</p>
                 </div>
 
                 <div className={styles.deptMetrics}>
                   <span>{dept.metric}</span>
-                  <span style={{ color: '#111113', fontWeight: 700 }}>{dept.status}</span>
+                  <span className={styles.textPrimaryBold}>{dept.status}</span>
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Fila de Decisões Executivas & Urna de Votação Societária (Bloco 2 Uniformizado em Palha Escuro) */}
+        {/* Fila de Decisões Executivas & Urna de Votação Societária */}
         <section className={styles.decisionQueueSection}>
           <div className={styles.decisionQueueHeader}>
             <div>
@@ -360,11 +321,11 @@ export default function AdminCockpitClient() {
                 <span className={styles.badgePulse}></span>
                 Fila de Decisões Executivas &amp; Urna de Votação (Consenso 4 Sócios)
               </div>
-              <p style={{ fontSize: '11px', color: '#3F3F46', marginTop: '4px' }}>
+              <p className={styles.moduleSubtitle}>
                 🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto, abra a Sala de Reuniões da pauta ou dispare cobrança por WhatsApp e E-mail.
               </p>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <div className={styles.flexRowStart}>
               <button
                 type="button"
                 className={styles.executiveHeaderBtn}
@@ -378,24 +339,14 @@ export default function AdminCockpitClient() {
               >
                 + Nova Pauta / Reunião
               </button>
-              <span style={{ fontSize: '11px', color: '#3F3F46', fontWeight: 600 }}>
+              <span className={styles.textMutedSmall}>
                 {decisions.length} pautas em votação
               </span>
             </div>
           </div>
 
           {nudgeToast && (
-            <div
-              style={{
-                padding: '12px 16px',
-                background: 'rgba(0, 0, 0, 0.08)',
-                border: '1px solid #000000',
-                color: '#000000',
-                fontSize: '12px',
-                fontWeight: 600,
-                marginBottom: '16px'
-              }}
-            >
+            <div className={styles.alertBanner}>
               {nudgeToast}
             </div>
           )}
@@ -417,10 +368,9 @@ export default function AdminCockpitClient() {
                     </span>
                   </div>
 
-                  <div style={{ fontWeight: 700, fontSize: '13px', color: '#000000' }}>{item.title}</div>
+                  <div className={styles.decisionTitle}>{item.title}</div>
                   <p className={styles.decisionText}>{item.description}</p>
 
-                  {/* Crachás de Votação dos 4 Sócios */}
                   <div className={styles.voterGrid}>
                     {PARTNERS_KEYS.map((partnerKey) => {
                       const vote = item.votes[partnerKey];
@@ -439,7 +389,7 @@ export default function AdminCockpitClient() {
                           className={`${styles.voterChip} ${chipClass}`}
                           title={`Clique para alternar o voto de ${PARTNER_LABELS[partnerKey]}`}
                         >
-                          <strong style={{ fontSize: '10px', color: '#000000', marginBottom: '2px' }}>
+                          <strong className={styles.textPrimaryBold}>
                             {PARTNER_LABELS[partnerKey]}
                           </strong>
                           <span>{icon}</span>
@@ -448,11 +398,10 @@ export default function AdminCockpitClient() {
                     })}
                   </div>
 
-                  {/* Barra de Cobrança Automática WhatsApp / E-mail */}
                   {!isUnanimous ? (
                     <div className={styles.nudgeStrip}>
                       <span>
-                        ⏳ Falta votar: <strong style={{ color: '#000000' }}>{pendingPartners.join(', ')}</strong>
+                        ⏳ Falta votar: <strong className={styles.textPrimaryBold}>{pendingPartners.join(', ')}</strong>
                         {item.lastNudge ? ` · (${item.lastNudge})` : ' · Régua WhatsApp/E-mail a cada 2h'}
                       </span>
                       <button
@@ -464,22 +413,12 @@ export default function AdminCockpitClient() {
                       </button>
                     </div>
                   ) : (
-                    <div
-                      style={{
-                        padding: '8px 10px',
-                        background: 'rgba(5, 150, 105, 0.16)',
-                        border: '1px solid #059669',
-                        color: '#065F46',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        marginTop: '4px'
-                      }}
-                    >
+                    <div className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
                       ✅ CONSENSO 4/4 ALCANÇADO — DECISÃO LIBERADA PARA EXECUÇÃO
                     </div>
                   )}
 
-                  <div className={styles.decisionActions} style={{ marginTop: '6px', flexWrap: 'wrap' }}>
+                  <div className={styles.decisionActions}>
                     <button
                       type="button"
                       onClick={() =>
@@ -495,11 +434,7 @@ export default function AdminCockpitClient() {
                     </button>
                     <button
                       onClick={() => handleResolve(item.id)}
-                      className={styles.btnPrimary}
-                      style={{
-                        background: isUnanimous ? '#059669' : undefined,
-                        color: isUnanimous ? '#FFFFFF' : '#FEFCF5'
-                      }}
+                      className={isUnanimous ? styles.btnSuccess : styles.btnPrimary}
                     >
                       {isUnanimous ? `✓ ${item.actionPrimary}` : `${item.actionPrimary} (${approvedCount}/4)`}
                     </button>

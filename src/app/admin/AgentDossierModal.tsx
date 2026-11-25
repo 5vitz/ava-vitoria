@@ -13,7 +13,6 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modalCard} onClick={(e) => e.stopPropagation()}>
-        {/* Cabeçalho */}
         <div className={styles.modalHeader}>
           <div className={styles.agentTitleArea}>
             <div className={styles.agentNameRow}>
@@ -35,9 +34,7 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
           </button>
         </div>
 
-        {/* Corpo do Dossiê: Tríade + ROI Humano */}
         <div className={styles.modalBody}>
-          {/* 1. O que faz */}
           <div className={styles.sectionBlock}>
             <div className={styles.sectionLabel}>
               <span>⚙️</span> 1. O que faz na empresa
@@ -45,7 +42,6 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
             <div className={styles.sectionText}>{agent.whatItDoes}</div>
           </div>
 
-          {/* 2. Por que faz */}
           <div className={styles.sectionBlock}>
             <div className={styles.sectionLabel}>
               <span>🛡️</span> 2. Por que faz (Justificativa Estratégica)
@@ -53,7 +49,6 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
             <div className={styles.sectionText}>{agent.whyItDoes}</div>
           </div>
 
-          {/* 3. Como faz */}
           <div className={styles.sectionBlock}>
             <div className={styles.sectionLabel}>
               <span>🧩</span> 3. Como faz (Engrenagem Técnica)
@@ -61,7 +56,6 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
             <div className={styles.sectionText}>{agent.howItDoes}</div>
           </div>
 
-          {/* 4. Economia */}
           <div className={styles.humanRoiBlock}>
             <div className={styles.humanRoiLabel}>
               <span>💎</span> 4. Economia
@@ -70,9 +64,8 @@ export default function AgentDossierModal({ agent, onClose }: AgentDossierModalP
           </div>
         </div>
 
-        {/* Rodapé com botão de fechar */}
         <div className={styles.modalFooter}>
-          <button onClick={onClose} className={styles.closeButton} style={{ width: 'auto', padding: '0 16px', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+          <button onClick={onClose} className={styles.footerCloseButton}>
             Fechar Ficha Técnica
           </button>
         </div>

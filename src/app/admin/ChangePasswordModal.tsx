@@ -17,7 +17,6 @@ export default function ChangePasswordModal({
 }: ChangePasswordModalProps) {
   const [activeTab, setActiveTab] = useState<'GUEST' | 'PERSONAL'>('GUEST');
 
-  // Estado da aba Convidados (2 Níveis)
   const [selectedLevel, setSelectedLevel] = useState<1 | 2>(2);
   const [guestName, setGuestName] = useState('Contador (Contabilidade)');
   const [guestCode, setGuestCode] = useState('AVA-N2-CONTADOR-2026');
@@ -25,7 +24,6 @@ export default function ChangePasswordModal({
   const [guestSuccess, setGuestSuccess] = useState('');
   const [guestError, setGuestError] = useState('');
 
-  // Estado da aba Senha Pessoal do Sócio
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -140,266 +138,89 @@ export default function ChangePasswordModal({
   };
 
   return (
-    <div
-      style={{
-        position: 'fixed',
-        inset: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.55)',
-        backdropFilter: 'blur(3px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 9999,
-        padding: '16px',
-      }}
-      onClick={onClose}
-    >
-      <div
-        style={{
-          background: '#FFFFFF',
-          border: '2px solid #000000',
-          boxShadow: '0 24px 60px rgba(0, 0, 0, 0.45)',
-          width: '580px',
-          maxWidth: '94vw',
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Cabeçalho Translúcido com Blur */}
-        <div
-          style={{
-            background: 'rgba(0, 0, 0, 0.76)',
-            backdropFilter: 'blur(14px)',
-            WebkitBackdropFilter: 'blur(14px)',
-            color: '#FEFCF5',
-            padding: '12px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            fontSize: '12px',
-            fontWeight: 800,
-            textTransform: 'uppercase',
-            letterSpacing: '0.8px',
-            borderBottom: '1px solid rgba(223, 207, 168, 0.25)',
-          }}
-        >
+    <div className={styles.modalBackdrop} onClick={onClose}>
+      <div className={styles.modalWindow} onClick={(e) => e.stopPropagation()}>
+        <div className={styles.modalHeaderGlass}>
           <span>🔑 CONTROLE DE SENHAS &amp; ACESSO DE CONVIDADOS (2 NÍVEIS)</span>
-          <button
-            type="button"
-            onClick={onClose}
-            style={{
-              background: 'rgba(223, 207, 168, 0.12)',
-              border: '1px solid rgba(223, 207, 168, 0.4)',
-              color: '#FEFCF5',
-              width: '26px',
-              height: '26px',
-              borderRadius: '2px',
-              fontSize: '12px',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <button type="button" onClick={onClose} className={styles.modalCloseBtn}>
             ✕
           </button>
         </div>
 
-        {/* Corpo do Modal */}
-        <div style={{ padding: '18px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+        <div className={styles.modalBody}>
           {activeTab === 'GUEST' ? (
-            <form
-              onSubmit={handleActivateGuest}
-              style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
-            >
-              <div style={{ fontSize: '12px', color: '#3F3F46', lineHeight: 1.45 }}>
+            <form onSubmit={handleActivateGuest} className={styles.flexColStack}>
+              <p className={styles.textBodySmall}>
                 O Painel Executivo é protegido por senha com <strong>2 Níveis de Acesso</strong>.
                 Você pode emitir uma senha para um convidado externo (ex.: Contador, Advogado,
                 Consultor ou Atendente SAC) escolhendo o nível abaixo:
-              </div>
+              </p>
 
               {guestError && (
-                <div
-                  style={{
-                    padding: '9px 12px',
-                    background: 'rgba(220, 38, 38, 0.14)',
-                    border: '1px solid #DC2626',
-                    color: '#991B1B',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                  }}
-                >
+                <div className={`${styles.alertBanner} ${styles.alertBannerDanger}`}>
                   {guestError}
                 </div>
               )}
 
               {guestSuccess && (
-                <div
-                  style={{
-                    padding: '9px 12px',
-                    background: 'rgba(5, 150, 105, 0.16)',
-                    border: '1px solid #059669',
-                    color: '#065F46',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                  }}
-                >
+                <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
                   {guestSuccess}
                 </div>
               )}
 
-              {/* Grid dos 2 Níveis */}
-              <div
-                style={{
-                  display: 'grid',
-                  gridTemplateColumns: '1fr 1fr',
-                  gap: '10px',
-                }}
-              >
-                {/* NÍVEL 1 */}
+              <div className={styles.moduleGrid2Cols}>
                 <div
                   onClick={() => handleSelectLevel(1)}
-                  style={{
-                    background: selectedLevel === 1 ? '#FFFFFF' : '#F4F4F6',
-                    border:
-                      selectedLevel === 1 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
-                    padding: '12px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '6px',
-                  }}
+                  className={`${styles.innerCardInteractive} ${
+                    selectedLevel === 1 ? styles.innerCardSelected : ''
+                  }`}
                 >
-                  <span
-                    style={{
-                      fontSize: '10.5px',
-                      fontWeight: 800,
-                      textTransform: 'uppercase',
-                      padding: '3px 7px',
-                      background: 'rgba(0, 0, 0, 0.76)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
-                      color: '#FEFCF5',
-                      alignSelf: 'flex-start',
-                      borderRadius: '2px',
-                    }}
-                  >
-                    NÍVEL 1 · PAINEL
-                  </span>
-                  <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#000000' }}>
-                    Acesso Somente ao Painel
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#3F3F46', lineHeight: 1.4 }}>
+                  <span className={styles.statusPill}>NÍVEL 1 · PAINEL</span>
+                  <div className={styles.decisionTitle}>Acesso Somente ao Painel</div>
+                  <p className={styles.textBodySmall}>
                     O convidado visualiza os indicadores e tabelas autorizadas do Painel,{' '}
                     <strong>sem acesso à Sala de Reuniões</strong> e sem voto na Urna.
-                  </div>
+                  </p>
                 </div>
 
-                {/* NÍVEL 2 */}
                 <div
                   onClick={() => handleSelectLevel(2)}
-                  style={{
-                    background: selectedLevel === 2 ? '#FFFFFF' : '#F4F4F6',
-                    border:
-                      selectedLevel === 2 ? '2px solid #000000' : '2px solid rgba(0, 0, 0, 0.22)',
-                    padding: '12px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '6px',
-                  }}
+                  className={`${styles.innerCardInteractive} ${
+                    selectedLevel === 2 ? styles.innerCardSelected : ''
+                  }`}
                 >
-                  <span
-                    style={{
-                      fontSize: '10.5px',
-                      fontWeight: 800,
-                      textTransform: 'uppercase',
-                      padding: '3px 7px',
-                      background: 'rgba(0, 0, 0, 0.76)',
-                      backdropFilter: 'blur(8px)',
-                      WebkitBackdropFilter: 'blur(8px)',
-                      color: '#FEFCF5',
-                      alignSelf: 'flex-start',
-                      borderRadius: '2px',
-                    }}
-                  >
-                    NÍVEL 2 · PAINEL + SALA DE REUNIÕES
-                  </span>
-                  <div style={{ fontSize: '12.5px', fontWeight: 800, color: '#000000' }}>
-                    Painel + Sala de Reuniões
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#3F3F46', lineHeight: 1.4 }}>
+                  <span className={styles.statusPill}>NÍVEL 2 · PAINEL + SALA</span>
+                  <div className={styles.decisionTitle}>Painel + Sala de Reuniões</div>
+                  <p className={styles.textBodySmall}>
                     Ideal para <strong>Contador / Consultor</strong>: acessa o Painel{' '}
                     <strong>e entra na Sala de Reuniões</strong> (chat, anexos e chamada de vídeo
                     com os 4 sócios).
-                  </div>
+                  </p>
                 </div>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                <label
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    color: '#000000',
-                  }}
-                >
-                  Identificação do Convidado:
-                </label>
+              <div className={styles.flexColTight}>
+                <label className={styles.formLabel}>Identificação do Convidado:</label>
                 <input
                   type="text"
                   value={guestName}
                   onChange={(e) => setGuestName(e.target.value)}
                   placeholder="Ex: Contador (Contabilidade) / Consultor Fiscal"
-                  style={{
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                    padding: '8px 10px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: '#000000',
-                  }}
+                  className={styles.formInput}
                 />
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                <label
-                  style={{
-                    fontSize: '11px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    color: '#000000',
-                  }}
-                >
-                  Senha Temporária Gerada:
-                </label>
+              <div className={styles.flexColTight}>
+                <label className={styles.formLabel}>Senha Temporária Gerada:</label>
                 <input
                   type="text"
                   value={guestCode}
                   onChange={(e) => setGuestCode(e.target.value)}
-                  style={{
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                    padding: '8px 10px',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                    color: '#000000',
-                  }}
+                  className={styles.formInput}
                 />
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  gap: '8px',
-                  flexWrap: 'wrap',
-                  paddingTop: '6px',
-                }}
-              >
+              <div className={styles.flexRowBetween}>
                 <button
                   type="button"
                   className={styles.executiveHeaderBtn}
@@ -407,7 +228,7 @@ export default function ChangePasswordModal({
                 >
                   Minha Senha de Sócio ({userName || 'Sócio'})
                 </button>
-                <div style={{ display: 'flex', gap: '8px' }}>
+                <div className={styles.flexRowStart}>
                   <button
                     type="button"
                     className={styles.executiveHeaderBtn}
@@ -426,18 +247,9 @@ export default function ChangePasswordModal({
               </div>
             </form>
           ) : (
-            <form
-              onSubmit={handleSubmitPersonal}
-              style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000' }}>
+            <form onSubmit={handleSubmitPersonal} className={styles.flexColStack}>
+              <div className={styles.flexRowBetween}>
+                <div className={styles.decisionTitle}>
                   Alterar Senha Pessoal do Sócio: <strong>{userName}</strong>
                 </div>
                 <button
@@ -450,48 +262,19 @@ export default function ChangePasswordModal({
               </div>
 
               {error && (
-                <div
-                  style={{
-                    padding: '10px 12px',
-                    background: 'rgba(220, 38, 38, 0.14)',
-                    border: '1px solid #DC2626',
-                    color: '#991B1B',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                  }}
-                >
+                <div className={`${styles.alertBanner} ${styles.alertBannerDanger}`}>
                   {error}
                 </div>
               )}
 
               {success && (
-                <div
-                  style={{
-                    padding: '10px 12px',
-                    background: 'rgba(5, 150, 105, 0.16)',
-                    border: '1px solid #059669',
-                    color: '#065F46',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                  }}
-                >
+                <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
                   {success}
                 </div>
               )}
 
               <div>
-                <label
-                  style={{
-                    fontSize: '11px',
-                    color: '#27272A',
-                    display: 'block',
-                    marginBottom: '4px',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Senha Atual
-                </label>
+                <label className={styles.formLabel}>Senha Atual</label>
                 <input
                   type="password"
                   value={currentPassword}
@@ -499,31 +282,12 @@ export default function ChangePasswordModal({
                   placeholder="Digite a senha atual"
                   disabled={loading}
                   required
-                  style={{
-                    width: '100%',
-                    padding: '8px 10px',
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                    color: '#000000',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                  }}
+                  className={styles.formInput}
                 />
               </div>
 
               <div>
-                <label
-                  style={{
-                    fontSize: '11px',
-                    color: '#27272A',
-                    display: 'block',
-                    marginBottom: '4px',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Nova Senha (Mínimo 6 dígitos)
-                </label>
+                <label className={styles.formLabel}>Nova Senha (Mínimo 6 dígitos)</label>
                 <input
                   type="password"
                   value={newPassword}
@@ -531,31 +295,12 @@ export default function ChangePasswordModal({
                   placeholder="Digite a nova senha"
                   disabled={loading}
                   required
-                  style={{
-                    width: '100%',
-                    padding: '8px 10px',
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                    color: '#000000',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                  }}
+                  className={styles.formInput}
                 />
               </div>
 
               <div>
-                <label
-                  style={{
-                    fontSize: '11px',
-                    color: '#27272A',
-                    display: 'block',
-                    marginBottom: '4px',
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Confirmar Nova Senha
-                </label>
+                <label className={styles.formLabel}>Confirmar Nova Senha</label>
                 <input
                   type="password"
                   value={confirmPassword}
@@ -563,26 +308,11 @@ export default function ChangePasswordModal({
                   placeholder="Repita a nova senha"
                   disabled={loading}
                   required
-                  style={{
-                    width: '100%',
-                    padding: '8px 10px',
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                    color: '#000000',
-                    fontSize: '12px',
-                    fontWeight: 700,
-                  }}
+                  className={styles.formInput}
                 />
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  gap: '8px',
-                  justifyContent: 'flex-end',
-                  marginTop: '6px',
-                }}
-              >
+              <div className={styles.flexRowStart}>
                 <button
                   type="button"
                   onClick={onClose}

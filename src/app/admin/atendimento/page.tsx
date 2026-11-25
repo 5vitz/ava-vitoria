@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
 
@@ -115,7 +114,6 @@ export default function AtendimentoAdminPage() {
   const [tickets, setTickets] = useState<TicketItem[]>(INITIAL_TICKETS);
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
 
-  // Estado da Torre de Rastreamento Logístico (API GraphQL Intelipost / J&T Express)
   const [orderInput, setOrderInput] = useState('755460927');
   const [trackingLoading, setTrackingLoading] = useState(false);
   const [trackingData, setTrackingData] = useState<TrackingApiResponse | null>(null);
@@ -198,55 +196,23 @@ export default function AtendimentoAdminPage() {
               Sócio Titular: <strong>Gustavo</strong> · Monitoramento Pós-Coleta (API J&amp;T Express / Intelipost), Comunicação Proativa com o Cliente, Concierge IA 24/7 e Triagem de Trocas
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Gustavo
           </span>
         </div>
 
         {actionFeedback && (
-          <div
-            style={{
-              padding: '14px',
-              background: '#FFFFFF',
-              border: '2px solid #047857',
-              color: '#065F46',
-              fontSize: '13px',
-              marginBottom: '20px',
-              fontWeight: 700,
-            }}
-          >
+          <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
             {actionFeedback}
           </div>
         )}
 
-        {/* Seletor de Abas do SAC */}
-        <div
-          style={{
-            display: 'flex',
-            gap: '8px',
-            marginBottom: '22px',
-            background: '#EEEEF2',
-            border: '1px solid #000000',
-            padding: '8px 12px',
-            overflowX: 'auto',
-          }}
-        >
+        {/* Seletor de Abas do SAC Unificado */}
+        <div className={styles.tabStripContainer}>
           <button
             type="button"
             onClick={() => setActiveTab('logistics')}
-            style={{
-              padding: '9px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.8px',
-              background: activeTab === 'logistics' ? '#000000' : '#FFFFFF',
-              color: activeTab === 'logistics' ? '#E4E4E7' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'logistics' ? '#000000' : '#000000',
-              cursor: 'pointer',
-              fontWeight: 700,
-              whiteSpace: 'nowrap',
-            }}
+            className={`${styles.tabBtn} ${activeTab === 'logistics' ? styles.tabBtnActive : ''}`}
           >
             🚚 Torre Logística Pós-Coleta &amp; Comunicação Cliente (API J&amp;T / Intelipost)
           </button>
@@ -254,19 +220,7 @@ export default function AtendimentoAdminPage() {
           <button
             type="button"
             onClick={() => setActiveTab('tickets')}
-            style={{
-              padding: '9px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '0.8px',
-              background: activeTab === 'tickets' ? '#000000' : '#FFFFFF',
-              color: activeTab === 'tickets' ? '#E4E4E7' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'tickets' ? '#000000' : '#000000',
-              cursor: 'pointer',
-              fontWeight: 700,
-              whiteSpace: 'nowrap',
-            }}
+            className={`${styles.tabBtn} ${activeTab === 'tickets' ? styles.tabBtnActive : ''}`}
           >
             🛡️ Fila de Trocas, Garantia &amp; Cláusula Anti-Sobrecarga BPO
           </button>
@@ -277,54 +231,39 @@ export default function AtendimentoAdminPage() {
         {/* =================================================================== */}
         {activeTab === 'logistics' && (
           <div>
-            {/* Barra de Conexão com a API GraphQL Intelipost / J&T Express */}
-            <div className={styles.moduleCard} style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+            <div className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+              <div className={styles.flexRowBetween}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                    <h2 className={styles.cardHeading} style={{ margin: 0 }}>
+                  <div className={styles.flexRowStart}>
+                    <h2 className={styles.cardHeadingNoBorder}>
                       Telemetria Logística em Tempo Real (Intelipost TMS / J&amp;T Express)
                     </h2>
                     <span
-                      style={{
-                        fontSize: '11px',
-                        background: trackingData?.liveConnected ? 'rgba(5,150,105,0.14)' : 'rgba(217,119,6,0.14)',
-                        color: trackingData?.liveConnected ? '#065F46' : '#92400E',
-                        border: `1px solid ${trackingData?.liveConnected ? 'rgba(5,150,105,0.35)' : 'rgba(217,119,6,0.35)'}`,
-                        padding: '2px 8px',
-                        fontWeight: 700,
-                      }}
+                      className={`${styles.statusPill} ${
+                        trackingData?.liveConnected ? styles.statusPillSuccess : styles.statusPillWarning
+                      }`}
                     >
                       {trackingData?.liveConnected ? '🟢 GraphQL API Ao Vivo (200 OK)' : '🟡 Cache Persistido'}
                     </span>
                   </div>
-                  <p style={{ fontSize: '12px', color: '#374151', margin: 0 }}>
+                  <p className={styles.textBodySmall}>
                     <strong>Fronteira Operacional:</strong> A Produção (Armando · Depto 04) encerra sua alçada em <strong>Aguardando Coleta na Doca</strong>. A partir da Coleta, Trânsito entre Filiais e Entrega, o monitoramento de atrasos e toda a <strong>comunicação com o cliente</strong> pertencem ao <strong>SAC (Gustavo · Depto 05)</strong>.
                   </p>
                 </div>
 
-                {/* Buscador de Pedido / Link de Rastreio */}
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+                <div className={styles.flexRowStart}>
                   <input
                     type="text"
                     value={orderInput}
                     onChange={(e) => setOrderInput(e.target.value)}
                     placeholder="Nº Pedido ou Link Intelipost..."
-                    style={{
-                      padding: '7px 12px',
-                      background: '#FFFFFF',
-                      border: '1px solid #000000',
-                      fontSize: '12px',
-                      fontWeight: 700,
-                      width: '210px',
-                    }}
+                    className={styles.formInput}
                   />
                   <button
                     type="button"
                     onClick={() => fetchLogisticsTracking(orderInput, true)}
                     disabled={trackingLoading}
                     className={styles.btnPrimary}
-                    style={{ fontSize: '11px', padding: '8px 14px' }}
                   >
                     {trackingLoading ? 'Consultando...' : '🔄 Consultar API J&T / Intelipost'}
                   </button>
@@ -332,154 +271,118 @@ export default function AtendimentoAdminPage() {
                     type="button"
                     onClick={() => setShowRawGraphql(!showRawGraphql)}
                     className={styles.btnSecondary}
-                    style={{ fontSize: '11px', padding: '8px 12px' }}
                   >
                     {showRawGraphql ? '✕ Fechar JSON' : '{ } JSON GraphQL'}
                   </button>
                 </div>
               </div>
 
-              {/* Inspetor do JSON Bruto da API GraphQL Intelipost */}
               {showRawGraphql && trackingData && (
-                <div
-                  style={{
-                    marginTop: '14px',
-                    padding: '14px',
-                    background: '#0C0D0E',
-                    color: '#10B981',
-                    fontFamily: 'monospace',
-                    fontSize: '11px',
-                    maxHeight: '300px',
-                    overflowY: 'auto',
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', color: '#9CA3AF', marginBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.12)', paddingBottom: '4px' }}>
+                <div className={styles.jsonInspectorDrawer}>
+                  <div className={styles.jsonInspectorHeader}>
                     <span>⚡ POST {trackingData.endpoint} (clientId: {trackingData.clientId}, orderNumber: &quot;{trackingData.orderNumber}&quot;)</span>
                     <span>Transportadora: {trackingData.summary.carrierName}</span>
                   </div>
-                  <pre style={{ margin: 0 }}>{JSON.stringify(trackingData.rawGraphqlResponse, null, 2)}</pre>
+                  <pre>{JSON.stringify(trackingData.rawGraphqlResponse, null, 2)}</pre>
                 </div>
               )}
 
-              {/* Resumo Rápido da Remessa */}
               {trackingData && (
-                <div
-                  style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))',
-                    gap: '12px',
-                    marginTop: '16px',
-                  }}
-                >
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
-                      Pedido &amp; Transportadora
-                    </span>
-                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
+                <div className={styles.kpiGrid}>
+                  <div className={styles.kpiCard}>
+                    <span className={styles.kpiLabel}>Pedido &amp; Transportadora</span>
+                    <div className={styles.kpiValue}>
                       #{trackingData.orderNumber} · {trackingData.summary.carrierName}
                     </div>
-                    <span style={{ fontSize: '11px', color: '#4B5563' }}>
-                      Origem: {trackingData.summary.origin}
-                    </span>
+                    <span className={styles.kpiSub}>Origem: {trackingData.summary.origin}</span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
-                      Último Micro-Status na API
-                    </span>
-                    <div style={{ fontSize: '16px', fontWeight: 800, color: '#047857', marginTop: '4px' }}>
+                  <div className={styles.kpiCard}>
+                    <span className={styles.kpiLabel}>Último Micro-Status na API</span>
+                    <div className={`${styles.kpiValue} ${styles.textSuccess}`}>
                       ● {trackingData.summary.microStateName}
                     </div>
-                    <span style={{ fontSize: '11px', color: '#4B5563' }}>
+                    <span className={styles.kpiSub}>
                       Macro: {trackingData.summary.statusLabel} ({trackingData.summary.statusMacro})
                     </span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
-                      Previsão Oficial de Entrega
-                    </span>
-                    <div style={{ fontSize: '15px', fontWeight: 800, color: '#000000', marginTop: '4px', textTransform: 'capitalize' }}>
-                      {trackingData.summary.estimatedDeliveryBrt}
-                    </div>
-                    <span style={{ fontSize: '11px', color: '#4B5563' }}>
-                      Destino: {trackingData.summary.destination}
-                    </span>
+                  <div className={styles.kpiCard}>
+                    <span className={styles.kpiLabel}>Previsão Oficial de Entrega</span>
+                    <div className={styles.kpiValue}>{trackingData.summary.estimatedDeliveryBrt}</div>
+                    <span className={styles.kpiSub}>Destino: {trackingData.summary.destination}</span>
                   </div>
                 </div>
               )}
 
-              {/* Autópsia de SLAs e Diagnóstico de Fatores de Atraso (Produção vs Doca vs Trânsito SAC) */}
               {trackingData && (
-                <div style={{ marginTop: '18px' }}>
-                  <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#000000', marginBottom: '10px' }}>
+                <div className={styles.flexColStack}>
+                  <div className={styles.decisionTitle}>
                     🔬 Diagnóstico de Tempos &amp; Fatores de Atraso (Separação Produção × Coleta na Doca × Trânsito Logístico SAC):
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '12px' }}>
+                  <div className={styles.autoGridCards}>
                     {/* Fase 1: Produção */}
-                    <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(4,120,87,0.35)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', color: '#065F46' }}>
+                    <div className={`${styles.innerCard} ${styles.innerCardSuccess}`}>
+                      <div className={styles.flexRowBetween}>
+                        <span className={`${styles.kpiLabel} ${styles.textSuccess}`}>
                           1. {trackingData.slaDiagnostics.productionPhase.owner}
                         </span>
-                        <span style={{ fontSize: '13px', fontWeight: 800, color: '#000000' }}>
+                        <span className={styles.decisionTitle}>
                           {trackingData.slaDiagnostics.productionPhase.durationFormatted}
                         </span>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
+                      <div className={styles.textPrimaryBold}>
                         {trackingData.slaDiagnostics.productionPhase.boundary}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#374151', marginBottom: '6px' }}>
+                      <div className={styles.textMutedSmall}>
                         Início: {trackingData.slaDiagnostics.productionPhase.startedAtBrt} ➔ Doca: {trackingData.slaDiagnostics.productionPhase.completedAtBrt}
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#065F46' }}>
+                      <div className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>
                         {trackingData.slaDiagnostics.productionPhase.verdict}
                       </div>
                     </div>
 
                     {/* Fase 2: Gargalo de Doca / Coleta */}
                     <div
-                      style={{
-                        padding: '14px',
-                        background: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#FEF2F2' : '#FFFFFF',
-                        border: `2px solid ${trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#DC2626' : 'rgba(4,120,87,0.35)'}`,
-                      }}
+                      className={`${styles.innerCard} ${
+                        trackingData.slaDiagnostics.dockPickupPhase.isBottleneck
+                          ? styles.innerCardDanger
+                          : styles.innerCardSuccess
+                      }`}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                      <div className={styles.flexRowBetween}>
                         <span
-                          style={{
-                            fontSize: '10px',
-                            fontWeight: 800,
-                            textTransform: 'uppercase',
-                            color: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#991B1B' : '#065F46',
-                          }}
+                          className={`${styles.kpiLabel} ${
+                            trackingData.slaDiagnostics.dockPickupPhase.isBottleneck
+                              ? styles.textDanger
+                              : styles.textSuccess
+                          }`}
                         >
                           2. Janela de Coleta na Doca (Fator Crítico)
                         </span>
                         <span
-                          style={{
-                            fontSize: '13px',
-                            fontWeight: 800,
-                            color: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#991B1B' : '#000000',
-                          }}
+                          className={`${styles.decisionTitle} ${
+                            trackingData.slaDiagnostics.dockPickupPhase.isBottleneck
+                              ? styles.textDanger
+                              : ''
+                          }`}
                         >
                           {trackingData.slaDiagnostics.dockPickupPhase.durationFormatted}
                         </span>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
+                      <div className={styles.textPrimaryBold}>
                         {trackingData.slaDiagnostics.dockPickupPhase.boundary}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#374151', marginBottom: '6px' }}>
+                      <div className={styles.textMutedSmall}>
                         Despachado CD: {trackingData.slaDiagnostics.dockPickupPhase.startedAtBrt} ➔ Coletado: {trackingData.slaDiagnostics.dockPickupPhase.completedAtBrt}
                       </div>
                       <div
-                        style={{
-                          fontSize: '11px',
-                          fontWeight: 700,
-                          color: trackingData.slaDiagnostics.dockPickupPhase.isBottleneck ? '#991B1B' : '#065F46',
-                          marginBottom: '8px',
-                        }}
+                        className={`${styles.textPrimaryBold} ${
+                          trackingData.slaDiagnostics.dockPickupPhase.isBottleneck
+                            ? styles.textDanger
+                            : styles.textSuccess
+                        }`}
                       >
                         {trackingData.slaDiagnostics.dockPickupPhase.verdict}
                       </div>
@@ -488,7 +391,6 @@ export default function AtendimentoAdminPage() {
                           type="button"
                           onClick={handleReportBottleneckToProduction}
                           className={styles.btnSecondary}
-                          style={{ fontSize: '10px', padding: '5px 10px', width: '100%' }}
                         >
                           📤 Reportar Gargalo de Coleta p/ Produção (Armando)
                         </button>
@@ -496,22 +398,22 @@ export default function AtendimentoAdminPage() {
                     </div>
 
                     {/* Fase 3: Trânsito Rodoviário & Última Milha (SAC) */}
-                    <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(29,78,216,0.35)' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                        <span style={{ fontSize: '10px', fontWeight: 800, textTransform: 'uppercase', color: '#1E40AF' }}>
+                    <div className={`${styles.innerCard} ${styles.innerCardInfo}`}>
+                      <div className={styles.flexRowBetween}>
+                        <span className={`${styles.kpiLabel} ${styles.textInfo}`}>
                           3. {trackingData.slaDiagnostics.carrierTransitPhase.owner}
                         </span>
-                        <span style={{ fontSize: '13px', fontWeight: 800, color: '#000000' }}>
+                        <span className={styles.decisionTitle}>
                           {trackingData.slaDiagnostics.carrierTransitPhase.durationFormatted}
                         </span>
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
+                      <div className={styles.textPrimaryBold}>
                         {trackingData.slaDiagnostics.carrierTransitPhase.boundary}
                       </div>
-                      <div style={{ fontSize: '11px', color: '#374151', marginBottom: '6px' }}>
+                      <div className={styles.textMutedSmall}>
                         Coleta: {trackingData.slaDiagnostics.carrierTransitPhase.startedAtBrt} ➔ Último Evento: {trackingData.slaDiagnostics.carrierTransitPhase.latestUpdateBrt}
                       </div>
-                      <div style={{ fontSize: '11px', fontWeight: 700, color: '#1E40AF' }}>
+                      <div className={`${styles.textPrimaryBold} ${styles.textInfo}`}>
                         {trackingData.slaDiagnostics.carrierTransitPhase.verdict}
                       </div>
                     </div>
@@ -520,13 +422,12 @@ export default function AtendimentoAdminPage() {
               )}
             </div>
 
-            {/* Grid 2 Colunas: Histórico Completo da Transportadora vs Central de Comunicação com o Cliente */}
             {trackingData && (
               <div className={styles.moduleGrid2Cols}>
-                {/* Coluna Esquerda: Linha do Tempo Completa da API Intelipost / J&T */}
+                {/* Coluna Esquerda: Linha do Tempo Completa */}
                 <div className={styles.moduleCard}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                    <h2 className={styles.cardHeading} style={{ margin: 0 }}>
+                  <div className={styles.flexRowBetween}>
+                    <h2 className={styles.cardHeadingNoBorder}>
                       Histórico Completo de Eventos ({trackingData.history.length})
                     </h2>
                     <a
@@ -534,45 +435,35 @@ export default function AtendimentoAdminPage() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.btnSecondary}
-                      style={{ fontSize: '10px', padding: '5px 10px', textDecoration: 'none' }}
                     >
                       Abrir Portal Intelipost/J&amp;T ↗
                     </a>
                   </div>
 
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                  <div className={styles.flexColStack}>
                     {trackingData.history.map((ev, idx) => {
                       const isSacScope = ev.owner_department === 'SAC_LOGISTICA_GUSTAVO';
                       return (
                         <div
                           key={idx}
-                          style={{
-                            padding: '12px',
-                            background: idx === 0 ? '#FEFCF5' : '#FFFFFF',
-                            border: idx === 0 ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
-                          }}
+                          className={`${styles.innerCardCompact} ${
+                            idx === 0 ? styles.innerCardSelected : ''
+                          }`}
                         >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '6px', marginBottom: '4px' }}>
-                            <span style={{ fontSize: '12px', fontWeight: 800, color: '#000000' }}>
+                          <div className={styles.flexRowBetween}>
+                            <span className={styles.decisionTitle}>
                               {ev.event_date_brt} · {ev.micro_name}
                             </span>
                             <span
-                              style={{
-                                fontSize: '10px',
-                                fontWeight: 700,
-                                padding: '2px 6px',
-                                background: isSacScope ? 'rgba(29,78,216,0.12)' : 'rgba(5,150,105,0.12)',
-                                color: isSacScope ? '#1E40AF' : '#065F46',
-                                border: `1px solid ${isSacScope ? 'rgba(29,78,216,0.3)' : 'rgba(5,150,105,0.3)'}`,
-                              }}
+                              className={`${styles.statusPill} ${
+                                isSacScope ? styles.statusPillInfo : styles.statusPillSuccess
+                              }`}
                             >
                               {ev.owner_label}
                             </span>
                           </div>
-                          <div style={{ fontSize: '11px', color: '#374151' }}>
-                            {ev.micro_description}
-                          </div>
-                          <div style={{ fontSize: '10px', color: '#6B7280', marginTop: '4px', fontFamily: 'monospace' }}>
+                          <div className={styles.textBodySmall}>{ev.micro_description}</div>
+                          <div className={styles.textMutedSmall}>
                             Macro: {ev.macro_code} · Micro ID: #{ev.micro_id} ({ev.status_label})
                           </div>
                         </div>
@@ -581,41 +472,32 @@ export default function AtendimentoAdminPage() {
                   </div>
                 </div>
 
-                {/* Coluna Direita: Central de Comunicação Proativa do SAC com o Cliente */}
+                {/* Coluna Direita: Central de Comunicação Proativa */}
                 <div className={styles.moduleCard}>
                   <h2 className={styles.cardHeading}>
                     Comunicação Proativa do SAC com o Cliente (Gustavo + Concierge IA)
                   </h2>
-                  <p style={{ fontSize: '12px', color: '#374151', marginBottom: '12px', lineHeight: '1.5' }}>
+                  <p className={styles.textBodySmall}>
                     O cliente nunca precisa perguntar <em>&quot;Onde está meu pedido?&quot;</em>. Sempre que a API da transportadora registra uma movimentação ou quando há espera de coleta em feriado/fim de semana, o SAC dispara o posicionamento transparente ao cliente:
                   </p>
 
-                  <div style={{ marginBottom: '12px' }}>
-                    <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563', marginBottom: '4px' }}>
+                  <div>
+                    <label className={styles.formLabel}>
                       Mensagem Pronta Gerada com os Dados Ao Vivo da API (#{trackingData.orderNumber}):
                     </label>
                     <textarea
                       rows={5}
                       value={customerMessage}
                       onChange={(e) => setCustomerMessage(e.target.value)}
-                      style={{
-                        width: '100%',
-                        padding: '10px',
-                        background: '#FFFFFF',
-                        border: '1px solid #000000',
-                        fontSize: '12px',
-                        color: '#000000',
-                        lineHeight: '1.5',
-                      }}
+                      className={styles.formTextarea}
                     />
                   </div>
 
-                  <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '18px' }}>
+                  <div className={styles.flexRowStart}>
                     <button
                       type="button"
                       onClick={handleSendProactiveCustomerUpdate}
                       className={styles.btnPrimary}
-                      style={{ fontSize: '11px', padding: '9px 14px' }}
                     >
                       💬 Disparar Atualização no WhatsApp do Cliente
                     </button>
@@ -623,17 +505,16 @@ export default function AtendimentoAdminPage() {
                       type="button"
                       onClick={handleCopyCustomerMessage}
                       className={styles.btnSecondary}
-                      style={{ fontSize: '11px', padding: '9px 14px' }}
                     >
                       📋 Copiar Mensagem p/ Cliente
                     </button>
                   </div>
 
-                  <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                    <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#000000', marginBottom: '6px' }}>
+                  <div className={styles.innerCard}>
+                    <div className={styles.decisionTitle}>
                       📌 Governança do Fluxo Produção ➔ SAC:
                     </div>
-                    <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '12px', color: '#374151', lineHeight: '1.55' }}>
+                    <ul className={styles.textBodySmall}>
                       <li>
                         <strong>Até &quot;Aguardando Coleta / Despachado p/ Doca&quot;:</strong> Responsabilidade da <strong>Produção (Armando · Depto 04)</strong> garantir que a fábrica produza, emita a NF-e e cole a etiqueta dentro de 3 dias úteis.
                       </li>
@@ -656,71 +537,45 @@ export default function AtendimentoAdminPage() {
         {/* =================================================================== */}
         {activeTab === 'tickets' && (
           <div className={styles.moduleGrid2Cols}>
-            {/* Fila de Chamados e Triagem */}
             <div className={styles.moduleCard}>
               <h2 className={styles.cardHeading}>Fila Operacional de Trocas &amp; Devoluções</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div className={styles.flexColStack}>
                 {tickets.map((ticket) => (
-                  <div
-                    key={ticket.id}
-                    style={{
-                      padding: '14px',
-                      background: '#FFFFFF',
-                      border: '1px solid #000000',
-                      boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '6px' }}>
-                      <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>
+                  <div key={ticket.id} className={`${styles.innerCard} ${styles.flexColTight}`}>
+                    <div className={styles.flexRowBetween}>
+                      <span className={styles.decisionTitle}>
                         {ticket.id} · {ticket.client} ({ticket.order})
                       </span>
                       <span
-                        style={{
-                          fontSize: '10px',
-                          padding: '2px 6px',
-                          fontWeight: 700,
-                          background:
-                            ticket.status === 'APROVADO'
-                              ? 'rgba(5,150,105,0.14)'
-                              : ticket.status === 'TRANSBORDADO'
-                              ? 'rgba(220,38,38,0.14)'
-                              : 'rgba(217,119,6,0.14)',
-                          color:
-                            ticket.status === 'APROVADO'
-                              ? '#065F46'
-                              : ticket.status === 'TRANSBORDADO'
-                              ? '#991B1B'
-                              : '#92400E',
-                          border: '1px solid',
-                          borderColor:
-                            ticket.status === 'APROVADO'
-                              ? 'rgba(5,150,105,0.3)'
-                              : ticket.status === 'TRANSBORDADO'
-                              ? 'rgba(220,38,38,0.3)'
-                              : 'rgba(217,119,6,0.3)',
-                        }}
+                        className={`${styles.statusPill} ${
+                          ticket.status === 'APROVADO'
+                            ? styles.statusPillSuccess
+                            : ticket.status === 'TRANSBORDADO'
+                            ? styles.statusPillDanger
+                            : styles.statusPillWarning
+                        }`}
                       >
                         {ticket.status}
                       </span>
                     </div>
 
-                    <p style={{ fontSize: '12px', color: '#27272A', marginBottom: '8px' }}>{ticket.reason}</p>
+                    <p className={styles.textBodySmall}>{ticket.reason}</p>
 
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '11px', color: '#4B5563' }}>
-                      <span>
-                        Responsável: <strong style={{ color: '#000000' }}>{ticket.assignedPartner}</strong>
+                    <div className={styles.flexRowBetween}>
+                      <span className={styles.textMutedSmall}>
+                        Responsável: <strong className={styles.textPrimaryBold}>{ticket.assignedPartner}</strong>
                       </span>
-                      <span>
-                        SLA: <strong style={{ color: '#000000' }}>{ticket.slaHoursLeft}h restantes</strong>
+                      <span className={styles.textMutedSmall}>
+                        SLA: <strong className={styles.textPrimaryBold}>{ticket.slaHoursLeft}h restantes</strong>
                       </span>
                     </div>
 
                     {ticket.status !== 'APROVADO' && (
-                      <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
-                        <button onClick={() => handleApprove(ticket.id)} className={styles.btnPrimary} style={{ fontSize: '10px' }}>
+                      <div className={styles.flexRowStart}>
+                        <button onClick={() => handleApprove(ticket.id)} className={styles.btnPrimary}>
                           ✓ Aprovar Troca 1-Clique
                         </button>
-                        <button onClick={() => handleSimulateWhatsAppAlert(ticket.id)} className={styles.btnSecondary} style={{ fontSize: '10px' }}>
+                        <button onClick={() => handleSimulateWhatsAppAlert(ticket.id)} className={styles.btnSecondary}>
                           📲 Disparar WhatsApp aos 4 Sócios
                         </button>
                       </div>
@@ -730,33 +585,32 @@ export default function AtendimentoAdminPage() {
               </div>
             </div>
 
-            {/* Manifesto do Zagueiro-Artilheiro + Gatilho de Terceirização BPO */}
             <div className={styles.moduleCard} data-boardroom-anchor="right-card">
               <h2 className={styles.cardHeading}>Cláusula Anti-Sobrecarga &amp; Gatilho de Terceirização BPO (5 Atendimentos)</h2>
-              <div style={{ fontSize: '13px', color: '#18181B', lineHeight: '1.6' }}>
-                <p style={{ marginBottom: '12px' }}>
+              <div className={styles.flexColStack}>
+                <p className={styles.textBodySmall}>
                   95% a 98% dos atendimentos são resolvidos 24/7 pelos Agentes de IA (<strong>Concierge IA</strong> e <strong>Discriminador de Ocorrências</strong>). O sócio titular (<strong>Gustavo</strong>) atua como Diretor da Pasta.
                 </p>
 
-                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', marginBottom: '12px' }}>
-                  <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
+                <div className={styles.innerCard}>
+                  <div className={styles.decisionTitle}>
                     🎯 Gatilho Objetivo (Marca de 5 Atendimentos Humanos Recorrentes):
                   </div>
-                  <p style={{ fontSize: '12px', color: '#374151', margin: 0 }}>
+                  <p className={styles.textBodySmall}>
                     Ao atingir <strong>5 atendimentos humanos recorrentes</strong> por ciclo operacional (~75 a 150 chamados/mês), a fila humana é terceirizada para um <strong>Secretariado Virtual Compartilhado / Call Center BPO</strong> (custo de mercado: <strong>R$ 600 a R$ 850/mês</strong>, equivalente ao lucro de ~6 camisetas/mês), operando no Painel com <strong>🔑 Senha Convidado Nível 1</strong> (sem acesso à Sala de Reuniões).
                   </p>
                 </div>
 
-                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '12px' }}>
-                  <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>Filosofia do Zagueiro-Artilheiro (Transbordo Automático):</div>
-                  <p style={{ fontSize: '12px', color: '#374151' }}>
+                <div className={styles.innerCard}>
+                  <div className={styles.decisionTitle}>Filosofia do Zagueiro-Artilheiro (Transbordo Automático):</div>
+                  <p className={styles.textBodySmall}>
                     Se o titular do dia não acionar a autorização em 2 horas, o sistema escala imediatamente para os <strong>outros 3 sócios</strong> via WhatsApp com deep link de aprovação instantânea.
                   </p>
                 </div>
 
-                <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                  <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Status do Concierge IA 24/7 na Loja Pública:</span>
-                  <div style={{ fontSize: '12px', color: '#065F46', fontWeight: 700, marginTop: '2px' }}>
+                <div className={styles.innerCardCompact}>
+                  <span className={styles.kpiLabel}>Status do Concierge IA 24/7 na Loja Pública:</span>
+                  <div className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>
                     ● Operando online em /atendimento respondendo dúvidas de modelagem, prazos e cuidados.
                   </div>
                 </div>

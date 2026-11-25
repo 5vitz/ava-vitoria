@@ -387,44 +387,42 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
     *   **Flávio (Financeiro & Jurídico):** Módulo de Assinaturas e ressarcimento dos R$ 209,33/mês adiantados por Armando.
     *   **Gustavo (SAC & Marketing de Vendas):** Apresentar a Torre Logística J&T/Intelipost em `/admin/atendimento` e solicitar o estorno Reserva INK (R$ 159,00 — CDC Art. 49).
     *   Homologar CNPJ/IE no canal B2B da Dimona para destravar tabela de atacado (R$ 38 a R$ 58).
+---
 
+## 🏛️ ESTILIZAÇÃO CANÔNICA DO COCKPIT ADMIN (APROVADA PELO GENERA ARMANDO — 25/11/2026) ✅
 
+*   **Identidade Visual "Galeria Minimalista / Subtração Brutalista":**
+    *   **Fundo Root da Página (`.adminLayout`):**
+        *   Mantido o gradiente metálico prateado acetinado original do site:
+        *   `background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);`
+    *   **Cards "Containers" (Bandejas Arquitetônicas Lado-a-Lado):**
+        *   Cor calibrada para um **cinza claro luminoso (`#EEEEF2`)**, visivelmente mais claro e brilhante que o prata de fundo (`#E2E2E4`), criando profundidade e elevação arquitetônica:
+        *   `.headerRow1Card`: Container superior que abriga a logo, botões executivos e presença dos sócios.
+        *   `.headerRow2Card`: Container do menu que abriga os botões dos 8 departamentos + Diretoria.
+        *   `.executiveCommandStrip`: Container da Diretoria Executiva que abriga o botão `[CONVOCAR REUNIÃO / NOVA PAUTA]`.
+        *   `.deptsPanel`: Container dos 8 Departamentos Operacionais.
+        *   `.decisionQueueSection` e `.agentsPanel`: Containers de deliberações e telemetria.
+        *   `.deptModuleHeader` e `.moduleCard`: Containers de módulos e seções internas.
+        *   Barras de navegação por abas em Produção, Atendimento (SAC), Atelier e Assinaturas.
+    *   **Cards e Botões Internos (Elementos Flutuantes):**
+        *   Cor de Fundo: **Branco Puro (`#FFFFFF`)**.
+        *   Borda Canônica: **`1px solid #000000` (Preto Sólido de 1px)**, replicando exatamente a estética aclamada da tela de bloqueio (`SiteLockGate`).
+        *   Aplicado em: Todos os 8 cards de departamentos (`.deptCard`), botões do menu (`.deptNavLink`), botões de ação do topo (`.actionCardBtn`, `.executiveHeaderBtn`, `.storeLink`), chips de presença (`.connectedPartnersCard`, `.partnerPresencePill`), cards de decisão (`.decisionCard`), crachás dos 23 agentes (`.agentBadge`) e sub-cards de métricas em todas as 8 páginas departamentais.
+    *   **Limpezas de Layout Aprovadas:**
+        *   Removida a telemetria redundante do card da Diretoria Executiva (já acessível via botão `🤖 AGENTES`).
+        *   Removida a duplicidade de presença dos 4 sócios (mantida apenas na barra do topo).
+        *   Logo `SEM LIMITES PRETO` recortada de dead-padding transparente (`LOGO_SEM_LIMITES_PRETO_TRIMMED.png`) e dimensionada em `101x44px`.
+    *   **Build de Produção:** Next.js Turbopack (`npm run build`) e checagem de tipos (`npx tsc --noEmit`) 100% aprovados com 0 erros.
 
+---
 
+## 2. Próximos Passos Imediatos (Para a Próxima Sessão)
 
-
-### Atualização Estética Rápida — Cards e Botões 100% Branco Puro (#FFFFFF)
-- **Fundo Root Mantido:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
-- **Cards e Botões:** Atualizados para `#FFFFFF` em todo o `/admin` (`admin-cockpit.module.css`, páginas departamentais, modais, boardroom e botões de ação), gerando alto contraste minimalista com bordas nítidas de 1px.
-- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).
-
-### Hierarquia Tripla de Contraste — Containers Cinza Alumínio (#CFD0D6) + Cards/Botões Branco Puro (#FFFFFF)
-- **Fundo Root:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
-- **Cards Containers:** Alterados para `#CFD0D6` (cinza alumínio acetinado arquitetônico com bordas 1px `rgba(0,0,0,0.20)`).
-  - Topo Linha 1 (`.headerRow1Card`) que abriga botões de ação e presença;
-  - Topo Linha 2 Menu (`.headerRow2Card`) que abriga os 9 botões departamentais;
-  - Painel Container dos 8 Departamentos (`.deptsPanel`);
-  - Faixa Diretoria Executiva (`.executiveCommandStrip`);
-  - Fila de Decisões (`.decisionQueueSection`);
-  - Painel de Telemetria (`.agentsPanel`);
-  - Cabeçalhos de módulos departamentais (`.deptModuleHeader`) e Containers de Módulos (`.moduleCard`);
-  - Barras containers de abas em Produção, SAC e Atelier.
-- **Cards e Botões Internos:** Permanecem em Branco Puro (`#FFFFFF`) com tipografia nítida e bordas de 1px, gerando destaque e profundidade estética imediata.
-- **Build de Produção:** Testado e aprovado com 0 erros via Next.js Turbopack.
-
-### Calibração Brutalista Minimalista — Bordas Pretas de 1px (#000000) nos Cards Internos
-- **Referência:** Tela de Site Lock (`SiteLockGate`), caracterizada pelo contraste marcante de linhas pretas sólidas de 1px sobre branco e prata.
-- **Bordas Atualizadas para `1px solid #000000`:**
-  - Os 8 Cards Departamentais (`.deptCard`);
-  - Todos os botões do Menu Departamental (`.deptNavLink`);
-  - Botões de Ação do Header (`.actionCardBtn`, `.executiveHeaderBtn`, `.storeLink`);
-  - Chips de Conexão e Presença dos Sócios (`.connectedPartnersCard`, `.partnerPresencePill`);
-  - Cards de Decisão do Conselho (`.decisionCard`) e Dossiê dos 23 Agentes (`.agentBadge`);
-  - Cards e sub-cards de métricas de todos os 8 módulos departamentais internos.
-- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).
-
-### Teste Estético de Contraste — Containers Cinza Claro Luminoso (#EEEEF2)
-- **Fundo Root:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
-- **Cards Containers:** Atualizados para `#EEEEF2` (tom de cinza alumínio luminoso, mais claro que o fundo prata `#E2E2E4`).
-- **Cards e Botões Internos:** Fundo Branco Puro (`#FFFFFF`) com bordas pretas sólidas de 1px (`border: 1px solid #000000`), no padrão da tela de bloqueio (`SiteLockGate`).
-- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).
+1.  **🧪 Realizar Testes Integrados no Painel Admin (`/admin`):**
+    *   Testar fluxos de ponta a ponta: navegação pelos 8 departamentos, simulações de DRE, geração de prompt-to-image no Atelier, alteração de pautas e chamadas de API.
+2.  **⚡ Integração com o Bling ERP v3 (Transplante da Star-Ink):**
+    *   Conectar o hub fiscal, espelhamento de pedidos e controle de estoque centralizado aproveitando toda a base já desenhada e validada na Star-Ink.
+3.  **🚚 Monitoramento da Última Milha do Pedido Dimona (`#755-460-927`):**
+    *   Acompanhar a chegada física das 6 amostras na filial da J&T Express em Vitória/ES via `/admin/atendimento` (previsão oficial de entrega: 27/11/2026).
+4.  **👑 Acompanhamento da Parceria Fábrica King (`docs/KING/`):**
+    *   Aguardar retorno do Anderson e Adriane pelo WhatsApp para dar início ao King Connect Gateway.

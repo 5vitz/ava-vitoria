@@ -1,17 +1,9 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
-
-interface MarginRule {
-  id: string;
-  category_code: string;
-  category_label: string;
-  target_margin_percent: number;
-  drop_indexing_mode: string;
-}
 
 export default function FinanceiroPage() {
   const [margins, setMargins] = useState<Record<string, number>>({
@@ -29,12 +21,12 @@ export default function FinanceiroPage() {
   const [loading, setLoading] = useState(false);
 
   // Unit Economics Simulator
-  const [sampleCost, setSampleCost] = useState(67.90); // T-Shirt Prime Frente+Costas
+  const [sampleCost, setSampleCost] = useState(67.90);
   const [sampleMargin, setSampleMargin] = useState(60);
 
   const salePrice = sampleCost / (1 - sampleMargin / 100);
-  const taxSimples = salePrice * 0.06; // 6% Simples Nacional
-  const paymentFee = salePrice * 0.035; // 3.5% Gateway
+  const taxSimples = salePrice * 0.06;
+  const paymentFee = salePrice * 0.035;
   const netProfit = salePrice - sampleCost - taxSimples - paymentFee;
 
   const handleSaveMargin = async (code: string) => {
@@ -79,123 +71,83 @@ export default function FinanceiroPage() {
               Sócio Titular: <strong>Flávio</strong> · Precificação sob Votação Colegiada dos 4 Sócios (4/4), Unit Economics (DRE) e Bling ERP v3
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Flávio · 🗳️ Preços sob Voto 4/4
           </span>
         </div>
 
         {/* Banner Gerenciar Assinaturas & APIs */}
-        <div
-          style={{
-            background: '#FFFFFF',
-            border: '1px solid #000000',
-            padding: '16px 20px',
-            marginBottom: '20px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '14px',
-            boxShadow: '0 2px 6px rgba(0,0,0,0.04)'
-          }}
-        >
+        <div className={`${styles.innerCard} ${styles.flexRowBetween} ${styles.moduleCardSpaced}`}>
           <div>
-            <div style={{ fontSize: '14px', fontWeight: 800, color: '#000000', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className={styles.flexRowStart}>
               <span>📦</span>
-              <span>Matriz de Assinaturas, Ferramentas &amp; APIs dos 23 Agentes</span>
-              <span style={{ fontSize: '10px', background: '#000000', color: '#FEFCF5', padding: '2px 6px', fontWeight: 700 }}>
-                NOVO
-              </span>
+              <span className={styles.decisionTitle}>Matriz de Assinaturas, Ferramentas &amp; APIs dos 23 Agentes</span>
+              <span className={styles.statusPill}>NOVO</span>
             </div>
-            <div style={{ fontSize: '12px', color: '#374151', marginTop: '4px' }}>
+            <p className={styles.textBodySmall}>
               Controle de custos fixos (~R$ 489/mês), mapeamento de cartões (Armando vs PJ), fornecedores PoD (Dimona/Reserva/Montink) e votação 4/4 para novas ferramentas.
-            </div>
+            </p>
           </div>
-          <Link
-            href="/admin/financeiro/assinaturas"
-            className={styles.btnPrimary}
-            style={{ textDecoration: 'none', fontSize: '11px', padding: '8px 14px' }}
-          >
+          <Link href="/admin/financeiro/assinaturas" className={styles.btnPrimary}>
             Gerenciar Assinaturas &amp; APIs ➔
           </Link>
         </div>
 
         {/* Lei de Ouro da Precificação Colegiada */}
-        <div
-          style={{
-            padding: '14px 18px',
-            background: '#FFFFFF',
-            border: '1px solid rgba(217, 119, 6, 0.45)',
-            boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-            color: '#18181B',
-            fontSize: '12px',
-            marginBottom: '20px',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '10px'
-          }}
-        >
-          <span>
+        <div className={`${styles.innerCard} ${styles.innerCardWarning} ${styles.moduleCardSpaced}`}>
+          <span className={styles.textBodySmall}>
             ⚖️ <strong>Governança Colegiada de Preços:</strong> <em>&ldquo;Se o preço estiver baixo, você nada e morre na praia; se estiver alto, você não sai do lugar e morre ali mesmo.&rdquo;</em> Toda alteração de margem exige votação dos 4 sócios com cobrança automática via WhatsApp e E-mail.
           </span>
         </div>
 
         {saveStatus && (
-          <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(5,150,105,0.4)', color: '#065F46', fontSize: '13px', marginBottom: '20px', fontWeight: 600 }}>
+          <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
             {saveStatus}
           </div>
         )}
 
         {/* Chave de 2 Posições */}
-        <section className={styles.moduleCard} style={{ marginBottom: '24px' }}>
+        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
           <h2 className={styles.cardHeading}>Chave de 2 Posições · Comportamento em Queda de Custo do Fornecedor (Votação 4/4)</h2>
-          <p style={{ fontSize: '13px', color: '#3F3F46' }}>
+          <p className={styles.textBodySmall}>
             Define a conduta automática do sistema quando a Dimona ou a Reserva realizam uma promoção ou reduzem os custos base:
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '12px' }}>
+          <div className={styles.autoGridCards}>
             <div
               onClick={() => setIndexingMode('INDEXED')}
-              style={{
-                padding: '16px',
-                background: '#FFFFFF',
-                border: indexingMode === 'INDEXED' ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
-                boxShadow: indexingMode === 'INDEXED' ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
+              className={`${styles.innerCardInteractive} ${
+                indexingMode === 'INDEXED' ? styles.innerCardSelected : ''
+              }`}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.decisionTitle}>
                   Posição 1: INDEXADO (Padrão)
                 </span>
-                {indexingMode === 'INDEXED' && <span style={{ color: '#065F46', fontSize: '11px', fontWeight: 700 }}>● Ativo</span>}
+                {indexingMode === 'INDEXED' && (
+                  <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>● Ativo</span>
+                )}
               </div>
-              <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>
+              <p className={styles.textBodySmall}>
                 Qualquer redução no fornecedor baixa proporcionalmente o preço na vitrine da loja, mantendo constante a margem percentual configurada.
               </p>
             </div>
 
             <div
               onClick={() => setIndexingMode('HOLD_ON_DROP')}
-              style={{
-                padding: '16px',
-                background: '#FFFFFF',
-                border: indexingMode === 'HOLD_ON_DROP' ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
-                boxShadow: indexingMode === 'HOLD_ON_DROP' ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
-                cursor: 'pointer',
-                transition: 'all 0.2s ease'
-              }}
+              className={`${styles.innerCardInteractive} ${
+                indexingMode === 'HOLD_ON_DROP' ? styles.innerCardSelected : ''
+              }`}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                <span style={{ fontWeight: 700, color: '#000000', fontSize: '14px' }}>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.decisionTitle}>
                   Posição 2: DESINDEXAR NA BAIXA (Reter Lucro Extra)
                 </span>
-                {indexingMode === 'HOLD_ON_DROP' && <span style={{ color: '#065F46', fontSize: '11px', fontWeight: 700 }}>● Ativo</span>}
+                {indexingMode === 'HOLD_ON_DROP' && (
+                  <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>● Ativo</span>
+                )}
               </div>
-              <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.5' }}>
+              <p className={styles.textBodySmall}>
                 Mantém o preço de venda atual na vitrine congelado e embolsa a margem de lucro extra. Se o fornecedor voltar a subir o custo ao patamar anterior, reindexa automaticamente.
               </p>
             </div>
@@ -206,7 +158,7 @@ export default function FinanceiroPage() {
           {/* Caixinhas de Margem por Categoria */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Tabela de Margem por Categoria (Submissão à Urna dos 4 Sócios)</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+            <div className={styles.flexColStack}>
               {[
                 { code: 'CAMISETA_QUALITY', label: 'T-Shirts Quality 30.1' },
                 { code: 'CAMISETA_PRIME', label: 'T-Shirts Prime 180g (Pele de Pêssego)' },
@@ -215,33 +167,23 @@ export default function FinanceiroPage() {
                 { code: 'REGATA', label: 'Regatas Masculinas Quality' },
                 { code: 'MOLETOM', label: 'Moletons (Crewneck & Canguru)' },
                 { code: 'BONE', label: 'Bonés (Americano & Prime Fivela)' },
-              ].map(cat => (
-                <div key={cat.code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                  <span style={{ fontSize: '13px', fontWeight: 600, color: '#000000' }}>{cat.label}</span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              ].map((cat) => (
+                <div key={cat.code} className={styles.innerRowItem}>
+                  <span className={styles.textPrimaryBold}>{cat.label}</span>
+                  <div className={styles.flexRowStart}>
                     <input
                       type="number"
                       min="20"
                       max="90"
                       value={margins[cat.code] || 60}
                       onChange={(e) => setMargins({ ...margins, [cat.code]: Number(e.target.value) })}
-                      style={{
-                        width: '60px',
-                        background: '#FFFFFF',
-                        border: '1px solid #000000',
-                        color: '#000000',
-                        fontWeight: 600,
-                        padding: '4px 6px',
-                        textAlign: 'center',
-                        fontSize: '13px'
-                      }}
+                      className={styles.formInput}
                     />
-                    <span style={{ color: '#4B5563', fontSize: '13px', fontWeight: 600 }}>%</span>
+                    <span className={styles.textMutedSmall}>%</span>
                     <button
                       onClick={() => handleSaveMargin(cat.code)}
                       disabled={loading}
                       className={styles.btnPrimary}
-                      style={{ fontSize: '10px', padding: '5px 10px' }}
                     >
                       🗳️ Votar 4/4
                     </button>
@@ -254,9 +196,9 @@ export default function FinanceiroPage() {
           {/* Calculadora de Unit Economics */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Calculadora de Unit Economics (Lucro Líquido Real)</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            <div className={styles.flexColStack}>
               <div>
-                <label style={{ fontSize: '12px', color: '#4B5563', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                <label className={styles.formLabel}>
                   Custo Base do Fornecedor (Insumo + Silk HD): R$ {sampleCost.toFixed(2)}
                 </label>
                 <input
@@ -266,12 +208,12 @@ export default function FinanceiroPage() {
                   step="1"
                   value={sampleCost}
                   onChange={(e) => setSampleCost(Number(e.target.value))}
-                  style={{ width: '100%', accentColor: '#000000' }}
+                  className={styles.rangeSlider}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '12px', color: '#4B5563', display: 'block', marginBottom: '4px', fontWeight: 600 }}>
+                <label className={styles.formLabel}>
                   Margem Alvo da Categoria: {sampleMargin}%
                 </label>
                 <input
@@ -281,41 +223,41 @@ export default function FinanceiroPage() {
                   step="1"
                   value={sampleMargin}
                   onChange={(e) => setSampleMargin(Number(e.target.value))}
-                  style={{ width: '100%', accentColor: '#000000' }}
+                  className={styles.rangeSlider}
                 />
               </div>
 
-              <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <span style={{ color: '#4B5563' }}>Preço de Venda Sugerido:</span>
-                  <span style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>R$ {salePrice.toFixed(2)}</span>
+              <div className={`${styles.innerCard} ${styles.flexColTight}`}>
+                <div className={styles.flexRowBetween}>
+                  <span className={styles.textMutedSmall}>Preço de Venda Sugerido:</span>
+                  <span className={styles.decisionTitle}>R$ {salePrice.toFixed(2)}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#B91C1C' }}>
+                <div className={`${styles.flexRowBetween} ${styles.textDanger}`}>
                   <span>(-) Custo de Produção PoD:</span>
                   <span>- R$ {sampleCost.toFixed(2)}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#B91C1C' }}>
+                <div className={`${styles.flexRowBetween} ${styles.textDanger}`}>
                   <span>(-) Imposto Simples Nacional (~6%):</span>
                   <span>- R$ {taxSimples.toFixed(2)}</span>
                 </div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#B91C1C' }}>
+                <div className={`${styles.flexRowBetween} ${styles.textDanger}`}>
                   <span>(-) Taxa Gateway / Cartão (3.5%):</span>
                   <span>- R$ {paymentFee.toFixed(2)}</span>
                 </div>
-                <div style={{ borderTop: '1px solid rgba(0,0,0,0.14)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span style={{ color: '#065F46', fontWeight: 700 }}>(=) Lucro Líquido Real por Peça:</span>
-                  <span style={{ color: '#065F46', fontWeight: 700, fontSize: '18px' }}>R$ {netProfit.toFixed(2)}</span>
+                <div className={styles.flexRowBetween}>
+                  <span className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>(=) Lucro Líquido Real por Peça:</span>
+                  <span className={`${styles.kpiValue} ${styles.textSuccess}`}>R$ {netProfit.toFixed(2)}</span>
                 </div>
               </div>
 
               {/* Conector Bling ERP */}
-              <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className={styles.innerCard}>
+                <div className={styles.flexRowBetween}>
                   <div>
-                    <div style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>Conector Bling ERP (API v3)</div>
-                    <div style={{ fontSize: '11px', color: '#4B5563' }}>Emissão de NF-e e distribuição para os 10 Marketplaces</div>
+                    <div className={styles.decisionTitle}>Conector Bling ERP (API v3)</div>
+                    <div className={styles.textMutedSmall}>Emissão de NF-e e distribuição para os 10 Marketplaces</div>
                   </div>
-                  <span style={{ fontSize: '10px', background: '#000000', border: '1px solid #000000', color: '#18181B', padding: '3px 8px', fontWeight: 600 }}>
+                  <span className={styles.statusPill}>
                     OAuth 1-Clique Pronto
                   </span>
                 </div>

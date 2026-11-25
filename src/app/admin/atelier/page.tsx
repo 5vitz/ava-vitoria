@@ -102,7 +102,6 @@ export default function AtelierPage() {
     fetchCollections();
   }, []);
 
-  // Alternar Registrado? Sim / Não no banco
   const handleToggleRegistered = async (art: ArtworkRecord, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     try {
@@ -121,12 +120,11 @@ export default function AtelierPage() {
         );
         fetchArtworks(art.code);
       }
-    } catch (err) {
+    } catch {
       alert('Erro ao alternar registro da matriz.');
     }
   };
 
-  // Atualizar valor de uma das 26 chaves no estado da arte selecionada
   const handleMatrixKeyChange = (key: keyof WritingMatrix26, value: string) => {
     if (!selectedArtwork) return;
     setSelectedArtwork({
@@ -138,7 +136,6 @@ export default function AtelierPage() {
     });
   };
 
-  // Salvar alterações da Arte Matriz + 26 Chaves + Recalcular SHA-256 no PostgreSQL
   const handleSaveSelectedArtwork = async () => {
     if (!selectedArtwork) return;
     setSavingArtwork(true);
@@ -157,14 +154,13 @@ export default function AtelierPage() {
       } else {
         alert(data.error || 'Erro ao salvar matriz.');
       }
-    } catch (err) {
+    } catch {
       alert('Erro de conexão ao salvar matriz.');
     } finally {
       setSavingArtwork(false);
     }
   };
 
-  // Criar Nova Arte Matriz com Template Canônico de 26 Chaves
   const handleCreateNewArtwork = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newArtCode.trim() || !newArtTitle.trim()) return;
@@ -204,14 +200,13 @@ export default function AtelierPage() {
       } else {
         alert(data.error || 'Erro ao criar arte matriz.');
       }
-    } catch (err) {
+    } catch {
       alert('Erro ao criar nova arte matriz.');
     } finally {
       setSavingArtwork(false);
     }
   };
 
-  // Copiar Prompt to Image compilado
   const handleCopyCompiledPrompt = () => {
     if (!selectedArtwork) return;
     const compiled = compilePromptFromMatrix26(selectedArtwork.writing_matrix_26, selectedArtwork.title);
@@ -219,7 +214,6 @@ export default function AtelierPage() {
     triggerFeedback(`📋 Prompt to Image compilado das 26 Chaves copiado para a área de transferência!`);
   };
 
-  // Baixar JSON de Escrita (26 Chaves + COA SHA-256)
   const handleDownloadMatrixJson = () => {
     if (!selectedArtwork) return;
     const payload = {
@@ -262,7 +256,7 @@ export default function AtelierPage() {
           }))
         );
       }
-    } catch (err) {
+    } catch {
       alert('Erro ao ativar coleção na vitrine.');
     }
   };
@@ -287,14 +281,13 @@ export default function AtelierPage() {
         setShowCreateCol(false);
         fetchCollections();
       }
-    } catch (err) {
+    } catch {
       alert('Erro ao criar coleção.');
     }
   };
 
   const activeOrFirstColId = activeCollectionId || collections[0]?.id || '';
 
-  // Pastas-projeto únicas disponíveis
   const projectFolders = Array.from(
     new Set(['Todas', 'Testes', 'Coleção Sem Limites', 'Op-Art Reload', ...artworks.map((a) => a.project_folder)])
   );
@@ -323,96 +316,46 @@ export default function AtelierPage() {
               Sócio Titular: <strong>Tripoint</strong> · Motor de Decomposição Visual (MDV), Matriz Canônica de 26 Chaves, Matrizes 300 DPI e Coleções da Vitrine
             </p>
           </div>
-          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <div className={styles.flexRowStart}>
             <a
               href="/PDF/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={styles.btnSecondary}
-              style={{ fontSize: '11px', padding: '6px 12px', textDecoration: 'none' }}
             >
               📄 PDF Matriz Canônica (24/26 Chaves) ↗
             </a>
-            <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+            <span className={styles.partnerOwnerBadge}>
               👤 Titular: Tripoint
             </span>
           </div>
         </div>
 
         {feedbackMsg && (
-          <div
-            style={{
-              padding: '12px 16px',
-              marginBottom: '18px',
-              background: '#FFFFFF',
-              border: '2px solid #047857',
-              color: '#065F46',
-              fontSize: '12px',
-              fontWeight: 700,
-            }}
-          >
+          <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
             {feedbackMsg}
           </div>
         )}
 
-        {/* Seletor de Abas do Atelier */}
-        <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', background: '#EEEEF2', border: '1px solid #000000', padding: '8px 12px', overflowX: 'auto' }}>
+        {/* Seletor de Abas do Atelier Unificado */}
+        <div className={styles.tabStripContainer}>
           <button
             onClick={() => setActiveTab('artworks')}
-            style={{
-              padding: '8px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              background: activeTab === 'artworks' ? '#000000' : '#FFFFFF',
-              color: activeTab === 'artworks' ? '#E4E4E7' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'artworks' ? '#000000' : '#000000',
-              cursor: 'pointer',
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap'
-            }}
+            className={`${styles.tabBtn} ${activeTab === 'artworks' ? styles.tabBtnActive : ''}`}
           >
             🎨 Prompt to Image · Matriz Canônica (26 Chaves &amp; 300 DPI)
           </button>
 
           <button
             onClick={() => setActiveTab('collections')}
-            style={{
-              padding: '8px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              background: activeTab === 'collections' ? '#000000' : '#FFFFFF',
-              color: activeTab === 'collections' ? '#E4E4E7' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'collections' ? '#000000' : '#000000',
-              cursor: 'pointer',
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap'
-            }}
+            className={`${styles.tabBtn} ${activeTab === 'collections' ? styles.tabBtnActive : ''}`}
           >
             ★ Projetos &amp; Coleções (Vitrine Ativa)
           </button>
 
           <button
             onClick={() => setActiveTab('media')}
-            style={{
-              padding: '8px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              background: activeTab === 'media' ? '#000000' : '#FFFFFF',
-              color: activeTab === 'media' ? '#E4E4E7' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'media' ? '#000000' : '#000000',
-              cursor: 'pointer',
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap'
-            }}
+            className={`${styles.tabBtn} ${activeTab === 'media' ? styles.tabBtnActive : ''}`}
           >
             🖼️ Biblioteca Geral de Mídias (9 Colunas)
           </button>
@@ -421,14 +364,13 @@ export default function AtelierPage() {
         {/* ABA PRINCIPAL: PROMPT TO IMAGE & MATRIZ CANÔNICA DE 26 CHAVES */}
         {activeTab === 'artworks' && (
           <div>
-            {/* Barra de Arquitetura MDV & Ações */}
-            <div className={styles.moduleCard} style={{ marginBottom: '20px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px' }}>
+            <div className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+              <div className={styles.flexRowBetween}>
                 <div>
-                  <h2 className={styles.cardHeading}>
+                  <h2 className={styles.cardHeadingNoBorder}>
                     Esteira Prompt to Image — Motor de Decomposição Visual (MDV) &amp; Matriz Canônica de 26 Chaves
                   </h2>
-                  <p style={{ fontSize: '12px', color: '#374151', maxWidth: '880px', lineHeight: '1.5' }}>
+                  <p className={styles.textBodySmall}>
                     <strong>Regra de Ouro da Blindagem Autoral:</strong> O banco de dados e o Certificado COA gravam <strong>exclusivamente o JSON de Escrita (26 Chaves Autorais)</strong> após o <em>Subprocesso Obrigatório de Desvinculação Autoral</em> (mínimo de <strong>7 chaves mutadas</strong> entre 🔴 Zona 1 Identidade e 🟡 Zona 2 Geometria/Escorço 3D, preservando a 🟢 Zona 3 Física Estética).
                   </p>
                 </div>
@@ -441,46 +383,37 @@ export default function AtelierPage() {
                     setShowCreateArtModal(!showCreateArtModal);
                   }}
                   className={styles.btnPrimary}
-                  style={{ fontSize: '11px', padding: '10px 16px' }}
                 >
                   {showCreateArtModal ? '✕ Fechar Cadastro' : '+ Nova Arte Matriz (26 Chaves)'}
                 </button>
               </div>
 
               {/* Resumo dos 3 Estágios do MDV */}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginTop: '14px' }}>
-                <div style={{ padding: '10px 12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>
-                    Estágio 1 · Scanner Matemático (Python)
-                  </div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
-                    scripts/mdv_scanner.py
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+              <div className={styles.autoGridCards}>
+                <div className={styles.innerCardCompact}>
+                  <div className={styles.kpiLabel}>Estágio 1 · Scanner Matemático (Python)</div>
+                  <div className={styles.decisionTitle}>scripts/mdv_scanner.py</div>
+                  <div className={styles.textBodySmall}>
                     Mede % espaço negativo (60-70%), espessura de traço (1px-3px), vetores de Sobel (45° vs 90°) e entropia 3x3.
                   </div>
                 </div>
 
-                <div style={{ padding: '10px 12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#92400E' }}>
+                <div className={styles.innerCardCompact}>
+                  <div className={`${styles.kpiLabel} ${styles.textWarning}`}>
                     Estágio 2 · Desvinculação Autoral (≥ 7 Chaves)
                   </div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
-                    🔴 Zona 1 (≥4) + 🟡 Zona 2 (≥3) + 🟢 Zona 3
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+                  <div className={styles.decisionTitle}>🔴 Zona 1 (≥4) + 🟡 Zona 2 (≥3) + 🟢 Zona 3</div>
+                  <div className={styles.textBodySmall}>
                     Muta sujeito e ângulo óptico (ex: Escorço 3D 75° no Eixo Z) mantendo a física do estilo.
                   </div>
                 </div>
 
-                <div style={{ padding: '10px 12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#065F46' }}>
+                <div className={styles.innerCardCompact}>
+                  <div className={`${styles.kpiLabel} ${styles.textSuccess}`}>
                     Estágio 3 · Prompt to Image &amp; COA SHA-256
                   </div>
-                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
-                    Compilador 26 Chaves + Gabarito 300 DPI
-                  </div>
-                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+                  <div className={styles.decisionTitle}>Compilador 26 Chaves + Gabarito 300 DPI</div>
+                  <div className={styles.textBodySmall}>
                     Dimona Silk HD (3435×4680px zero margem) e Reserva INK (4200×4800px PNG).
                   </div>
                 </div>
@@ -488,65 +421,49 @@ export default function AtelierPage() {
 
               {/* Modal Inline de Criação de Nova Arte Matriz */}
               {showCreateArtModal && (
-                <form
-                  onSubmit={handleCreateNewArtwork}
-                  style={{
-                    marginTop: '16px',
-                    padding: '16px',
-                    background: '#FFFFFF',
-                    border: '1px solid #000000',
-                  }}
-                >
-                  <h3 style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', color: '#000000' }}>
+                <form onSubmit={handleCreateNewArtwork} className={`${styles.innerCard} ${styles.flexColStack}`}>
+                  <h3 className={styles.decisionTitle}>
                     + Cadastrar Nova Arte Matriz na Matriz Canônica (26 Chaves)
                   </h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                  <div className={styles.autoGridSmall}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        Código da Obra *
-                      </label>
+                      <label className={styles.formLabel}>Código da Obra *</label>
                       <input
                         type="text"
                         required
                         value={newArtCode}
                         onChange={(e) => setNewArtCode(e.target.value)}
                         placeholder="Ex: AVA-TEST-003"
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formInput}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        Título da Obra *
-                      </label>
+                      <label className={styles.formLabel}>Título da Obra *</label>
                       <input
                         type="text"
                         required
                         value={newArtTitle}
                         onChange={(e) => setNewArtTitle(e.target.value)}
                         placeholder="Ex: Vórtice Op-Art Gravitacional"
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formInput}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        Pasta-Projeto
-                      </label>
+                      <label className={styles.formLabel}>Pasta-Projeto</label>
                       <input
                         type="text"
                         value={newArtFolder}
                         onChange={(e) => setNewArtFolder(e.target.value)}
                         placeholder="Ex: Testes ou Coleção Sem Limites"
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formInput}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        Fornecedor Padrão
-                      </label>
+                      <label className={styles.formLabel}>Fornecedor Padrão</label>
                       <select
                         value={newArtSupplier}
                         onChange={(e) => setNewArtSupplier(e.target.value)}
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formSelect}
                       >
                         <option value="DIMONA">DIMONA (Silk HD 3435×4680)</option>
                         <option value="RESERVA_INK">RESERVA INK (DTG 4200×4800)</option>
@@ -554,63 +471,52 @@ export default function AtelierPage() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '10px' }}>
+                  <div className={styles.moduleGrid2Cols}>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        Conceito Filosófico / Tese da Obra
-                      </label>
+                      <label className={styles.formLabel}>Conceito Filosófico / Tese da Obra</label>
                       <input
                         type="text"
                         value={newArtConcept}
                         onChange={(e) => setNewArtConcept(e.target.value)}
                         placeholder="Descreva a essência autoral..."
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formInput}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
-                        URL da Imagem Preview (Opcional)
-                      </label>
+                      <label className={styles.formLabel}>URL da Imagem Preview (Opcional)</label>
                       <input
                         type="text"
                         value={newArtPreviewUrl}
                         onChange={(e) => setNewArtPreviewUrl(e.target.value)}
                         placeholder="/imagens/projetos/Testes/..."
-                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                        className={styles.formInput}
                       />
                     </div>
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={savingArtwork}
-                    className={styles.btnPrimary}
-                    style={{ marginTop: '12px', fontSize: '11px', padding: '8px 16px' }}
-                  >
-                    {savingArtwork ? 'Gravando no PostgreSQL...' : 'Gravar Obra & Inicializar 26 Chaves Canônicas'}
-                  </button>
+                  <div>
+                    <button
+                      type="submit"
+                      disabled={savingArtwork}
+                      className={styles.btnPrimary}
+                    >
+                      {savingArtwork ? 'Gravando no PostgreSQL...' : 'Gravar Obra & Inicializar 26 Chaves Canônicas'}
+                    </button>
+                  </div>
                 </form>
               )}
 
               {/* Filtro por Pasta-Projeto */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#374151' }}>
-                  📁 Pasta-Projeto:
-                </span>
+              <div className={styles.flexRowStart}>
+                <span className={styles.kpiLabel}>📁 Pasta-Projeto:</span>
                 {projectFolders.map((folder) => (
                   <button
                     key={folder}
                     type="button"
                     onClick={() => setFolderFilter(folder)}
-                    style={{
-                      padding: '4px 12px',
-                      fontSize: '11px',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                      background: folderFilter === folder ? '#000000' : '#FEFCF5',
-                      color: folderFilter === folder ? '#E4E4E7' : '#18181B',
-                      border: '1px solid #000000',
-                    }}
+                    className={`${styles.executiveHeaderBtn} ${
+                      folderFilter === folder ? styles.executiveHeaderBtnActive : ''
+                    }`}
                   >
                     {folder}
                   </button>
@@ -626,86 +532,59 @@ export default function AtelierPage() {
                 </h2>
 
                 {loadingArtworks ? (
-                  <div style={{ padding: '24px', textAlign: 'center', fontSize: '12px', color: '#4B5563' }}>
+                  <div className={styles.textMutedSmall}>
                     Carregando matrizes do PostgreSQL...
                   </div>
                 ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <div className={styles.flexColStack}>
                     {filteredArtworks.map((art) => {
                       const isSelected = selectedArtwork?.id === art.id;
                       return (
                         <div
                           key={art.id}
                           onClick={() => setSelectedArtwork(art)}
-                          style={{
-                            padding: '12px',
-                            background: isSelected ? '#FEFCF5' : '#FFFFFF',
-                            border: isSelected ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
-                            boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
-                            cursor: 'pointer',
-                            display: 'flex',
-                            gap: '12px',
-                            alignItems: 'center',
-                          }}
+                          className={`${styles.innerCardInteractive} ${styles.flexRowStart} ${
+                            isSelected ? styles.innerCardSelected : ''
+                          }`}
                         >
                           {art.preview_image_url && (
-                            <div
-                              style={{
-                                width: '64px',
-                                height: '64px',
-                                flexShrink: 0,
-                                background: '#FFFFFF',
-                                border: '1px solid #000000',
-                                overflow: 'hidden',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                              }}
-                            >
-                              <img
-                                src={art.preview_image_url}
-                                alt={art.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                              />
-                            </div>
+                            <img
+                              src={art.preview_image_url}
+                              alt={art.title}
+                              width={64}
+                              height={64}
+                              className={styles.innerCardCompact}
+                            />
                           )}
 
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
-                              <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{art.title}</span>
+                          <div className={styles.flexColTight}>
+                            <div className={styles.flexRowBetween}>
+                              <span className={styles.decisionTitle}>{art.title}</span>
                               <button
                                 type="button"
                                 onClick={(e) => handleToggleRegistered(art, e)}
                                 title="Clique para alternar o status Registrado (Sim / Não)"
-                                style={{
-                                  fontSize: '10px',
-                                  fontWeight: 700,
-                                  padding: '2px 8px',
-                                  cursor: 'pointer',
-                                  background: art.is_registered ? 'rgba(4,120,87,0.14)' : 'rgba(146,64,14,0.14)',
-                                  color: art.is_registered ? '#047857' : '#92400E',
-                                  border: `1px solid ${art.is_registered ? 'rgba(4,120,87,0.35)' : 'rgba(146,64,14,0.35)'}`,
-                                  whiteSpace: 'nowrap',
-                                }}
+                                className={`${styles.statusPill} ${
+                                  art.is_registered ? styles.statusPillSuccess : styles.statusPillWarning
+                                }`}
                               >
                                 {art.is_registered ? '✓ Registrado: SIM' : '○ Registrado: NÃO'}
                               </button>
                             </div>
 
-                            <div style={{ fontSize: '11px', color: '#374151', marginBottom: '4px' }}>
+                            <div className={styles.textBodySmall}>
                               <strong>{art.code}</strong> · Pasta: <strong>{art.project_folder}</strong> · {art.default_supplier}
                             </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '10px' }}>
+                            <div className={styles.flexRowBetween}>
                               <span
-                                style={{
-                                  fontWeight: 700,
-                                  color: art.mutated_keys_count >= 7 ? '#065F46' : '#991B1B',
-                                }}
+                                className={`${styles.textPrimaryBold} ${
+                                  art.mutated_keys_count >= 7 ? styles.textSuccess : styles.textDanger
+                                }`}
                               >
                                 🧬 {art.mutated_keys_count}/26 Chaves Mutadas {art.mutated_keys_count >= 7 ? '(✓ Blindada)' : '(⚠️ Mín. 7)'}
                               </span>
-                              <span style={{ fontFamily: 'monospace', color: '#4B5563' }}>
+                              <span className={styles.textMutedSmall}>
                                 SHA-256: {art.coa_hash_sha256?.slice(0, 12)}...
                               </span>
                             </div>
@@ -720,16 +599,15 @@ export default function AtelierPage() {
               {/* COLUNA DIREITA: INSPETOR/EDITOR DAS 26 CHAVES & COMPILADOR PROMPT TO IMAGE */}
               {selectedArtwork && (
                 <div className={styles.moduleCard}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
-                    <h2 className={styles.cardHeading} style={{ margin: 0 }}>
+                  <div className={styles.flexRowBetween}>
+                    <h2 className={styles.cardHeadingNoBorder}>
                       Matriz Canônica: {selectedArtwork.code}
                     </h2>
-                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                    <div className={styles.flexRowStart}>
                       <button
                         type="button"
                         onClick={handleDownloadMatrixJson}
                         className={styles.btnSecondary}
-                        style={{ fontSize: '11px', padding: '6px 10px' }}
                       >
                         ⬇️ Exportar JSON (26 Chaves)
                       </button>
@@ -738,7 +616,6 @@ export default function AtelierPage() {
                         onClick={handleSaveSelectedArtwork}
                         disabled={savingArtwork}
                         className={styles.btnPrimary}
-                        style={{ fontSize: '11px', padding: '6px 12px' }}
                       >
                         {savingArtwork ? 'Salvando...' : '💾 Salvar Matriz & Recalcular SHA-256'}
                       </button>
@@ -746,108 +623,93 @@ export default function AtelierPage() {
                   </div>
 
                   {/* Cabeçalho Visual + Metadados Principais */}
-                  <div style={{ display: 'grid', gridTemplateColumns: selectedArtwork.preview_image_url ? '140px 1fr' : '1fr', gap: '14px', marginBottom: '16px', padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
-                    {selectedArtwork.preview_image_url && (
-                      <div style={{ width: '140px', height: '140px', background: '#FFFFFF', border: '1px solid #000000', overflow: 'hidden' }}>
+                  <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+                    <div className={styles.flexRowStart}>
+                      {selectedArtwork.preview_image_url && (
                         <img
                           src={selectedArtwork.preview_image_url}
                           alt={selectedArtwork.title}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          width={120}
+                          height={120}
+                          className={styles.innerCardCompact}
                         />
-                      </div>
-                    )}
+                      )}
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                        <div>
-                          <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Título da Obra</label>
-                          <input
-                            type="text"
-                            value={selectedArtwork.title}
-                            onChange={(e) => setSelectedArtwork({ ...selectedArtwork, title: e.target.value })}
-                            style={{ width: '100%', padding: '6px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px', fontWeight: 700 }}
-                          />
-                        </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px', gap: '6px' }}>
+                      <div className={styles.flexColStack}>
+                        <div className={styles.autoGridSmall}>
                           <div>
-                            <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Pasta-Projeto</label>
+                            <label className={styles.formLabel}>Título da Obra</label>
+                            <input
+                              type="text"
+                              value={selectedArtwork.title}
+                              onChange={(e) => setSelectedArtwork({ ...selectedArtwork, title: e.target.value })}
+                              className={styles.formInput}
+                            />
+                          </div>
+                          <div>
+                            <label className={styles.formLabel}>Pasta-Projeto</label>
                             <input
                               type="text"
                               value={selectedArtwork.project_folder}
                               onChange={(e) => setSelectedArtwork({ ...selectedArtwork, project_folder: e.target.value })}
-                              style={{ width: '100%', padding: '6px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px' }}
+                              className={styles.formInput}
                             />
                           </div>
                           <div>
-                            <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Mutadas</label>
+                            <label className={styles.formLabel}>Chaves Mutadas</label>
                             <input
                               type="number"
                               min={0}
                               max={26}
                               value={selectedArtwork.mutated_keys_count}
                               onChange={(e) => setSelectedArtwork({ ...selectedArtwork, mutated_keys_count: Number(e.target.value) })}
-                              style={{ width: '100%', padding: '6px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '12px', fontWeight: 700 }}
+                              className={styles.formInput}
                             />
                           </div>
                         </div>
-                      </div>
 
-                      <div>
-                        <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Conceito &amp; Linhagem MDV</label>
-                        <textarea
-                          rows={2}
-                          value={selectedArtwork.concept}
-                          onChange={(e) => setSelectedArtwork({ ...selectedArtwork, concept: e.target.value })}
-                          style={{ width: '100%', padding: '6px', background: '#FFFFFF', border: '1px solid #000000', fontSize: '11px' }}
-                        />
+                        <div>
+                          <label className={styles.formLabel}>Conceito &amp; Linhagem MDV</label>
+                          <textarea
+                            rows={2}
+                            value={selectedArtwork.concept}
+                            onChange={(e) => setSelectedArtwork({ ...selectedArtwork, concept: e.target.value })}
+                            className={styles.formTextarea}
+                          />
+                        </div>
                       </div>
+                    </div>
 
-                      <div style={{ fontSize: '10px', fontFamily: 'monospace', color: '#065F46', background: '#FFFFFF', padding: '6px 8px', border: '1px solid rgba(4,120,87,0.3)', wordBreak: 'break-all' }}>
-                        <strong>COA SHA-256 (JSON de Escrita):</strong> {selectedArtwork.coa_hash_sha256}
-                      </div>
+                    <div className={`${styles.innerCardCompact} ${styles.innerCardSuccess} ${styles.textSuccess}`}>
+                      <strong>COA SHA-256 (JSON de Escrita):</strong> {selectedArtwork.coa_hash_sha256}
                     </div>
                   </div>
 
                   {/* COMPILADOR PROMPT TO IMAGE AO VIVO */}
-                  <div style={{ marginBottom: '16px', padding: '12px', background: '#FFFFFF', border: '2px solid #000000' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                      <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#000000' }}>
+                  <div className={`${styles.innerCard} ${styles.flexColTight}`}>
+                    <div className={styles.flexRowBetween}>
+                      <span className={styles.decisionTitle}>
                         ⚡ Prompt to Image Compilado (Síntese Automática das 26 Chaves)
                       </span>
                       <button
                         type="button"
                         onClick={handleCopyCompiledPrompt}
                         className={styles.btnPrimary}
-                        style={{ fontSize: '10px', padding: '4px 10px' }}
                       >
                         📋 Copiar Prompt to Image
                       </button>
                     </div>
-                    <pre
-                      style={{
-                        margin: 0,
-                        padding: '10px',
-                        background: '#FFFFFF',
-                        border: '1px solid #000000',
-                        fontSize: '11px',
-                        fontFamily: 'monospace',
-                        whiteSpace: 'pre-wrap',
-                        lineHeight: '1.45',
-                        color: '#18181B',
-                        maxHeight: '170px',
-                        overflowY: 'auto',
-                      }}
-                    >
+                    <pre className={styles.innerCardCompact}>
                       {compiledPromptPreview}
                     </pre>
                   </div>
 
                   {/* SELETOR DE EIXOS DAS 26 CHAVES CANÔNICAS */}
-                  <div style={{ marginBottom: '12px' }}>
-                    <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '6px', color: '#000000' }}>
+                  <div className={styles.flexColTight}>
+                    <div className={styles.decisionTitle}>
                       🔬 Editor Interativo das 26 Chaves Estruturais (JSON de Escrita Autoral):
                     </div>
-                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    <div className={styles.flexRowStart}>
                       {[
                         { id: 'ALL', label: 'Todas as 26 Chaves' },
                         { id: 'I_ONTOLOGICO', label: 'I. Ontológico (01–07)' },
@@ -859,15 +721,9 @@ export default function AtelierPage() {
                           key={ax.id}
                           type="button"
                           onClick={() => setAxisFilter(ax.id)}
-                          style={{
-                            padding: '4px 10px',
-                            fontSize: '10px',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                            background: axisFilter === ax.id ? '#000000' : '#FFFFFF',
-                            color: axisFilter === ax.id ? '#E4E4E7' : '#18181B',
-                            border: '1px solid #000000',
-                          }}
+                          className={`${styles.executiveHeaderBtn} ${
+                            axisFilter === ax.id ? styles.executiveHeaderBtnActive : ''
+                          }`}
                         >
                           {ax.label}
                         </button>
@@ -876,62 +732,26 @@ export default function AtelierPage() {
                   </div>
 
                   {/* LISTA EDITÁVEL DAS 26 CHAVES */}
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '10px',
-                      maxHeight: '520px',
-                      overflowY: 'auto',
-                      paddingRight: '4px',
-                    }}
-                  >
+                  <div className={styles.flexColStack}>
                     {filteredKeysMetadata.map((meta) => {
                       const val = selectedArtwork.writing_matrix_26?.[meta.key] || '';
                       return (
-                        <div
-                          key={meta.key}
-                          style={{
-                            padding: '10px',
-                            background: '#FFFFFF',
-                            border: '1px solid #000000',
-                          }}
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#000000' }}>
+                        <div key={meta.key} className={`${styles.innerCardCompact} ${styles.flexColTight}`}>
+                          <div className={styles.flexRowBetween}>
+                            <span className={styles.decisionTitle}>
                               #{meta.number} · {meta.label}{' '}
-                              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#4B5563', fontWeight: 500 }}>
-                                ({meta.key})
-                              </span>
+                              <span className={styles.textMutedSmall}>({meta.key})</span>
                             </span>
-                            <span
-                              style={{
-                                fontSize: '10px',
-                                fontWeight: 700,
-                                padding: '1px 6px',
-                                background: '#FFFFFF',
-                                border: '1px solid #000000',
-                              }}
-                            >
+                            <span className={styles.statusPill}>
                               {meta.mutationZoneLabel}
                             </span>
                           </div>
-                          <div style={{ fontSize: '10px', color: '#4B5563', marginBottom: '6px' }}>
-                            {meta.description}
-                          </div>
+                          <div className={styles.textMutedSmall}>{meta.description}</div>
                           <textarea
                             rows={2}
                             value={val}
                             onChange={(e) => handleMatrixKeyChange(meta.key, e.target.value)}
-                            style={{
-                              width: '100%',
-                              padding: '6px 8px',
-                              background: '#FFFFFF',
-                              border: '1px solid #000000',
-                              fontSize: '11px',
-                              color: '#000000',
-                              lineHeight: '1.4',
-                            }}
+                            className={styles.formTextarea}
                           />
                         </div>
                       );
@@ -946,19 +766,18 @@ export default function AtelierPage() {
         {/* ABA 2: PROJETOS E COLEÇÕES (VITRINE ATIVA) */}
         {activeTab === 'collections' && (
           <div className={styles.moduleCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+            <div className={styles.flexRowBetween}>
               <div>
-                <h2 className={styles.cardHeading}>Gerenciador de Coleções &amp; Vitrine Oficial</h2>
-                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
+                <h2 className={styles.cardHeadingNoBorder}>Gerenciador de Coleções &amp; Vitrine Oficial</h2>
+                <p className={styles.moduleSubtitle}>
                   Acesse o painel completo de ordenação do grid de 3 colunas, slots vazios e publicação da coleção ativa na Home.
                 </p>
               </div>
-              <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+              <div className={styles.flexRowStart}>
                 <button
                   type="button"
                   onClick={() => setShowCreateCol(!showCreateCol)}
                   className={styles.btnSecondary}
-                  style={{ fontSize: '12px', padding: '8px 14px' }}
                 >
                   {showCreateCol ? '✕ Fechar Formulário' : '+ Nova Coleção'}
                 </button>
@@ -974,40 +793,37 @@ export default function AtelierPage() {
               </div>
             </div>
 
-            {/* Formulário de Criação de Coleção */}
             {showCreateCol && (
-              <form onSubmit={handleCreateCollection} style={{ marginTop: '20px', padding: '16px', background: '#FFFFFF', border: '1px solid #000000', borderRadius: '2px' }}>
-                <h3 style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', color: '#000000' }}>
-                  + Cadastrar Nova Coleção
-                </h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+              <form onSubmit={handleCreateCollection} className={`${styles.innerCard} ${styles.flexColStack}`}>
+                <h3 className={styles.decisionTitle}>+ Cadastrar Nova Coleção</h3>
+                <div className={styles.autoGridSmall}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Nome da Coleção</label>
+                    <label className={styles.formLabel}>Nome da Coleção</label>
                     <input
                       type="text"
                       placeholder="Ex: Coleção Inverno 2026"
                       value={newColName}
                       onChange={(e) => setNewColName(e.target.value)}
                       required
-                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', color: '#000000', fontSize: '13px' }}
+                      className={styles.formInput}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Ano</label>
+                    <label className={styles.formLabel}>Ano</label>
                     <input
                       type="number"
                       value={newColYear}
                       onChange={(e) => setNewColYear(e.target.value)}
                       required
-                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', color: '#000000', fontSize: '13px' }}
+                      className={styles.formInput}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '11px', fontWeight: 600, textTransform: 'uppercase', marginBottom: '4px', color: '#374151' }}>Estação</label>
+                    <label className={styles.formLabel}>Estação</label>
                     <select
                       value={newColSeason}
                       onChange={(e) => setNewColSeason(e.target.value)}
-                      style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid #000000', color: '#000000', fontSize: '13px' }}
+                      className={styles.formSelect}
                     >
                       <option value="Outono">Outono</option>
                       <option value="Inverno">Inverno</option>
@@ -1017,66 +833,54 @@ export default function AtelierPage() {
                     </select>
                   </div>
                 </div>
-                <button
-                  type="submit"
-                  className={styles.btnPrimary}
-                  style={{ marginTop: '14px', fontSize: '11px', padding: '8px 16px' }}
-                >
-                  Gravar e Iniciar Coleção
-                </button>
+                <div>
+                  <button type="submit" className={styles.btnPrimary}>
+                    Gravar e Iniciar Coleção
+                  </button>
+                </div>
               </form>
             )}
 
-            {/* Grid de Coleções do Banco */}
             {loadingCols ? (
-              <div style={{ padding: '30px', textAlign: 'center', color: '#52525B', fontSize: '13px' }}>
-                Carregando coleções do catálogo...
-              </div>
+              <div className={styles.textMutedSmall}>Carregando coleções do catálogo...</div>
             ) : collections.length === 0 ? (
-              <div style={{ padding: '30px', textAlign: 'center', color: '#52525B', fontSize: '13px' }}>
-                Nenhuma coleção cadastrada. Clique em "+ Nova Coleção" para começar.
+              <div className={styles.textMutedSmall}>
+                Nenhuma coleção cadastrada. Clique em &quot;+ Nova Coleção&quot; para começar.
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px', marginTop: '16px' }}>
+              <div className={styles.autoGridCards}>
                 {collections.map((col) => {
                   const isStoreActive = col.isActiveStorefront || col.id === activeCollectionId;
 
                   return (
                     <div
                       key={col.id}
-                      style={{
-                        padding: '16px',
-                        background: isStoreActive ? '#FEFCF5' : '#FFFFFF',
-                        border: isStoreActive ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
-                        boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                      }}
+                      className={`${styles.innerCard} ${styles.flexColStack} ${
+                        isStoreActive ? styles.innerCardSelected : ''
+                      }`}
                     >
                       <div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                          <span style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>{col.name}</span>
+                        <div className={styles.flexRowBetween}>
+                          <span className={styles.decisionTitle}>{col.name}</span>
                           {isStoreActive ? (
-                            <span style={{ fontSize: '10px', background: 'rgba(5,150,105,0.14)', color: '#065F46', border: '1px solid rgba(5,150,105,0.3)', padding: '2px 6px', fontWeight: 700 }}>
+                            <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
                               ★ Vitrine Ativa da Loja
                             </span>
                           ) : (
-                            <span style={{ fontSize: '10px', background: '#000000', border: '1px solid #000000', color: '#4B5563', padding: '2px 6px', fontWeight: 600 }}>
+                            <span className={styles.statusPill}>
                               {col.season} · {col.year}
                             </span>
                           )}
                         </div>
-                        <p style={{ fontSize: '12px', color: '#374151', marginBottom: '14px' }}>
+                        <p className={styles.textBodySmall}>
                           {col.productsCount} {col.productsCount === 1 ? 'produto cadastrado' : 'produtos cadastrados'} nesta coleção.
                         </p>
                       </div>
 
-                      <div style={{ display: 'flex', gap: '8px', flexDirection: 'column' }}>
+                      <div className={styles.flexColTight}>
                         <Link
                           href={`/admin/grid-manager?collection=${col.id}`}
                           className={styles.btnSecondary}
-                          style={{ display: 'block', textAlign: 'center', fontSize: '11px', textDecoration: 'none' }}
                         >
                           Editar Grid &amp; Produtos ↗
                         </Link>
@@ -1084,17 +888,7 @@ export default function AtelierPage() {
                           <button
                             type="button"
                             onClick={() => handleSetActiveStorefront(col.id)}
-                            style={{
-                              padding: '6px 10px',
-                              fontSize: '10px',
-                              textTransform: 'uppercase',
-                              letterSpacing: '0.6px',
-                              background: '#FFFFFF',
-                              border: '1px solid #000000',
-                              color: '#000000',
-                              cursor: 'pointer',
-                              fontWeight: 600,
-                            }}
+                            className={styles.btnPrimary}
                           >
                             ⚡ Definir como Vitrine Ativa
                           </button>
@@ -1111,10 +905,10 @@ export default function AtelierPage() {
         {/* ABA 3: BIBLIOTECA GERAL DE MÍDIAS (9 COLUNAS) */}
         {activeTab === 'media' && (
           <div className={styles.moduleCard}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div className={styles.flexRowBetween}>
               <div>
-                <h2 className={styles.cardHeading}>Biblioteca Geral de Mídias (Grid Uniforme de 9 Colunas)</h2>
-                <p style={{ fontSize: '13px', color: '#3F3F46' }}>
+                <h2 className={styles.cardHeadingNoBorder}>Biblioteca Geral de Mídias (Grid Uniforme de 9 Colunas)</h2>
+                <p className={styles.moduleSubtitle}>
                   Visualizador de imagens de alta resolução com Lightbox, ordenação e uploads vinculados à coleção ativa.
                 </p>
               </div>
@@ -1123,17 +917,16 @@ export default function AtelierPage() {
               </Link>
             </div>
 
-            <div style={{ padding: '40px 20px', textAlign: 'center', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 4px rgba(0,0,0,0.03)', marginTop: '16px' }}>
-              <div style={{ fontSize: '28px', marginBottom: '8px' }}>🖼️</div>
-              <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
-                Biblioteca Integrada Ativa
-              </div>
-              <p style={{ fontSize: '12px', color: '#374151', maxWidth: '450px', margin: '0 auto 16px auto' }}>
+            <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+              <div className={styles.decisionTitle}>🖼️ Biblioteca Integrada Ativa</div>
+              <p className={styles.textBodySmall}>
                 Para fazer novos uploads, inspecionar fotos em tamanho original com a lupa ou organizar mídias por coleção, abra o visualizador dedicado.
               </p>
-              <Link href="/admin/media" className={styles.btnPrimary}>
-                Gerenciar Mídias da Coleção ↗
-              </Link>
+              <div>
+                <Link href="/admin/media" className={styles.btnPrimary}>
+                  Gerenciar Mídias da Coleção ↗
+                </Link>
+              </div>
             </div>
           </div>
         )}

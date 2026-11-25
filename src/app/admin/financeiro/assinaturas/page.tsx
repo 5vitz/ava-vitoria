@@ -4,24 +4,22 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../../AdminHeader';
 import styles from './assinaturas.module.css';
+import adminStyles from '../../admin-cockpit.module.css';
 import {
   INITIAL_SUBSCRIPTIONS,
   SubscriptionItem,
   SubscriptionCategory,
-  CriticalityLevel,
-  PayerAccountType,
 } from '@/lib/subscriptionsData';
 
 export default function AssinaturasPage() {
   const [items, setItems] = useState<SubscriptionItem[]>(INITIAL_SUBSCRIPTIONS);
-  const [loading, setLoading] = useState(true);
+  const [, setLoading] = useState(true);
   const [filterCategory, setFilterCategory] = useState<string>('ALL');
   const [filterPayer, setFilterPayer] = useState<string>('ALL');
   const [filterCriticality, setFilterCriticality] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedImpactId, setExpandedImpactId] = useState<string | null>(null);
 
-  // Modal de Proposta para Urna 4/4
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [proposalServiceName, setProposalServiceName] = useState('');
   const [proposalCategory, setProposalCategory] = useState<SubscriptionCategory>('CRIATIVO_ATELIER');
@@ -51,7 +49,6 @@ export default function AssinaturasPage() {
     fetchSubscriptions();
   }, []);
 
-  // Cálculos de Resumo Financeiro
   const activeItems = items.filter((i) => i.status === 'ATIVO');
   const totalMonthlyActive = activeItems.reduce((acc, curr) => acc + curr.monthlyCostBrl, 0);
 
@@ -66,7 +63,6 @@ export default function AssinaturasPage() {
 
   const criticalItems = activeItems.filter((i) => i.criticality === 'CRITICA');
 
-  // Filtragem da Tabela
   const filteredItems = items.filter((item) => {
     if (filterCategory !== 'ALL' && item.category !== filterCategory) return false;
     if (filterPayer !== 'ALL' && item.payerAccount !== filterPayer) return false;
@@ -135,19 +131,19 @@ export default function AssinaturasPage() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={adminStyles.adminLayout}>
       <AdminHeader />
 
       <main className={styles.mainContent}>
         {/* Top Header */}
         <div className={styles.headerBar}>
           <div className={styles.titleArea}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-              <Link href="/admin/financeiro" className={styles.btnSecondary} style={{ padding: '4px 8px', fontSize: '11px' }}>
+            <div className={adminStyles.flexRowStart}>
+              <Link href="/admin/financeiro" className={styles.btnSecondary}>
                 ← Depto 02 (Financeiro)
               </Link>
-              <span style={{ fontSize: '11px', color: '#6B7280' }}>/</span>
-              <span style={{ fontSize: '11px', fontWeight: 700, color: '#000000', textTransform: 'uppercase' }}>
+              <span className={adminStyles.textMutedSmall}>/</span>
+              <span className={adminStyles.kpiLabel}>
                 Gerenciar Assinaturas &amp; Ferramentas
               </span>
             </div>
@@ -170,25 +166,13 @@ export default function AssinaturasPage() {
 
         {/* Notificação Toast */}
         {toastMessage && (
-          <div
-            style={{
-              padding: '12px 18px',
-              background: '#F4F4F6',
-              border: '1px solid rgba(5, 150, 105, 0.5)',
-              color: '#065F46',
-              fontSize: '13px',
-              fontWeight: 600,
-              marginBottom: '20px',
-              boxShadow: '0 2px 6px rgba(0,0,0,0.04)',
-            }}
-          >
+          <div className={`${adminStyles.alertBanner} ${adminStyles.alertBannerSuccess}`}>
             {toastMessage}
           </div>
         )}
 
         {/* KPI Grid */}
         <div className={styles.kpiGrid}>
-          {/* Card 1: Custo Mensal Ativo */}
           <div className={styles.kpiCard}>
             <div>
               <div className={styles.kpiLabel}>Custo Fixo Mensal Ativo</div>
@@ -201,13 +185,12 @@ export default function AssinaturasPage() {
             </div>
           </div>
 
-          {/* Card 2: Titularidade Pessoal Armando (Ressarcimento) */}
-          <div className={styles.kpiCard} style={{ borderLeft: '4px solid #B91C1C' }}>
+          <div className={`${styles.kpiCard} ${styles.kpiCardAlert}`}>
             <div>
-              <div className={styles.kpiLabel} style={{ color: '#991B1B' }}>
+              <div className={`${styles.kpiLabel} ${adminStyles.textDanger}`}>
                 👤 Cartão Pessoal Armando (A Migrar)
               </div>
-              <div className={styles.kpiValue} style={{ color: '#991B1B' }}>
+              <div className={`${styles.kpiValue} ${adminStyles.textDanger}`}>
                 R$ {totalPersonalArmando.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
             </div>
@@ -216,7 +199,6 @@ export default function AssinaturasPage() {
             </div>
           </div>
 
-          {/* Card 3: Conta PJ AVA */}
           <div className={styles.kpiCard}>
             <div>
               <div className={styles.kpiLabel}>🏢 Conta PJ AVA (MEI Ativo)</div>
@@ -229,11 +211,10 @@ export default function AssinaturasPage() {
             </div>
           </div>
 
-          {/* Card 4: Projeção com Ferramentas em Avaliação */}
           <div className={styles.kpiCard}>
             <div>
               <div className={styles.kpiLabel}>Projeção (+ Magnific AI em Teste)</div>
-              <div className={styles.kpiValue} style={{ color: '#92400E' }}>
+              <div className={`${styles.kpiValue} ${adminStyles.textWarning}`}>
                 R$ {(totalMonthlyActive + totalUnderEval).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
               </div>
             </div>
@@ -244,8 +225,7 @@ export default function AssinaturasPage() {
         </div>
 
         {/* Pareceres Estratégicos & Governança */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-          {/* Alerta de Dependência Crítica dos 23 Agentes */}
+        <div className={styles.alertsGrid}>
           <div className={`${styles.alertCard} ${styles.alertCardCritical}`}>
             <div className={styles.alertHeading}>
               <span>🚨</span>
@@ -257,7 +237,6 @@ export default function AssinaturasPage() {
             </p>
           </div>
 
-          {/* Alerta da Dimona e Preço de Fábrica */}
           <div className={`${styles.alertCard} ${styles.alertCardInfo}`}>
             <div className={styles.alertHeading}>
               <span>🏭</span>
@@ -271,8 +250,8 @@ export default function AssinaturasPage() {
         </div>
 
         {/* Barra de Filtros e Busca */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
-          <div className={styles.filterBar} style={{ marginBottom: 0 }}>
+        <div className={styles.filterToolbarRow}>
+          <div className={styles.filterBar}>
             <button
               onClick={() => { setFilterCategory('ALL'); setFilterPayer('ALL'); setFilterCriticality('ALL'); }}
               className={`${styles.filterBtn} ${filterCategory === 'ALL' && filterPayer === 'ALL' && filterCriticality === 'ALL' ? styles.filterBtnActive : ''}`}
@@ -312,27 +291,24 @@ export default function AssinaturasPage() {
             <button
               onClick={() => { setFilterPayer('PESSOAL_ARMANDO'); setFilterCategory('ALL'); setFilterCriticality('ALL'); }}
               className={`${styles.filterBtn} ${filterPayer === 'PESSOAL_ARMANDO' ? styles.filterBtnActive : ''}`}
-              style={{ color: filterPayer === 'PESSOAL_ARMANDO' ? '#E4E4E7' : '#991B1B' }}
             >
               👤 Cartão Armando ({personalArmandoItems.length})
             </button>
             <button
               onClick={() => { setFilterCriticality('CRITICA'); setFilterCategory('ALL'); setFilterPayer('ALL'); }}
               className={`${styles.filterBtn} ${filterCriticality === 'CRITICA' ? styles.filterBtnActive : ''}`}
-              style={{ color: filterCriticality === 'CRITICA' ? '#E4E4E7' : '#B91C1C' }}
             >
               🚨 Críticas ({criticalItems.length})
             </button>
           </div>
 
-          <div style={{ minWidth: '220px' }}>
+          <div>
             <input
               type="text"
               placeholder="🔍 Buscar serviço ou agente..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className={styles.formInput}
-              style={{ padding: '6px 10px', fontSize: '11px' }}
             />
           </div>
         </div>
@@ -351,63 +327,52 @@ export default function AssinaturasPage() {
                 <th>Criticidade</th>
                 <th>Agentes Dependentes</th>
                 <th>Sócio</th>
-                <th style={{ textAlign: 'right' }}>Ação</th>
+                <th>Ação</th>
               </tr>
             </thead>
             <tbody>
               {filteredItems.map((item) => {
                 const isArmando = item.payerAccount === 'PESSOAL_ARMANDO';
-                const isUnderEval = item.status === 'EM_AVALIACAO';
                 const isExpanded = expandedImpactId === item.id;
 
                 return (
                   <React.Fragment key={item.id}>
                     <tr>
-                      <td style={{ fontWeight: 700 }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                          <span>{item.serviceName}</span>
+                      <td>
+                        <div className={adminStyles.flexRowStart}>
+                          <strong className={adminStyles.textPrimaryBold}>{item.serviceName}</strong>
                           {item.supplierType === 'FABRICA' && (
-                            <span style={{ fontSize: '9px', background: '#000000', padding: '1px 4px', border: '1px solid #000000' }}>
-                              FÁBRICA
-                            </span>
+                            <span className={adminStyles.statusPill}>FÁBRICA</span>
                           )}
                         </div>
-                        <div style={{ fontSize: '11px', color: '#4B5563', fontWeight: 400, marginTop: '2px', maxWidth: '280px' }}>
-                          {item.purpose}
-                        </div>
+                        <div className={adminStyles.textMutedSmall}>{item.purpose}</div>
                       </td>
 
                       <td>
-                        <span style={{ fontSize: '11px', color: '#374151', fontWeight: 600 }}>
-                          {item.categoryLabel}
-                        </span>
+                        <span className={adminStyles.textBodySmall}>{item.categoryLabel}</span>
                       </td>
 
                       <td>
-                        <div style={{ fontWeight: 700, fontSize: '13px', color: item.monthlyCostBrl > 0 ? '#000000' : '#065F46' }}>
+                        <div className={`${adminStyles.textPrimaryBold} ${item.monthlyCostBrl === 0 ? adminStyles.textSuccess : ''}`}>
                           {item.monthlyCostBrl === 0
                             ? 'R$ 0,00 (Sem Fixa)'
                             : `R$ ${item.monthlyCostBrl.toFixed(2)}`}
                         </div>
                         {item.originalCurrencyCost && (
-                          <div style={{ fontSize: '10px', color: '#6B7280' }}>
+                          <div className={adminStyles.textMutedSmall}>
                             {item.originalCurrencyCost}
                           </div>
                         )}
                       </td>
 
                       <td>
-                        <span style={{ fontSize: '11px', color: '#4B5563' }}>
-                          {item.billingCycle}
-                        </span>
+                        <span className={adminStyles.textMutedSmall}>{item.billingCycle}</span>
                       </td>
 
                       <td>
                         <span
                           className={`${styles.badge} ${
-                            isArmando
-                              ? styles.badgePayerArmando
-                              : styles.badgePayerPJ
+                            isArmando ? styles.badgePayerArmando : styles.badgePayerPJ
                           }`}
                         >
                           {item.payerLabel}
@@ -442,7 +407,7 @@ export default function AssinaturasPage() {
                         </span>
                       </td>
 
-                      <td style={{ maxWidth: '240px' }}>
+                      <td>
                         <div>
                           {item.dependentAgents.slice(0, 3).map((ag) => (
                             <span key={ag.id} className={styles.agentChip} title={ag.name}>
@@ -450,7 +415,7 @@ export default function AssinaturasPage() {
                             </span>
                           ))}
                           {item.dependentAgents.length > 3 && (
-                            <span className={styles.agentChip} style={{ fontWeight: 700 }}>
+                            <span className={styles.agentChip}>
                               +{item.dependentAgents.length - 3} mais
                             </span>
                           )}
@@ -458,15 +423,14 @@ export default function AssinaturasPage() {
                       </td>
 
                       <td>
-                        <strong style={{ fontSize: '11px', color: '#000000' }}>{item.responsiblePartner}</strong>
+                        <strong className={adminStyles.textPrimaryBold}>{item.responsiblePartner}</strong>
                       </td>
 
-                      <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
+                      <td>
+                        <div className={adminStyles.flexRowStart}>
                           <button
                             onClick={() => setExpandedImpactId(isExpanded ? null : item.id)}
                             className={styles.btnSecondary}
-                            style={{ padding: '4px 8px', fontSize: '10px' }}
                             title="Ver impacto se este plano não for pago"
                           >
                             {isExpanded ? '▲ Fechar' : '⚠️ Impacto'}
@@ -474,7 +438,6 @@ export default function AssinaturasPage() {
                           <button
                             onClick={() => handleOpenProposalModal(item)}
                             className={styles.btnSecondary}
-                            style={{ padding: '4px 8px', fontSize: '10px' }}
                             title="Propor alteração na Urna dos 4 Sócios"
                           >
                             🗳️ Voto 4/4
@@ -483,20 +446,19 @@ export default function AssinaturasPage() {
                       </td>
                     </tr>
 
-                    {/* Linha expansível de Impacto de Inadimplência */}
                     {isExpanded && (
-                      <tr style={{ background: '#F4F4F6' }}>
-                        <td colSpan={10} style={{ padding: '14px 18px', borderBottom: '2px solid rgba(0,0,0,0.2)' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            <div style={{ fontSize: '12px', fontWeight: 700, color: '#B91C1C' }}>
+                      <tr className={styles.expandedRow}>
+                        <td colSpan={10}>
+                          <div className={adminStyles.flexColTight}>
+                            <div className={`${adminStyles.textPrimaryBold} ${adminStyles.textDanger}`}>
                               {item.impactIfUnpaid}
                             </div>
                             {item.notes && (
-                              <div style={{ fontSize: '11px', color: '#374151', fontStyle: 'italic' }}>
+                              <div className={adminStyles.textMutedSmall}>
                                 💡 Nota de Governança: {item.notes}
                               </div>
                             )}
-                            <div style={{ fontSize: '11px', color: '#1F2937' }}>
+                            <div className={adminStyles.textBodySmall}>
                               <strong>Agentes Dependentes Diretos:</strong>{' '}
                               {item.dependentAgents.map((ag) => ag.name).join(' · ')}
                             </div>
@@ -535,7 +497,7 @@ export default function AssinaturasPage() {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+                <div className={adminStyles.moduleGrid2Cols}>
                   <div className={styles.formGroup}>
                     <label>Categoria</label>
                     <select
@@ -591,7 +553,7 @@ export default function AssinaturasPage() {
                   />
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px', marginTop: '18px' }}>
+                <div className={adminStyles.flexRowStart}>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}

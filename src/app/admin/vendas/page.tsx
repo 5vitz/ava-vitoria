@@ -136,63 +136,52 @@ export default function VendasPage() {
               Sócio Titular: <strong>Gustavo</strong> · Análise de KPIs de Tráfego, Plano de Investimentos Estratégicos (ROAS), Consenso 4/4 e 10 Canais
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Gustavo
           </span>
         </div>
 
         {nudgeAlert && (
-          <div
-            style={{
-              padding: '14px 18px',
-              background: '#FFFFFF',
-              border: '1px solid #D97706',
-              boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
-              color: '#92400E',
-              fontSize: '13px',
-              marginBottom: '20px',
-              fontWeight: 600
-            }}
-          >
+          <div className={`${styles.alertBanner} ${styles.alertBannerWarning}`}>
             {nudgeAlert}
           </div>
         )}
 
         {/* Termômetro de Equilíbrio Preço vs. Conversão + Simulador de Impulsionamento */}
-        <div className={styles.moduleGrid2Cols} style={{ marginBottom: '24px' }}>
+        <div className={`${styles.moduleGrid2Cols} ${styles.moduleCardSpaced}`}>
           <section className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Termômetro Comercial: Preço vs. Conversão de Tráfego</h2>
-            <p style={{ fontSize: '13px', color: '#374151', lineHeight: '1.6', margin: 0 }}>
+            <p className={styles.textBodySmall}>
               <em>&ldquo;Se o preço estiver baixo, você nada e morre na praia; se estiver alto, você não sai do lugar e morre ali mesmo.&rdquo;</em>
             </p>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '8px' }}>
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>1. Taxa de Inspeção na Vitrine 9:16 (1º Clique)</div>
-                <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
+            <div className={styles.flexColStack}>
+              <div className={styles.innerCardCompact}>
+                <div className={styles.kpiLabel}>1. Taxa de Inspeção na Vitrine 9:16 (1º Clique)</div>
+                <div className={`${styles.kpiValue} ${styles.textSuccess}`}>
                   34,8% dos visitantes inspecionam as peças
                 </div>
-                <div style={{ fontSize: '11px', color: '#52525B', marginTop: '2px' }}>
+                <div className={styles.textMutedSmall}>
                   O efeito de vidro leitoso nos 8 vizinhos retém a atenção visual acima da média do mercado (18%).
                 </div>
               </div>
 
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <div style={{ fontSize: '11px', color: '#4B5563', textTransform: 'uppercase', fontWeight: 600 }}>2. Sensibilidade de Preço no Checkout</div>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
+              <div className={styles.innerCardCompact}>
+                <div className={styles.kpiLabel}>2. Sensibilidade de Preço no Checkout</div>
+                <div className={styles.decisionTitle}>
                   Faixa Ideal Homologada: R$ 149,90 a R$ 189,90 (T-Shirt Prime / Oversized)
                 </div>
-                <div style={{ fontSize: '11px', color: '#52525B', marginTop: '2px' }}>
+                <div className={styles.textMutedSmall}>
                   Qualquer ajuste de margem para campanhas em canais externos exige aprovação 4/4 na Urna.
                 </div>
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', marginTop: '6px' }}>
+            <div className={styles.flexRowStart}>
               <button type="button" onClick={handleRequestPricingVote} className={styles.btnPrimary}>
                 🗳️ Propor Ajuste Comercial na Urna (4 Sócios)
               </button>
-              <Link href="/admin/financeiro" className={styles.btnSecondary} style={{ textDecoration: 'none' }}>
+              <Link href="/admin/financeiro" className={styles.btnSecondary}>
                 Ver Simulador DRE (Depto 02) ↗
               </Link>
             </div>
@@ -200,12 +189,12 @@ export default function VendasPage() {
 
           <section className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Simulador de Impulsionamento &amp; Tráfego Pago (ROAS)</h2>
-            <p style={{ fontSize: '12px', color: '#4B5563', margin: 0 }}>
+            <p className={styles.textBodySmall}>
               Calibre o investimento diário em Meta Ads / Instagram Shopping e projete o retorno comercial:
             </p>
 
             <div>
-              <label style={{ fontSize: '11px', color: '#4B5563', display: 'block', marginBottom: '6px', fontWeight: 600 }}>
+              <label className={styles.formLabel}>
                 Orçamento Diário de Impulsionamento (R$/dia): <strong>R$ {dailyBudget}</strong>
               </label>
               <input
@@ -215,34 +204,26 @@ export default function VendasPage() {
                 step={10}
                 value={dailyBudget}
                 onChange={(e) => setDailyBudget(Number(e.target.value))}
-                style={{ width: '100%', accentColor: '#000000' }}
+                className={styles.rangeSlider}
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Visitas Qualificadas / Dia</span>
-                <div style={{ fontSize: '18px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
-                  ~{estimatedClicks} visitas
-                </div>
+            <div className={styles.kpiGrid}>
+              <div className={styles.kpiCard}>
+                <span className={styles.kpiLabel}>Visitas Qualificadas / Dia</span>
+                <div className={styles.kpiValue}>~{estimatedClicks} visitas</div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Pedidos Estimados (Conv. 2,5%)</span>
-                <div style={{ fontSize: '18px', fontWeight: 700, color: '#047857', marginTop: '4px' }}>
-                  {estimatedOrders} pedidos/dia
-                </div>
+              <div className={styles.kpiCard}>
+                <span className={styles.kpiLabel}>Pedidos Estimados (Conv. 2,5%)</span>
+                <div className={`${styles.kpiValue} ${styles.textSuccess}`}>{estimatedOrders} pedidos/dia</div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Faturamento Bruto Projetado</span>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: '#000000', marginTop: '4px' }}>
-                  R$ {estimatedRevenue.toFixed(2)}/dia
-                </div>
+              <div className={styles.kpiCard}>
+                <span className={styles.kpiLabel}>Faturamento Bruto Projetado</span>
+                <div className={styles.kpiValue}>R$ {estimatedRevenue.toFixed(2)}/dia</div>
               </div>
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(5,150,105,0.3)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 600 }}>ROAS Projetado (Retorno)</span>
-                <div style={{ fontSize: '16px', fontWeight: 700, color: '#065F46', marginTop: '4px' }}>
-                  {estimatedRoas}x sobre o anúncio
-                </div>
+              <div className={`${styles.kpiCard} ${styles.innerCardSuccess}`}>
+                <span className={`${styles.kpiLabel} ${styles.textSuccess}`}>ROAS Projetado (Retorno)</span>
+                <div className={`${styles.kpiValue} ${styles.textSuccess}`}>{estimatedRoas}x sobre o anúncio</div>
               </div>
             </div>
           </section>
@@ -250,57 +231,32 @@ export default function VendasPage() {
 
         {/* Painel de Relacionamento com os 10 Canais de Vendas */}
         <section className={styles.moduleCard}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-            <h2 className={styles.cardHeading} style={{ borderBottom: 'none', paddingBottom: 0 }}>
+          <div className={styles.flexRowBetween}>
+            <h2 className={styles.cardHeadingNoBorder}>
               Gestão &amp; Relacionamento com os 10 Canais de Vendas Nacionais
             </h2>
-            <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 700 }}>
+            <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
               ● Catálogo Centralizado via Feed Meta XML &amp; Bling ERP
             </span>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '12px' }}>
+          <div className={styles.autoGridCards}>
             {CHANNELS_10.map((ch) => (
-              <div
-                key={ch.id}
-                style={{
-                  padding: '16px',
-                  background: '#FFFFFF',
-                  border: '1px solid #000000',
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  gap: '10px'
-                }}
-              >
+              <div key={ch.id} className={`${styles.innerCard} ${styles.flexColStack}`}>
                 <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-                    <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#92400E', fontWeight: 700 }}>
+                  <div className={styles.flexRowBetween}>
+                    <span className={`${styles.kpiLabel} ${styles.textWarning}`}>
                       {ch.category}
                     </span>
-                    <span style={{ fontSize: '10px', color: '#047857', fontWeight: 600 }}>{ch.status}</span>
+                    <span className={`${styles.textMutedSmall} ${styles.textSuccess}`}>{ch.status}</span>
                   </div>
-                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000', marginBottom: '6px' }}>
-                    {ch.name}
-                  </div>
-                  <p style={{ fontSize: '12px', color: '#374151', lineHeight: '1.45', margin: 0 }}>
-                    {ch.relationshipNote}
-                  </p>
+                  <div className={styles.decisionTitle}>{ch.name}</div>
+                  <p className={styles.textBodySmall}>{ch.relationshipNote}</p>
                 </div>
 
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    paddingTop: '10px',
-                    borderTop: '1px solid rgba(0,0,0,0.12)',
-                    fontSize: '11px',
-                    color: '#4B5563'
-                  }}
-                >
-                  <span>Taxa: <strong style={{ color: '#000000' }}>{ch.commission}</strong></span>
-                  <span>Alvo: <strong style={{ color: '#000000' }}>{ch.trafficShare}</strong></span>
+                <div className={styles.deptMetrics}>
+                  <span>Taxa: <strong className={styles.textPrimaryBold}>{ch.commission}</strong></span>
+                  <span>Alvo: <strong className={styles.textPrimaryBold}>{ch.trafficShare}</strong></span>
                 </div>
               </div>
             ))}

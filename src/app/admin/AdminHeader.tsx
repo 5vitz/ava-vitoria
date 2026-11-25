@@ -38,7 +38,6 @@ export default function AdminHeader() {
   const [user, setUser] = useState<{ name?: string | null; username?: string } | null>(null);
   const [showPasswordModal, setShowPasswordModal] = useState(false);
 
-  // Estado da Sala de Reuniões e Compartilhamentos (AVA Boardroom)
   const [isRoomOpen, setIsRoomOpen] = useState(false);
   const [startLockedNewPauta, setStartLockedNewPauta] = useState(false);
   const [externalPautaTitle, setExternalPautaTitle] = useState<string | null>(null);
@@ -90,7 +89,6 @@ export default function AdminHeader() {
     pingPresence();
     const interval = setInterval(pingPresence, 45000);
 
-    // Ouvinte global para qualquer página do Painel abrir a Sala de Reuniões ou Pauta específica
     const handleOpenBoardroomEvent = (e: Event) => {
       const custom = e as CustomEvent<{
         pautaTitle?: string;
@@ -114,11 +112,6 @@ export default function AdminHeader() {
   const rawUsername = (user?.username || user?.name || 'armando').toLowerCase();
   const normalizedUsername = rawUsername === 'admin' ? 'armando' : rawUsername;
   const shortName = user?.name ? user.name.split(' ')[0] : user?.username || 'Armando';
-
-  const handleConvocarReuniao = () => {
-    setIsRoomOpen(true);
-    setStartLockedNewPauta(true);
-  };
 
   const handleToggleRoom = () => {
     setIsRoomOpen((prev) => !prev);
@@ -147,7 +140,6 @@ export default function AdminHeader() {
   return (
     <>
       <div className={styles.topHeaderWrapper} id="adminHeaderWrapper">
-        {/* LINHA 1 (CARD 1): Logo AVA Sem Limites Preta (68px) + Sala de Reuniões + Conectados + Senha (2 Níveis) + Vitrine */}
         <header className={styles.headerRow1Card}>
           <div className={styles.row1Left}>
             <Link
@@ -171,8 +163,7 @@ export default function AdminHeader() {
                 className={`${styles.actionCardBtn} ${
                   pathname === '/admin/agentes' ? styles.actionCardBtnActive : ''
                 }`}
-                style={{ textDecoration: 'none' }}
-                title="Mesa Redonda · Telemetria dos 16 Agentes de IA e Dossiês Operacionais"
+                title="Mesa Redonda · Telemetria dos Agentes de IA e Dossiês Operacionais"
               >
                 🤖 AGENTES
               </Link>
@@ -189,7 +180,6 @@ export default function AdminHeader() {
             </div>
           </div>
 
-          {/* Faixa de Sócios Conectados (+ Convidados Nível 2) */}
           <div className={styles.connectedPartnersCard}>
             <span className={styles.connectedLabel}>
               CONECTADOS ({onlinePartnersCount}/4{level2Guests.length > 0 ? `+${level2Guests.length}` : ''}):
@@ -232,7 +222,6 @@ export default function AdminHeader() {
             ))}
           </div>
 
-          {/* Botão SENHA (2 Níveis) + Vitrine + Sair */}
           <div className={styles.row1RightAccount}>
             <button
               type="button"
@@ -243,7 +232,7 @@ export default function AdminHeader() {
               🔑 Senha
             </button>
 
-            <Link href="/" target="_blank" className={styles.executiveHeaderBtn} style={{ textDecoration: 'none' }}>
+            <Link href="/" target="_blank" className={styles.executiveHeaderBtn}>
               ↗ Vitrine
             </Link>
 
@@ -260,7 +249,6 @@ export default function AdminHeader() {
           </div>
         </header>
 
-        {/* LINHA 2 (CARD 2): Diretoria + 8 Departamentos em linha única limpa */}
         <nav className={styles.headerRow2Card}>
           <div className={styles.deptNavRow}>
             <Link
@@ -292,7 +280,6 @@ export default function AdminHeader() {
         </nav>
       </div>
 
-      {/* Popup Flutuante Global da Sala de Reuniões e Compartilhamentos */}
       <BoardroomPopup
         isOpen={isRoomOpen}
         onClose={() => setIsRoomOpen(false)}
@@ -305,7 +292,6 @@ export default function AdminHeader() {
         level2Guests={level2Guests}
       />
 
-      {/* Modal de Senhas & Convidados (2 Níveis) */}
       {showPasswordModal && (
         <ChangePasswordModal
           userName={user?.name || user?.username || 'Armando'}

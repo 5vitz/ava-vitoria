@@ -1,13 +1,4 @@
-/* assinaturas.module.css — Gestão de Assinaturas e Custos Fixos AVA */
-
-.container {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%);
-  color: #18191B;
-  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  display: flex;
-  flex-direction: column;
-}
+/* assinaturas.module.css — Gestão de Assinaturas e Custos Fixos AVA (Consumindo tokens de adminLayout) */
 
 .mainContent {
   flex: 1;
@@ -24,19 +15,22 @@
   margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 16px;
+  background: var(--admin-surface-container, #EEEEF2);
+  border: var(--admin-border-container, 1px solid rgba(0, 0, 0, 0.18));
+  padding: 18px 24px;
 }
 
 .titleArea h1 {
   font-size: 20px;
   font-weight: 800;
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   letter-spacing: -0.3px;
   margin: 0 0 4px 0;
 }
 
 .titleArea p {
   font-size: 13px;
-  color: #4B5563;
+  color: var(--admin-text-muted, #4B5563);
   margin: 0;
 }
 
@@ -51,44 +45,45 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #000000;
-  color: #FEFCF5;
-  font-size: 12px;
+  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.46));
+  backdrop-filter: var(--admin-btn-active-blur, blur(12px));
+  -webkit-backdrop-filter: var(--admin-btn-active-blur, blur(12px));
+  color: var(--admin-btn-active-text, #FEFCF5);
+  font-size: 11px;
   font-weight: 700;
   padding: 8px 14px;
   border-radius: 2px;
-  border: 1px solid #000000;
+  border: var(--admin-btn-active-border, 1px solid rgba(0, 0, 0, 0.4));
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .btnPrimary:hover {
-  background: #27272A;
-  color: #FFFFFF;
+  background: var(--admin-btn-active-hover-bg, rgba(0, 0, 0, 0.65));
 }
 
 .btnSecondary {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(0, 0, 0, 0.05);
-  color: #18181B;
-  font-size: 12px;
-  font-weight: 600;
+  background: var(--admin-btn-bg, #FFFFFF);
+  color: var(--admin-btn-text, #000000);
+  font-size: 11px;
+  font-weight: 700;
   padding: 8px 14px;
   border-radius: 2px;
-  border: 1px solid #000000;
+  border: var(--admin-btn-border, 1px solid #000000);
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
+  text-transform: uppercase;
 }
 
 .btnSecondary:hover {
-  background: rgba(0, 0, 0, 0.14);
-  border-color: #000000;
-  color: #000000;
+  background: var(--admin-btn-hover-bg, rgba(0, 0, 0, 0.12));
 }
 
 /* KPI Cards Grid */
@@ -100,13 +95,17 @@
 }
 
 .kpiCard {
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  background: var(--admin-surface-card, #FFFFFF);
+  border: var(--admin-border-card, 1px solid #000000);
   padding: 16px 18px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: var(--admin-shadow-card, 0 2px 6px rgba(0, 0, 0, 0.04));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.kpiCardAlert {
+  border-left: 4px solid #B91C1C;
 }
 
 .kpiLabel {
@@ -114,31 +113,37 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.6px;
-  color: #4B5563;
+  color: var(--admin-text-muted, #4B5563);
   margin-bottom: 6px;
 }
 
 .kpiValue {
   font-size: 22px;
   font-weight: 800;
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   letter-spacing: -0.5px;
   margin-bottom: 4px;
 }
 
 .kpiSubtext {
   font-size: 11px;
-  color: #374151;
+  color: var(--admin-text-secondary, #374151);
   line-height: 1.4;
 }
 
 /* Alert Boxes */
-.alertCard {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  padding: 16px 20px;
+.alertsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 16px;
   margin-bottom: 24px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.alertCard {
+  background: var(--admin-surface-card, #FFFFFF);
+  border: var(--admin-border-card, 1px solid #000000);
+  padding: 16px 20px;
+  box-shadow: var(--admin-shadow-card, 0 1px 4px rgba(0, 0, 0, 0.03));
 }
 
 .alertCardCritical {
@@ -152,7 +157,7 @@
 .alertHeading {
   font-size: 13px;
   font-weight: 700;
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   margin-bottom: 6px;
   display: flex;
   align-items: center;
@@ -161,28 +166,36 @@
 
 .alertText {
   font-size: 12px;
-  color: #27272A;
+  color: var(--admin-text-secondary, #27272A);
   line-height: 1.5;
   margin: 0;
 }
 
 /* Filter Bar */
+.filterToolbarRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
 .filterBar {
   display: flex;
   align-items: center;
   gap: 6px;
   overflow-x: auto;
   padding: 8px 12px;
-  margin-bottom: 16px;
-  background: #EEEEF2;
-  border: 1px solid #000000;
+  background: var(--admin-surface-container, #EEEEF2);
+  border: var(--admin-border-card, 1px solid #000000);
   scrollbar-width: thin;
 }
 
 .filterBtn {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  color: #27272A;
+  background: var(--admin-btn-bg, #FFFFFF);
+  border: var(--admin-btn-border, 1px solid #000000);
+  color: var(--admin-btn-text, #27272A);
   font-size: 11px;
   font-weight: 600;
   padding: 6px 12px;
@@ -193,22 +206,24 @@
 }
 
 .filterBtn:hover {
-  background: rgba(0, 0, 0, 0.14);
+  background: var(--admin-btn-hover-bg, rgba(0, 0, 0, 0.14));
   border-color: #000000;
   color: #000000;
 }
 
 .filterBtnActive {
-  background: #000000 !important;
-  color: #FEFCF5 !important;
-  border-color: #000000 !important;
+  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.46)) !important;
+  backdrop-filter: var(--admin-btn-active-blur, blur(12px)) !important;
+  -webkit-backdrop-filter: var(--admin-btn-active-blur, blur(12px)) !important;
+  color: var(--admin-btn-active-text, #FEFCF5) !important;
+  border: var(--admin-btn-active-border, 1px solid #000000) !important;
 }
 
 /* Subscriptions Table */
 .tableContainer {
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  background: var(--admin-surface-card, #FFFFFF);
+  border: var(--admin-border-card, 1px solid #000000);
+  box-shadow: var(--admin-shadow-card, 0 2px 8px rgba(0, 0, 0, 0.04));
   overflow-x: auto;
 }
 
@@ -221,7 +236,7 @@
 
 .subTable th {
   background: rgba(0, 0, 0, 0.06);
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
@@ -234,12 +249,16 @@
 .subTable td {
   padding: 12px 14px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  color: #18181B;
+  color: var(--admin-text-body, #18181B);
   vertical-align: middle;
 }
 
 .subTable tr:hover {
   background: rgba(0, 0, 0, 0.03);
+}
+
+.expandedRow {
+  background: var(--admin-surface-card-subtle, #F4F4F6);
 }
 
 /* Badges */
@@ -306,9 +325,9 @@
 
 .agentChip {
   display: inline-block;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  color: #27272A;
+  background: var(--admin-surface-card, #FFFFFF);
+  border: var(--admin-border-card, 1px solid #000000);
+  color: var(--admin-text-body, #27272A);
   padding: 2px 6px;
   font-size: 10px;
   margin: 2px;
@@ -328,8 +347,8 @@
 }
 
 .modalBox {
-  background: #FFFFFF;
-  border: 1px solid #000000;
+  background: var(--admin-surface-card, #FFFFFF);
+  border: var(--admin-border-card, 1px solid #000000);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   max-width: 580px;
   width: 100%;
@@ -348,7 +367,7 @@
 .modalHeader h2 {
   font-size: 16px;
   font-weight: 800;
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   margin: 0;
 }
 
@@ -356,7 +375,7 @@
   background: transparent;
   border: none;
   font-size: 18px;
-  color: #000000;
+  color: var(--admin-text-primary, #000000);
   cursor: pointer;
   padding: 4px;
 }
@@ -370,7 +389,7 @@
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  color: #374151;
+  color: var(--admin-text-muted, #374151);
   margin-bottom: 4px;
 }
 
@@ -378,9 +397,9 @@
 .formSelect,
 .formTextarea {
   width: 100%;
-  background: #FFFFFF;
-  border: 1px solid #000000;
-  color: #000000;
+  background: var(--admin-input-bg, #FFFFFF);
+  border: var(--admin-input-border, 1px solid #000000);
+  color: var(--admin-input-text, #000000);
   padding: 8px 10px;
   font-size: 12px;
   border-radius: 2px;

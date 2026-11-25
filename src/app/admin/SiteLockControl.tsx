@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { updateSiteLockConfig } from "@/lib/siteLockActions";
 import { useRouter } from "next/navigation";
+import styles from "./admin-cockpit.module.css";
 
 interface SiteLockControlProps {
   initialIsLocked: boolean;
@@ -47,95 +48,36 @@ export default function SiteLockControl({
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "#000000",
-        border: `1px solid ${isLocked ? "#ff4d4d" : "rgba(212, 175, 55, 0.45)"}`,
-        padding: "20px 25px",
-        marginBottom: "25px",
-        display: "flex",
-        flexWrap: "wrap",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "20px",
-      }}
-    >
-      <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <span
-            style={{
-              display: "inline-block",
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              backgroundColor: isLocked ? "#ff4d4d" : "#22c55e",
-            }}
-          />
-          <strong
-            style={{
-              fontFamily: "var(--font-title), sans-serif",
-              fontSize: "1rem",
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-              color: "#FFFFFF",
-            }}
-          >
+    <div className={`${styles.moduleCard} ${styles.flexRowBetween} ${styles.moduleCardSpaced}`}>
+      <div className={styles.flexColTight}>
+        <div className={styles.flexRowStart}>
+          <span className={`${styles.ledDot} ${isLocked ? styles.ledDelayed : styles.ledOnline}`} />
+          <strong className={styles.cardHeadingNoBorder}>
             Portaria da Loja:{" "}
-            <span style={{ color: isLocked ? "#ff4d4d" : "#22c55e" }}>
+            <span className={isLocked ? styles.textDanger : styles.textSuccess}>
               {isLocked ? "FECHADA (Apenas com Senha)" : "ABERTA AO PÚBLICO"}
             </span>
           </strong>
         </div>
-        <span style={{ fontSize: "0.82rem", color: "#A0A0A0" }}>
+        <span className={styles.textBodySmall}>
           Quando fechada, exibe a tela &ldquo;Resignificando... voltamos em breve!&rdquo; e pede apenas a senha abaixo.
         </span>
         {feedback && (
-          <span
-            style={{
-              fontSize: "0.82rem",
-              color: "#D4AF37",
-              marginTop: "4px",
-            }}
-          >
+          <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
             {feedback}
           </span>
         )}
       </div>
 
-      <form
-        onSubmit={handleSavePasswordOnly}
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          gap: "12px",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <label
-            style={{
-              fontSize: "0.75rem",
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-              color: "#A0A0A0",
-            }}
-          >
-            Senha:
-          </label>
+      <form onSubmit={handleSavePasswordOnly} className={styles.flexRowStart}>
+        <div className={styles.flexRowStart}>
+          <label className={styles.kpiLabel}>Senha:</label>
           <input
             type="text"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
-            style={{
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              border: "1px solid rgba(255, 255, 255, 0.2)",
-              color: "#FFFFFF",
-              padding: "10px 14px",
-              fontSize: "0.9rem",
-              width: "160px",
-              outline: "none",
-            }}
+            className={styles.formInput}
           />
         </div>
 
@@ -143,17 +85,7 @@ export default function SiteLockControl({
           type="button"
           disabled={loading}
           onClick={() => handleToggleLock(!isLocked)}
-          style={{
-            backgroundColor: isLocked ? "#22c55e" : "#ff4d4d",
-            border: "none",
-            color: isLocked ? "#000000" : "#FFFFFF",
-            padding: "10px 20px",
-            fontSize: "0.8rem",
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            cursor: "pointer",
-          }}
+          className={isLocked ? styles.btnSuccess : styles.btnPrimary}
         >
           {loading
             ? "Salvando..."
@@ -165,17 +97,7 @@ export default function SiteLockControl({
         <button
           type="submit"
           disabled={loading}
-          style={{
-            backgroundColor: "transparent",
-            border: "1px solid #D4AF37",
-            color: "#D4AF37",
-            padding: "10px 16px",
-            fontSize: "0.8rem",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            cursor: "pointer",
-          }}
+          className={styles.btnSecondary}
         >
           Salvar Senha
         </button>

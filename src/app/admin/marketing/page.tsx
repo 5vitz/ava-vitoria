@@ -30,7 +30,7 @@ export default function MarketingPage() {
               Sócio Titular: <strong>Tripoint</strong> · Estratégia da Coleção, Tema das Estampas, Visual Merchandising (Trios 3x3 Instagram &amp; Vitrine Canônica)
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+          <span className={styles.partnerOwnerBadge}>
             👤 Titular: Tripoint
           </span>
         </div>
@@ -39,23 +39,26 @@ export default function MarketingPage() {
           {/* Postagens em Trios 3x3 no Instagram */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Estratégia de Feed Instagram (Trios 3x3 Balenciaga)</h2>
-            <p style={{ fontSize: '13px', color: '#374151', lineHeight: '1.6' }}>
+            <p className={styles.textBodySmall}>
               Para reproduzir o impacto visual da vitrine da AVA no Instagram, todas as publicações no feed devem ser lançadas em <strong>blocos de 3 postagens simultâneas (Trios 3x3)</strong>:
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', padding: '16px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
-                Post 1<br/>Modelo Lookbook
+            <div className={styles.autoGridSmall}>
+              <div className={styles.innerCard}>
+                <div className={styles.decisionTitle}>Post 1</div>
+                <div className={styles.textMutedSmall}>Modelo Lookbook 9:16</div>
               </div>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
-                Post 2<br/>Close da Arte Silk HD
+              <div className={styles.innerCard}>
+                <div className={styles.decisionTitle}>Post 2</div>
+                <div className={styles.textMutedSmall}>Close da Arte Silk HD</div>
               </div>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
-                Post 3<br/>Conceito / Detalhes
+              <div className={styles.innerCard}>
+                <div className={styles.decisionTitle}>Post 3</div>
+                <div className={styles.textMutedSmall}>Conceito / Detalhes</div>
               </div>
             </div>
 
-            <div style={{ fontSize: '11px', color: '#4B5563' }}>
+            <div className={styles.textMutedSmall}>
               * Formato vertical 9:16 ou 4:5 rigoroso, eliminando bordas brancas e mantendo a harmonia com o site.
             </div>
           </div>
@@ -63,35 +66,33 @@ export default function MarketingPage() {
           {/* Sacolinha Instagram & Meta Commerce */}
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Sacolinha do Instagram (Feed Meta Commerce)</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-              <p style={{ fontSize: '13px', color: '#374151', lineHeight: '1.5' }}>
+            <div className={styles.flexColStack}>
+              <p className={styles.textBodySmall}>
                 O backend da AVA gera em tempo real o catálogo de produtos no formato XML RSS 2.0 homologado pela Meta para alimentar o Instagram Shopping e o Gerenciador de Comércio do Facebook.
               </p>
 
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: '12px', color: '#000000', fontFamily: 'monospace', fontWeight: 600 }}>
-                  /api/catalog/meta
-                </span>
-                <a href="/api/catalog/meta" target="_blank" className={styles.btnSecondary} style={{ fontSize: '10px' }}>
+              <div className={styles.innerRowItem}>
+                <span className={styles.textPrimaryBold}>/api/catalog/meta</span>
+                <a href="/api/catalog/meta" target="_blank" className={styles.btnSecondary}>
                   Ver XML ↗
                 </a>
               </div>
 
-              <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(5,150,105,0.4)', fontSize: '12px', color: '#065F46', fontWeight: 600 }}>
-                ✓ Feed validado e pronto para apontamento no Meta Business Suite.
+              <div className={`${styles.innerCardCompact} ${styles.innerCardSuccess} ${styles.textSuccess}`}>
+                <strong>✓ Feed validado e pronto para apontamento no Meta Business Suite.</strong>
               </div>
             </div>
           </div>
         </div>
 
         {/* Simulador da Campanha "EU TENHO CUPOM!" */}
-        <section className={styles.moduleCard} style={{ marginTop: '24px' }}>
+        <section className={`${styles.moduleCard} ${styles.moduleCardTopSpaced}`}>
           <h2 className={styles.cardHeading}>Campanha Viral: &quot;EU TENHO CUPOM!&quot; (Senhas Prefixadas 1... a 5...)</h2>
-          <p style={{ fontSize: '13px', color: '#3F3F46' }}>
+          <p className={styles.textBodySmall}>
             Mecanismo para escoar o estoque físico já produzido sem queimar o valor da Nova Coleção PoD. O 1º dígito da senha única gerada no direct define a faixa de desconto concedida:
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px', margin: '16px 0' }}>
+          <div className={styles.autoGridSmall}>
             {[
               { prefix: '1...', friends: '1 Amigo marcado', discount: '10% OFF' },
               { prefix: '2...', friends: '2 Amigos marcados', discount: '20% OFF' },
@@ -99,38 +100,28 @@ export default function MarketingPage() {
               { prefix: '4...', friends: '4 Amigos marcados', discount: '40% OFF' },
               { prefix: '5...', friends: '5 Amigos marcados', discount: '50% OFF (Teto)' },
             ].map((tier, i) => (
-              <div key={i} style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000' }}>{tier.prefix}</div>
-                <div style={{ fontSize: '11px', color: '#047857', fontWeight: 700, marginTop: '2px' }}>{tier.discount}</div>
-                <div style={{ fontSize: '10px', color: '#4B5563', marginTop: '4px' }}>{tier.friends}</div>
+              <div key={i} className={styles.innerCardCompact}>
+                <div className={styles.decisionTitle}>{tier.prefix}</div>
+                <div className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>{tier.discount}</div>
+                <div className={styles.textMutedSmall}>{tier.friends}</div>
               </div>
             ))}
           </div>
 
           {/* Testador Rápido de Senha */}
-          <div style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px', flexWrap: 'wrap' }}>
+          <div className={styles.flexRowStart}>
             <input
               type="text"
               placeholder="Digite uma senha de cupom (Ex: 4AMIGOSVIP)"
               value={couponCode}
               onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
-              style={{
-                background: '#FFFFFF',
-                border: '1px solid #000000',
-                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.04)',
-                padding: '10px 14px',
-                color: '#000000',
-                fontFamily: 'monospace',
-                fontSize: '13px',
-                outline: 'none',
-                maxWidth: '300px'
-              }}
+              className={styles.formInput}
             />
             <button onClick={testCoupon} className={styles.btnPrimary}>
               Validar Faixa de Desconto
             </button>
             {discountSimulated !== null && (
-              <span style={{ fontSize: '13px', color: '#065F46', fontWeight: 700 }}>
+              <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
                 ✓ Senha válida: {discountSimulated}% de desconto destravado na Vitrine Secreta!
               </span>
             )}
