@@ -88,7 +88,7 @@ export default function FinanceiroPage() {
         <div
           style={{
             background: '#FFFFFF',
-            border: '1px solid rgba(0, 0, 0, 0.22)',
+            border: '1px solid #000000',
             padding: '16px 20px',
             marginBottom: '20px',
             display: 'flex',
@@ -216,7 +216,7 @@ export default function FinanceiroPage() {
                 { code: 'MOLETOM', label: 'Moletons (Crewneck & Canguru)' },
                 { code: 'BONE', label: 'Bonés (Americano & Prime Fivela)' },
               ].map(cat => (
-                <div key={cat.code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div key={cat.code} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <span style={{ fontSize: '13px', fontWeight: 600, color: '#000000' }}>{cat.label}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                     <input
@@ -228,7 +228,7 @@ export default function FinanceiroPage() {
                       style={{
                         width: '60px',
                         background: '#FFFFFF',
-                        border: '1px solid rgba(0,0,0,0.25)',
+                        border: '1px solid #000000',
                         color: '#000000',
                         fontWeight: 600,
                         padding: '4px 6px',
@@ -285,7 +285,7 @@ export default function FinanceiroPage() {
                 />
               </div>
 
-              <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+              <div style={{ padding: '16px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 4px rgba(0,0,0,0.04)', display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                   <span style={{ color: '#4B5563' }}>Preço de Venda Sugerido:</span>
                   <span style={{ fontWeight: 700, color: '#000000', fontSize: '15px' }}>R$ {salePrice.toFixed(2)}</span>
@@ -309,13 +309,13 @@ export default function FinanceiroPage() {
               </div>
 
               {/* Conector Bling ERP */}
-              <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
                     <div style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>Conector Bling ERP (API v3)</div>
                     <div style={{ fontSize: '11px', color: '#4B5563' }}>Emissão de NF-e e distribuição para os 10 Marketplaces</div>
                   </div>
-                  <span style={{ fontSize: '10px', background: 'rgba(0,0,0,0.06)', border: '1px solid rgba(0,0,0,0.18)', color: '#18181B', padding: '3px 8px', fontWeight: 600 }}>
+                  <span style={{ fontSize: '10px', background: '#000000', border: '1px solid #000000', color: '#18181B', padding: '3px 8px', fontWeight: 600 }}>
                     OAuth 1-Clique Pronto
                   </span>
                 </div>

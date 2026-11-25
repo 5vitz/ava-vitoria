@@ -367,7 +367,7 @@ export default function AssinaturasPage() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <span>{item.serviceName}</span>
                           {item.supplierType === 'FABRICA' && (
-                            <span style={{ fontSize: '9px', background: 'rgba(0,0,0,0.06)', padding: '1px 4px', border: '1px solid rgba(0,0,0,0.15)' }}>
+                            <span style={{ fontSize: '9px', background: '#000000', padding: '1px 4px', border: '1px solid #000000' }}>
                               FÁBRICA
                             </span>
                           )}

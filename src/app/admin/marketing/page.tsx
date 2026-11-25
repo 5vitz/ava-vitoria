@@ -43,14 +43,14 @@ export default function MarketingPage() {
               Para reproduzir o impacto visual da vitrine da AVA no Instagram, todas as publicações no feed devem ser lançadas em <strong>blocos de 3 postagens simultâneas (Trios 3x3)</strong>:
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', padding: '16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '8px', padding: '16px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
                 Post 1<br/>Modelo Lookbook
               </div>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
+              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
                 Post 2<br/>Close da Arte Silk HD
               </div>
-              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
+              <div style={{ aspectRatio: '9/16', background: '#FFFFFF', border: '1px solid #000000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', textAlign: 'center', padding: '8px', color: '#000000', fontWeight: 600 }}>
                 Post 3<br/>Conceito / Detalhes
               </div>
             </div>
@@ -68,7 +68,7 @@ export default function MarketingPage() {
                 O backend da AVA gera em tempo real o catálogo de produtos no formato XML RSS 2.0 homologado pela Meta para alimentar o Instagram Shopping e o Gerenciador de Comércio do Facebook.
               </p>
 
-              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div style={{ padding: '12px 14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '12px', color: '#000000', fontFamily: 'monospace', fontWeight: 600 }}>
                   /api/catalog/meta
                 </span>
@@ -99,7 +99,7 @@ export default function MarketingPage() {
               { prefix: '4...', friends: '4 Amigos marcados', discount: '40% OFF' },
               { prefix: '5...', friends: '5 Amigos marcados', discount: '50% OFF (Teto)' },
             ].map((tier, i) => (
-              <div key={i} style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+              <div key={i} style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#000000' }}>{tier.prefix}</div>
                 <div style={{ fontSize: '11px', color: '#047857', fontWeight: 700, marginTop: '2px' }}>{tier.discount}</div>
                 <div style={{ fontSize: '10px', color: '#4B5563', marginTop: '4px' }}>{tier.friends}</div>
@@ -116,7 +116,7 @@ export default function MarketingPage() {
               onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
               style={{
                 background: '#FFFFFF',
-                border: '1px solid rgba(0,0,0,0.22)',
+                border: '1px solid #000000',
                 boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.04)',
                 padding: '10px 14px',
                 color: '#000000',

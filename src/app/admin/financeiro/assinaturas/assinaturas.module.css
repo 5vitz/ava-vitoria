@@ -79,7 +79,7 @@
   font-weight: 600;
   padding: 8px 14px;
   border-radius: 2px;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -101,7 +101,7 @@
 
 .kpiCard {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #000000;
   padding: 16px 18px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   display: flex;
@@ -135,7 +135,7 @@
 /* Alert Boxes */
 .alertCard {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   padding: 16px 20px;
   margin-bottom: 24px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
@@ -175,13 +175,13 @@
   padding: 8px 12px;
   margin-bottom: 16px;
   background: #CFD0D6;
-  border: 1px solid rgba(0, 0, 0, 0.20);
+  border: 1px solid #000000;
   scrollbar-width: thin;
 }
 
 .filterBtn {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #000000;
   color: #27272A;
   font-size: 11px;
   font-weight: 600;
@@ -207,7 +207,7 @@
 /* Subscriptions Table */
 .tableContainer {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   overflow-x: auto;
 }
@@ -283,7 +283,7 @@
 .badgePayerPJ {
   background: rgba(0, 0, 0, 0.08);
   color: #000000;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 1px solid #000000;
 }
 
 .badgeCritical {
@@ -307,7 +307,7 @@
 .agentChip {
   display: inline-block;
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   color: #27272A;
   padding: 2px 6px;
   font-size: 10px;
@@ -379,7 +379,7 @@
 .formTextarea {
   width: 100%;
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid #000000;
   color: #000000;
   padding: 8px 10px;
   font-size: 12px;

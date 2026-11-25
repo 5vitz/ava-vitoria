@@ -411,3 +411,14 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
   - Barras containers de abas em Produção, SAC e Atelier.
 - **Cards e Botões Internos:** Permanecem em Branco Puro (`#FFFFFF`) com tipografia nítida e bordas de 1px, gerando destaque e profundidade estética imediata.
 - **Build de Produção:** Testado e aprovado com 0 erros via Next.js Turbopack.
+
+### Calibração Brutalista Minimalista — Bordas Pretas de 1px (#000000) nos Cards Internos
+- **Referência:** Tela de Site Lock (`SiteLockGate`), caracterizada pelo contraste marcante de linhas pretas sólidas de 1px sobre branco e prata.
+- **Bordas Atualizadas para `1px solid #000000`:**
+  - Os 8 Cards Departamentais (`.deptCard`);
+  - Todos os botões do Menu Departamental (`.deptNavLink`);
+  - Botões de Ação do Header (`.actionCardBtn`, `.executiveHeaderBtn`, `.storeLink`);
+  - Chips de Conexão e Presença dos Sócios (`.connectedPartnersCard`, `.partnerPresencePill`);
+  - Cards de Decisão do Conselho (`.decisionCard`) e Dossiê dos 23 Agentes (`.agentBadge`);
+  - Cards e sub-cards de métricas de todos os 8 módulos departamentais internos.
+- **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).

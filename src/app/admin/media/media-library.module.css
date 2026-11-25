@@ -23,7 +23,7 @@
 /* Barra de Controles e Filtros */
 .controlsSection {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 16px 20px;
   display: flex;
@@ -63,7 +63,7 @@
 
 .select {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   color: #18191B;
   padding: 8px 12px;
   height: 38px;
@@ -84,7 +84,7 @@
   align-items: center;
   gap: 6px;
   background-color: rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border: 1px solid #000000;
   padding: 6px 12px;
   height: 38px;
   box-sizing: border-box;
@@ -146,7 +146,7 @@
 /* Galeria de Mídias (Grid Uniforme de 9 Colunas Balenciaga) */
 .gallerySection {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
@@ -206,7 +206,7 @@
 
 .mediaCard {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid #000000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
@@ -345,7 +345,7 @@
 
 .zoomModalContent {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #000000;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
   max-width: 600px;
   width: 100%;
@@ -404,7 +404,7 @@
   padding: 12px 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border: 1px solid #000000;
   z-index: 1000;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }

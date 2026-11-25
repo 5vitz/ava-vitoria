@@ -17,7 +17,7 @@
 
 .modalCard {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid #000000;
   max-width: 680px;
   width: 100%;
   max-height: 90vh;
@@ -98,7 +98,7 @@
 
 .closeButton {
   background: transparent;
-  border: 1px solid rgba(0, 0, 0, 0.25);
+  border: 1px solid #000000;
   color: #000000;
   width: 32px;
   height: 32px;
@@ -147,7 +147,7 @@
   color: #18181B;
   line-height: 1.6;
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid #000000;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
   padding: 14px 16px;
 }

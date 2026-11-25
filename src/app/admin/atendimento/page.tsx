@@ -226,7 +226,7 @@ export default function AtendimentoAdminPage() {
             gap: '8px',
             marginBottom: '22px',
             background: '#CFD0D6',
-            border: '1px solid rgba(0, 0, 0, 0.20)',
+            border: '1px solid #000000',
             padding: '8px 12px',
             overflowX: 'auto',
           }}
@@ -242,7 +242,7 @@ export default function AtendimentoAdminPage() {
               background: activeTab === 'logistics' ? '#000000' : '#FFFFFF',
               color: activeTab === 'logistics' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
-              borderColor: activeTab === 'logistics' ? '#000000' : 'rgba(0,0,0,0.18)',
+              borderColor: activeTab === 'logistics' ? '#000000' : '#000000',
               cursor: 'pointer',
               fontWeight: 700,
               whiteSpace: 'nowrap',
@@ -262,7 +262,7 @@ export default function AtendimentoAdminPage() {
               background: activeTab === 'tickets' ? '#000000' : '#FFFFFF',
               color: activeTab === 'tickets' ? '#E4E4E7' : '#18181B',
               border: '1px solid',
-              borderColor: activeTab === 'tickets' ? '#000000' : 'rgba(0,0,0,0.18)',
+              borderColor: activeTab === 'tickets' ? '#000000' : '#000000',
               cursor: 'pointer',
               fontWeight: 700,
               whiteSpace: 'nowrap',
@@ -313,7 +313,7 @@ export default function AtendimentoAdminPage() {
                     style={{
                       padding: '7px 12px',
                       background: '#FFFFFF',
-                      border: '1px solid rgba(0,0,0,0.25)',
+                      border: '1px solid #000000',
                       fontSize: '12px',
                       fontWeight: 700,
                       width: '210px',
@@ -371,7 +371,7 @@ export default function AtendimentoAdminPage() {
                     marginTop: '16px',
                   }}
                 >
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Pedido &amp; Transportadora
                     </span>
@@ -383,7 +383,7 @@ export default function AtendimentoAdminPage() {
                     </span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Último Micro-Status na API
                     </span>
@@ -395,7 +395,7 @@ export default function AtendimentoAdminPage() {
                     </span>
                   </div>
 
-                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000' }}>
                     <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>
                       Previsão Oficial de Entrega
                     </span>
@@ -602,7 +602,7 @@ export default function AtendimentoAdminPage() {
                         width: '100%',
                         padding: '10px',
                         background: '#FFFFFF',
-                        border: '1px solid rgba(0,0,0,0.22)',
+                        border: '1px solid #000000',
                         fontSize: '12px',
                         color: '#000000',
                         lineHeight: '1.5',
@@ -629,7 +629,7 @@ export default function AtendimentoAdminPage() {
                     </button>
                   </div>
 
-                  <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000' }}>
                     <div style={{ fontSize: '11px', fontWeight: 800, textTransform: 'uppercase', color: '#000000', marginBottom: '6px' }}>
                       📌 Governança do Fluxo Produção ➔ SAC:
                     </div>
@@ -666,7 +666,7 @@ export default function AtendimentoAdminPage() {
                     style={{
                       padding: '14px',
                       background: '#FFFFFF',
-                      border: '1px solid rgba(0,0,0,0.12)',
+                      border: '1px solid #000000',
                       boxShadow: '0 1px 4px rgba(0,0,0,0.03)',
                     }}
                   >
@@ -738,7 +738,7 @@ export default function AtendimentoAdminPage() {
                   95% a 98% dos atendimentos são resolvidos 24/7 pelos Agentes de IA (<strong>Concierge IA</strong> e <strong>Discriminador de Ocorrências</strong>). O sócio titular (<strong>Gustavo</strong>) atua como Diretor da Pasta.
                 </p>
 
-                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)', marginBottom: '12px' }}>
+                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', marginBottom: '12px' }}>
                   <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>
                     🎯 Gatilho Objetivo (Marca de 5 Atendimentos Humanos Recorrentes):
                   </div>
@@ -747,14 +747,14 @@ export default function AtendimentoAdminPage() {
                   </p>
                 </div>
 
-                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '12px' }}>
+                <div style={{ padding: '14px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)', marginBottom: '12px' }}>
                   <div style={{ fontWeight: 700, color: '#000000', marginBottom: '4px' }}>Filosofia do Zagueiro-Artilheiro (Transbordo Automático):</div>
                   <p style={{ fontSize: '12px', color: '#374151' }}>
                     Se o titular do dia não acionar a autorização em 2 horas, o sistema escala imediatamente para os <strong>outros 3 sócios</strong> via WhatsApp com deep link de aprovação instantânea.
                   </p>
                 </div>
 
-                <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
+                <div style={{ padding: '12px', background: '#FFFFFF', border: '1px solid #000000', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
                   <span style={{ fontSize: '11px', color: '#4B5563', fontWeight: 600 }}>Status do Concierge IA 24/7 na Loja Pública:</span>
                   <div style={{ fontSize: '12px', color: '#065F46', fontWeight: 700, marginTop: '2px' }}>
                     ● Operando online em /atendimento respondendo dúvidas de modelagem, prazos e cuidados.

@@ -36,12 +36,12 @@ export default function AgentesPage() {
           <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
             <span style={{
               fontSize: '11px',
-              background: 'rgba(0, 0, 0, 0.46)',
+              background: '#000000',
               backdropFilter: 'blur(12px)',
               WebkitBackdropFilter: 'blur(12px)',
               color: '#FEFCF5',
               padding: '6px 14px',
-              border: '1px solid rgba(0, 0, 0, 0.40)',
+              border: '1px solid #000000',
               fontWeight: 700,
               letterSpacing: '0.5px'
             }}>
@@ -66,7 +66,7 @@ export default function AgentesPage() {
           gap: '12px',
           marginBottom: '20px'
         }}>
-          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)' }}>
+          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid #000000' }}>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 800 }}>Mesa Redonda Total</span>
             <div style={{ fontSize: '22px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
               {totalAgents} Agentes
@@ -74,7 +74,7 @@ export default function AgentesPage() {
             <span style={{ fontSize: '11px', color: '#3F3F46' }}>Cobertura nos 8 Departamentos</span>
           </div>
 
-          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)' }}>
+          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid #000000' }}>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#065F46', fontWeight: 800 }}>Em Atividade</span>
             <div style={{ fontSize: '22px', fontWeight: 800, color: '#047857', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#059669', boxShadow: '0 0 8px rgba(5,150,105,0.7)' }} />
@@ -83,7 +83,7 @@ export default function AgentesPage() {
             <span style={{ fontSize: '11px', color: '#065F46' }}>Executando rotinas e travas</span>
           </div>
 
-          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)' }}>
+          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid #000000' }}>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#92400E', fontWeight: 800 }}>Em Prontidão (Stand-by)</span>
             <div style={{ fontSize: '22px', fontWeight: 800, color: '#B45309', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
               <span style={{ width: '9px', height: '9px', borderRadius: '50%', background: '#D97706', boxShadow: '0 0 6px rgba(217,119,6,0.5)' }} />
@@ -92,7 +92,7 @@ export default function AgentesPage() {
             <span style={{ fontSize: '11px', color: '#92400E' }}>Disparados sob demanda de evento</span>
           </div>
 
-          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.18)' }}>
+          <div style={{ padding: '14px 16px', background: '#FFFFFF', border: '1px solid #000000' }}>
             <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#1E40AF', fontWeight: 800 }}>Economia Estimada (ROI)</span>
             <div style={{ fontSize: '22px', fontWeight: 800, color: '#1D4ED8', marginTop: '4px' }}>
               R$ 28.500 / mês

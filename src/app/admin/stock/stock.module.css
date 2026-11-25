@@ -30,7 +30,7 @@
 /* Painel de Lista de Produtos */
 .listSection {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
@@ -66,7 +66,7 @@
 
 .selectSmall {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   color: #18191B;
   padding: 6px 12px;
   height: 36px;
@@ -92,7 +92,7 @@
 
 .productItemRow {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid #000000;
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -118,7 +118,7 @@
   aspect-ratio: 9 / 16;
   object-fit: cover;
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid #000000;
   mix-blend-mode: multiply;
   flex-shrink: 0;
 }
@@ -194,7 +194,7 @@
 /* Painel de Edição de Grade e Estoque */
 .editorSection {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
@@ -256,7 +256,7 @@
   flex-wrap: wrap;
   gap: 12px;
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.12);
+  border: 1px solid #000000;
   padding: 12px;
 }
 
@@ -290,7 +290,7 @@
 .textInputColor {
   flex: 1;
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.22);
+  border: 1px solid #000000;
   color: #000000;
   padding: 8px 12px;
   font-size: 0.82rem;
@@ -328,7 +328,7 @@
 
 .colorTag {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #000000;
   color: #000000;
   font-size: 0.75rem;
   font-weight: 600;
@@ -358,7 +358,7 @@
 
 /* Tabela de Variações */
 .variantsStockGrid {
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  border: 1px solid #000000;
   background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
@@ -397,7 +397,7 @@
 
 .variantInput {
   background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #000000;
   color: #000000;
   padding: 6px 10px;
   font-size: 0.82rem;
@@ -452,7 +452,7 @@
   padding: 12px 20px;
   font-size: 0.85rem;
   font-weight: 600;
-  border: 1px solid rgba(0, 0, 0, 0.16);
+  border: 1px solid #000000;
   z-index: 1000;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
