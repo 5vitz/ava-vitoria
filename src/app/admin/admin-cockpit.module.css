@@ -116,9 +116,9 @@
 }
 
 .avaOfficialLogoImg {
-  height: 44px;
+  height: 36px;
   width: auto;
-  max-width: 260px;
+  max-width: 220px;
   object-fit: contain;
   display: block;
 }
