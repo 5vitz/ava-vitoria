@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.2",
+  "project": "STAR INK — Ethereal Fine-Art Fairy Blueprint",
+  "philosophy": "Haute-Couture Fashion Illustration & Organic Linework (Zero ClipArt)",
+  "master_structure": {
+    "task": "ethereal_fairy_lineart_generation",
+    "goal": "Generate a graceful, haute-couture fine-line fairy illustration composed of wispy, organic white lines on a pure black background. Must retain high-fashion elegance and slender proportions.",
+    "canvas_specs": {
+      "format": "A3 Vertical",
+      "aspect_ratio": "9:16",
+      "resolution": "300 DPI print-ready master"
+    },
+    "spatial_layout": {
+      "type": "centered_single_subject",
+      "global_negative_space_percent": 65,
+      "primary_anchor": {
+        "x_percent": 50,
+        "y_percent": 45
+      }
+    },
+    "style": {
+      "primary": "haute-couture fashion illustration line art",
+      "secondary": [
+        "ethereal fine-art line drawing",
+        "wispy organic line contours",
+        "high-fashion sketch aesthetics",
+        "zero clipart, zero cartoon, zero flat vector"
+      ]
+    },
+    "main_subject": {
+      "type": "Ethereal Fairy",
+      "physique": "ultra-slender, elongated haute-couture fashion model proportions",
+      "pose": "graceful arching back, floating en pointe in profile, holding a delicate thin wand pointed upwards at a 45-degree angle",
+      "wings": "intricate translucent dragonfly-inspired wings drawn with delicate wispy white lines",
+      "hair": "elegant messy bun with delicate flyaway hair strands",
+      "dress": "feather-light, wispy layered fringe dress composed of fine organic stroke lines"
+    },
+    "lighting": {
+      "glow_intensity": "NONE",
+      "effects": "no light bulbs, no magic sparkles, no neon, no heavy fill"
+    },
+    "color_palette": {
+      "background_hex": "#000000",
+      "dominant_lines_hex": "#ffffff",
+      "fill": "transparent line-work only"
+    },
+    "linework": {
+      "style": "wispy organic multi-line contour sketch",
+      "thickness": "hairline ultra-thin 1px strokes",
+      "quality": "feather-light, delicate, elegant, hand-drawn aesthetic"
+    },
+    "negative_prompt": [
+      "clipart",
+      "flat cartoon",
+      "coloring book outline",
+      "thick uniform vector line",
+      "chubby proportions",
+      "rounded infant features",
+      "glow effect",
+      "sparkle",
+      "magic dust",
+      "solid white fill",
+      "low detail"
+    ]
+  }
+}

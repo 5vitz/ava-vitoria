@@ -4,62 +4,13 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
-
-interface ArtworkEntry {
-  id: string;
-  code: string;
-  title: string;
-  concept: string;
-  folder: string;
-  isRegistered: boolean;
-  sha256: string;
-  supplier: string;
-  printDimona: string;
-  printReserva: string;
-  mutatedKeysCount: number;
-}
-
-const SAMPLE_ARTWORKS: ArtworkEntry[] = [
-  {
-    id: 'art-1',
-    code: 'ART-CUBISTA-01',
-    title: 'Arte Cubista Urbana Vitória',
-    concept: 'Composição cubista desconstruindo os relevos da baía de Vitória com elementos do grafite local.',
-    folder: 'Coleção Sem Limites',
-    isRegistered: true,
-    sha256: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
-    supplier: 'DIMONA',
-    printDimona: '3435 × 4680 px (300 DPI)',
-    printReserva: '4200 × 4800 px (300 DPI)',
-    mutatedKeysCount: 4
-  },
-  {
-    id: 'art-2',
-    code: 'ART-CORUJA-02',
-    title: 'Coruja Guardiã da Noite',
-    concept: 'Ilustração geométrica da fauna capixaba sob a perspectiva noturna do streetwear contemporâneo.',
-    folder: 'Coleção Sem Limites',
-    isRegistered: true,
-    sha256: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
-    supplier: 'DIMONA',
-    printDimona: '3435 × 4680 px (300 DPI)',
-    printReserva: '4200 × 4800 px (300 DPI)',
-    mutatedKeysCount: 2
-  },
-  {
-    id: 'art-3',
-    code: 'ART-ALTINHA-03',
-    title: 'Passa a Bola — Altinha Addict',
-    concept: 'Extração autoral do arquivo mestre ALTA.ai com 4 quadros (Escorpião, Bicicleta, Shark Attack e Chapa).',
-    folder: 'Testes de Verão',
-    isRegistered: false,
-    sha256: 'a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e',
-    supplier: 'DIMONA',
-    printDimona: '3435 × 4680 px (300 DPI)',
-    printReserva: '4200 × 4800 px (300 DPI)',
-    mutatedKeysCount: 0
-  }
-];
+import {
+  ArtworkRecord,
+  WritingMatrix26,
+  MATRIX_26_KEYS_METADATA,
+  DEFAULT_MATRIX_JAZZ_3D,
+  compilePromptFromMatrix26,
+} from '@/lib/artworks';
 
 interface CollectionItem {
   id: string;
@@ -72,9 +23,25 @@ interface CollectionItem {
 }
 
 export default function AtelierPage() {
-  const [activeTab, setActiveTab] = useState<'artworks' | 'media' | 'collections'>('collections');
-  const [artworks, setArtworks] = useState<ArtworkEntry[]>(SAMPLE_ARTWORKS);
-  const [selectedArtwork, setSelectedArtwork] = useState<ArtworkEntry | null>(SAMPLE_ARTWORKS[0]);
+  const [activeTab, setActiveTab] = useState<'artworks' | 'collections' | 'media'>('artworks');
+
+  // Estado das Artes Matrizes & Matriz Canônica (26 Chaves)
+  const [artworks, setArtworks] = useState<ArtworkRecord[]>([]);
+  const [selectedArtwork, setSelectedArtwork] = useState<ArtworkRecord | null>(null);
+  const [loadingArtworks, setLoadingArtworks] = useState(false);
+  const [savingArtwork, setSavingArtwork] = useState(false);
+  const [folderFilter, setFolderFilter] = useState<string>('Todas');
+  const [axisFilter, setAxisFilter] = useState<string>('ALL');
+  const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
+
+  // Estado para criação de Nova Arte Matriz
+  const [showCreateArtModal, setShowCreateArtModal] = useState(false);
+  const [newArtCode, setNewArtCode] = useState('');
+  const [newArtTitle, setNewArtTitle] = useState('');
+  const [newArtFolder, setNewArtFolder] = useState('Testes');
+  const [newArtSupplier, setNewArtSupplier] = useState('DIMONA');
+  const [newArtConcept, setNewArtConcept] = useState('');
+  const [newArtPreviewUrl, setNewArtPreviewUrl] = useState('');
 
   // Coleções reais do banco de dados
   const [collections, setCollections] = useState<CollectionItem[]>([]);
@@ -84,6 +51,35 @@ export default function AtelierPage() {
   const [newColName, setNewColName] = useState('');
   const [newColYear, setNewColYear] = useState(new Date().getFullYear().toString());
   const [newColSeason, setNewColSeason] = useState('Outono');
+
+  const triggerFeedback = (msg: string) => {
+    setFeedbackMsg(msg);
+    setTimeout(() => setFeedbackMsg(null), 4500);
+  };
+
+  const fetchArtworks = async (selectCode?: string) => {
+    setLoadingArtworks(true);
+    try {
+      const res = await fetch('/api/artworks');
+      const data = await res.json();
+      if (data.success && Array.isArray(data.artworks)) {
+        setArtworks(data.artworks);
+        if (selectCode) {
+          const found = data.artworks.find((a: ArtworkRecord) => a.code === selectCode);
+          if (found) setSelectedArtwork(found);
+        } else if (!selectedArtwork && data.artworks.length > 0) {
+          setSelectedArtwork(data.artworks[0]);
+        } else if (selectedArtwork) {
+          const updated = data.artworks.find((a: ArtworkRecord) => a.id === selectedArtwork.id);
+          if (updated) setSelectedArtwork(updated);
+        }
+      }
+    } catch (err) {
+      console.error('Erro ao buscar artes matrizes:', err);
+    } finally {
+      setLoadingArtworks(false);
+    }
+  };
 
   const fetchCollections = async () => {
     setLoadingCols(true);
@@ -102,8 +98,152 @@ export default function AtelierPage() {
   };
 
   useEffect(() => {
+    fetchArtworks();
     fetchCollections();
   }, []);
+
+  // Alternar Registrado? Sim / Não no banco
+  const handleToggleRegistered = async (art: ArtworkRecord, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    try {
+      const res = await fetch('/api/artworks', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: art.id,
+          is_registered: !art.is_registered,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        triggerFeedback(
+          `✓ Status de registro de "${art.code}" atualizado para: ${!art.is_registered ? 'REGISTRADO (SIM)' : 'NÃO REGISTRADO'}`
+        );
+        fetchArtworks(art.code);
+      }
+    } catch (err) {
+      alert('Erro ao alternar registro da matriz.');
+    }
+  };
+
+  // Atualizar valor de uma das 26 chaves no estado da arte selecionada
+  const handleMatrixKeyChange = (key: keyof WritingMatrix26, value: string) => {
+    if (!selectedArtwork) return;
+    setSelectedArtwork({
+      ...selectedArtwork,
+      writing_matrix_26: {
+        ...selectedArtwork.writing_matrix_26,
+        [key]: value,
+      },
+    });
+  };
+
+  // Salvar alterações da Arte Matriz + 26 Chaves + Recalcular SHA-256 no PostgreSQL
+  const handleSaveSelectedArtwork = async () => {
+    if (!selectedArtwork) return;
+    setSavingArtwork(true);
+    try {
+      const res = await fetch('/api/artworks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(selectedArtwork),
+      });
+      const data = await res.json();
+      if (data.success) {
+        triggerFeedback(
+          `★ Matriz Canônica (26 Chaves) de "${selectedArtwork.code}" salva no PostgreSQL e Hash SHA-256 recalculado!`
+        );
+        fetchArtworks(selectedArtwork.code);
+      } else {
+        alert(data.error || 'Erro ao salvar matriz.');
+      }
+    } catch (err) {
+      alert('Erro de conexão ao salvar matriz.');
+    } finally {
+      setSavingArtwork(false);
+    }
+  };
+
+  // Criar Nova Arte Matriz com Template Canônico de 26 Chaves
+  const handleCreateNewArtwork = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newArtCode.trim() || !newArtTitle.trim()) return;
+    setSavingArtwork(true);
+
+    try {
+      const customMatrix: WritingMatrix26 = {
+        ...DEFAULT_MATRIX_JAZZ_3D,
+        '01_ontological_essence': newArtConcept || DEFAULT_MATRIX_JAZZ_3D['01_ontological_essence'],
+        '04_primary_subject': newArtTitle,
+      };
+
+      const res = await fetch('/api/artworks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: newArtCode.trim().toUpperCase(),
+          title: newArtTitle.trim(),
+          concept: newArtConcept.trim(),
+          project_folder: newArtFolder.trim() || 'Testes',
+          default_supplier: newArtSupplier,
+          is_registered: false,
+          mutated_keys_count: 8,
+          preview_image_url: newArtPreviewUrl.trim(),
+          writing_matrix_26: customMatrix,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setShowCreateArtModal(false);
+        setNewArtCode('');
+        setNewArtTitle('');
+        setNewArtConcept('');
+        setNewArtPreviewUrl('');
+        triggerFeedback(`★ Nova Arte Matriz "${data.artwork.code}" criada com 26 Chaves Canônicas!`);
+        fetchArtworks(data.artwork.code);
+      } else {
+        alert(data.error || 'Erro ao criar arte matriz.');
+      }
+    } catch (err) {
+      alert('Erro ao criar nova arte matriz.');
+    } finally {
+      setSavingArtwork(false);
+    }
+  };
+
+  // Copiar Prompt to Image compilado
+  const handleCopyCompiledPrompt = () => {
+    if (!selectedArtwork) return;
+    const compiled = compilePromptFromMatrix26(selectedArtwork.writing_matrix_26, selectedArtwork.title);
+    navigator.clipboard.writeText(compiled);
+    triggerFeedback(`📋 Prompt to Image compilado das 26 Chaves copiado para a área de transferência!`);
+  };
+
+  // Baixar JSON de Escrita (26 Chaves + COA SHA-256)
+  const handleDownloadMatrixJson = () => {
+    if (!selectedArtwork) return;
+    const payload = {
+      $schema: 'https://ava-vitoria.com.br/schemas/mdv_writing_matrix.v26.json',
+      artwork_code: selectedArtwork.code,
+      title: selectedArtwork.title,
+      project_folder: selectedArtwork.project_folder,
+      is_registered: selectedArtwork.is_registered,
+      coa_hash_sha256: selectedArtwork.coa_hash_sha256,
+      mutated_keys_count: selectedArtwork.mutated_keys_count,
+      compiled_prompt_to_image: compilePromptFromMatrix26(
+        selectedArtwork.writing_matrix_26,
+        selectedArtwork.title
+      ),
+      writing_matrix_26: selectedArtwork.writing_matrix_26,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${selectedArtwork.code}_writing_matrix26.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
 
   const handleSetActiveStorefront = async (collectionId: string) => {
     try {
@@ -154,6 +294,23 @@ export default function AtelierPage() {
 
   const activeOrFirstColId = activeCollectionId || collections[0]?.id || '';
 
+  // Pastas-projeto únicas disponíveis
+  const projectFolders = Array.from(
+    new Set(['Todas', 'Testes', 'Coleção Sem Limites', 'Op-Art Reload', ...artworks.map((a) => a.project_folder)])
+  );
+
+  const filteredArtworks = artworks.filter(
+    (a) => folderFilter === 'Todas' || a.project_folder === folderFilter
+  );
+
+  const filteredKeysMetadata = MATRIX_26_KEYS_METADATA.filter(
+    (m) => axisFilter === 'ALL' || m.axis === axisFilter
+  );
+
+  const compiledPromptPreview = selectedArtwork
+    ? compilePromptFromMatrix26(selectedArtwork.writing_matrix_26, selectedArtwork.title)
+    : '';
+
   return (
     <div className={styles.adminLayout}>
       <AdminHeader />
@@ -161,18 +318,65 @@ export default function AtelierPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 08 · Atelier Criativo &amp; Mídias</h1>
+            <h1 className={styles.moduleTitle}>Depto 08 · Atelier Criativo, Prompt to Image &amp; Mídias</h1>
             <p className={styles.moduleSubtitle}>
-              Sócio Titular: <strong>Tripoint</strong> · Artes Matrizes 300 DPI, Prompts MDV (26 Chaves), Biblioteca de Mídias e Coleções da Vitrine
+              Sócio Titular: <strong>Tripoint</strong> · Motor de Decomposição Visual (MDV), Matriz Canônica de 26 Chaves, Matrizes 300 DPI e Coleções da Vitrine
             </p>
           </div>
-          <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
-            👤 Titular: Tripoint
-          </span>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <a
+              href="/PDF/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.btnSecondary}
+              style={{ fontSize: '11px', padding: '6px 12px', textDecoration: 'none' }}
+            >
+              📄 PDF Matriz Canônica (24/26 Chaves) ↗
+            </a>
+            <span className={styles.partnerOwnerBadge} style={{ fontSize: '11px', padding: '6px 12px' }}>
+              👤 Titular: Tripoint
+            </span>
+          </div>
         </div>
+
+        {feedbackMsg && (
+          <div
+            style={{
+              padding: '12px 16px',
+              marginBottom: '18px',
+              background: '#FAF6EE',
+              border: '2px solid #047857',
+              color: '#065F46',
+              fontSize: '12px',
+              fontWeight: 700,
+            }}
+          >
+            {feedbackMsg}
+          </div>
+        )}
 
         {/* Seletor de Abas do Atelier */}
         <div style={{ display: 'flex', gap: '8px', marginBottom: '24px', borderBottom: '1px solid rgba(0,0,0,0.14)', paddingBottom: '12px', overflowX: 'auto' }}>
+          <button
+            onClick={() => setActiveTab('artworks')}
+            style={{
+              padding: '8px 16px',
+              fontSize: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              background: activeTab === 'artworks' ? '#000000' : '#EFE4CC',
+              color: activeTab === 'artworks' ? '#DFCFA8' : '#18181B',
+              border: '1px solid',
+              borderColor: activeTab === 'artworks' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
+              cursor: 'pointer',
+              fontWeight: 600,
+              transition: 'all 0.2s ease',
+              whiteSpace: 'nowrap'
+            }}
+          >
+            🎨 Prompt to Image · Matriz Canônica (26 Chaves &amp; 300 DPI)
+          </button>
+
           <button
             onClick={() => setActiveTab('collections')}
             style={{
@@ -212,29 +416,534 @@ export default function AtelierPage() {
           >
             🖼️ Biblioteca Geral de Mídias (9 Colunas)
           </button>
-
-          <button
-            onClick={() => setActiveTab('artworks')}
-            style={{
-              padding: '8px 16px',
-              fontSize: '12px',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              background: activeTab === 'artworks' ? '#000000' : '#EFE4CC',
-              color: activeTab === 'artworks' ? '#DFCFA8' : '#18181B',
-              border: '1px solid',
-              borderColor: activeTab === 'artworks' ? '#000000' : 'rgba(0, 0, 0, 0.18)',
-              cursor: 'pointer',
-              fontWeight: 600,
-              transition: 'all 0.2s ease',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            🎨 Artes Matrizes 300 DPI &amp; Prompts (MDV 26)
-          </button>
         </div>
 
-        {/* ABA 1: PROJETOS E COLEÇÕES (VITRINE ATIVA) */}
+        {/* ABA PRINCIPAL: PROMPT TO IMAGE & MATRIZ CANÔNICA DE 26 CHAVES */}
+        {activeTab === 'artworks' && (
+          <div>
+            {/* Barra de Arquitetura MDV & Ações */}
+            <div className={styles.moduleCard} style={{ marginBottom: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '14px' }}>
+                <div>
+                  <h2 className={styles.cardHeading}>
+                    Esteira Prompt to Image — Motor de Decomposição Visual (MDV) &amp; Matriz Canônica de 26 Chaves
+                  </h2>
+                  <p style={{ fontSize: '12px', color: '#374151', maxWidth: '880px', lineHeight: '1.5' }}>
+                    <strong>Regra de Ouro da Blindagem Autoral:</strong> O banco de dados e o Certificado COA gravam <strong>exclusivamente o JSON de Escrita (26 Chaves Autorais)</strong> após o <em>Subprocesso Obrigatório de Desvinculação Autoral</em> (mínimo de <strong>7 chaves mutadas</strong> entre 🔴 Zona 1 Identidade e 🟡 Zona 2 Geometria/Escorço 3D, preservando a 🟢 Zona 3 Física Estética).
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    const nextNum = artworks.length + 1;
+                    setNewArtCode(`AVA-ART-${String(nextNum).padStart(3, '0')}`);
+                    setShowCreateArtModal(!showCreateArtModal);
+                  }}
+                  className={styles.btnPrimary}
+                  style={{ fontSize: '11px', padding: '10px 16px' }}
+                >
+                  {showCreateArtModal ? '✕ Fechar Cadastro' : '+ Nova Arte Matriz (26 Chaves)'}
+                </button>
+              </div>
+
+              {/* Resumo dos 3 Estágios do MDV */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '12px', marginTop: '14px' }}>
+                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>
+                    Estágio 1 · Scanner Matemático (Python)
+                  </div>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
+                    scripts/mdv_scanner.py
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+                    Mede % espaço negativo (60-70%), espessura de traço (1px-3px), vetores de Sobel (45° vs 90°) e entropia 3x3.
+                  </div>
+                </div>
+
+                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#92400E' }}>
+                    Estágio 2 · Desvinculação Autoral (≥ 7 Chaves)
+                  </div>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
+                    🔴 Zona 1 (≥4) + 🟡 Zona 2 (≥3) + 🟢 Zona 3
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+                    Muta sujeito e ângulo óptico (ex: Escorço 3D 75° no Eixo Z) mantendo a física do estilo.
+                  </div>
+                </div>
+
+                <div style={{ padding: '10px 12px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.14)' }}>
+                  <div style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#065F46' }}>
+                    Estágio 3 · Prompt to Image &amp; COA SHA-256
+                  </div>
+                  <div style={{ fontSize: '12px', fontWeight: 700, color: '#000000', marginTop: '2px' }}>
+                    Compilador 26 Chaves + Gabarito 300 DPI
+                  </div>
+                  <div style={{ fontSize: '11px', color: '#374151', marginTop: '2px' }}>
+                    Dimona Silk HD (3435×4680px zero margem) e Reserva INK (4200×4800px PNG).
+                  </div>
+                </div>
+              </div>
+
+              {/* Modal Inline de Criação de Nova Arte Matriz */}
+              {showCreateArtModal && (
+                <form
+                  onSubmit={handleCreateNewArtwork}
+                  style={{
+                    marginTop: '16px',
+                    padding: '16px',
+                    background: '#DFCFA8',
+                    border: '1px solid rgba(0,0,0,0.25)',
+                  }}
+                >
+                  <h3 style={{ fontSize: '13px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '12px', color: '#000000' }}>
+                    + Cadastrar Nova Arte Matriz na Matriz Canônica (26 Chaves)
+                  </h3>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '12px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        Código da Obra *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={newArtCode}
+                        onChange={(e) => setNewArtCode(e.target.value)}
+                        placeholder="Ex: AVA-TEST-003"
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        Título da Obra *
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={newArtTitle}
+                        onChange={(e) => setNewArtTitle(e.target.value)}
+                        placeholder="Ex: Vórtice Op-Art Gravitacional"
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        Pasta-Projeto
+                      </label>
+                      <input
+                        type="text"
+                        value={newArtFolder}
+                        onChange={(e) => setNewArtFolder(e.target.value)}
+                        placeholder="Ex: Testes ou Coleção Sem Limites"
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        Fornecedor Padrão
+                      </label>
+                      <select
+                        value={newArtSupplier}
+                        onChange={(e) => setNewArtSupplier(e.target.value)}
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      >
+                        <option value="DIMONA">DIMONA (Silk HD 3435×4680)</option>
+                        <option value="RESERVA_INK">RESERVA INK (DTG 4200×4800)</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginTop: '10px' }}>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        Conceito Filosófico / Tese da Obra
+                      </label>
+                      <input
+                        type="text"
+                        value={newArtConcept}
+                        onChange={(e) => setNewArtConcept(e.target.value)}
+                        placeholder="Descreva a essência autoral..."
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      />
+                    </div>
+                    <div>
+                      <label style={{ display: 'block', fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '4px' }}>
+                        URL da Imagem Preview (Opcional)
+                      </label>
+                      <input
+                        type="text"
+                        value={newArtPreviewUrl}
+                        onChange={(e) => setNewArtPreviewUrl(e.target.value)}
+                        placeholder="/imagens/projetos/Testes/..."
+                        style={{ width: '100%', padding: '8px', background: '#FFFFFF', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={savingArtwork}
+                    className={styles.btnPrimary}
+                    style={{ marginTop: '12px', fontSize: '11px', padding: '8px 16px' }}
+                  >
+                    {savingArtwork ? 'Gravando no PostgreSQL...' : 'Gravar Obra & Inicializar 26 Chaves Canônicas'}
+                  </button>
+                </form>
+              )}
+
+              {/* Filtro por Pasta-Projeto */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', color: '#374151' }}>
+                  📁 Pasta-Projeto:
+                </span>
+                {projectFolders.map((folder) => (
+                  <button
+                    key={folder}
+                    type="button"
+                    onClick={() => setFolderFilter(folder)}
+                    style={{
+                      padding: '4px 12px',
+                      fontSize: '11px',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      background: folderFilter === folder ? '#000000' : '#FAF6EE',
+                      color: folderFilter === folder ? '#DFCFA8' : '#18181B',
+                      border: '1px solid rgba(0,0,0,0.2)',
+                    }}
+                  >
+                    {folder}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className={styles.moduleGrid2Cols}>
+              {/* COLUNA ESQUERDA: LISTA DE ARTES MATRIZES */}
+              <div className={styles.moduleCard}>
+                <h2 className={styles.cardHeading}>
+                  Acervo de Matrizes ({filteredArtworks.length})
+                </h2>
+
+                {loadingArtworks ? (
+                  <div style={{ padding: '24px', textAlign: 'center', fontSize: '12px', color: '#4B5563' }}>
+                    Carregando matrizes do PostgreSQL...
+                  </div>
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    {filteredArtworks.map((art) => {
+                      const isSelected = selectedArtwork?.id === art.id;
+                      return (
+                        <div
+                          key={art.id}
+                          onClick={() => setSelectedArtwork(art)}
+                          style={{
+                            padding: '12px',
+                            background: isSelected ? '#FAF6EE' : '#EFE4CC',
+                            border: isSelected ? '2px solid #000000' : '1px solid rgba(0,0,0,0.14)',
+                            boxShadow: isSelected ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            gap: '12px',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {art.preview_image_url && (
+                            <div
+                              style={{
+                                width: '64px',
+                                height: '64px',
+                                flexShrink: 0,
+                                background: '#DFCFA8',
+                                border: '1px solid rgba(0,0,0,0.15)',
+                                overflow: 'hidden',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                              }}
+                            >
+                              <img
+                                src={art.preview_image_url}
+                                alt={art.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                              />
+                            </div>
+                          )}
+
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
+                              <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{art.title}</span>
+                              <button
+                                type="button"
+                                onClick={(e) => handleToggleRegistered(art, e)}
+                                title="Clique para alternar o status Registrado (Sim / Não)"
+                                style={{
+                                  fontSize: '10px',
+                                  fontWeight: 700,
+                                  padding: '2px 8px',
+                                  cursor: 'pointer',
+                                  background: art.is_registered ? 'rgba(4,120,87,0.14)' : 'rgba(146,64,14,0.14)',
+                                  color: art.is_registered ? '#047857' : '#92400E',
+                                  border: `1px solid ${art.is_registered ? 'rgba(4,120,87,0.35)' : 'rgba(146,64,14,0.35)'}`,
+                                  whiteSpace: 'nowrap',
+                                }}
+                              >
+                                {art.is_registered ? '✓ Registrado: SIM' : '○ Registrado: NÃO'}
+                              </button>
+                            </div>
+
+                            <div style={{ fontSize: '11px', color: '#374151', marginBottom: '4px' }}>
+                              <strong>{art.code}</strong> · Pasta: <strong>{art.project_folder}</strong> · {art.default_supplier}
+                            </div>
+
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '10px' }}>
+                              <span
+                                style={{
+                                  fontWeight: 700,
+                                  color: art.mutated_keys_count >= 7 ? '#065F46' : '#991B1B',
+                                }}
+                              >
+                                🧬 {art.mutated_keys_count}/26 Chaves Mutadas {art.mutated_keys_count >= 7 ? '(✓ Blindada)' : '(⚠️ Mín. 7)'}
+                              </span>
+                              <span style={{ fontFamily: 'monospace', color: '#4B5563' }}>
+                                SHA-256: {art.coa_hash_sha256?.slice(0, 12)}...
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+
+              {/* COLUNA DIREITA: INSPETOR/EDITOR DAS 26 CHAVES & COMPILADOR PROMPT TO IMAGE */}
+              {selectedArtwork && (
+                <div className={styles.moduleCard}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                    <h2 className={styles.cardHeading} style={{ margin: 0 }}>
+                      Matriz Canônica: {selectedArtwork.code}
+                    </h2>
+                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                      <button
+                        type="button"
+                        onClick={handleDownloadMatrixJson}
+                        className={styles.btnSecondary}
+                        style={{ fontSize: '11px', padding: '6px 10px' }}
+                      >
+                        ⬇️ Exportar JSON (26 Chaves)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleSaveSelectedArtwork}
+                        disabled={savingArtwork}
+                        className={styles.btnPrimary}
+                        style={{ fontSize: '11px', padding: '6px 12px' }}
+                      >
+                        {savingArtwork ? 'Salvando...' : '💾 Salvar Matriz & Recalcular SHA-256'}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Cabeçalho Visual + Metadados Principais */}
+                  <div style={{ display: 'grid', gridTemplateColumns: selectedArtwork.preview_image_url ? '140px 1fr' : '1fr', gap: '14px', marginBottom: '16px', padding: '12px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.14)' }}>
+                    {selectedArtwork.preview_image_url && (
+                      <div style={{ width: '140px', height: '140px', background: '#DFCFA8', border: '1px solid rgba(0,0,0,0.2)', overflow: 'hidden' }}>
+                        <img
+                          src={selectedArtwork.preview_image_url}
+                          alt={selectedArtwork.title}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </div>
+                    )}
+
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                        <div>
+                          <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Título da Obra</label>
+                          <input
+                            type="text"
+                            value={selectedArtwork.title}
+                            onChange={(e) => setSelectedArtwork({ ...selectedArtwork, title: e.target.value })}
+                            style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
+                          />
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 90px', gap: '6px' }}>
+                          <div>
+                            <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Pasta-Projeto</label>
+                            <input
+                              type="text"
+                              value={selectedArtwork.project_folder}
+                              onChange={(e) => setSelectedArtwork({ ...selectedArtwork, project_folder: e.target.value })}
+                              style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px' }}
+                            />
+                          </div>
+                          <div>
+                            <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Mutadas</label>
+                            <input
+                              type="number"
+                              min={0}
+                              max={26}
+                              value={selectedArtwork.mutated_keys_count}
+                              onChange={(e) => setSelectedArtwork({ ...selectedArtwork, mutated_keys_count: Number(e.target.value) })}
+                              style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '12px', fontWeight: 700 }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', color: '#4B5563' }}>Conceito &amp; Linhagem MDV</label>
+                        <textarea
+                          rows={2}
+                          value={selectedArtwork.concept}
+                          onChange={(e) => setSelectedArtwork({ ...selectedArtwork, concept: e.target.value })}
+                          style={{ width: '100%', padding: '6px', background: '#FAF6EE', border: '1px solid rgba(0,0,0,0.2)', fontSize: '11px' }}
+                        />
+                      </div>
+
+                      <div style={{ fontSize: '10px', fontFamily: 'monospace', color: '#065F46', background: '#FAF6EE', padding: '6px 8px', border: '1px solid rgba(4,120,87,0.3)', wordBreak: 'break-all' }}>
+                        <strong>COA SHA-256 (JSON de Escrita):</strong> {selectedArtwork.coa_hash_sha256}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* COMPILADOR PROMPT TO IMAGE AO VIVO */}
+                  <div style={{ marginBottom: '16px', padding: '12px', background: '#FAF6EE', border: '2px solid #000000' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.5px', color: '#000000' }}>
+                        ⚡ Prompt to Image Compilado (Síntese Automática das 26 Chaves)
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleCopyCompiledPrompt}
+                        className={styles.btnPrimary}
+                        style={{ fontSize: '10px', padding: '4px 10px' }}
+                      >
+                        📋 Copiar Prompt to Image
+                      </button>
+                    </div>
+                    <pre
+                      style={{
+                        margin: 0,
+                        padding: '10px',
+                        background: '#EFE4CC',
+                        border: '1px solid rgba(0,0,0,0.15)',
+                        fontSize: '11px',
+                        fontFamily: 'monospace',
+                        whiteSpace: 'pre-wrap',
+                        lineHeight: '1.45',
+                        color: '#18181B',
+                        maxHeight: '170px',
+                        overflowY: 'auto',
+                      }}
+                    >
+                      {compiledPromptPreview}
+                    </pre>
+                  </div>
+
+                  {/* SELETOR DE EIXOS DAS 26 CHAVES CANÔNICAS */}
+                  <div style={{ marginBottom: '12px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', marginBottom: '6px', color: '#000000' }}>
+                      🔬 Editor Interativo das 26 Chaves Estruturais (JSON de Escrita Autoral):
+                    </div>
+                    <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                      {[
+                        { id: 'ALL', label: 'Todas as 26 Chaves' },
+                        { id: 'I_ONTOLOGICO', label: 'I. Ontológico (01–07)' },
+                        { id: 'II_EPISTEMOLOGICO', label: 'II. Epistemológico (08–16)' },
+                        { id: 'III_METODOLOGICO', label: 'III. Metodológico (17–24)' },
+                        { id: 'IV_EXTENSAO_MDV', label: 'IV. Extensão MDV (25–26)' },
+                      ].map((ax) => (
+                        <button
+                          key={ax.id}
+                          type="button"
+                          onClick={() => setAxisFilter(ax.id)}
+                          style={{
+                            padding: '4px 10px',
+                            fontSize: '10px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            background: axisFilter === ax.id ? '#000000' : '#EFE4CC',
+                            color: axisFilter === ax.id ? '#DFCFA8' : '#18181B',
+                            border: '1px solid rgba(0,0,0,0.2)',
+                          }}
+                        >
+                          {ax.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* LISTA EDITÁVEL DAS 26 CHAVES */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '10px',
+                      maxHeight: '520px',
+                      overflowY: 'auto',
+                      paddingRight: '4px',
+                    }}
+                  >
+                    {filteredKeysMetadata.map((meta) => {
+                      const val = selectedArtwork.writing_matrix_26?.[meta.key] || '';
+                      return (
+                        <div
+                          key={meta.key}
+                          style={{
+                            padding: '10px',
+                            background: '#EFE4CC',
+                            border: '1px solid rgba(0,0,0,0.14)',
+                          }}
+                        >
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: '12px', fontWeight: 700, color: '#000000' }}>
+                              #{meta.number} · {meta.label}{' '}
+                              <span style={{ fontFamily: 'monospace', fontSize: '10px', color: '#4B5563', fontWeight: 500 }}>
+                                ({meta.key})
+                              </span>
+                            </span>
+                            <span
+                              style={{
+                                fontSize: '10px',
+                                fontWeight: 700,
+                                padding: '1px 6px',
+                                background: '#FAF6EE',
+                                border: '1px solid rgba(0,0,0,0.16)',
+                              }}
+                            >
+                              {meta.mutationZoneLabel}
+                            </span>
+                          </div>
+                          <div style={{ fontSize: '10px', color: '#4B5563', marginBottom: '6px' }}>
+                            {meta.description}
+                          </div>
+                          <textarea
+                            rows={2}
+                            value={val}
+                            onChange={(e) => handleMatrixKeyChange(meta.key, e.target.value)}
+                            style={{
+                              width: '100%',
+                              padding: '6px 8px',
+                              background: '#FAF6EE',
+                              border: '1px solid rgba(0,0,0,0.22)',
+                              fontSize: '11px',
+                              color: '#000000',
+                              lineHeight: '1.4',
+                            }}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* ABA 2: PROJETOS E COLEÇÕES (VITRINE ATIVA) */}
         {activeTab === 'collections' && (
           <div className={styles.moduleCard}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
@@ -399,7 +1108,7 @@ export default function AtelierPage() {
           </div>
         )}
 
-        {/* ABA 2: BIBLIOTECA GERAL DE MÍDIAS (9 COLUNAS) */}
+        {/* ABA 3: BIBLIOTECA GERAL DE MÍDIAS (9 COLUNAS) */}
         {activeTab === 'media' && (
           <div className={styles.moduleCard}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -426,81 +1135,6 @@ export default function AtelierPage() {
                 Gerenciar Mídias da Coleção ↗
               </Link>
             </div>
-          </div>
-        )}
-
-        {/* ABA 3: ARTES MATRIZES 300 DPI & PROMPTS MDV */}
-        {activeTab === 'artworks' && (
-          <div className={styles.moduleGrid2Cols}>
-            {/* Lista de Artes Matrizes */}
-            <div className={styles.moduleCard}>
-              <h2 className={styles.cardHeading}>Matrizes Cadastradas (300 DPI)</h2>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {artworks.map(art => (
-                  <div
-                    key={art.id}
-                    onClick={() => setSelectedArtwork(art)}
-                    style={{
-                      padding: '12px',
-                      background: '#EFE4CC',
-                      border: selectedArtwork?.id === art.id ? '2px solid #000000' : '1px solid rgba(0,0,0,0.12)',
-                      boxShadow: selectedArtwork?.id === art.id ? '0 2px 8px rgba(0,0,0,0.08)' : '0 1px 3px rgba(0,0,0,0.03)',
-                      cursor: 'pointer',
-                      transition: 'all 0.2s ease'
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-                      <span style={{ fontWeight: 700, color: '#000000', fontSize: '13px' }}>{art.title}</span>
-                      <span style={{ fontSize: '10px', fontWeight: 700, color: art.isRegistered ? '#047857' : '#92400E' }}>
-                        {art.isRegistered ? '✓ Registrado' : '○ Não Registrado'}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '11px', color: '#4B5563' }}>
-                      Código: {art.code} · Fornecedor: {art.supplier}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Inspetor de Detalhes & MDV 26 Chaves */}
-            {selectedArtwork && (
-              <div className={styles.moduleCard}>
-                <h2 className={styles.cardHeading}>Ficha Técnica da Matriz &amp; Prompt MDV</h2>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '12px' }}>
-                  <div>
-                    <span style={{ color: '#4B5563', fontWeight: 600 }}>Conceito Artístico:</span>
-                    <p style={{ color: '#000000', marginTop: '4px', lineHeight: '1.4' }}>{selectedArtwork.concept}</p>
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
-                    <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                      <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Gabarito Dimona (Frente/Costas)</span>
-                      <div style={{ color: '#000000', fontWeight: 700, marginTop: '2px' }}>{selectedArtwork.printDimona}</div>
-                    </div>
-
-                    <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                      <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Gabarito Reserva INK (Frente)</span>
-                      <div style={{ color: '#000000', fontWeight: 700, marginTop: '2px' }}>{selectedArtwork.printReserva}</div>
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                    <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Registro de Autoria SHA-256</span>
-                    <div style={{ color: '#065F46', fontWeight: 700, fontFamily: 'monospace', fontSize: '11px', wordBreak: 'break-all', marginTop: '4px' }}>
-                      {selectedArtwork.sha256}
-                    </div>
-                  </div>
-
-                  <div style={{ padding: '10px', background: '#EFE4CC', border: '1px solid rgba(0,0,0,0.12)', boxShadow: '0 1px 3px rgba(0,0,0,0.03)' }}>
-                    <span style={{ color: '#4B5563', fontSize: '10px', fontWeight: 600 }}>Matriz de Escrita (MDV 26 Chaves)</span>
-                    <div style={{ color: '#000000', marginTop: '4px' }}>
-                      Chaves mutadas no prompt: <strong>{selectedArtwork.mutatedKeysCount} de 26</strong> (Conforme diretriz do Diretor de Fotografia IA).
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         )}
       </main>

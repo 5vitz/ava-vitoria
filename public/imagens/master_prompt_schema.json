@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.1",
+  "project": "STAR INK — Master Image Generation Blueprint",
+  "philosophy": "Saint-Exupery Subtraction Aesthetics (Perfection is achieved when there is nothing left to take away)",
+  "master_structure": {
+    "task": "master_apparel_art_generation",
+    "meta_prompt_pipeline": {
+      "framework": "MetaPrompt-Studio (ASK -> PLAN -> ARTWORK)",
+      "alma_fingerprint": {
+        "linework_style": "1px hairline vector / fine-line chiaroscuro",
+        "composition_balance": "symmetric central axis with subtraction filtering",
+        "reference_spirit": "extracted visual DNA from reference art"
+      },
+      "corpo_narrative": {
+        "new_subject": "custom STAR INK narrative subject",
+        "subtraction_filter": "enforced (only essential lines retained)"
+      }
+    },
+    "goal": "Generate high-precision, minimalist graphic vector artwork optimized for DTG (Direct-to-Garment) printing on 100% Combed Cotton Heavyweight garments.",
+    "canvas_specs": {
+      "format": "A3 Vertical",
+      "dimensions_mm": "300mm x 400mm",
+      "aspect_ratio": "9:16",
+      "resolution": "300 DPI print-ready master",
+      "coordinate_system": "Normalized Percentile Grid (x: 0-100%, y: 0-100%, origin: Top-Left)"
+    },
+    "spatial_layout": {
+      "type": "multi_element_vector_composition",
+      "global_negative_space_percent": 65,
+      "primary_anchor": {
+        "x_percent": 50,
+        "y_percent": 40,
+        "alignment": "center_vertical_axis"
+      },
+      "elements_map": [
+        {
+          "element_id": "primary_subject",
+          "description": "Main focal subject (e.g., minimalist architectural structure / figure)",
+          "position": {
+            "x_percent": 50,
+            "y_percent": 35
+          },
+          "scale": {
+            "width_percent_of_canvas": 45,
+            "height_percent_of_canvas": 50,
+            "scale_modifier": "0%"
+          },
+          "layer_order": 1
+        },
+        {
+          "element_id": "secondary_accent",
+          "description": "Geometric accent or cosmic symbol (e.g., 8-pointed star / thin circle)",
+          "position": {
+            "x_percent": 50,
+            "y_percent": 15
+          },
+          "scale": {
+            "width_percent_of_canvas": 15,
+            "height_percent_of_canvas": 15,
+            "scale_modifier": "-15% height reduction"
+          },
+          "layer_order": 2
+        }
+      ]
+    },
+    "style": {
+      "primary": "minimalist fine-art line illustration",
+      "secondary": [
+        "high-contrast vector artwork",
+        "Saint-Exupery subtraction aesthetics",
+        "architectural blueprint precision",
+        "luxury streetwear graphic art"
+      ],
+      "render_quality": "gallery-grade commercial artwork"
+    },
+    "main_subject": {
+      "type": "Architectural / Human Silhouette / Cosmic Symbol",
+      "pose_or_structure": "balanced, elegant, high-symmetry composition",
+      "expression": "serene, focused, timeless"
+    },
+    "apparel_and_dtg_specs": {
+      "print_technology": "DTG (Direct to Garment)",
+      "target_fabric": "100% Combed Cotton Heavyweight (220g/m²)",
+      "ink_feel": "soft-hand breathable water-based inks",
+      "garment_placement": "Chest Center / Upper Back"
+    },
+    "lighting": {
+      "environment": "isolated subject without studio backdrop",
+      "key_light": "pure white (#ffffff) directional light",
+      "rim_light": {
+        "hex_color": "#38bdf8",
+        "glow_intensity": "subtle high-tech cyan glow",
+        "placement": "along body silhouette edges"
+      },
+      "shadows": "sharp, high-contrast, zero noise"
+    },
+    "camera": {
+      "angle": "eye-level, perfectly straight front perspective",
+      "lens_equivalent": "85mm portrait",
+      "framing": "full-element view with ample padding",
+      "depth_of_field": "infinite, razor-sharp focus on linework"
+    },
+    "color_palette": {
+      "background": "transparent (PNG isolated)",
+      "dominant_lines_hex": "#ffffff",
+      "accent_glow_hex": "#38bdf8",
+      "secondary_tones_hex": "#94a3b8"
+    },
+    "linework": {
+      "outline_style": "vector line art",
+      "stroke_weight_scale": "1px hairline precision stroke",
+      "edge_quality": "crisp vector edge, zero anti-aliasing blur",
+      "philosophy": "Saint-Exupery subtraction method (only essential lines retained)"
+    },
+    "textures": {
+      "finish": "clean digital vector graphics",
+      "noise_level": 0,
+      "grain": "none, pure vector clarity for DTG screen separation"
+    },
+    "mood": [
+      "cosmic luxury",
+      "poetic motion",
+      "architectural precision",
+      "high-fashion minimalism",
+      "understated elegance"
+    ],
+    "negative_prompt": [
+      "background color",
+      "solid background",
+      "stage light cone",
+      "spotlight beam",
+      "DTF plastic texture",
+      "busy background",
+      "photorealism skin textures",
+      "extra limbs",
+      "deformed shapes",
+      "color gradients overload",
+      "blurry lines",
+      "low resolution",
+      "watermarks",
+      "text overlay",
+      "raster noise"
+    ],
+    "generation_parameters": {
+      "quality": "300dpi_print_ready",
+      "format": "PNG_transparent",
+      "stylization": 150,
+      "detail_level": "focused_minimalism",
+      "prompt_adherence": 100
+    }
+  }
+}

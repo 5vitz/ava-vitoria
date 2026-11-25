@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "5.1",
+  "project": "STAR INK — Anatomically Strict Ballerina Blueprint (Arte01)",
+  "philosophy": "Saint-Exupery Subtraction Aesthetics & Anatomical Precision (Exactly 2 Arms, 2 Legs)",
+  "reference_image": {
+    "source_file": "public/imagens/APROVADAS/Bailarina.png",
+    "mode": "ControlNet Pose & Anatomy Transfer",
+    "instructions": "STRICT ANATOMY TRANSFER: Exactly TWO human arms (left arm holding front edge of silk fabric, right arm holding top edge of silk fabric). Exactly TWO legs."
+  },
+  "master_structure": {
+    "task": "anatomically_strict_ballerina_generation",
+    "goal": "Generate a high-precision white fine-line vector drawing of the ballerina from Bailarina.png on a pure black background (#000000). STRICT REQUIREMENT: Anatomically perfect human body with EXACTLY two arms, two hands, two legs, and two feet.",
+    "canvas_specs": {
+      "format": "A3 Vertical",
+      "aspect_ratio": "9:16",
+      "resolution": "300 DPI print-ready master"
+    },
+    "spatial_layout": {
+      "type": "centered_single_subject",
+      "global_negative_space_percent": 65,
+      "primary_anchor": {
+        "x_percent": 50,
+        "y_percent": 45
+      }
+    },
+    "style": {
+      "primary": "haute-couture fashion illustration line art",
+      "secondary": [
+        "fine-line white vector drawing on black",
+        "Saint-Exupery subtraction aesthetics",
+        "translucent flowing silk line contours",
+        "anatomical accuracy"
+      ]
+    },
+    "main_subject": {
+      "type": "Classical Ballerina",
+      "anatomy_check": "EXACTLY 2 arms, 2 hands, 2 legs, 2 feet",
+      "pose": "MATCH Bailarina.png: standing en pointe on ONE supporting leg, lifted leg extended behind in elegant high attitude, torso arched back",
+      "arms_and_hands": "Left arm extending forward holding the silk fabric corner. Right arm reaching up-right holding the top silk fabric corner. NO THIRD ARM.",
+      "fabric_element": "a single sweeping translucent silk fabric sheet flowing in a grand arch behind the ballerina",
+      "hair": "sleek classic ballerina bun"
+    },
+    "lighting": {
+      "environment": "flat 2D line drawing on pure black background (#000000)",
+      "key_light": "pure crisp white (#ffffff) fine line-art stroke contours",
+      "glow_intensity": "NONE"
+    },
+    "color_palette": {
+      "background_hex": "#000000",
+      "dominant_lines_hex": "#ffffff",
+      "accent_glow": "NONE"
+    },
+    "linework": {
+      "style": "clean wispy silk contour line art",
+      "thickness": "hairline ultra-thin 1px strokes for body and 0.5px overlapping lines for translucent silk veil",
+      "quality": "feather-light, fluid, high-fashion hand-drawn vector precision"
+    },
+    "negative_prompt": [
+      "extra arms",
+      "three arms",
+      "3 arms",
+      "third arm",
+      "extra limbs",
+      "deformed hands",
+      "extra legs",
+      "deformed anatomy",
+      "cyan glow",
+      "neon",
+      "solid white body fill",
+      "thick clumsy lines",
+      "clipart",
+      "flat cartoon",
+      "coloring book outline",
+      "raster noise",
+      "3D render"
+    ]
+  }
+}

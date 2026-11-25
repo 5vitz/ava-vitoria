@@ -1,0 +1,42 @@
+{
+  "$schema": "https://ava-vitoria.com.br/schemas/mdv_writing_matrix.v26.json",
+  "artwork_code": "AVA-TEST-001",
+  "title": "Bailarina de Jazz em Salto 3D (75° Z-Axis)",
+  "project_folder": "Testes",
+  "mutated_keys_count": 9,
+  "preview_image_url": "/imagens/projetos/Testes/AVA-TEST-001_jazz_dancer_3d_75deg.jpg",
+  "I_EIXO_ONTOLOGICO": {
+    "01_ontological_essence": "A suspensão gravitacional no ápice da liberdade humana: o corpo que rompe o espaço tridimensional sem limites.",
+    "02_archetypal_symbolism": "A Bailarina de Jazz Contemporâneo em Voo Orbital (Fusões de Criador, Rebelde e Explorador).",
+    "03_emotional_gravity": "Êxtase contido, potência atlética silenciosa e soberania estética de galeria.",
+    "04_primary_subject": "Bailarina de jazz contemporâneo ultra-esguia em salto aéreo longo, vestindo macacão/body de malha colante preta esculpida (sleek form-fitting black jazz unitard, zero tutu, zero saia).",
+    "05_satellite_elements": "Fitas caligráficas em ouro ocre metálico (#C29E5D), cortes diagonais de nanquim Sumi-e (#0A0C0E) e cortina gravitacional de fios capilares verticais a 90°.",
+    "06_narrative_context": "Fundo pedra/marfim quente minimalista (#DDDDD8 / #FEFCF5) com 63% de espaço vazio aberto, sem objetos ou equipamentos no solo.",
+    "07_typography_and_epigraphy": "Ausência total de texto ou tipografia sobre a obra (100% pureza gráfica)."
+  },
+  "II_EIXO_EPISTEMOLOGICO": {
+    "08_spatial_density_ratio": "63% de espaço negativo livre (conceito oriental de Ma) vs. 37% de massa gráfica ativa.",
+    "09_compositional_geometry": "Extreme Z-Axis 3D Foreshortening (75° upward three-quarter floor viewpoint: foreground limb looming large, trailing limb receding in depth).",
+    "10_focal_anchor_point": "Ancoragem dinâmica no centro-superior do peito (x: 50%, y: 42%), projetando o salto sobre o observador.",
+    "11_dynamic_force_vectors": "Choque cinético bipartido: vetor de propulsão diagonal em perspectiva 3D no eixo Z vs. fios gravitacionais estritos a 90° caindo até uma linha horizontal mínima na base.",
+    "12_lighting_source_and_angle": "Iluminação de recorte (rim light) zenital-lateral esculpindo o volume 3D por baixo do tronco arqueado e pernas com reflexos branco puro (#FFFFFF).",
+    "13_chiaroscuro_depth": "Chiaroscuro volumétrico 3D de altíssimo contraste entre o preto obsidiana (#0A0C0E) do traje e a luz de recorte branca.",
+    "14_chromatic_hierarchy": "Tríade rigorosa: Preto Obsidiana (#0A0C0E) dominante (16%), Ouro Ocre Escovado (#C29E5D) em acento nobre (4%) e Branco Puro (#FFFFFF) de luz sobre fundo pedra (#DDDDD8).",
+    "15_scale_and_proportions": "Proporções alongadas de alta-costura (1:8.5) amplificadas pelo escorço tridimensional no eixo Z.",
+    "16_visual_silence_level": "Estado E = mc²: máxima tensão cinética e profundidade 3D com zero poluição de cenário."
+  },
+  "III_EIXO_METODOLOGICO": {
+    "17_linework_typology": "Fusão de traço bico de pena 1px hairline, pinceladas gestuais de Action Painting / Sumi-e e terminações abertas (open-ended tapered strokes).",
+    "18_stroke_weight_and_pressure": "72.4% de linhas finas (1px a 3px), 20.8% de pinceladas médias caligráficas e apenas 6.8% de ancoragem sólida no núcleo.",
+    "19_mass_and_fill_treatment": "Corpo esculpido por contraste de sombra vazada e feixes direcionais, garantindo toque leve (soft-hand) na fibra do algodão.",
+    "20_edge_definition": "Bordas nítidas e pontas afiladas que se dissolvem organicamente na malha, sem halo cinza e sem moldura retangular.",
+    "21_texture_and_surface_grain": "Textura orgânica de nanquim seco e folha de ouro escovada compatível com algodão penteado Prime 180g / Oversized 220g.",
+    "22_optical_effects": "Ilusão cinética de voo tridimensional acima do observador gerada pelo escorço de 75° e pelo contraponto dos fios verticais.",
+    "23_framing_and_containment": "Silhueta 100% aberta respirando na peça (proibição absoluta do efeito 'quadro pregado na parede').",
+    "24_medium_simulation": "Matriz autoral Fine-Art 300 DPI para estamparia industrial Silk HD (Dimona 3435x4680px) e DTG Kornit (Reserva INK 4200x4800px)."
+  },
+  "IV_EXTENSAO_MDV_AVANCADA": {
+    "25_zonal_complexity_map": "Subtração extrema nos quadrantes superiores laterais e rosto 100% em sombra preta anônima (sem feições faciais); alta densidade no núcleo torácico; ritmo vertical de alta frequência no quadrante inferior central.",
+    "26_autonomous_signature_dna": "Desconstrução Cinética Bipartida em Escorço 3D (75° Z-Axis): o corpo salta por cima do ponto de vista em perspectiva profunda enquanto derrete em fios gravitacionais de 90° de nanquim e ouro."
+  }
+}
