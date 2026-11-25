@@ -337,7 +337,7 @@ export default function ProducaoPage() {
               </div>
             )}
 
-            {/* KPIs Operacionais do Fornecedor */}
+            {/* KPIs Operacionais do Fornecedor (Alçada Produção: até Doca / Aguardando Coleta) */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
@@ -345,11 +345,11 @@ export default function ProducaoPage() {
               marginTop: '18px'
             }}>
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
-                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Lead Time Médio</span>
+                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Lead Time Fabril (Produção)</span>
                 <div style={{ fontSize: '18px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
-                  3.0 Dias <span style={{ fontSize: '11px', color: '#059669', fontWeight: 600 }}>(-40% vs Prazo)</span>
+                  3.0 Dias <span style={{ fontSize: '11px', color: '#059669', fontWeight: 600 }}>(79h 18m)</span>
                 </div>
-                <span style={{ fontSize: '11px', color: '#4B5563' }}>Pago em 17/11 ➔ Pronto em 20/11</span>
+                <span style={{ fontSize: '11px', color: '#4B5563' }}>PIX 17/11 02:11 ➔ Doca 20/11 09:30</span>
               </div>
 
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
@@ -361,24 +361,24 @@ export default function ProducaoPage() {
               </div>
 
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
-                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Status da Fábrica</span>
-                <div style={{ fontSize: '16px', fontWeight: 800, color: '#059669', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Alçada Produção (Armando)</span>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#059669', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#059669' }} />
-                  {dimonaOrder?.status || 'Pedido Enviado'}
+                  ✓ 100% Concluída na Doca
                 </div>
-                <span style={{ fontSize: '11px', color: '#4B5563' }}>Status ID: {dimonaOrder?.status_id || 26} (Em Trânsito J&T)</span>
+                <span style={{ fontSize: '11px', color: '#4B5563' }}>Etiqueta &amp; Despacho CD: 20/11 às 09:30</span>
               </div>
 
               <div style={{ padding: '12px 14px', background: '#F5ECE0', border: '1px solid rgba(0,0,0,0.1)' }}>
-                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Logística / Coleta</span>
-                <div style={{ fontSize: '16px', fontWeight: 800, color: '#000000', marginTop: '4px' }}>
-                  🚚 {dimonaOrder?.shipping_method_name || 'J&T Express'}
+                <span style={{ fontSize: '10px', textTransform: 'uppercase', color: '#6B7280', fontWeight: 700 }}>Pós-Coleta &amp; Cliente (Handoff)</span>
+                <div style={{ fontSize: '15px', fontWeight: 800, color: '#1D4ED8', marginTop: '4px' }}>
+                  🎧🚚 Alçada SAC (Gustavo)
                 </div>
-                <span style={{ fontSize: '11px', color: '#059669', fontWeight: 700 }}>Previsão: 26/11/2026 (Vitória/ES)</span>
+                <span style={{ fontSize: '11px', color: '#374151', fontWeight: 600 }}>API J&amp;T / Intelipost ativa em /admin/atendimento</span>
               </div>
             </div>
 
-            {/* Stepper Visual: Linha do Tempo Viva de Produção */}
+            {/* Stepper Visual: Linha do Tempo Industrial da Produção (Até Aguardando Coleta + Handoff SAC) */}
             <div style={{
               marginTop: '18px',
               padding: '16px',
@@ -386,8 +386,13 @@ export default function ProducaoPage() {
               border: '1px solid rgba(0,0,0,0.14)',
               boxShadow: '0 1px 4px rgba(0,0,0,0.03)'
             }}>
-              <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#4B5563', fontWeight: 700, marginBottom: '12px' }}>
-                Linha do Tempo Industrial do Pedido #755-460-927
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '12px' }}>
+                <div style={{ fontSize: '11px', textTransform: 'uppercase', color: '#000000', fontWeight: 800 }}>
+                  🏭 Linha do Tempo Industrial (Alçada Produção: Pedido ➔ Aguardando Coleta na Doca) · #755-460-927
+                </div>
+                <span style={{ fontSize: '11px', color: '#065F46', fontWeight: 700 }}>
+                  ✓ SLA Industrial Cumprido · Bastão Logístico Transbordado ao SAC (Depto 05)
+                </span>
               </div>
               <div style={{
                 display: 'grid',
@@ -396,27 +401,27 @@ export default function ProducaoPage() {
                 textAlign: 'center'
               }}>
                 {[
-                  { step: '1. Pedido & PIX', date: '17/11 · 02:11', status: 'concluido' },
-                  { step: '2. Silk HD Kornit', date: '18/11 · 09:30', status: 'concluido' },
-                  { step: '3. Controle Qualidade', date: '19/11 · 16:45', status: 'concluido' },
-                  { step: '4. Coleta Realizada', date: '23/11 · 17:24', status: 'concluido' },
-                  { step: '5. Despacho & Trânsito', date: 'Em Trânsito · Previsão 26/11', status: 'ativo' },
+                  { step: '1. Pedido & PIX', date: '17/11 · 02:11 (Pago)', status: 'concluido' },
+                  { step: '2. Silk HD Kornit', date: '18/11–19/11 (Estamparia)', status: 'concluido' },
+                  { step: '3. Qualidade & NF-e', date: '20/11 · 09:27 (Etiqueta)', status: 'concluido' },
+                  { step: '4. Pronto / Ag. Coleta', date: '20/11 · 09:30 (Fim Produção)', status: 'concluido' },
+                  { step: '5. Handoff ➔ SAC', date: 'Logística J&T c/ Gustavo', status: 'handoff' },
                 ].map((st, i) => (
                   <div
                     key={i}
                     style={{
                       padding: '10px 6px',
-                      background: st.status === 'ativo' ? '#059669' : st.status === 'concluido' ? '#047857' : '#D1D5DB',
-                      color: st.status === 'pendente' ? '#374151' : '#FFFFFF',
+                      background: st.status === 'handoff' ? '#1E3A8A' : '#047857',
+                      color: '#FFFFFF',
                       borderRadius: '2px',
-                      border: st.status === 'ativo' ? '2px solid #000' : 'none'
+                      border: st.status === 'handoff' ? '2px solid #000000' : 'none'
                     }}
                   >
                     <div style={{ fontSize: '11px', fontWeight: 800 }}>
-                      {st.status === 'concluido' ? '✓ ' : st.status === 'ativo' ? '🚚 ' : '⚪ '}
+                      {st.status === 'concluido' ? '✓ ' : '🎧🚚 '}
                       {st.step}
                     </div>
-                    <div style={{ fontSize: '10px', marginTop: '3px', opacity: 0.9 }}>
+                    <div style={{ fontSize: '10px', marginTop: '3px', opacity: 0.92 }}>
                       {st.date}
                     </div>
                   </div>
@@ -438,10 +443,10 @@ export default function ProducaoPage() {
             }}>
               <div>
                 <span style={{ fontSize: '11px', color: '#6B7280', textTransform: 'uppercase', fontWeight: 700 }}>
-                  Gabinete de Despacho &amp; Transbordo da Diretoria
+                  Fronteira de Transbordo Operacional (Produção ➔ Financeiro &amp; SAC)
                 </span>
                 <div style={{ fontSize: '13px', color: '#000000', fontWeight: 700, marginTop: '2px' }}>
-                  NF-e #{dimonaOrder?.nfe_number || '114273'} emitida pela Olist ERP · Chave: 332611...011596
+                  NF-e #{dimonaOrder?.nfe_number || '114273'} (Olist ERP) ➔ Flávio · Rastreio Logístico J&amp;T Express ➔ Gustavo (SAC)
                 </div>
               </div>
 
@@ -479,29 +484,25 @@ export default function ProducaoPage() {
                     gap: '6px'
                   }}
                 >
-                  🚚 Transbordar Rastreio p/ Gustavo (SAC)
+                  🚚 Notificar Transbordo p/ Gustavo (SAC)
                 </button>
 
-                {dimonaOrder?.tracking_url && (
-                  <a
-                    href={dimonaOrder.tracking_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                      padding: '8px 14px',
-                      fontSize: '11px',
-                      background: '#000000',
-                      color: '#DFCFA8',
-                      textDecoration: 'none',
-                      fontWeight: 700,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    Rastrear na J&T ↗
-                  </a>
-                )}
+                <Link
+                  href="/admin/atendimento"
+                  style={{
+                    padding: '8px 14px',
+                    fontSize: '11px',
+                    background: '#000000',
+                    color: '#DFCFA8',
+                    textDecoration: 'none',
+                    fontWeight: 700,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '4px'
+                  }}
+                >
+                  🎧 Abrir Torre Logística J&amp;T no SAC ↗
+                </Link>
 
                 {dimonaOrder?.nfe_link && (
                   <a
