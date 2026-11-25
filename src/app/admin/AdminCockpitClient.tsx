@@ -298,34 +298,8 @@ export default function AdminCockpitClient() {
             </p>
           </div>
 
-          {/* Presença em Tempo Real da Diretoria Executiva */}
+          {/* Ação Rápida da Diretoria Executiva */}
           <div className={styles.executivePresenceArea}>
-            <div className={styles.partnerStatusList}>
-              {PARTNER_PRESENCE_ORDER.map((partner) => {
-                const isOnline =
-                  onlineUsers.includes(partner.username) ||
-                  (partner.username === 'armando' && onlineUsers.includes('admin')) ||
-                  currentUsername === partner.username ||
-                  (currentUsername === 'admin' && partner.username === 'armando');
-
-                const ledClass = isOnline ? styles.ledOnline : styles.ledOffline;
-                const tooltip = isOnline
-                  ? `${partner.name}: Conectado agora no Painel`
-                  : `${partner.name}: Desconectado`;
-
-                return (
-                  <div
-                    key={partner.key}
-                    className={styles.partnerStatusChip}
-                    title={tooltip}
-                  >
-                    <span className={`${styles.ledDot} ${ledClass}`}></span>
-                    <span>{partner.name}</span>
-                  </div>
-                );
-              })}
-            </div>
-
             <button
               type="button"
               onClick={() =>
@@ -538,60 +512,7 @@ export default function AdminCockpitClient() {
             })}
           </div>
         </section>
-
-        {/* Painel de Telemetria dos Agentes da Mesa Redonda */}
-        <section className={styles.agentsPanel}>
-          <div className={styles.agentsPanelHeader}>
-            <div>
-              <h2 className={styles.sectionHeading}>
-                Telemetria dos {totalAgents} Agentes de IA da Mesa Redonda
-              </h2>
-              <p style={{ fontSize: '11px', color: '#52525B', marginTop: '3px' }}>
-                💡 Clique em qualquer agente para ver o Dossiê de Ajuda (O que faz, Por que faz, Como faz e Economia).
-              </p>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '11px' }}>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#059669', fontWeight: 600 }}>
-                <span className={styles.agentStatusDotActive}></span> Em Atividade
-              </span>
-              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#D97706', fontWeight: 600 }}>
-                <span className={styles.agentStatusDotStandby}></span> Em Prontidão (Stand-by)
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.agentsGrid}>
-            {Object.values(AGENTS_DOSSIER).map((agent) => (
-              <div
-                key={agent.id}
-                className={styles.agentBadge}
-                onClick={() => setSelectedAgent(agent)}
-                title={`Clique para abrir o Dossiê e Economia de ${agent.name}`}
-              >
-                <span
-                  className={
-                    agent.status === 'ACTIVE'
-                      ? styles.agentStatusDotActive
-                      : styles.agentStatusDotStandby
-                  }
-                ></span>
-                <div className={styles.agentInfo}>
-                  <span className={styles.agentName}>{agent.name}</span>
-                  <span className={styles.agentRole}>{agent.role}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
-
-      {/* Modal do Dossiê do Agente */}
-      {selectedAgent && (
-        <AgentDossierModal
-          agent={selectedAgent}
-          onClose={() => setSelectedAgent(null)}
-        />
-      )}
     </div>
   );
 }

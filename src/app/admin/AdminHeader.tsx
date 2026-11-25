@@ -156,10 +156,10 @@ export default function AdminHeader() {
               title="Início · Painel Executivo AVA Sem Limites"
             >
               <Image
-                src="/imagens/AMOSTRAS/LOGOS/LOGO SEM LIMITES PRETO.png"
+                src="/imagens/AMOSTRAS/LOGOS/LOGO_SEM_LIMITES_PRETO_TRIMMED.png"
                 alt="AVA Sem Limites"
                 width={200}
-                height={68}
+                height={86}
                 className={styles.avaOfficialLogoImg}
                 priority
               />

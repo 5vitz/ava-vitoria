@@ -4,7 +4,36 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 23/11/2026 · Noite)
+## 1. O que realizamos nesta sessão (Estado Atual — 24–25/11/2026 · Madrugada)
+
+*   **🎨 GAVETA 3 TRANSPLANTADA & HOMOLOGADA: PROMPT TO IMAGE — MATRIZ CANÔNICA DE 26 CHAVES & MOTOR DE DECOMPOSIÇÃO VISUAL (MDV) (`/admin/atelier`, `/api/artworks` & `docs/atelier/`) ✅:**
+    *   **Acervo Normativo & Scanner Matemático (`docs/atelier/` e `scripts/mdv_scanner.py`):**
+        *   Transplantados da `Star-Ink` para a `Ava-Vitoria`: [`docs/atelier/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf) (espelhado em `/public/PDF/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf`), [`docs/atelier/COLECAO_OP_ART_RELOAD_E_ARQUITETURA_MDV.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/COLECAO_OP_ART_RELOAD_E_ARQUITETURA_MDV.md), [`docs/atelier/ENGENHARIA_DE_PROMPT_E_MATRIZ_DE_CORES_POD.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/ENGENHARIA_DE_PROMPT_E_MATRIZ_DE_CORES_POD.md) e [`docs/atelier/ENGENHARIA_REVERSA_DE_ARTES.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/ENGENHARIA_REVERSA_DE_ARTES.md).
+        *   Script Python [`scripts/mdv_scanner.py`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/scripts/mdv_scanner.py) (NumPy + Pillow) para extração matemática de pixels (`negative_space_percent`, espessura de traço `1px-3px`, vetores de Sobel `45°` vs. `90°` e entropia zonal `3x3`).
+    *   **Pasta-Projeto `Testes` & Obra Inaugural `AVA-TEST-001` (`public/imagens/projetos/Testes/`):**
+        *   Arquivada a obra **[`AVA-TEST-001_jazz_dancer_3d_75deg.jpg`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/imagens/projetos/Testes/AVA-TEST-001_jazz_dancer_3d_75deg.jpg)** (*Bailarina de Jazz em Salto 3D — 75° Z-Axis Foreshortening*) com seu JSON de Escrita completo de 26 chaves ([`AVA-TEST-001_writing_matrix26.json`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/imagens/projetos/Testes/AVA-TEST-001_writing_matrix26.json)).
+    *   **Camada de Persistência PostgreSQL & Compilador Prompt-to-Image ([`src/lib/artworks.ts`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/lib/artworks.ts) & [`src/app/api/artworks/route.ts`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/api/artworks/route.ts)):**
+        *   Persiste **exclusivamente o JSON de Escrita (26 Chaves)** nos 4 Eixos Canônicos (*I. Ontológico `01-07`*, *II. Epistemológico `08-16`*, *III. Metodológico `17-24`*, *IV. Extensão MDV `25-26`*), validando o Subprocesso de Desvinculação Autoral (`mutated_keys_count >= 7`) e gerando o hash criptográfico real **SHA-256** (`crypto.createHash('sha256')`).
+        *   Painel [`/admin/atelier`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/atelier/page.tsx) atualizado com Editor Interativo das 26 Chaves, Compilador **Prompt to Image** em tempo real, filtro por Pasta-Projeto (`Testes`, `Coleção Sem Limites`, `Op-Art Reload`) e chaveamento 1-clique `✓ Registrado: SIM / NÃO`.
+
+*   **🚚 ENGENHARIA REVERSA DA API GRAPHQL INTELIPOST / J&T EXPRESS & DIVISÃO DE ALÇADAS PRODUÇÃO vs. SAC (`/api/sac/tracking`, `/admin/producao` & `/admin/atendimento`) ✅:**
+    *   **Conexão Direta na API GraphQL da Transportadora (`POST https://tracking-graphql.intelipost.com.br/`):**
+        *   Extraído o schema GraphQL do portal `status.ondeestameupedido.com/tracking/1168/755460927` (`clientId: "1168"` da Dimona) e criada a rota [`/api/sac/tracking`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/api/sac/tracking/route.ts).
+    *   **Diagnóstico Real dos Tempos & Gargalo do Pedido `#755460927`:**
+        1. **Produção Industrial (Dimona Silk HD):** Pago em `17/11 02:11` ➔ Etiqueta & Despacho CD em `20/11 09:30` = **`3d 07h (79.3h)`** (🟢 SLA Industrial 100% cumprido).
+        2. **Gargalo de Doca / Espera por Coleta:** Despachado CD em `20/11 09:30` (sexta/feriado Consciência Negra) ➔ `COLETADO` pela J&T Express em `23/11 18:20` (segunda) = **`3d 09h (78.8h)`** parado na doca aguardando coleta.
+        3. **Trânsito Rodoviário Interestadual (J&T Express RJ ➔ ES):** Coletado no RJ em `23/11 18:20` ➔ **Chegada na Filial Vitória/ES** em `24/11 15:45` = **`21h 25m`** (previsão de entrega: `27/11/2026`).
+    *   **Fronteira Organizacional Definida no Sistema (Produção vs. SAC):**
+        *   **`Depto 04 · Produção` (Armando — [`/admin/producao`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/producao/page.tsx)):** Alçada encerra estritamente em **`4. Pronto na Doca / Aguardando Coleta`**, transbordando a NF-e ao Financeiro (Flávio) e o Rastreio Logístico ao SAC (Gustavo).
+        *   **`Depto 05 · SAC` (Gustavo — [`/admin/atendimento`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/atendimento/page.tsx)):** Recebeu a **Torre Logística Pós-Coleta & Comunicação com o Cliente**, com linha do tempo ao vivo da API J&T/Intelipost, detector automático de gargalo de coleta e gerador de comunicado proativo de WhatsApp para o cliente.
+
+*   **🏛️ TAREFA 1 CONCLUÍDA & VALIDADA EM PRODUÇÃO: ESTILIZAÇÃO PALHA/MARFIM DAS TELAS MANTIDAS & CORREÇÃO DO CHAVEAMENTO DE COLEÇÕES DA VITRINE ✅:**
+    *   **Padronização Visual (`#EFE4CC` / `#DFCFA8` / `#FAF6EE`):** Modernizadas 100% em CSS Modules as telas `/admin/grid-manager`, `/admin/media`, `/admin/stock`, `/admin/design-system` e `/admin/dashboard`, eliminando o fundo preto legado.
+    *   **Rota Unificada [`/api/collections`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/api/collections/route.ts) & Ciclo de Vida React (`key={currentCollection.id}`):** Resolvido o congelamento de estado do React ao alternar coleções no seletor do Grid Manager e da Biblioteca de Mídia, garantindo que o botão **`[ ⚡ Definir esta Coleção como Vitrine Ativa ]`** apareça imediatamente e reflita na Vitrine pública (`/`).
+
+---
+
+## 1.0. Histórico Imediato Anterior (23/11/2026 · Noite)
 
 *   **👑 ENGENHARIA REVERSA (REA) COMPLETA DA FÁBRICA KING & PITCH DE PERMUTA DISPARADO (`docs/KING/`) ✅:**
     *   **Pasta Dedicada Criada:** `docs/KING/` criada fora de Fornecedores, isolando o projeto estratégico de expansão fabril e criação de novo polo próprio em SP.
@@ -335,23 +364,30 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 3. Próximos Passos Imediatos (Para a Próxima Sessão)
+## 3. Próximos Passos Imediatos & Backlog Agendado
 
-1.  **🧪 Homologação e Testes Multiusuário do Chat & Sala de Reuniões (Prioridade Imediata):**
-    *   Simular os **4 Sócios Conectados Concomitantemente** na mesma máquina (`armando`, `flavio`, `tripoint`, `gustavo` com senha `admin123`) utilizando janelas anônimas ou perfis de usuário isolados no navegador.
-    *   Testar a virada das 4 luzes para **`🟢 CONECTADOS (4/4)`** no cabeçalho em tempo real.
-    *   Validar: troca de mensagens de chat identificadas por sócio, anexo e download de documentos corporativos, permissões de microfone/câmera e criação de nova pauta travada.
-2.  **👑 Acompanhamento da Parceria Fábrica King (`docs/KING/`):**
-    *   Monitorar o retorno da mensagem enviada no WhatsApp (`11 95360-5184` - Anderson/Adriane).
-    *   Com a resposta positiva, agendar call rápida de 10 a 15 minutos em vídeo e iniciar o desenho da PoC do **King Connect Gateway** (estúdio visual similar ao da Dimona + webhook direto para o Glide da King sem travas de 5 MB).
-3.  **🚚 Rastreio do Pedido de Amostras Dimona (`#755-460-927`):**
-    *   Acompanhar o trânsito da J&T Express previsto para chegar em Vitória/ES em **26/11/2026**.
-4.  **Reuniões Presenciais com os Sócios (Alinhamento & Credenciamento):**
-    *   **Tripoint:** Apresentar o Cockpit `/admin`, login individual (`tripoint`), avaliar matrizes no Atelier Criativo (`/admin/atelier`) e cronograma do Drop Inaugural.
-    *   **Flávio (Financeiro & Jurídico):** Apresentar o módulo de Assinaturas e ressarcimento dos R$ 209,33/mês adiantados por Armando.
-5.  **Operação e Fornecedores PoD:**
-    *   **Estorno Reserva INK (R$ 159,00):** Orientar Gustavo a solicitar o reembolso integral via painel da Reserva INK (garantia CDC Art. 49).
+1.  **🔧 Correções Gerais & Bateria de Testes no Painel Admin (Prioridade Imediata):**
+    *   Executar as correções pontuais levantadas pelo Genera antes do início da bateria completa de testes funcionais no Painel (`/admin`).
+    *   Simular os **4 Sócios Conectados Concomitantemente** (`armando`, `flavio`, `tripoint`, `gustavo` com senha `admin123`) e validar a Sala de Reuniões (`🟢 CONECTADOS (4/4)`), criação de pautas travadas e envio de documentos.
+2.  **📦 Backlog Agendado — Resíduo Técnico da `Star-Ink` (Trazer no Momento Oportuno):**
+    *   **[ ] 2.1. Conector OAuth 2.0 do Bling ERP API v3 (`/api/auth/bling/authorize` & `/api/auth/bling/callback`):**
+        *   *Origem pronta:* `/home/artz/Documentos/Antigravity/Star-Ink/src/app/api/auth/bling/`.
+        *   *Quando trazer:* No momento em que formos realizar a integração oficial com a conta do Bling ERP da AVA.
+    *   **[ ] 2.2. Páginas Legais Públicas Obrigatórias p/ Meta Ads & Google Shopping (`/politica-de-privacidade`, `/politica-de-devolucao`, `/termos-e-condicoes`, `/duvidas-frequentes`):**
+        *   *Origem pronta:* `/home/artz/Documentos/Antigravity/Star-Ink/src/app/politica-de-privacidade`, `politica-de-devolucao`, `termos-e-condicoes`, `duvidas-frequentes`.
+        *   *Quando trazer:* Antes da submissão da Sacolinha do Instagram (Meta Commerce) e Google Merchant Center.
+    *   **[ ] 2.3. Endpoints de Chat Ao Vivo do `Dr. Lex` (`/api/dr-lex/chat`) e `Concierge IA` (`/api/concierge/chat`) + Tríade de Contexto (`src/lib/brandContext.ts`):**
+        *   *Origem pronta:* `/home/artz/Documentos/Antigravity/Star-Ink/src/app/api/dr-lex/chat/route.ts`, `src/app/api/concierge/chat/route.ts` e `src/lib/brandContext.ts`.
+3.  **🚚 Rastreio do Pedido de Amostras Dimona (`#755-460-927` — Já na Filial Vitória/ES):**
+    *   Acompanhar a última milha da **J&T Express** pela nova Torre Logística em **`/admin/atendimento`** (pacote chegou à filial Vitória/ES em `24/11 às 15:45`, com previsão oficial de entrega até `27/11/2026`).
+4.  **👑 Acompanhamento da Parceria Fábrica King (`docs/KING/`):**
+    *   Monitorar o retorno da mensagem enviada no WhatsApp (`11 95360-5184` - Anderson/Adriane) para iniciar a PoC do **King Connect Gateway**.
+5.  **Reuniões Presenciais com os Sócios & Fornecedores PoD:**
+    *   **Tripoint:** Apresentar a Matriz Canônica de 26 Chaves e o Compilador *Prompt to Image* em `/admin/atelier`.
+    *   **Flávio (Financeiro & Jurídico):** Módulo de Assinaturas e ressarcimento dos R$ 209,33/mês adiantados por Armando.
+    *   **Gustavo (SAC & Marketing de Vendas):** Apresentar a Torre Logística J&T/Intelipost em `/admin/atendimento` e solicitar o estorno Reserva INK (R$ 159,00 — CDC Art. 49).
     *   Homologar CNPJ/IE no canal B2B da Dimona para destravar tabela de atacado (R$ 38 a R$ 58).
+
 
 
 

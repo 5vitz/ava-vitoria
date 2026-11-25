@@ -35,14 +35,16 @@
 
 ## 📚 Documentos Normativos do Atelier
 
-* 📄 **[Matriz Canônica de 24 Chaves Estruturais (PDF)](file:///home/artz/Documentos/Antigravity/Star-Ink/docs/estrutura_organizacional/07_ATELIER_DE_ARTES/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf):** Arquitetura espelhada de JSON (Leitura Analítica & Escrita Autoral) dividida nos Eixos Ontológico, Epistemológico e Metodológico.
-* 👁️ **[Coleção "Op-Art Reload — Outono/2027" & Arquitetura do MDV (26 Chaves)](file:///home/artz/Documentos/Antigravity/Star-Ink/docs/estrutura_organizacional/07_ATELIER_DE_ARTES/COLECAO_OP_ART_RELOAD_E_ARQUITETURA_MDV.md):** Diretrizes da 1ª Coleção Conceitual (12/02/2027), Motor de Decomposição Visual (Python/OpenCV + IA), expansão para 26 Chaves, Subprocesso de Desvinculação Autoral (mínimo 7 chaves mutadas) e Plano de Implementação no Banco e Painel `/admin/atelier`.
+* 📄 **[Matriz Canônica de 24 Chaves Estruturais (PDF)](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/MATRIZ_24_CHAVES_ESTRUTURAIS_JSON.pdf):** Arquitetura espelhada de JSON (Leitura Analítica & Escrita Autoral) dividida nos Eixos Ontológico, Epistemológico e Metodológico.
+* 👁️ **[Coleção "Op-Art Reload — Outono/2027" & Arquitetura do MDV (26 Chaves)](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/COLECAO_OP_ART_RELOAD_E_ARQUITETURA_MDV.md):** Motor de Decomposição Visual (`scripts/mdv_scanner.py` + IA), expansão para 26 Chaves, Subprocesso de Desvinculação Autoral (mínimo 7 chaves mutadas) e implementação no Banco PostgreSQL e Painel `/admin/atelier`.
+* 🎨 **[Engenharia de Prompt JSON & Matriz de Cores PoD](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/ENGENHARIA_DE_PROMPT_E_MATRIZ_DE_CORES_POD.md)** & **[Guia de Engenharia Reversa de Artes](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/atelier/ENGENHARIA_REVERSA_DE_ARTES.md)**.
 
 ---
 
 ## 📌 Tarefas Prioritárias do Atelier
 
-* [ ] **Implementação do MDV (26 Chaves) no Banco de Dados e Painel `/admin/atelier`:** Executar o Plano de Implementação documentado em `COLECAO_OP_ART_RELOAD_E_ARQUITETURA_MDV.md` (pasta-projeto `Testes`, campo `isRegistered: Sim/Não`, registro da obra `STINK-TEST-001` e inspetor das 26 chaves).
+* [x] **Implementação do MDV (26 Chaves) & Compilador Prompt-to-Image no Banco de Dados e Painel `/admin/atelier`:** Concluído em 24/11/2026 (`src/lib/artworks.ts`, `src/app/api/artworks/route.ts`, pasta-projeto `Testes`, obra inaugural `AVA-TEST-001` e editor interativo das 26 chaves).
 * [ ] **Criação da Identidade Visual do Selo COA (Certificate of Authenticity):**  
-  Desenvolver a matriz gráfica do Selo Oficial de Autenticidade da Star-Ink sob a *Estética da Subtração* (traço 1px *hairline*, monocromático, proporção áurea), integrando a Estrela Star-Ink, a data de fundação (Est. 1996) e os elementos de geometria vetorial da Blockchain.
+  Desenvolver a matriz gráfica do Selo Oficial de Autenticidade sob a *Estética da Subtração* (traço 1px *hairline*, monocromático, proporção áurea), integrando os elementos de geometria vetorial da Blockchain.
+
 
