@@ -397,3 +397,17 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 - **Fundo Root Mantido:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
 - **Cards e Botões:** Atualizados para `#FFFFFF` em todo o `/admin` (`admin-cockpit.module.css`, páginas departamentais, modais, boardroom e botões de ação), gerando alto contraste minimalista com bordas nítidas de 1px.
 - **Compilação:** `npm run build` aprovado sem erros (Turbopack, Next.js 16.2.7).
+
+### Hierarquia Tripla de Contraste — Containers Cinza Alumínio (#CFD0D6) + Cards/Botões Branco Puro (#FFFFFF)
+- **Fundo Root:** Gradiente metálico prateado (`linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)`).
+- **Cards Containers:** Alterados para `#CFD0D6` (cinza alumínio acetinado arquitetônico com bordas 1px `rgba(0,0,0,0.20)`).
+  - Topo Linha 1 (`.headerRow1Card`) que abriga botões de ação e presença;
+  - Topo Linha 2 Menu (`.headerRow2Card`) que abriga os 9 botões departamentais;
+  - Painel Container dos 8 Departamentos (`.deptsPanel`);
+  - Faixa Diretoria Executiva (`.executiveCommandStrip`);
+  - Fila de Decisões (`.decisionQueueSection`);
+  - Painel de Telemetria (`.agentsPanel`);
+  - Cabeçalhos de módulos departamentais (`.deptModuleHeader`) e Containers de Módulos (`.moduleCard`);
+  - Barras containers de abas em Produção, SAC e Atelier.
+- **Cards e Botões Internos:** Permanecem em Branco Puro (`#FFFFFF`) com tipografia nítida e bordas de 1px, gerando destaque e profundidade estética imediata.
+- **Build de Produção:** Testado e aprovado com 0 erros via Next.js Turbopack.

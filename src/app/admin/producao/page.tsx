@@ -183,8 +183,9 @@ export default function ProducaoPage() {
           display: 'flex',
           gap: '8px',
           marginBottom: '24px',
-          borderBottom: '2px solid rgba(0,0,0,0.18)',
-          paddingBottom: '12px',
+          background: '#CFD0D6',
+          border: '1px solid rgba(0, 0, 0, 0.20)',
+          padding: '8px 12px',
           overflowX: 'auto'
         }}>
           {[

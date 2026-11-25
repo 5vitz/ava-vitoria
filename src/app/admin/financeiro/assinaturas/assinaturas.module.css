@@ -172,8 +172,10 @@
   align-items: center;
   gap: 6px;
   overflow-x: auto;
-  padding-bottom: 10px;
+  padding: 8px 12px;
   margin-bottom: 16px;
+  background: #CFD0D6;
+  border: 1px solid rgba(0, 0, 0, 0.20);
   scrollbar-width: thin;
 }
 
