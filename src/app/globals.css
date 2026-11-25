@@ -44,18 +44,9 @@ body {
   position: relative;
 }
 
-/* Halftone Texture Overlay — Sensação de tela artística / galeria */
+/* Halftone Texture Overlay — Desativado no novo conceito estético */
 body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 0.8px, transparent 0.8px);
-  background-size: 3.5px 3.5px;
-  pointer-events: none;
-  z-index: 9999;
+  display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
