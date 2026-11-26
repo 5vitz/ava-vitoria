@@ -9,8 +9,12 @@
    ========================================================================== */
 
 .adminLayout {
-  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA (APPLE SPACE GRAY PRO) & ESPAÇAMENTO */
-  --admin-bg-page: #242428;
+  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA (TELA DE PINTURA PRETA COM HALFTONE SUTIL) & ESPAÇAMENTO */
+  --admin-bg-color: #161619;
+  --admin-bg-halftone: radial-gradient(rgba(255, 255, 255, 0.085) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.55) 1px, #161619 1px);
+  --admin-bg-size: 4px 4px;
+  --admin-bg-position: 0 0, 2px 2px;
   --admin-container-gap: 24px;
   --admin-text-primary: #1D1D1F;
   --admin-text-body: #1D1D1F;
@@ -74,7 +78,10 @@
   --admin-border-info: 1px solid rgba(29, 78, 216, 0.38);
 
   min-height: 100vh;
-  background: var(--admin-bg-page);
+  background-color: var(--admin-bg-color);
+  background-image: var(--admin-bg-halftone);
+  background-size: var(--admin-bg-size);
+  background-position: var(--admin-bg-position);
   color: var(--admin-text-body);
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
