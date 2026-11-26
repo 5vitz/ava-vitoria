@@ -9,12 +9,11 @@
    ========================================================================== */
 
 .adminLayout {
-  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA (TELA DE PINTURA PRETA COM HALFTONE SUTIL 2X DENSIDADE) & ESPAÇAMENTO */
-  --admin-bg-color: #121214;
-  --admin-bg-halftone: radial-gradient(rgba(255, 255, 255, 0.28) 0.75px, transparent 0.75px),
-    radial-gradient(rgba(255, 255, 255, 0.14) 0.75px, #121214 0.75px);
-  --admin-bg-size: 2px 2px;
-  --admin-bg-position: 0 0, 1px 1px;
+  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA (TELA DE PINTURA PRETA COM HALFTONE INTERMEDIÁRIO 3PX) & ESPAÇAMENTO */
+  --admin-bg-color: #101012;
+  --admin-bg-halftone: radial-gradient(rgba(255, 255, 255, 0.22) 0.85px, transparent 0.85px);
+  --admin-bg-size: 3px 3px;
+  --admin-bg-position: 0 0;
   --admin-container-gap: 24px;
   --admin-text-primary: #1D1D1F;
   --admin-text-body: #1D1D1F;

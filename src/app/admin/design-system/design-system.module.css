@@ -2,11 +2,10 @@
 
 .adminContainer {
   min-height: 100vh;
-  background-color: #121214;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.28) 0.75px, transparent 0.75px),
-    radial-gradient(rgba(255, 255, 255, 0.14) 0.75px, #121214 0.75px);
-  background-size: 2px 2px;
-  background-position: 0 0, 1px 1px;
+  background-color: #101012;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.22) 0.85px, transparent 0.85px);
+  background-size: 3px 3px;
+  background-position: 0 0;
   color: var(--admin-text-body, #1D1D1F);
   display: flex;
   flex-direction: column;
