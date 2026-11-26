@@ -10,7 +10,7 @@
 
 .adminLayout {
   /* NÍVEL 1 — FUNDO ROOT DA PÁGINA & ESPAÇAMENTO UNIFICADO ENTRE CONTAINERS */
-  --admin-bg-page: #1C1D21;
+  --admin-bg-page: #3E3E46;
   --admin-container-gap: 28px;
   --admin-text-primary: #000000;
   --admin-text-body: #18191B;
