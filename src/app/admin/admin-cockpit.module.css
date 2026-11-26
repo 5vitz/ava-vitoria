@@ -21,6 +21,8 @@
   --admin-surface-container: linear-gradient(180deg, #52525B 0%, #EEEEF2 100%);
   --admin-border-container: none;
   --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --admin-container-title-color: #FFFFFF;
+  --admin-container-subtitle-color: #F4F4F6;
 
   /* NÍVEL 3 — CARDS INTERNOS FLUTUANTES (.innerCard, .kpiCard, .deptCard, .decisionCard, .agentBadge, .dataTableWrapper) */
   --admin-surface-card: #E4E4EA;
@@ -421,17 +423,26 @@
 .moduleTitle {
   font-family: var(--font-title), sans-serif;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 1.5px;
-  color: var(--admin-text-primary);
+  color: var(--admin-container-title-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   text-transform: uppercase;
   margin: 0;
 }
 
 .moduleSubtitle {
   font-size: 13px;
-  color: var(--admin-text-secondary);
+  color: var(--admin-container-subtitle-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  font-weight: 500;
   margin: 4px 0 0 0;
+}
+
+.moduleSubtitle strong,
+.moduleSubtitle .textPrimaryBold {
+  color: #FFFFFF;
+  font-weight: 800;
 }
 
 .deptsPanel,
@@ -454,6 +465,20 @@
   flex-direction: column;
   gap: 16px;
   color: var(--admin-text-primary);
+}
+
+/* Textos descritivos que ficam diretamente na faixa superior escura do container (.moduleCard) */
+.moduleCard > .textBodySmall,
+.moduleCard > .flexRowBetween > div > .textBodySmall {
+  color: var(--admin-container-subtitle-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  font-weight: 500;
+}
+
+.moduleCard > .textBodySmall strong,
+.moduleCard > .flexRowBetween > div > .textBodySmall strong,
+.moduleCard > .flexRowBetween > div > .textBodySmall a {
+  color: #FFFFFF;
 }
 
 .moduleCardSpaced {
@@ -480,8 +505,9 @@
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  color: var(--admin-text-primary);
-  font-weight: 700;
+  color: var(--admin-container-title-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  font-weight: 800;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -490,21 +516,23 @@
 
 .cardHeading {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--admin-text-primary);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.14);
+  color: var(--admin-container-title-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
   padding-bottom: 10px;
   margin: 0;
 }
 
 .cardHeadingNoBorder {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--admin-text-primary);
+  color: var(--admin-container-title-color);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   margin: 0;
 }
 
