@@ -49,15 +49,15 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.46));
+  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.12));
   backdrop-filter: var(--admin-btn-active-blur, blur(12px));
   -webkit-backdrop-filter: var(--admin-btn-active-blur, blur(12px));
-  color: var(--admin-btn-active-text, #FEFCF5);
+  color: var(--admin-btn-active-text, #000000);
   font-size: 11px;
   font-weight: 700;
   padding: 8px 14px;
   border-radius: 2px;
-  border: var(--admin-btn-active-border, 1px solid rgba(0, 0, 0, 0.4));
+  border: var(--admin-btn-active-border, 1px solid #000000);
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -66,7 +66,7 @@
 }
 
 .btnPrimary:hover {
-  background: var(--admin-btn-active-hover-bg, rgba(0, 0, 0, 0.65));
+  background: var(--admin-btn-active-hover-bg, rgba(0, 0, 0, 0.20));
 }
 
 .btnSecondary {
@@ -216,10 +216,10 @@
 }
 
 .filterBtnActive {
-  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.46)) !important;
+  background: var(--admin-btn-active-bg, rgba(0, 0, 0, 0.12)) !important;
   backdrop-filter: var(--admin-btn-active-blur, blur(12px)) !important;
   -webkit-backdrop-filter: var(--admin-btn-active-blur, blur(12px)) !important;
-  color: var(--admin-btn-active-text, #FEFCF5) !important;
+  color: var(--admin-btn-active-text, #000000) !important;
   border: var(--admin-btn-active-border, 1px solid #000000) !important;
 }
 

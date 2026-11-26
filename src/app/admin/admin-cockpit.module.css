@@ -37,10 +37,10 @@
   --admin-btn-border: 1px solid #8E8E98;
   --admin-btn-hover-bg: rgba(0, 0, 0, 0.12);
 
-  --admin-btn-active-bg: rgba(0, 0, 0, 0.46);
-  --admin-btn-active-hover-bg: rgba(0, 0, 0, 0.65);
-  --admin-btn-active-text: #FEFCF5;
-  --admin-btn-active-border: 1px solid rgba(0, 0, 0, 0.40);
+  --admin-btn-active-bg: rgba(0, 0, 0, 0.12);
+  --admin-btn-active-hover-bg: rgba(0, 0, 0, 0.20);
+  --admin-btn-active-text: #000000;
+  --admin-btn-active-border: 1px solid #000000;
   --admin-btn-active-blur: blur(12px);
 
   --admin-input-bg: #FFFFFF;
