@@ -1,8 +1,10 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
+import { WorkflowPersistentState } from '@/lib/workflowState';
 
 const CHECKLIST_ITEMS = [
   { id: 1, label: 'Cartão CNPJ atualizado (CNAE 4781-4/00 vestuário)', checked: true },
@@ -27,6 +29,45 @@ export default function JuridicoPage() {
   const [lexQuestion, setLexQuestion] = useState('');
   const [lexAnswer, setLexAnswer] = useState<string | null>(null);
 
+  const [wfState, setWfState] = useState<WorkflowPersistentState | null>(null);
+  const [feedback, setFeedback] = useState<string | null>(null);
+  const [registering, setRegistering] = useState(false);
+
+  const fetchWorkflow = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/workflow', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success && data.state) {
+        setWfState(data.state);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar fila Blockchain:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchWorkflow();
+  }, [fetchWorkflow]);
+
+  const handleRegisterOnBlockchain = async () => {
+    setRegistering(true);
+    try {
+      const res = await fetch('/api/admin/workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'REGISTER_ARTWORK_ON_BLOCKCHAIN' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+        setFeedback(data.message);
+        setTimeout(() => setFeedback(null), 6500);
+      }
+    } finally {
+      setRegistering(false);
+    }
+  };
+
   const toggleCheck = (id: number) => {
     setChecklist((prev) => prev.map((item) => (item.id === id ? { ...item, checked: !item.checked } : item)));
   };
@@ -46,13 +87,13 @@ export default function JuridicoPage() {
       q.includes('ncm') ||
       q.includes('b2b')
     ) {
-      ans = "Dr. Lex (Reforma Tributária — LC 214/2025 · Motor RFB RTC): 1) Na emissão de NF-e (Modelo 55) via Bling ERP, o NCM padrão de vestuário (6109.10.00) deve estar estritamente vinculado ao código cClassTrib e CST de IBS/CBS para evitar a rejeição fiscal REG-011 da Receita Federal. 2) Estratégia Híbrida Simples Nacional: No Varejo B2C (Site e Marketplaces), recolhemos CBS e IBS por dentro do DAS (Anexo I com alíquota reduzida). Já em grandes contratos B2B Corporativos (Uniformes Reserva INK), a LC 214/2025 permite avaliar o destaque pelo regime regular caso a empresa compradora exija crédito tributário integral de IBS/CBS. 3) Arquitetura Limpa: O motor Java oficial da Receita (calculadora-rtc-simples-nacional) roda na camada do ERP integrador (Bling), poupando 100% de RAM da nossa VPS Contabo.";
+      ans = "Dr. Lex (Reforma Tributária — LC 214/2025 · Motor RFB RTC): 1) Na emissão de NF-e (Modelo 55) via Bling ERP, o NCM padrão de vestuário (6109.10.00) deve estar estritamente vinculado ao código cClassTrib e CST de IBS/CBS para evitar a rejeição fiscal REG-011 da Receita Federal. 2) Estratégia Híbrida Simples Nacional: No Varejo B2C (Site e Marketplaces), recolhemos CBS e IBS por dentro do DAS (Anexo I com alíquota reduzida). Já em grandes contratos B2B Corporativos (Uniformes Reserva INK), a LC 214/2025 permite avaliar o destaque pelo regime regular caso a empresa compradora exija crédito tributário integral de IBS/CBS.";
     } else if (q.includes('mei') || q.includes('ltda') || q.includes('simples') || q.includes('tribut') || q.includes('imposto')) {
-      ans = "Dr. Lex: O desenquadramento de MEI para LTDA no Simples Nacional é mandatório para a escala nacional. O MEI limita o faturamento a R$ 81 mil/ano (média de 38 camisetas/mês na nossa faixa de preço), não comporta os 4 sócios no Contrato Social e bloqueia canais como Dafiti e Reserva. No entanto, com o MEI ativo com Inscrição Estadual (SEFAZ-ES), já podemos validar vendas imediatas emitindo NF-e 55 pelo Bling ERP antes da transformação na JUCEES.";
-    } else if (q.includes('inpi') || q.includes('marca') || q.includes('patente') || q.includes('registro')) {
-      ans = "Dr. Lex: O registro de marca da AVA deve ser protocolado no INPI em duas classes fundamentais: Classe NCL 25 (Artigos de vestuário, camisetas, regatas e bonés) e Classe NCL 35 (Comércio eletrônico e representação de produtos de moda).";
+      ans = "Dr. Lex: O desenquadramento de MEI para LTDA no Simples Nacional é mandatório para a escala nacional. O MEI limita o faturamento a R$ 81 mil/ano (média de 38 camisetas/mês na nossa faixa de preço), não comporta os 4 sócios no Contrato Social e bloqueia canais como Dafiti e Reserva.";
+    } else if (q.includes('inpi') || q.includes('marca') || q.includes('patente') || q.includes('registro') || q.includes('blockchain')) {
+      ans = "Dr. Lex: A blindagem autoral das artes da AVA opera em fluxo bipartite: o Atelier (Tripoint) aprova o JSON de 26 Chaves gerando o Hash SHA-256, e o Jurídico (Flávio) ancora esse Hash no protocolo OpenTimestamps (Blockchain Bitcoin — custo R$ 0,00), emitindo o comprovante imutável (.ots / Certificado COA).";
     } else if (q.includes('troca') || q.includes('devolu') || q.includes('cdc') || q.includes('direito') || q.includes('arrependimento')) {
-      ans = "Dr. Lex: O Artigo 49 do Código de Defesa do Consumidor garante 7 dias corridos para devolução sem ônus em compras online. No nosso portal /atendimento, o Agente Discriminador separa desistência legal de vício de fabricação (90 dias de garantia legal sob o Art. 26 do CDC, cobrada do fornecedor PoD).";
+      ans = "Dr. Lex: O Artigo 49 do Código de Defesa do Consumidor garante 7 dias corridos para devolução sem ônus em compras online.";
     }
 
     setLexAnswer(ans);
@@ -66,6 +107,7 @@ export default function JuridicoPage() {
 
   const completedCount = checklist.filter((c) => c.checked).length;
   const progressPercent = Math.round((completedCount / checklist.length) * 100);
+  const pilot = wfState?.pilotPiece;
 
   return (
     <div className={styles.adminLayout}>
@@ -74,15 +116,116 @@ export default function JuridicoPage() {
       <main className={styles.mainContainer}>
         <div className={styles.deptModuleHeader}>
           <div>
-            <h1 className={styles.moduleTitle}>Depto 01 · Jurídico &amp; Compliance</h1>
+            <h1 className={styles.moduleTitle}>Depto 01 · Jurídico, Registro Blockchain &amp; Compliance</h1>
             <p className={styles.moduleSubtitle}>
-              Sócio Titular: <strong>Flávio</strong> · Governança Fiscal, Reforma Tributária (LC 214/2025 — CBS/IBS), Transição MEI ➔ LTDA, INPI e Dr. Lex
+              Sócio Titular: <strong>Flávio</strong> · Registro Blockchain do JSON 26 Chaves (OpenTimestamps Bitcoin), Transição MEI ➔ LTDA, LC 214/2025 e Dr. Lex
             </p>
           </div>
           <span className={styles.partnerOwnerBadge}>
             👤 Titular: Flávio
           </span>
         </div>
+
+        {feedback && (
+          <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
+            {feedback}
+          </div>
+        )}
+
+        {/* =================================================================== */}
+        {/* FASE 1 (ETAPA 2): BANDEJA DE REGISTRO BLOCKCHAIN DO JSON 26 CHAVES   */}
+        {/* =================================================================== */}
+        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+          <div className={styles.flexRowBetween}>
+            <div>
+              <h2 className={styles.cardHeadingNoBorder}>
+                ⛓️ FASE 1 (Etapa 2): Bandeja de Artes Aprovadas Aguardando Registro na Blockchain (OpenTimestamps Bitcoin)
+              </h2>
+              <p className={styles.textBodySmall}>
+                Fluxo Bipartite de Propriedade Intelectual: O <strong>Atelier (08 · Tripoint)</strong> aprova a arte e congela o JSON de 26 Chaves com Hash SHA-256. O <strong>Jurídico (01 · Flávio / Dr. Lex)</strong> ancora o Hash na Blockchain Bitcoin (R$ 0,00) emitindo o Certificado COA (.ots).
+              </p>
+            </div>
+
+            {!pilot ? (
+              <span className={styles.statusPill}>Fila Limpa (0 Artes Pendentes)</span>
+            ) : pilot.status === 'APPROVED_PENDING_BLOCKCHAIN' ? (
+              <span className={`${styles.statusPill} ${styles.statusPillWarning}`}>
+                ⚡ 1 ARTE AGUARDANDO REGISTRO BLOCKCHAIN
+              </span>
+            ) : (
+              <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
+                🔒 APROVADA &amp; REGISTRADA NA BLOCKCHAIN
+              </span>
+            )}
+          </div>
+
+          {!pilot ? (
+            <div className={`${styles.innerCard} ${styles.flexRowBetween}`}>
+              <div>
+                <div className={styles.decisionTitle}>
+                  ✓ Nenhuma Arte Fictícia na Fila do Jurídico
+                </div>
+                <p className={styles.textBodySmall}>
+                  Para alimentar esta bandeja com a nossa Peça Única real, acesse o <strong>Depto 08 · Atelier Criativo</strong> e clique em <strong>&ldquo;✅ Aprovar Arte para Coleção&rdquo;</strong>.
+                </p>
+              </div>
+              <Link href="/admin/atelier" className={styles.btnPrimary}>
+                🎨 Ir ao Atelier (Depto 08) ➔
+              </Link>
+            </div>
+          ) : (
+            <div
+              className={`${styles.innerCard} ${styles.flexColStack} ${
+                pilot.blockchainTxId ? styles.innerCardSuccess : styles.innerCardSelected
+              }`}
+            >
+              <div className={styles.flexRowBetween}>
+                <div>
+                  <div className={styles.decisionTitle}>
+                    {pilot.code} — {pilot.title}
+                  </div>
+                  <div className={styles.textBodySmall}>
+                    Coleção: <strong>{pilot.collectionName}</strong> · Modelagem: <strong>{pilot.garmentModel} ({pilot.garmentColor} · Tam {pilot.garmentSize})</strong> · Desvinculação MDV: <strong>{pilot.mutatedKeysCount}/26 Chaves Mutadas</strong>
+                  </div>
+                </div>
+                <span className={styles.statusPill}>
+                  {pilot.blockchainTxId
+                    ? `🔒 ${pilot.blockchainTxId}`
+                    : '⏳ Aguardando Assinatura Blockchain'}
+                </span>
+              </div>
+
+              <div className={styles.innerCardCompact}>
+                <div className={styles.kpiLabel}>Hash Criptográfico SHA-256 do JSON de 26 Chaves:</div>
+                <code>{pilot.sha256}</code>
+                {pilot.otsReceipt && (
+                  <div className={`${styles.textPrimaryBold} ${styles.textSuccess}`}>
+                    ✓ Certificado OpenTimestamps emitido: {pilot.otsReceipt} em {pilot.blockchainRegisteredAt}
+                  </div>
+                )}
+              </div>
+
+              <div className={styles.flexRowStart}>
+                {pilot.status === 'APPROVED_PENDING_BLOCKCHAIN' ? (
+                  <button
+                    type="button"
+                    onClick={handleRegisterOnBlockchain}
+                    disabled={registering}
+                    className={styles.btnPrimary}
+                  >
+                    {registering
+                      ? 'Ancorando Hash SHA-256 na Blockchain...'
+                      : '⛓️ Registrar JSON na Blockchain (Flávio + Dr. Lex · OpenTimestamps)'}
+                  </button>
+                ) : (
+                  <Link href="/admin/financeiro" className={styles.btnSuccess}>
+                    💎 Avançar para FASE 2 (Etapa 3): Precificar Peça Única no Financeiro (Depto 02 · Flávio) ➔
+                  </Link>
+                )}
+              </div>
+            </div>
+          )}
+        </section>
 
         {/* Diagnóstico MEI vs LTDA */}
         <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
@@ -110,46 +253,6 @@ export default function JuridicoPage() {
                 <li>Liberação imediata nos 10 canais via Bling ERP.</li>
                 <li>Mesmo número de CNPJ preservado na transição.</li>
               </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Inteligência Reforma Tributária do Consumo (RTC — LC 214/2025) */}
-        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
-          <div className={styles.flexRowBetween}>
-            <h2 className={styles.cardHeadingNoBorder}>
-              ⚖️ Inteligência Reforma Tributária (RTC — LC 214/2025 · CBS &amp; IBS no Simples Nacional)
-            </h2>
-            <span className={styles.statusPill}>
-              Ref. Oficial: ReceitaFederal/calculadora-rtc-simples-nacional (v1.0.2)
-            </span>
-          </div>
-          <div className={styles.autoGridCards}>
-            <div className={styles.innerCard}>
-              <div className={styles.decisionTitle}>
-                1. Trava Fiscal NCM × cClassTrib (Regra REG-011)
-              </div>
-              <p className={styles.textBodySmall}>
-                Na virada 2026 ➔ 2027, o motor da Receita valida o vínculo estrito entre o <strong>NCM 6109.10.00</strong> (camisetas e regatas de malha de algodão) e os códigos <strong>cClassTrib</strong> e <strong>CST</strong> do grupo <code>&lt;IBSCBS&gt;</code> na NF-e Modelo 55 para evitar rejeição (HTTP 422 / REG-011).
-              </p>
-            </div>
-
-            <div className={styles.innerCard}>
-              <div className={`${styles.decisionTitle} ${styles.textSuccess}`}>
-                2. Estratégia B2C (Pelo DAS) vs. B2B (Crédito Integral)
-              </div>
-              <p className={styles.textBodySmall}>
-                A LC 214/2025 permite recolher CBS/IBS <strong>por dentro do DAS</strong> (Anexo I com alíquota reduzida — ideal para o nosso Varejo B2C) ou pelo <strong>regime regular</strong> para transferir crédito integral de CBS/IBS em grandes lotes corporativos B2B (Uniformes Reserva INK).
-              </p>
-            </div>
-
-            <div className={styles.innerCard}>
-              <div className={styles.decisionTitle}>
-                3. Zero Overhead na VPS Contabo (Delegado ao Bling)
-              </div>
-              <p className={styles.textBodySmall}>
-                O motor Java 25 / Spring Boot da Receita Federal é processado nativamente pelo <strong>Bling ERP v3</strong> na emissão do XML da NF-e 55, mantendo nosso servidor Next.js/PostgreSQL 100% leve e sem consumo extra de memória RAM.
-              </p>
             </div>
           </div>
         </section>
@@ -182,16 +285,23 @@ export default function JuridicoPage() {
           <div className={styles.moduleCard}>
             <h2 className={styles.cardHeading}>Consultoria Jurídica IA · Dr. Lex</h2>
             <p className={styles.textBodySmall}>
-              Tire dúvidas rápidas sobre contratos, Reforma Tributária (CBS/IBS — LC 214/2025), Simples Nacional, proteção de marca no INPI e direito do consumidor.
+              Tire dúvidas rápidas sobre contratos, Registro Blockchain (.ots), Reforma Tributária (CBS/IBS — LC 214/2025) e transição MEI ➔ LTDA.
             </p>
 
             <div className={styles.flexRowStart}>
               <button
                 type="button"
+                onClick={() => askLexTopic('Como funciona o registro Blockchain do JSON 26 chaves?')}
+                className={styles.btnSecondary}
+              >
+                ⛓️ Registro Blockchain (.ots)
+              </button>
+              <button
+                type="button"
                 onClick={() => askLexTopic('Como funciona a Reforma Tributária (RTC — CBS, IBS e cClassTrib) na AVA?')}
                 className={styles.btnSecondary}
               >
-                ⚖️ Reforma Tributária (CBS/IBS &amp; cClassTrib)
+                ⚖️ Reforma Tributária (LC 214/2025)
               </button>
               <button
                 type="button"
@@ -200,26 +310,12 @@ export default function JuridicoPage() {
               >
                 🏛️ Transição MEI ➔ LTDA
               </button>
-              <button
-                type="button"
-                onClick={() => askLexTopic('Como registrar a marca AVA no INPI nas classes 25 e 35?')}
-                className={styles.btnSecondary}
-              >
-                ®️ Marca INPI (Classes 25 e 35)
-              </button>
-              <button
-                type="button"
-                onClick={() => askLexTopic('Como funciona a regra de trocas CDC Art. 49 vs defeito PoD?')}
-                className={styles.btnSecondary}
-              >
-                🛡️ Trocas CDC Art. 49
-              </button>
             </div>
 
             <form onSubmit={handleAskLex} className={styles.flexColStack}>
               <textarea
                 rows={3}
-                placeholder="Ex: Como funciona a Reforma Tributária (CBS/IBS e cClassTrib) no Simples Nacional?"
+                placeholder="Ex: Como funciona o registro Blockchain do JSON 26 chaves?"
                 value={lexQuestion}
                 onChange={(e) => setLexQuestion(e.target.value)}
                 className={styles.formTextarea}

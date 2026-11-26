@@ -67,7 +67,6 @@ async function ensureDefaultPautas() {
 
 export async function GET() {
   try {
-    await ensureDefaultPautas();
 
     const pautas = await prisma.boardPauta.findMany({
       orderBy: { created_at: "desc" },

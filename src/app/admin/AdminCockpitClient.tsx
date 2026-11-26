@@ -1,181 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { getSession } from 'next-auth/react';
 import AdminHeader from './AdminHeader';
 import styles from './admin-cockpit.module.css';
-
-type VoteState = 'APPROVED' | 'PENDING' | 'REJECTED';
-
-interface PartnerVotes {
-  Armando: VoteState;
-  Flavio: VoteState;
-  Tripoint: VoteState;
-  Gustavo: VoteState;
-}
-
-interface DecisionItem {
-  id: string;
-  depto: string;
-  tag: string;
-  title: string;
-  description: string;
-  actionPrimary: string;
-  timeAgo: string;
-  votes: PartnerVotes;
-  lastNudge?: string;
-}
-
-const INITIAL_DECISIONS: DecisionItem[] = [
-  {
-    id: 'DEC-PRICE-01',
-    depto: 'Urna Colegiada · Precificação & Margem',
-    tag: 'Consenso 4/4 Obrigatório',
-    title: 'Homologação de Preço & Margem: T-Shirt Prime (60%) + Chave Posição 2',
-    description:
-      'Custo PoD Dimona (Frente+Costas Silk HD): R$ 67,90 ➔ Preço Vitrine Proposto: R$ 169,75 (Lucro Líquido Real: R$ 85,73/peça após Simples 6% e Gateway 3,5%). Regra: Preço baixo morre na praia; preço alto não sai do lugar.',
-    actionPrimary: 'Homologar Precificação na Vitrine',
-    timeAgo: 'Em votação na esteira',
-    votes: {
-      Armando: 'APPROVED',
-      Flavio: 'APPROVED',
-      Tripoint: 'PENDING',
-      Gustavo: 'PENDING'
-    }
-  },
-  {
-    id: 'DEC-POD-02',
-    depto: '04 · Produção & Fornecedores (Armando)',
-    tag: 'Lote Piloto #755-460-927',
-    title: 'Conferência das 6 Amostras Físicas Dimona (Frente + Costas)',
-    description:
-      'Pedido #755-460-927 ENVIADO pela Dimona via J&T Express em 23/11 às 17:24 (R$ 472,80 pago via PIX). Previsão de chegada em Vitória/ES: 26/11. Assim que a caixa chegar, os 4 sócios votam a aprovação das malhas e do Silk HD pós-lavagem.',
-    actionPrimary: 'Homologar Qualidade Fabril',
-    timeAgo: 'Em Trânsito J&T · Chega 26/11',
-    votes: {
-      Armando: 'APPROVED',
-      Flavio: 'PENDING',
-      Tripoint: 'APPROVED',
-      Gustavo: 'PENDING'
-    }
-  },
-  {
-    id: 'DEC-JUR-03',
-    depto: '01 · Jurídico & Compliance (Flávio)',
-    tag: 'Gatilho Fiscal 38 Peças/Mês',
-    title: 'Transição Societária MEI ➔ LTDA (Minuta do Contrato Social)',
-    description:
-      'Teto do MEI estoura com apenas 38 camisetas/mês. Votação da minuta do Contrato Social consolidado da sociedade e migração para Simples Nacional Anexo I.',
-    actionPrimary: 'Autorizar Abertura LTDA',
-    timeAgo: 'Prioridade pré-inauguração',
-    votes: {
-      Armando: 'APPROVED',
-      Flavio: 'APPROVED',
-      Tripoint: 'APPROVED',
-      Gustavo: 'PENDING'
-    }
-  },
-  {
-    id: 'DEC-MKT-04',
-    depto: '06 · Vendas (Gustavo) & 07 · Marketing (Tripoint)',
-    tag: 'Campanha & Tráfego',
-    title: 'Ativação da Campanha "EU TENHO CUPOM!" (Estoque Físico 10% a 50% OFF)',
-    description:
-      'Escoamento do estoque físico antigo via Vitrine Secreta por senhas prefixadas (1 a 5), preservando o preço cheio da Nova Coleção PoD na vitrine principal.',
-    actionPrimary: 'Liberar Campanha & Tráfego',
-    timeAgo: 'Pronto para disparo',
-    votes: {
-      Armando: 'APPROVED',
-      Flavio: 'PENDING',
-      Tripoint: 'APPROVED',
-      Gustavo: 'APPROVED'
-    }
-  }
-];
-
-const DEPARTMENTS_DATA = [
-  {
-    number: '01',
-    title: 'Jurídico & Compliance',
-    owner: 'Flávio',
-    icon: '⚖️',
-    desc: 'Contrato Social dos 4 Sócios, transição MEI ➔ LTDA, blindagem INPI, termos CDC/LGPD e assistente Dr. Lex.',
-    href: '/admin/juridico',
-    metric: '15 Docs Legais',
-    status: 'Alerta MEI (38 pçs)'
-  },
-  {
-    number: '02',
-    title: 'Financeiro, Fiscal & ERP',
-    owner: 'Flávio',
-    icon: '💎',
-    desc: 'Unit Economics (DRE), Conector Fiscal Bling ERP v3, Chave de 2 Posições e simulador de Precificação para votação 4/4.',
-    href: '/admin/financeiro',
-    metric: 'Margem Alvo 58%',
-    status: 'Urna de Preços'
-  },
-  {
-    number: '03',
-    title: 'Arquitetura & TI',
-    owner: 'Armando',
-    icon: '📐',
-    desc: 'Arquitetura de Sistemas, Next.js 16, PostgreSQL ACID, VPS Contabo, Design System, feeds XML/JSON e GEO (/llms.txt).',
-    href: '/admin/engenharia',
-    metric: 'VPS 31.220.102.2',
-    status: 'Online · PM2 OK'
-  },
-  {
-    number: '04',
-    title: 'Produção & Fornecedores',
-    owner: 'Armando',
-    icon: '🏭',
-    desc: 'Hub Multi-Supplier (Dimona/Printful/Reserva), controle de amostras físicas (#755-460-927), auditoria 2h e estoque físico.',
-    href: '/admin/producao',
-    metric: '6 Amostras PoD',
-    status: 'SLA Doca 100% OK'
-  },
-  {
-    number: '05',
-    title: 'SAC',
-    owner: 'Gustavo',
-    icon: '💬',
-    desc: 'Torre Logística Pós-Coleta (J&T/Intelipost), Concierge IA 24/7, Agente Discriminador e gatilho BPO (5 atendimentos).',
-    href: '/admin/atendimento',
-    metric: '98% IA · BPO N1',
-    status: 'Zero Omissão'
-  },
-  {
-    number: '06',
-    title: 'Marketing de Vendas',
-    owner: 'Gustavo',
-    icon: '📈',
-    desc: 'Análise de KPIs de tráfego, plano de investimentos estratégicos (ROAS), votação 4/4 e performance dos 10 Canais.',
-    href: '/admin/vendas',
-    metric: '10 Canais · ROAS',
-    status: 'Ciclo PDCA'
-  },
-  {
-    number: '07',
-    title: 'Marketing de Produto',
-    owner: 'Tripoint',
-    icon: '🚀',
-    desc: 'Estratégia da Coleção, tema das estampas e Visual Merchandising no Instagram (Trios 3x3 9:16) e Vitrine Canônica.',
-    href: '/admin/marketing',
-    metric: 'Grid 3x3 9:16',
-    status: 'Visual Merch'
-  },
-  {
-    number: '08',
-    title: 'Atelier Criativo & Mídias',
-    owner: 'Tripoint',
-    icon: '🎨',
-    desc: 'Projetos & Coleções (★ Vitrine Ativa), Biblioteca de Mídias 9:16 e Artes Matrizes 300 DPI com prontuário MDV 26.',
-    href: '/admin/atelier',
-    metric: '300 DPI · MDV 26',
-    status: 'Curadoria Ativa'
-  }
-];
+import {
+  WorkflowPersistentState,
+  DecisionQueueItem,
+  PartnerVotes,
+} from '@/lib/workflowState';
 
 const PARTNERS_KEYS: (keyof PartnerVotes)[] = ['Armando', 'Flavio', 'Tripoint', 'Gustavo'];
 
@@ -183,63 +17,226 @@ const PARTNER_LABELS: Record<keyof PartnerVotes, string> = {
   Armando: 'Armando',
   Flavio: 'Flávio',
   Tripoint: 'Tripoint',
-  Gustavo: 'Gustavo'
+  Gustavo: 'Gustavo',
 };
 
 export default function AdminCockpitClient() {
-  const [decisions, setDecisions] = useState<DecisionItem[]>(INITIAL_DECISIONS);
+  const [wfState, setWfState] = useState<WorkflowPersistentState | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
   const [nudgeToast, setNudgeToast] = useState<string | null>(null);
+
+  const fetchWorkflow = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await fetch('/api/admin/workflow', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success && data.state) {
+        setWfState(data.state);
+      }
+    } catch (err) {
+      console.error('Erro ao carregar estado do fluxo:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     getSession();
-  }, []);
+    fetchWorkflow();
+  }, [fetchWorkflow]);
 
-  const handleResolve = (id: string) => {
-    setDecisions((prev) => prev.filter((d) => d.id !== id));
+  const showToast = (msg: string) => {
+    setNudgeToast(msg);
+    setTimeout(() => setNudgeToast(null), 6500);
   };
 
-  const handleCycleVote = (decisionId: string, partner: keyof PartnerVotes) => {
-    const nextState: Record<VoteState, VoteState> = {
-      PENDING: 'APPROVED',
-      APPROVED: 'REJECTED',
-      REJECTED: 'PENDING'
-    };
-
-    setDecisions((prev) =>
-      prev.map((item) => {
-        if (item.id !== decisionId) return item;
-        return {
-          ...item,
-          votes: {
-            ...item.votes,
-            [partner]: nextState[item.votes[partner]]
-          }
-        };
-      })
-    );
+  const handleCycleVote = async (decisionId: string, partner: keyof PartnerVotes) => {
+    try {
+      const res = await fetch('/api/admin/workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'CYCLE_VOTE', decisionId, partner }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+      }
+    } catch (err) {
+      console.error('Erro ao votar:', err);
+    }
   };
 
-  const handleNudgePending = (item: DecisionItem) => {
+  const handleExecuteDecision = async (item: DecisionQueueItem) => {
+    try {
+      const res = await fetch('/api/admin/workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'APPROVE_ALL_VOTES_AND_EXECUTE',
+          decisionId: item.id,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+        showToast(data.message || 'Decisão 4/4 homologada e executada com sucesso!');
+      }
+    } catch (err) {
+      console.error('Erro ao homologar decisão:', err);
+    }
+  };
+
+  const handleNudgePending = (item: DecisionQueueItem) => {
     const pendingNames = PARTNERS_KEYS.filter((k) => item.votes[k] !== 'APPROVED').map(
       (k) => PARTNER_LABELS[k]
     );
 
     if (pendingNames.length === 0) {
-      setNudgeToast(`✅ Todos os 4 sócios já aprovaram a pauta "${item.title}"!`);
+      showToast(`✅ Todos os 4 sócios já aprovaram a pauta "${item.title}"!`);
     } else {
-      const msg = `📲 Cobrança disparada via WhatsApp e E-mail para: ${pendingNames.join(', ')} — exigindo voto na pauta "${item.title}"!`;
-      setNudgeToast(msg);
-      setDecisions((prev) =>
-        prev.map((d) =>
-          d.id === item.id
-            ? { ...d, lastNudge: `Cobrança WhatsApp/E-mail enviada para ${pendingNames.join(', ')} agora mesmo` }
-            : d
-        )
+      showToast(
+        `📲 Cobrança disparada via WhatsApp e E-mail para: ${pendingNames.join(', ')} — exigindo voto na pauta "${item.title}"!`
       );
     }
-
-    setTimeout(() => setNudgeToast(null), 5500);
   };
+
+  const handleResetCleanSlate = async () => {
+    try {
+      const res = await fetch('/api/admin/workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'RESET_CLEAN_SLATE' }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+        showToast(data.message);
+      }
+    } catch {
+      showToast('Erro ao zerar estado de homologação.');
+    }
+  };
+
+  const decisions = wfState?.decisionsQueue || [];
+  const charter = wfState?.activeCharter;
+  const pilot = wfState?.pilotPiece;
+  const liveOrders = wfState?.liveOrders || [];
+  const archivedClients = wfState?.archivedClientOrders || [];
+  const archivedSamples = wfState?.archivedSampleOrders || [];
+
+  const DEPARTMENTS_DATA = [
+    {
+      number: '01',
+      title: 'Jurídico & Compliance',
+      owner: 'Flávio',
+      icon: '⚖️',
+      desc: 'Fila de Registro Blockchain (.ots Bitcoin) das artes aprovadas, Contrato Social MEI ➔ LTDA, INPI e Dr. Lex.',
+      href: '/admin/juridico',
+      metric:
+        pilot?.status === 'APPROVED_PENDING_BLOCKCHAIN'
+          ? '1 Arte Aguardando Blockchain'
+          : pilot?.blockchainTxId
+          ? '1 Arte Registrada (.ots)'
+          : '0 Pendências Blockchain',
+      status:
+        pilot?.status === 'APPROVED_PENDING_BLOCKCHAIN'
+          ? '⚡ Ação Flávio: Registrar'
+          : 'Fila Limpa',
+    },
+    {
+      number: '02',
+      title: 'Financeiro, Fiscal & ERP',
+      owner: 'Flávio',
+      icon: '💎',
+      desc: 'Unit Economics (DRE Real), Precificação da Peça Única p/ Urna 4/4 e emissão do PDF "Vale uma NF-e" na Sala de Reuniões.',
+      href: '/admin/financeiro',
+      metric: `Amostras P&D: R$ 472,80`,
+      status:
+        pilot?.status === 'REGISTERED_ON_BLOCKCHAIN'
+          ? '⚡ Ação Flávio: Precificar'
+          : liveOrders.some((o) => !o.nfeAttachedInBoardroom)
+          ? '⚡ Anexar Vale uma NF-e'
+          : 'Contabilidade Real',
+    },
+    {
+      number: '03',
+      title: 'Arquitetura & TI',
+      owner: 'Armando',
+      icon: '📐',
+      desc: 'Arquitetura de Sistemas, Next.js 16, PostgreSQL ACID, VPS Contabo, Design System, feeds XML/JSON e GEO (/llms.txt).',
+      href: '/admin/engenharia',
+      metric: 'VPS 31.220.102.2',
+      status: 'Online · PM2 OK',
+    },
+    {
+      number: '04',
+      title: 'Produção & Fornecedores',
+      owner: 'Armando',
+      icon: '🏭',
+      desc: 'Esteira Viva de Pedidos de Clientes até a Doca (Amostras Dimona #755-460-927 arquivadas na Diretoria).',
+      href: '/admin/producao',
+      metric: `${liveOrders.filter((o) => o.productionStep !== '5_COLETADO_SAC').length} Pedido(s) na Fábrica`,
+      status:
+        liveOrders.length > 0 ? '⚡ Em Fabricação PoD' : 'Esteira Limpa (0 Ativos)',
+    },
+    {
+      number: '05',
+      title: 'SAC',
+      owner: 'Gustavo',
+      icon: '💬',
+      desc: 'Torre Logística Pós-Coleta (J&T/Intelipost), Entrega ao Cliente e Arquivamento na Diretoria (Pasta: Clientes).',
+      href: '/admin/atendimento',
+      metric: `${liveOrders.filter((o) => o.productionStep === '5_COLETADO_SAC').length} Entrega(s) Pós-Coleta`,
+      status:
+        liveOrders.some((o) => o.productionStep === '5_COLETADO_SAC')
+          ? '⚡ Ação Gustavo: Entregar'
+          : '0 Chamados Abertos',
+    },
+    {
+      number: '06',
+      title: 'Marketing de Vendas',
+      owner: 'Gustavo',
+      icon: '📈',
+      desc: 'Relatório Inteligente da Diretoria (Mais Vendido / Menos Vendido), Simulador de Compra de Cliente e 10 Canais.',
+      href: '/admin/vendas',
+      metric: `${archivedClients.length} Venda(s) Concluída(s)`,
+      status:
+        pilot?.status === 'PUBLISHED_IN_STOREFRONT'
+          ? '⚡ Pronto p/ Simular Compra'
+          : 'Ciclo PDCA',
+    },
+    {
+      number: '07',
+      title: 'Marketing de Produto',
+      owner: 'Tripoint',
+      icon: '🚀',
+      desc: 'PONTO DE PARTIDA (Fase 0): Os 4 Pilares da Coleção (Nome, Tema, Estética e Mensagem A·V·A) e Vitrine Canônica.',
+      href: '/admin/marketing',
+      metric: charter ? `Coleção: ${charter.name}` : '1º Passo: Criar Coleção',
+      status: !charter
+        ? '⚡ Iniciar Fase 0 Aqui'
+        : pilot?.status === 'PRICE_APPROVED'
+        ? '⚡ Publicar na Vitrine'
+        : charter.status === 'HOMOLOGADA_4_4'
+        ? '✓ Coleção Homologada 4/4'
+        : '⏳ Em Votação na Urna',
+    },
+    {
+      number: '08',
+      title: 'Atelier Criativo & Mídias',
+      owner: 'Tripoint',
+      icon: '🎨',
+      desc: 'Criação da Peça Única com Matriz Canônica MDV (26 Chaves) & 300 DPI. Envia para Registro Blockchain no Jurídico.',
+      href: '/admin/atelier',
+      metric: pilot ? `Peça: ${pilot.code}` : 'MDV 26 Chaves · 300 DPI',
+      status:
+        charter?.status === 'HOMOLOGADA_4_4' && !pilot
+          ? '⚡ Criar & Aprovar Peça Única'
+          : pilot
+          ? `✓ ${pilot.status}`
+          : 'Aguarda Fase 0 (07)',
+    },
+  ];
 
   return (
     <div className={styles.adminLayout}>
@@ -251,7 +248,9 @@ export default function AdminCockpitClient() {
           <div>
             <div className={styles.flexRowStart}>
               <span>🏛️</span>
-              <span className={styles.sectionHeading}>DIRETORIA EXECUTIVA</span>
+              <span className={styles.sectionHeading}>
+                DIRETORIA EXECUTIVA &amp; ROTEIRO DO ESPELHO DO FLUXO (DADOS REAIS)
+              </span>
             </div>
             <p className={styles.moduleSubtitle}>
               Simetria Operacional: <strong className={styles.textPrimaryBold}>Flávio</strong> (01 Jurídico &amp; 02 Financeiro) ·{' '}
@@ -261,20 +260,217 @@ export default function AdminCockpitClient() {
             </p>
           </div>
 
-          <div className={styles.executivePresenceArea}>
+          <div className={styles.flexRowStart}>
+            <Link href="/admin/diretoria" className={styles.btnPrimary}>
+              🗄️ Arquivo Central &amp; 2 Relatórios (Diretoria) ↗
+            </Link>
             <button
               type="button"
-              onClick={() =>
-                window.dispatchEvent(
-                  new CustomEvent('ava:open-boardroom', {
-                    detail: { createNewLocked: true },
-                  })
-                )
-              }
-              className={styles.actionCardBtn}
+              onClick={handleResetCleanSlate}
+              className={styles.btnSecondary}
+              title="Zera qualquer dado de teste e restaura o Marco Zero (apenas Amostras Dimona #755-460-927 arquivadas)"
             >
-              🚨 CONVOCAR REUNIÃO / NOVA PAUTA
+              🧹 Zerar Teste (Marco Zero)
             </button>
+          </div>
+        </section>
+
+        {nudgeToast && (
+          <div className={`${styles.alertBanner} ${styles.alertBannerSuccess}`}>
+            {nudgeToast}
+          </div>
+        )}
+
+        {/* BÚSSOLA DO ROTEIRO DA PEÇA ÚNICA (AS 5 FASES DO ESPELHO DO FLUXO) */}
+        <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+          <div className={styles.flexRowBetween}>
+            <div>
+              <h2 className={styles.cardHeadingNoBorder}>
+                🧭 Bússola Viva do Espelho do Fluxo — Jornada da Coleção &amp; Peça Única
+              </h2>
+              <p className={styles.moduleSubtitle}>
+                Todos os dados fictícios foram eliminados. O pedido real Dimona <strong>#755-460-927 (R$ 472,80)</strong> está arquivado na Diretoria (Pasta: <strong>🧪 Amostras</strong>). Siga os passos abaixo para conduzir a Peça Única pelos 8 Departamentos:
+              </p>
+            </div>
+            <a
+              href="/PDF/Vale_uma_NFe_AVA.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.btnSecondary}
+            >
+              📄 Ver PDF &quot;Vale uma NF-e&quot; ↗
+            </a>
+          </div>
+
+          <div className={styles.autoGridSmall}>
+            {/* FASE 0 */}
+            <div
+              className={`${styles.innerCardCompact} ${
+                charter?.status === 'HOMOLOGADA_4_4'
+                  ? styles.innerCardSuccess
+                  : styles.innerCardSelected
+              }`}
+            >
+              <div className={styles.kpiLabel}>FASE 0 · Ponto de Partida</div>
+              <div className={styles.decisionTitle}>
+                07 · Mkt Produto ➔ Urna 4/4
+              </div>
+              <p className={styles.textBodySmall}>
+                1. Nome · 2. Tema/Tendência · 3. Estética · 4. Mensagem A·V·A.
+              </p>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.textPrimaryBold}>
+                  {!charter
+                    ? '⚪ Pendente'
+                    : charter.status === 'HOMOLOGADA_4_4'
+                    ? '🟢 Homologada 4/4'
+                    : '🟡 Na Urna 4/4'}
+                </span>
+                <Link href="/admin/marketing" className={styles.btnSecondary}>
+                  Ir ao 07 ↗
+                </Link>
+              </div>
+            </div>
+
+            {/* FASE 1 */}
+            <div
+              className={`${styles.innerCardCompact} ${
+                pilot?.blockchainTxId ? styles.innerCardSuccess : ''
+              }`}
+            >
+              <div className={styles.kpiLabel}>FASE 1 · Arte &amp; Blockchain</div>
+              <div className={styles.decisionTitle}>
+                08 · Atelier ➔ 01 · Jurídico
+              </div>
+              <p className={styles.textBodySmall}>
+                Tripoint aprova Peça Única (SHA-256) ➔ Flávio registra na Blockchain (.ots).
+              </p>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.textPrimaryBold}>
+                  {!pilot
+                    ? '⚪ Aguarda Atelier'
+                    : pilot.status === 'APPROVED_PENDING_BLOCKCHAIN'
+                    ? '🟡 Fila Jurídico (01)'
+                    : '🟢 Blockchain OK'}
+                </span>
+                <Link
+                  href={
+                    pilot?.status === 'APPROVED_PENDING_BLOCKCHAIN'
+                      ? '/admin/juridico'
+                      : '/admin/atelier'
+                  }
+                  className={styles.btnSecondary}
+                >
+                  {pilot?.status === 'APPROVED_PENDING_BLOCKCHAIN' ? 'Ir ao 01 ↗' : 'Ir ao 08 ↗'}
+                </Link>
+              </div>
+            </div>
+
+            {/* FASE 2 */}
+            <div
+              className={`${styles.innerCardCompact} ${
+                pilot?.status === 'PUBLISHED_IN_STOREFRONT' ? styles.innerCardSuccess : ''
+              }`}
+            >
+              <div className={styles.kpiLabel}>FASE 2 · Preço &amp; Vitrine</div>
+              <div className={styles.decisionTitle}>
+                02 · Fin ➔ Urna ➔ 07 · Vitrine
+              </div>
+              <p className={styles.textBodySmall}>
+                Flávio precifica ➔ Urna vota 4/4 ➔ Tripoint publica em todos os cards da Vitrine.
+              </p>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.textPrimaryBold}>
+                  {pilot?.status === 'PUBLISHED_IN_STOREFRONT'
+                    ? '🟢 Na Vitrine (/)'
+                    : pilot?.status === 'PRICE_APPROVED'
+                    ? '🟡 Publicar no 07'
+                    : pilot?.status === 'PRICING_IN_URNA'
+                    ? '🟡 Na Urna 4/4'
+                    : '⚪ Aguarda Fase 1'}
+                </span>
+                <Link
+                  href={pilot?.status === 'PRICE_APPROVED' ? '/admin/marketing' : '/admin/financeiro'}
+                  className={styles.btnSecondary}
+                >
+                  {pilot?.status === 'PRICE_APPROVED' ? 'Ir ao 07 ↗' : 'Ir ao 02 ↗'}
+                </Link>
+              </div>
+            </div>
+
+            {/* FASE 3 */}
+            <div
+              className={`${styles.innerCardCompact} ${
+                liveOrders.some((o) => o.nfeAttachedInBoardroom) || archivedClients.length > 0
+                  ? styles.innerCardSuccess
+                  : ''
+              }`}
+            >
+              <div className={styles.kpiLabel}>FASE 3 · Compra &amp; Vale NF-e</div>
+              <div className={styles.decisionTitle}>
+                06 · Compra ➔ 02 · Sala Chat
+              </div>
+              <p className={styles.textBodySmall}>
+                Cliente compra Peça Única ➔ Flávio anexa &quot;Vale uma NF-e&quot; na Sala de Reuniões.
+              </p>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.textPrimaryBold}>
+                  {liveOrders.some((o) => o.nfeAttachedInBoardroom) || archivedClients.length > 0
+                    ? '🟢 Vale NF-e Anexado'
+                    : liveOrders.length > 0
+                    ? '🟡 Falta Vale NF-e (02)'
+                    : '⚪ Simular Compra (06)'}
+                </span>
+                <Link
+                  href={liveOrders.length > 0 ? '/admin/financeiro' : '/admin/vendas'}
+                  className={styles.btnSecondary}
+                >
+                  {liveOrders.length > 0 ? 'Ir ao 02 ↗' : 'Ir ao 06 ↗'}
+                </Link>
+              </div>
+            </div>
+
+            {/* FASE 4 */}
+            <div
+              className={`${styles.innerCardCompact} ${
+                archivedClients.length > 0 ? styles.innerCardSuccess : ''
+              }`}
+            >
+              <div className={styles.kpiLabel}>FASE 4 · Doca, SAC &amp; Arquivo</div>
+              <div className={styles.decisionTitle}>
+                04 · Doca ➔ 05 · SAC ➔ Diretoria
+              </div>
+              <p className={styles.textBodySmall}>
+                Armando leva até Doca ➔ Gustavo entrega no SAC e arquiva na Diretoria (2 Relatórios).
+              </p>
+              <div className={styles.flexRowBetween}>
+                <span className={styles.textPrimaryBold}>
+                  {archivedClients.length > 0
+                    ? `🟢 ${archivedClients.length} Arquivado(s)`
+                    : liveOrders.some((o) => o.productionStep === '5_COLETADO_SAC')
+                    ? '🟡 No SAC (05)'
+                    : liveOrders.length > 0
+                    ? '🟡 Na Produção (04)'
+                    : '⚪ Aguarda Pedido'}
+                </span>
+                <Link
+                  href={
+                    archivedClients.length > 0
+                      ? '/admin/diretoria'
+                      : liveOrders.some((o) => o.productionStep === '5_COLETADO_SAC')
+                      ? '/admin/atendimento'
+                      : '/admin/producao'
+                  }
+                  className={styles.btnSecondary}
+                >
+                  {archivedClients.length > 0
+                    ? 'Ver Relatórios ↗'
+                    : liveOrders.some((o) => o.productionStep === '5_COLETADO_SAC')
+                    ? 'Ir ao 05 ↗'
+                    : 'Ir ao 04 ↗'}
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -284,9 +480,14 @@ export default function AdminCockpitClient() {
             <h2 className={styles.sectionHeading}>
               8 Departamentos Operacionais da Empresa (2 por Sócio)
             </h2>
-            <Link href="/admin/atelier" className={styles.btnSecondary}>
-              Acessar Atelier &amp; Gestão de Coleções ↗
-            </Link>
+            <div className={styles.flexRowStart}>
+              <span className={styles.statusPill}>
+                🧪 Amostras Arquivadas: {archivedSamples.length} (#755-460-927)
+              </span>
+              <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
+                👤 Pedidos de Clientes Arquivados: {archivedClients.length}
+              </span>
+            </div>
           </div>
 
           <div className={styles.deptGrid}>
@@ -322,130 +523,139 @@ export default function AdminCockpitClient() {
                 Fila de Decisões Executivas &amp; Urna de Votação (Consenso 4 Sócios)
               </div>
               <p className={styles.moduleSubtitle}>
-                🗳️ Pautas estratégicas e de Precificação exigem consenso. Clique no crachá do sócio para registrar voto, abra a Sala de Reuniões da pauta ou dispare cobrança por WhatsApp e E-mail.
+                🗳️ Urna 100% Real (Zero pautas fictícias). As pautas nascem automaticamente quando o Tripoint propõe os 4 Pilares da Coleção (Depto 07) ou quando o Flávio envia a Precificação da Peça Única (Depto 02).
               </p>
             </div>
             <div className={styles.flexRowStart}>
-              <button
-                type="button"
-                className={styles.executiveHeaderBtn}
-                onClick={() =>
-                  window.dispatchEvent(
-                    new CustomEvent('ava:open-boardroom', {
-                      detail: { createNewLocked: true },
-                    })
-                  )
-                }
-              >
-                + Nova Pauta / Reunião
-              </button>
+              <Link href="/admin/marketing" className={styles.btnPrimary}>
+                + Propor Coleção (Fase 0 · Depto 07)
+              </Link>
               <span className={styles.textMutedSmall}>
-                {decisions.length} pautas em votação
+                {decisions.length} {decisions.length === 1 ? 'pauta real em votação' : 'pautas em votação'}
               </span>
             </div>
           </div>
 
-          {nudgeToast && (
-            <div className={styles.alertBanner}>
-              {nudgeToast}
+          {loading ? (
+            <div className={styles.innerCard}>Carregando Urna Societária...</div>
+          ) : decisions.length === 0 ? (
+            <div className={`${styles.innerCard} ${styles.flexRowBetween}`}>
+              <div>
+                <div className={styles.decisionTitle}>
+                  ✓ Urna Limpa — Nenhuma Pauta Fictícia Pendente (0 Pautas em Votação)
+                </div>
+                <p className={styles.textBodySmall}>
+                  Para iniciar a jornada pelo Ponto de Partida correto (<em>&ldquo;Planejar errado é planejar errar&rdquo;</em>), acesse o <strong>Depto 07 · Marketing de Produto</strong> e submeta os <strong>4 Pilares da Coleção</strong> (Nome, Tema/Tendência, Estética e Mensagem A·V·A) para deliberação dos 4 sócios.
+                </p>
+              </div>
+              <Link href="/admin/marketing" className={styles.btnPrimary}>
+                🚀 Iniciar Fase 0 no Depto 07 ➔
+              </Link>
             </div>
-          )}
+          ) : (
+            <div className={styles.decisionCardsGrid}>
+              {decisions.map((item) => {
+                const approvedCount = PARTNERS_KEYS.filter((k) => item.votes[k] === 'APPROVED').length;
+                const pendingPartners = PARTNERS_KEYS.filter((k) => item.votes[k] !== 'APPROVED').map(
+                  (k) => PARTNER_LABELS[k]
+                );
+                const isUnanimous = approvedCount === 4;
 
-          <div className={styles.decisionCardsGrid}>
-            {decisions.map((item) => {
-              const approvedCount = PARTNERS_KEYS.filter((k) => item.votes[k] === 'APPROVED').length;
-              const pendingPartners = PARTNERS_KEYS.filter((k) => item.votes[k] !== 'APPROVED').map(
-                (k) => PARTNER_LABELS[k]
-              );
-              const isUnanimous = approvedCount === 4;
-
-              return (
-                <div key={item.id} className={styles.decisionCard}>
-                  <div className={styles.decisionCardHeader}>
-                    <span className={styles.decisionCardDepto}>{item.depto}</span>
-                    <span className={styles.decisionCardTag}>
-                      {approvedCount}/4 Votos · {item.tag}
-                    </span>
-                  </div>
-
-                  <div className={styles.decisionTitle}>{item.title}</div>
-                  <p className={styles.decisionText}>{item.description}</p>
-
-                  <div className={styles.voterGrid}>
-                    {PARTNERS_KEYS.map((partnerKey) => {
-                      const vote = item.votes[partnerKey];
-                      const chipClass =
-                        vote === 'APPROVED'
-                          ? styles.voterApproved
-                          : vote === 'REJECTED'
-                          ? styles.voterRejected
-                          : styles.voterPending;
-                      const icon = vote === 'APPROVED' ? '🟢 Aprovou' : vote === 'REJECTED' ? '🔴 Revisão' : '🟡 Pendente';
-
-                      return (
-                        <div
-                          key={partnerKey}
-                          onClick={() => handleCycleVote(item.id, partnerKey)}
-                          className={`${styles.voterChip} ${chipClass}`}
-                          title={`Clique para alternar o voto de ${PARTNER_LABELS[partnerKey]}`}
-                        >
-                          <strong className={styles.textPrimaryBold}>
-                            {PARTNER_LABELS[partnerKey]}
-                          </strong>
-                          <span>{icon}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {!isUnanimous ? (
-                    <div className={styles.nudgeStrip}>
-                      <span>
-                        ⏳ Falta votar: <strong className={styles.textPrimaryBold}>{pendingPartners.join(', ')}</strong>
-                        {item.lastNudge ? ` · (${item.lastNudge})` : ' · Régua WhatsApp/E-mail a cada 2h'}
+                return (
+                  <div key={item.id} className={styles.decisionCard}>
+                    <div className={styles.decisionCardHeader}>
+                      <span className={styles.decisionCardDepto}>{item.depto}</span>
+                      <span className={styles.decisionCardTag}>
+                        {approvedCount}/4 Votos · {item.tag}
                       </span>
+                    </div>
+
+                    <div className={styles.decisionTitle}>{item.title}</div>
+                    <p className={styles.decisionText}>{item.description}</p>
+
+                    <div className={styles.voterGrid}>
+                      {PARTNERS_KEYS.map((partnerKey) => {
+                        const vote = item.votes[partnerKey];
+                        const chipClass =
+                          vote === 'APPROVED'
+                            ? styles.voterApproved
+                            : vote === 'REJECTED'
+                            ? styles.voterRejected
+                            : styles.voterPending;
+                        const icon =
+                          vote === 'APPROVED'
+                            ? '🟢 Aprovou'
+                            : vote === 'REJECTED'
+                            ? '🔴 Revisão'
+                            : '🟡 Pendente';
+
+                        return (
+                          <div
+                            key={partnerKey}
+                            onClick={() => handleCycleVote(item.id, partnerKey)}
+                            className={`${styles.voterChip} ${chipClass}`}
+                            title={`Clique para alternar o voto de ${PARTNER_LABELS[partnerKey]}`}
+                          >
+                            <strong className={styles.textPrimaryBold}>
+                              {PARTNER_LABELS[partnerKey]}
+                            </strong>
+                            <span>{icon}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+
+                    {!isUnanimous ? (
+                      <div className={styles.nudgeStrip}>
+                        <span>
+                          ⏳ Falta votar:{' '}
+                          <strong className={styles.textPrimaryBold}>
+                            {pendingPartners.join(', ')}
+                          </strong>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => handleNudgePending(item)}
+                          className={styles.btnNudge}
+                        >
+                          📲 Cobrar WhatsApp/E-mail
+                        </button>
+                      </div>
+                    ) : (
+                      <div className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
+                        ✅ CONSENSO 4/4 ALCANÇADO — DECISÃO LIBERADA PARA EXECUÇÃO
+                      </div>
+                    )}
+
+                    <div className={styles.decisionActions}>
                       <button
                         type="button"
-                        onClick={() => handleNudgePending(item)}
-                        className={styles.btnNudge}
+                        onClick={() =>
+                          window.dispatchEvent(
+                            new CustomEvent('ava:open-boardroom', {
+                              detail: { pautaTitle: item.title },
+                            })
+                          )
+                        }
+                        className={styles.executiveHeaderBtn}
                       >
-                        📲 Cobrar WhatsApp/E-mail
+                        💬 Abrir Conversa &amp; Anexos desta Pauta
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleExecuteDecision(item)}
+                        className={isUnanimous ? styles.btnSuccess : styles.btnPrimary}
+                      >
+                        {isUnanimous
+                          ? `✓ Executar: ${item.actionPrimary}`
+                          : `⚡ Aprovar 4/4 & ${item.actionPrimary}`}
                       </button>
                     </div>
-                  ) : (
-                    <div className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                      ✅ CONSENSO 4/4 ALCANÇADO — DECISÃO LIBERADA PARA EXECUÇÃO
-                    </div>
-                  )}
-
-                  <div className={styles.decisionActions}>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        window.dispatchEvent(
-                          new CustomEvent('ava:open-boardroom', {
-                            detail: { pautaTitle: item.title },
-                          })
-                        )
-                      }
-                      className={styles.executiveHeaderBtn}
-                    >
-                      💬 Abrir Conversa &amp; Anexos desta Pauta
-                    </button>
-                    <button
-                      onClick={() => handleResolve(item.id)}
-                      className={isUnanimous ? styles.btnSuccess : styles.btnPrimary}
-                    >
-                      {isUnanimous ? `✓ ${item.actionPrimary}` : `${item.actionPrimary} (${approvedCount}/4)`}
-                    </button>
-                    <button onClick={() => handleResolve(item.id)} className={styles.btnSecondary}>
-                      Arquivar
-                    </button>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </section>
       </main>
     </div>

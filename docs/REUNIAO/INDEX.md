@@ -34,3 +34,9 @@
    * **PEDIDO OFICIAL DE AMOSTRAS FÍSICAS DIMONA:** `# 755-460-927`
    * Comprovante Pix de **R$ 472,80** emitido em 17/11/2026 às 02:11:53.
    * 6 peças físicas em produção (Oversized Preta, Prime Branca, Estonada Chumbo, Quality Vinho e 2 Bonés).
+
+6. **[05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf)**
+   * **Fluxograma Executivo Oficial (1 Página A4 — Estética 4 Níveis do Painel Admin):** O Espelho 360° do Fluxo Geral de Processos da AVA Sem Limites.
+   * Mapeamento das 4 Fases e 10 Etapas operacionais integrando os **4 Sócios × 8 Departamentos** (Criação MDV 26 Chaves & Registro Blockchain Bipartite ➔ Precificação, Urna 4/4 & Vitrine Canônica ➔ Tráfego PDCA, Checkout ACID & NF-e 55 Bling ERP ➔ Produção até a Doca vs. Torre Logística Pós-Coleta SAC & Gatilho BPO).
+   * Quadro sintético de equilíbrio de titularidade, fechamento de pontos cegos e cláusulas estruturais para o **Contrato Social (Transição MEI ➔ LTDA)**.
+

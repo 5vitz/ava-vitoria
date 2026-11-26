@@ -4,7 +4,31 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 24–25/11/2026 · Madrugada)
+## 1. O que realizamos nesta sessão (Estado Atual — 25/11/2026 · Tarde)
+
+*   **🏛️ ARQUITETURA CSS UNIFICADA EM 4 NÍVEIS & LIMPEZA DE 758 ESTILOS INLINE NO PAINEL ADMIN (`src/app/admin/admin-cockpit.module.css`) ✅:**
+    *   **Eliminação da Desorganização Herdada do Transplante (`Star-Ink` ➔ `Ava-Vitoria`):** Removidos **758 blocos `style={{ ... }}` inline** que haviam sido gerados na conversão do Tailwind da `Star-Ink`, zerando estilos inline em todos os **8 Departamentos**, `AdminCockpitClient.tsx`, `AdminHeader.tsx`, `diretoria/page.tsx`, `agentes/page.tsx`, `financeiro/assinaturas/page.tsx` e modais.
+    *   **Domínio por Comando Único (Tokens CSS em 4 Níveis sob `.adminLayout`):**
+        *   **Nível 1 (Fundo da Página):** `--admin-bg-page: linear-gradient(180deg, #E2E2E4 0%, #C0C0C5 100%)` (corrigido bug de `background-color: linear-gradient(...)` nos módulos irmãos).
+        *   **Nível 2 (Cards Containers / Bandejas):** `--admin-surface-container: #EEEEF2` e `--admin-border-container: 1px solid #8E8E98`.
+        *   **Nível 3 (Cards Internos Flutuantes):** `--admin-surface-card: #FFFFFF` (Branco Puro) e `--admin-border-card: 1px solid #8E8E98`.
+        *   **Nível 4 (Botões, Abas e Inputs):** `--admin-btn-bg: #FFFFFF`, `--admin-btn-border: 1px solid #8E8E98` e vidro fumê translúcido nos botões ativos.
+    *   **Refinamentos Visuais Homologados pelo Genera:**
+        *   **Halftone Desativado (`src/app/globals.css`):** Desligada a camada global `body::before` que jogava micropontos escuros sobre o branco puro `#FFFFFF` dos cards.
+        *   **Bordas Unificadas em Cinza Médio Metálico (`1px solid #8E8E98`):** Aplicadas tanto nos Cards Containers (Nível 2) quanto nos Cards Internos e Botões (Níveis 3 e 4).
+        *   **Proporção da Logo AVA no Topo Admin:** Reduzida de `44px` para `36px` de altura (`.avaOfficialLogoImg`) para dar mais respiro à primeira faixa do cabeçalho.
+
+*   **🔐 DECISÃO ARQUITETURAL & DE GOVERNANÇA SOCIETÁRIA: FLUXO BIPARTITE DE APROVAÇÃO DE ARTE (TRIPOINT · ATELIER) ➔ REGISTRO BLOCKCHAIN DO JSON 26 CHAVES (FLÁVIO · JURÍDICO / DR. LEX) 📋:**
+    *   **Divisão Estrita de Competências entre Sócios e Departamentos:**
+        1. **Etapa 1 — Aprovar Arte para Coleção (`Depto 08 · Atelier Criativo` — Titular: Tripoint / Direção Criativa: Genera):**
+           * No painel `/admin/atelier`, ao aprovar uma obra para figurar na coleção/vitrine, o botão **`✅ Aprovar Arte para Coleção`** (assistido pelo agente **Curador Visual**) congela o arquivo JSON da Matriz Canônica de 26 Chaves (`{CODE}_writing_matrix26.json`) + Prompt Compilado, calcula o Hash Criptográfico definitivo **SHA-256** (`coa_hash_sha256`), muda o status para `APPROVED_PENDING_BLOCKCHAIN` e envia automaticamente para a fila do Jurídico.
+        2. **Etapa 2 — Registrar JSON na Blockchain (`Depto 01 · Jurídico & Compliance` — Titular: Flávio / Agente: Dr. Lex):**
+           * No painel `/admin/juridico`, uma bandeja dedicada recebe as **Artes Aprovadas Aguardando Registro Blockchain**.
+           * O **Flávio** (com execução automatizada via API pelo agente **Dr. Lex**) aciona **`⛓️ Registrar JSON na Blockchain`**, ancorando o Hash SHA-256 nos calendários públicos do protocolo **OpenTimestamps (Blockchain Bitcoin — 100% on-line, custo R$ 0,00 por registro e zero mensalidade)** (com suporte preparado para Smart Contract Polygon PoS), gerando o comprovante imutável de anterioridade autoral (`.ots` / Certificado COA) e atualizando o status para **`🔒 APROVADA & REGISTRADA NA BLOCKCHAIN`** tanto no Jurídico quanto no Atelier.
+
+---
+
+## 1.0-A. Histórico da Sessão Anterior (24–25/11/2026 · Madrugada)
 
 *   **🎨 GAVETA 3 TRANSPLANTADA & HOMOLOGADA: PROMPT TO IMAGE — MATRIZ CANÔNICA DE 26 CHAVES & MOTOR DE DECOMPOSIÇÃO VISUAL (MDV) (`/admin/atelier`, `/api/artworks` & `docs/atelier/`) ✅:**
     *   **Acervo Normativo & Scanner Matemático (`docs/atelier/` e `scripts/mdv_scanner.py`):**

@@ -52,9 +52,69 @@ export default function AtelierPage() {
   const [newColYear, setNewColYear] = useState(new Date().getFullYear().toString());
   const [newColSeason, setNewColSeason] = useState('Outono');
 
+  // Fluxo Unificado Fase 0 & Fase 1 (Carta Conceitual dos 4 Pilares + Aprovação Bipartite p/ Blockchain)
+  const [wfState, setWfState] = useState<any>(null);
+  const [garmentModel, setGarmentModel] = useState('T-Shirt Prime 180g (Pele de Pêssego)');
+  const [garmentColor, setGarmentColor] = useState('Preta');
+  const [garmentSize, setGarmentSize] = useState('G');
+  const [approvingFlow, setApprovingFlow] = useState(false);
+
   const triggerFeedback = (msg: string) => {
     setFeedbackMsg(msg);
-    setTimeout(() => setFeedbackMsg(null), 4500);
+    setTimeout(() => setFeedbackMsg(null), 5500);
+  };
+
+  const fetchWorkflow = async () => {
+    try {
+      const res = await fetch('/api/admin/workflow', { cache: 'no-store' });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+      }
+    } catch (err) {
+      console.error('Erro ao buscar workflow no Atelier:', err);
+    }
+  };
+
+  const handleApproveForCollectionBlockchain = async () => {
+    if (!selectedArtwork) return;
+    setApprovingFlow(true);
+    try {
+      const baseCostMap: Record<string, number> = {
+        'T-Shirt Prime 180g (Pele de Pêssego)': 67.90,
+        'Camiseta Oversized Heavy 220g': 101.90,
+        'Camiseta Estonada Vintage 30.1': 73.00,
+        'T-Shirt Quality 30.1 (165g)': 59.90,
+      };
+      const baseCost = baseCostMap[garmentModel] || 67.90;
+
+      const res = await fetch('/api/admin/workflow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'APPROVE_ARTWORK_FOR_COLLECTION',
+          code: selectedArtwork.code,
+          title: `${selectedArtwork.title} (${garmentModel})`,
+          previewImageUrl:
+            selectedArtwork.preview_image_url ||
+            '/imagens/projetos/Testes/AVA-TEST-001_jazz_dancer_3d_75deg.jpg',
+          supplier: selectedArtwork.default_supplier || 'DIMONA',
+          garmentModel,
+          garmentColor,
+          garmentSize,
+          baseCost,
+          sha256: selectedArtwork.coa_hash_sha256,
+          mutatedKeysCount: selectedArtwork.mutated_keys_count,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setWfState(data.state);
+        triggerFeedback(data.message);
+      }
+    } finally {
+      setApprovingFlow(false);
+    }
   };
 
   const fetchArtworks = async (selectCode?: string) => {
@@ -100,6 +160,7 @@ export default function AtelierPage() {
   useEffect(() => {
     fetchArtworks();
     fetchCollections();
+    fetchWorkflow();
   }, []);
 
   const handleToggleRegistered = async (art: ArtworkRecord, e?: React.MouseEvent) => {
@@ -364,6 +425,112 @@ export default function AtelierPage() {
         {/* ABA PRINCIPAL: PROMPT TO IMAGE & MATRIZ CANÔNICA DE 26 CHAVES */}
         {activeTab === 'artworks' && (
           <div>
+            {/* PAINEL FASE 1 (ETAPA 1): APROVAÇÃO DA PEÇA ÚNICA PARA COLEÇÃO & ENVIO AO JURÍDICO (BLOCKCHAIN) */}
+            <div className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
+              <div className={styles.flexRowBetween}>
+                <div>
+                  <h2 className={styles.cardHeadingNoBorder}>
+                    🔐 FASE 1 (Etapa 1): Aprovar Peça Única p/ Coleção ➔ Enviar ao Jurídico (Flávio · Registro Blockchain)
+                  </h2>
+                  <p className={styles.textBodySmall}>
+                    {wfState?.activeCharter ? (
+                      <>
+                        <strong>Coleção Homologada na Fase 0:</strong> {wfState.activeCharter.name} ({wfState.activeCharter.season}/{wfState.activeCharter.year}) · <strong>Tema:</strong> {wfState.activeCharter.themeTrend} · <strong>Mensagem A·V·A:</strong> &ldquo;{wfState.activeCharter.brandMessage}&rdquo;
+                      </>
+                    ) : (
+                      <>
+                        💡 <em>Dica de Governança:</em> A Carta Conceitual dos 4 Pilares pode ser homologada na Fase 0 em <Link href="/admin/marketing" className={styles.textPrimaryBold}>07 · Marketing de Produto</Link>. Selecione a arte e a modelagem abaixo para aprovar a Peça Única.
+                      </>
+                    )}
+                  </p>
+                </div>
+
+                {wfState?.pilotPiece ? (
+                  <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
+                    Status: {wfState.pilotPiece.status}
+                  </span>
+                ) : (
+                  <span className={styles.statusPill}>Aguardando Aprovação do Atelier</span>
+                )}
+              </div>
+
+              <div className={styles.autoGridSmall}>
+                <div>
+                  <label className={styles.formLabel}>Arte Matriz Selecionada (26 Chaves)</label>
+                  <div className={styles.innerCardCompact}>
+                    <strong className={styles.textPrimaryBold}>
+                      {selectedArtwork ? `${selectedArtwork.code} — ${selectedArtwork.title}` : 'Selecione abaixo'}
+                    </strong>
+                  </div>
+                </div>
+
+                <div>
+                  <label className={styles.formLabel}>Modelagem da Camiseta Única (Dimona Silk HD)</label>
+                  <select
+                    value={garmentModel}
+                    onChange={(e) => setGarmentModel(e.target.value)}
+                    className={styles.formSelect}
+                  >
+                    <option value="T-Shirt Prime 180g (Pele de Pêssego)">T-Shirt Prime 180g (Pele de Pêssego) — Custo R$ 67,90</option>
+                    <option value="Camiseta Oversized Heavy 220g">Camiseta Oversized Heavy 220g — Custo R$ 101,90</option>
+                    <option value="Camiseta Estonada Vintage 30.1">Camiseta Estonada Vintage 30.1 — Custo R$ 73,00</option>
+                    <option value="T-Shirt Quality 30.1 (165g)">T-Shirt Quality 30.1 (165g) — Custo R$ 59,90</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className={styles.formLabel}>Cor Homologada &amp; Tamanho</label>
+                  <div className={styles.flexRowStart}>
+                    <select
+                      value={garmentColor}
+                      onChange={(e) => setGarmentColor(e.target.value)}
+                      className={styles.formSelect}
+                    >
+                      <option value="Preta">Preta</option>
+                      <option value="Branca / Off-White">Branca / Off-White</option>
+                      <option value="Cinza Chumbo">Cinza Chumbo</option>
+                      <option value="Vinho">Vinho</option>
+                    </select>
+                    <select
+                      value={garmentSize}
+                      onChange={(e) => setGarmentSize(e.target.value)}
+                      className={styles.formSelect}
+                    >
+                      <option value="P">P</option>
+                      <option value="M">M</option>
+                      <option value="G">G</option>
+                      <option value="GG">GG</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.flexRowBetween}>
+                <div className={styles.flexRowStart}>
+                  <button
+                    type="button"
+                    onClick={handleApproveForCollectionBlockchain}
+                    disabled={approvingFlow || !selectedArtwork}
+                    className={styles.btnPrimary}
+                  >
+                    ✅ Aprovar Arte para Coleção (Congelar JSON 26 Chaves &amp; Enviar ao Jurídico)
+                  </button>
+
+                  {wfState?.pilotPiece && (
+                    <Link href="/admin/juridico" className={styles.btnSuccess}>
+                      ⛓️ Avançar para Etapa 2: Registrar JSON na Blockchain (Depto 01 · Flávio) ➔
+                    </Link>
+                  )}
+                </div>
+
+                {selectedArtwork?.coa_hash_sha256 && (
+                  <span className={styles.textMutedSmall}>
+                    Hash SHA-256: <code>{selectedArtwork.coa_hash_sha256.slice(0, 20)}...</code>
+                  </span>
+                )}
+              </div>
+            </div>
+
             <div className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
               <div className={styles.flexRowBetween}>
                 <div>
