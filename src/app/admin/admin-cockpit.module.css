@@ -20,7 +20,7 @@
   /* NÍVEL 2 — BANDEJAS EM ALUMÍNIO ANODIZADO PRATA (APPLE PRO STUDIO) */
   --admin-surface-container: linear-gradient(180deg, #ECECF0 0%, #D6D6DE 100%);
   --admin-border-container: 1px solid rgba(255, 255, 255, 0.55);
-  --admin-radius-container: 12px;
+  --admin-radius-container: 4px;
   --admin-shadow-container: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 28px rgba(0, 0, 0, 0.28);
   --admin-container-title-color: #1D1D1F;
   --admin-container-subtitle-color: #3A3A3C;
@@ -32,14 +32,14 @@
   --admin-border-card: 1px solid rgba(0, 0, 0, 0.12);
   --admin-border-card-active: 1.5px solid #1D1D1F;
   --admin-border-card-subtle: 1px solid rgba(0, 0, 0, 0.08);
-  --admin-radius-card: 8px;
+  --admin-radius-card: 3px;
   --admin-shadow-card: inset 0 1px 0 #FFFFFF, 0 2px 8px rgba(0, 0, 0, 0.06);
 
   /* NÍVEL 4 — BOTÕES, ABAS E INPUTS USINADOS */
   --admin-btn-bg: #F5F5F8;
   --admin-btn-text: #1D1D1F;
   --admin-btn-border: 1px solid rgba(0, 0, 0, 0.16);
-  --admin-btn-radius: 7px;
+  --admin-btn-radius: 3px;
   --admin-btn-hover-bg: rgba(0, 0, 0, 0.10);
 
   --admin-btn-active-bg: rgba(0, 0, 0, 0.14);
@@ -201,7 +201,7 @@
   padding: 4px 10px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: inset 0 1px 0 #FFFFFF;
   font-size: 11px;
   font-weight: 700;
@@ -816,7 +816,7 @@
   letter-spacing: 0.5px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: inset 0 1px 0 #FFFFFF;
   color: var(--admin-text-primary);
 }
@@ -922,7 +922,7 @@
   justify-content: center;
   padding: 6px 4px;
   font-size: 10px;
-  border-radius: 6px;
+  border-radius: 3px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -960,7 +960,7 @@
   padding: 8px 10px;
   background: rgba(0, 0, 0, 0.04);
   border: 1px dashed rgba(0, 0, 0, 0.24);
-  border-radius: 6px;
+  border-radius: 3px;
   font-size: 11px;
   color: var(--admin-text-secondary);
   margin-top: 4px;
@@ -970,7 +970,7 @@
   background: var(--admin-btn-bg);
   color: var(--admin-btn-text);
   border: var(--admin-btn-border);
-  border-radius: 6px;
+  border-radius: 3px;
   padding: 5px 10px;
   font-size: 10px;
   font-weight: 700;
@@ -1175,7 +1175,7 @@
   padding: 8px 10px;
   font-size: 12px;
   font-family: inherit;
-  border-radius: 6px;
+  border-radius: 3px;
   outline: none;
   box-sizing: border-box;
 }

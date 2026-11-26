@@ -23,7 +23,7 @@
 .introCard {
   background: var(--admin-surface-container, linear-gradient(180deg, #ECECF0 0%, #D6D6DE 100%));
   border: var(--admin-border-container, 1px solid rgba(255, 255, 255, 0.55));
-  border-radius: var(--admin-radius-container, 12px);
+  border-radius: var(--admin-radius-container, 4px);
   box-shadow: var(--admin-shadow-container, inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 28px rgba(0, 0, 0, 0.28));
   padding: 24px;
 }
@@ -49,7 +49,7 @@
 .panelSection {
   background: var(--admin-surface-container, linear-gradient(180deg, #ECECF0 0%, #D6D6DE 100%));
   border: var(--admin-border-container, 1px solid rgba(255, 255, 255, 0.55));
-  border-radius: var(--admin-radius-container, 12px);
+  border-radius: var(--admin-radius-container, 4px);
   box-shadow: var(--admin-shadow-container, inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 28px rgba(0, 0, 0, 0.28));
   padding: 24px;
   display: flex;
