@@ -10,8 +10,8 @@
 
 .adminLayout {
   /* NÍVEL 1 — FUNDO ROOT DA PÁGINA & ESPAÇAMENTO UNIFICADO ENTRE CONTAINERS */
-  --admin-bg-page: #000000;
-  --admin-container-gap: 14px;
+  --admin-bg-page: #1C1D21;
+  --admin-container-gap: 28px;
   --admin-text-primary: #000000;
   --admin-text-body: #18191B;
   --admin-text-secondary: #3F3F46;
@@ -452,7 +452,7 @@
 .moduleCard {
   display: flex;
   flex-direction: column;
-  gap: var(--admin-container-gap);
+  gap: 16px;
   color: var(--admin-text-primary);
 }
 

@@ -2,7 +2,7 @@
 
 .adminContainer {
   min-height: 100vh;
-  background: var(--admin-bg-page, #000000);
+  background: var(--admin-bg-page, #1C1D21);
   color: var(--admin-text-body, #18191B);
   display: flex;
   flex-direction: column;
@@ -13,11 +13,11 @@
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
-  padding: var(--admin-container-gap, 14px) 24px 60px 24px;
+  padding: var(--admin-container-gap, 28px) 24px 60px 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  gap: var(--admin-container-gap, 14px);
+  gap: var(--admin-container-gap, 28px);
 }
 
 /* Barra de Controles e Filtros */
