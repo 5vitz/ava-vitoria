@@ -9,45 +9,48 @@
    ========================================================================== */
 
 .adminLayout {
-  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA & ESPAÇAMENTO UNIFICADO ENTRE CONTAINERS */
-  --admin-bg-page: #3E3E46;
-  --admin-container-gap: 28px;
-  --admin-text-primary: #000000;
-  --admin-text-body: #18191B;
-  --admin-text-secondary: #3F3F46;
-  --admin-text-muted: #4B5563;
+  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA (APPLE SPACE GRAY PRO) & ESPAÇAMENTO */
+  --admin-bg-page: #242428;
+  --admin-container-gap: 24px;
+  --admin-text-primary: #1D1D1F;
+  --admin-text-body: #1D1D1F;
+  --admin-text-secondary: #424245;
+  --admin-text-muted: #515154;
 
-  /* NÍVEL 2 — BANDEJAS / CONTAINERS ARQUITETÔNICOS (.moduleCard, .headerRow1Card, .deptsPanel, .tabStripContainer) */
-  --admin-surface-container: linear-gradient(180deg, #52525B 0%, #EEEEF2 100%);
-  --admin-border-container: none;
-  --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
-  --admin-container-title-color: #FFFFFF;
-  --admin-container-subtitle-color: #F4F4F6;
+  /* NÍVEL 2 — BANDEJAS EM ALUMÍNIO ANODIZADO PRATA (APPLE PRO STUDIO) */
+  --admin-surface-container: linear-gradient(180deg, #ECECF0 0%, #D6D6DE 100%);
+  --admin-border-container: 1px solid rgba(255, 255, 255, 0.55);
+  --admin-radius-container: 12px;
+  --admin-shadow-container: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 28px rgba(0, 0, 0, 0.28);
+  --admin-container-title-color: #1D1D1F;
+  --admin-container-subtitle-color: #3A3A3C;
 
-  /* NÍVEL 3 — CARDS INTERNOS FLUTUANTES (.innerCard, .kpiCard, .deptCard, .decisionCard, .agentBadge, .dataTableWrapper) */
-  --admin-surface-card: #E4E4EA;
-  --admin-surface-card-highlight: #DADAE2;
-  --admin-surface-card-subtle: #DCDCE4;
-  --admin-border-card: 1px solid #8E8E98;
-  --admin-border-card-active: 2px solid #000000;
-  --admin-border-card-subtle: 1px solid rgba(142, 142, 152, 0.35);
-  --admin-shadow-card: 0 2px 6px rgba(0, 0, 0, 0.04);
+  /* NÍVEL 3 — CARDS INTERNOS EM PORCELANA ACETINADA (ELEVAÇÃO SOBRE O ALUMÍNIO, SEM OFUSCAR) */
+  --admin-surface-card: #F5F5F8;
+  --admin-surface-card-highlight: #FFFFFF;
+  --admin-surface-card-subtle: #EAEAEF;
+  --admin-border-card: 1px solid rgba(0, 0, 0, 0.12);
+  --admin-border-card-active: 1.5px solid #1D1D1F;
+  --admin-border-card-subtle: 1px solid rgba(0, 0, 0, 0.08);
+  --admin-radius-card: 8px;
+  --admin-shadow-card: inset 0 1px 0 #FFFFFF, 0 2px 8px rgba(0, 0, 0, 0.06);
 
-  /* NÍVEL 4 — BOTÕES, ABAS E INPUTS */
-  --admin-btn-bg: #E4E4EA;
-  --admin-btn-text: #000000;
-  --admin-btn-border: 1px solid #8E8E98;
-  --admin-btn-hover-bg: rgba(0, 0, 0, 0.12);
+  /* NÍVEL 4 — BOTÕES, ABAS E INPUTS USINADOS */
+  --admin-btn-bg: #F5F5F8;
+  --admin-btn-text: #1D1D1F;
+  --admin-btn-border: 1px solid rgba(0, 0, 0, 0.16);
+  --admin-btn-radius: 7px;
+  --admin-btn-hover-bg: rgba(0, 0, 0, 0.10);
 
-  --admin-btn-active-bg: rgba(0, 0, 0, 0.12);
-  --admin-btn-active-hover-bg: rgba(0, 0, 0, 0.20);
+  --admin-btn-active-bg: rgba(0, 0, 0, 0.14);
+  --admin-btn-active-hover-bg: rgba(0, 0, 0, 0.22);
   --admin-btn-active-text: #000000;
-  --admin-btn-active-border: 1px solid #000000;
+  --admin-btn-active-border: 1px solid rgba(0, 0, 0, 0.55);
   --admin-btn-active-blur: blur(12px);
 
-  --admin-input-bg: #E4E4EA;
-  --admin-input-border: 1px solid #8E8E98;
-  --admin-input-text: #000000;
+  --admin-input-bg: #F5F5F8;
+  --admin-input-border: 1px solid rgba(0, 0, 0, 0.18);
+  --admin-input-text: #1D1D1F;
 
   /* TOKENS DE STATUS SEMÂNTICOS */
   --admin-color-success: #047857;
@@ -76,6 +79,7 @@
   font-family: var(--font-body), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   display: flex;
   flex-direction: column;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* ==========================================================================
@@ -95,8 +99,9 @@
 .headerRow1Card {
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
   box-shadow: var(--admin-shadow-container);
-  padding: 10px 18px;
+  padding: 12px 20px;
   min-height: 70px;
   display: flex;
   align-items: center;
@@ -139,13 +144,14 @@
   gap: 6px;
   padding: 9px 13px;
   font-size: 11px;
-  font-weight: 800;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.4px;
   color: var(--admin-btn-text);
   background: var(--admin-btn-bg);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -154,7 +160,7 @@
 
 .actionCardBtn:hover {
   background: var(--admin-btn-hover-bg);
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.45);
   transform: translateY(-1px);
 }
 
@@ -164,17 +170,17 @@
   -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
   color: var(--admin-btn-active-text) !important;
   border: var(--admin-btn-active-border) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 .connectedPartnersCard {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: var(--admin-surface-card);
+  background: rgba(255, 255, 255, 0.55);
   border: var(--admin-border-card);
   padding: 6px 10px;
-  border-radius: 2px;
+  border-radius: var(--admin-radius-card);
   flex-wrap: wrap;
 }
 
@@ -192,10 +198,11 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 9px;
+  padding: 4px 10px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
-  border-radius: 2px;
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 #FFFFFF;
   font-size: 11px;
   font-weight: 700;
   color: var(--admin-text-body);
@@ -204,11 +211,11 @@
 }
 
 .partnerPresenceCurrentUser {
-  background: var(--admin-surface-card) !important;
-  border: var(--admin-border-card) !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(0, 0, 0, 0.28) !important;
   color: var(--admin-text-primary) !important;
   font-weight: 800;
-  box-shadow: none !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
 }
 
 .partnerPresenceGuestLevel2 {
@@ -259,15 +266,16 @@
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 6px 10px;
+  padding: 7px 11px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.5px;
   color: var(--admin-btn-text);
   background: var(--admin-btn-bg);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -276,7 +284,7 @@
 
 .executiveHeaderBtn:hover {
   background: var(--admin-btn-hover-bg);
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.45);
   color: #000000;
 }
 
@@ -286,21 +294,22 @@
   -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
   border: var(--admin-btn-active-border) !important;
   color: var(--admin-btn-active-text) !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 .storeLink {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 6px 10px;
+  padding: 7px 11px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.5px;
   background: var(--admin-btn-bg);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   color: var(--admin-btn-text);
   transition: all 0.2s ease;
   white-space: nowrap;
@@ -309,15 +318,16 @@
 
 .storeLink:hover {
   background: var(--admin-btn-hover-bg);
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.45);
   color: #000000;
 }
 
 .headerRow2Card {
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
   box-shadow: var(--admin-shadow-container);
-  padding: 8px 18px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -344,11 +354,12 @@
   padding: 8px 10px;
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   color: var(--admin-btn-text);
   background: var(--admin-btn-bg);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -359,7 +370,7 @@
 .deptNavLink:hover {
   color: #000000;
   background: var(--admin-btn-hover-bg);
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.45);
 }
 
 .deptNavLinkActive {
@@ -369,7 +380,7 @@
   -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
   border: var(--admin-btn-active-border) !important;
   font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ==========================================================================
@@ -390,6 +401,7 @@
 .executiveCommandStrip {
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
   box-shadow: var(--admin-shadow-container);
   padding: 18px 24px;
   margin-bottom: 0;
@@ -416,17 +428,17 @@
   margin-bottom: 0;
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
   box-shadow: var(--admin-shadow-container);
   padding: 18px 24px;
 }
 
 .moduleTitle {
   font-family: var(--font-title), sans-serif;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 0.4px;
   color: var(--admin-container-title-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   text-transform: uppercase;
   margin: 0;
 }
@@ -434,15 +446,15 @@
 .moduleSubtitle {
   font-size: 13px;
   color: var(--admin-container-subtitle-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   font-weight: 500;
+  line-height: 1.45;
   margin: 4px 0 0 0;
 }
 
 .moduleSubtitle strong,
 .moduleSubtitle .textPrimaryBold {
-  color: #FFFFFF;
-  font-weight: 800;
+  color: #000000;
+  font-weight: 700;
 }
 
 .deptsPanel,
@@ -451,8 +463,9 @@
 .moduleCard {
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
   box-shadow: var(--admin-shadow-container);
-  padding: 24px;
+  padding: 22px 24px;
 }
 
 .deptsPanel,
@@ -467,18 +480,17 @@
   color: var(--admin-text-primary);
 }
 
-/* Textos descritivos que ficam diretamente na faixa superior escura do container (.moduleCard) */
+/* Textos descritivos que ficam diretamente na faixa superior do container (.moduleCard) */
 .moduleCard > .textBodySmall,
 .moduleCard > .flexRowBetween > div > .textBodySmall {
   color: var(--admin-container-subtitle-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   font-weight: 500;
 }
 
 .moduleCard > .textBodySmall strong,
 .moduleCard > .flexRowBetween > div > .textBodySmall strong,
 .moduleCard > .flexRowBetween > div > .textBodySmall a {
-  color: #FFFFFF;
+  color: #000000;
 }
 
 .moduleCardSpaced {
@@ -502,11 +514,10 @@
 }
 
 .sectionHeading {
-  font-size: 13px;
+  font-size: 13.5px;
   text-transform: uppercase;
-  letter-spacing: 1.2px;
+  letter-spacing: 0.6px;
   color: var(--admin-container-title-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   font-weight: 800;
   display: flex;
   align-items: center;
@@ -518,10 +529,9 @@
   font-size: 14px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   color: var(--admin-container-title-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   padding-bottom: 10px;
   margin: 0;
 }
@@ -530,9 +540,8 @@
   font-size: 14px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   color: var(--admin-container-title-color);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
   margin: 0;
 }
 
@@ -546,6 +555,8 @@
   margin-bottom: 0;
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
+  border-radius: var(--admin-radius-container);
+  box-shadow: var(--admin-shadow-container);
   padding: 8px 12px;
   overflow-x: auto;
   scrollbar-width: thin;
@@ -559,11 +570,12 @@
   font-size: 11.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.5px;
   background: var(--admin-btn-bg);
   color: var(--admin-btn-text);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
@@ -580,13 +592,13 @@
   -webkit-backdrop-filter: var(--admin-btn-active-blur) !important;
   color: var(--admin-btn-active-text) !important;
   border: var(--admin-btn-active-border) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16) !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08) !important;
 }
 
 .tabBadge {
   font-size: 10px;
   padding: 2px 6px;
-  border-radius: 2px;
+  border-radius: 5px;
   font-weight: 800;
   text-transform: uppercase;
   background: rgba(0, 0, 0, 0.08);
@@ -604,6 +616,7 @@
 .innerCard {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   padding: 16px;
   color: var(--admin-text-body);
@@ -612,20 +625,22 @@
 .innerCardCompact {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
-  padding: 12px 14px;
+  padding: 13px 15px;
   color: var(--admin-text-body);
 }
 
 .innerCardSelected {
   background: var(--admin-surface-card-highlight) !important;
   border: var(--admin-border-card-active) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.09) !important;
 }
 
 .innerCardInteractive {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   padding: 16px;
   cursor: pointer;
@@ -634,7 +649,7 @@
 
 .innerCardInteractive:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .innerCardSuccess {
@@ -661,6 +676,7 @@
   padding: 10px 14px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   font-size: 13px;
 }
@@ -675,6 +691,7 @@
 .kpiCard {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   padding: 14px 16px;
   display: flex;
@@ -727,6 +744,7 @@
 .deptCard {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   padding: 20px;
   display: flex;
@@ -739,10 +757,10 @@
 }
 
 .deptCard:hover {
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.35);
   transform: translateY(-2px);
-  background: var(--admin-surface-card);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  background: var(--admin-surface-card-highlight);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
 }
 
 .deptCardTop {
@@ -765,7 +783,7 @@
 .deptTitle {
   font-size: 15px;
   font-weight: 700;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   color: var(--admin-text-primary);
   margin: 8px 0 6px 0;
 }
@@ -782,7 +800,7 @@
   align-items: center;
   justify-content: space-between;
   padding-top: 12px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
   font-size: 11px;
   color: var(--admin-text-secondary);
 }
@@ -795,9 +813,11 @@
   font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.5px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: 6px;
+  box-shadow: inset 0 1px 0 #FFFFFF;
   color: var(--admin-text-primary);
 }
 
@@ -827,6 +847,7 @@
 .decisionCard {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
   padding: 16px;
   display: flex;
@@ -838,7 +859,7 @@
 
 .decisionCard:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 .decisionCardHeader {
@@ -862,6 +883,7 @@
   background: var(--admin-surface-card);
   color: var(--admin-text-primary);
   border: var(--admin-border-card-subtle);
+  border-radius: 5px;
 }
 
 .decisionTitle {
@@ -890,7 +912,7 @@
   gap: 6px;
   margin-top: 6px;
   padding-top: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.14);
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
 }
 
 .voterChip {
@@ -900,7 +922,7 @@
   justify-content: center;
   padding: 6px 4px;
   font-size: 10px;
-  border-radius: 2px;
+  border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
@@ -920,7 +942,7 @@
 
 .voterPending {
   background: var(--admin-surface-card);
-  border: 1px solid rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(0, 0, 0, 0.22);
   color: var(--admin-text-secondary);
 }
 
@@ -937,7 +959,8 @@
   gap: 8px;
   padding: 8px 10px;
   background: rgba(0, 0, 0, 0.04);
-  border: 1px dashed rgba(0, 0, 0, 0.28);
+  border: 1px dashed rgba(0, 0, 0, 0.24);
+  border-radius: 6px;
   font-size: 11px;
   color: var(--admin-text-secondary);
   margin-top: 4px;
@@ -947,12 +970,12 @@
   background: var(--admin-btn-bg);
   color: var(--admin-btn-text);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: 6px;
   padding: 5px 10px;
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
@@ -981,6 +1004,8 @@
 .agentBadge {
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
+  box-shadow: var(--admin-shadow-card);
   padding: 12px;
   display: flex;
   align-items: center;
@@ -992,7 +1017,7 @@
 
 .agentBadge:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.07);
 }
 
 .agentStatusDotActive {
@@ -1041,13 +1066,13 @@
   -webkit-backdrop-filter: var(--admin-btn-active-blur);
   color: var(--admin-btn-active-text);
   border: var(--admin-btn-active-border);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
   padding: 7px 14px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 2px;
+  letter-spacing: 0.4px;
+  border-radius: var(--admin-btn-radius);
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -1072,12 +1097,13 @@
   background: var(--admin-btn-bg);
   color: var(--admin-btn-text);
   border: var(--admin-btn-border);
-  border-radius: 2px;
+  border-radius: var(--admin-btn-radius);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 1px 2px rgba(0, 0, 0, 0.04);
   padding: 7px 14px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -1086,7 +1112,7 @@
 
 .btnSecondary:hover:not(:disabled) {
   background: var(--admin-btn-hover-bg);
-  border-color: #000000;
+  border-color: rgba(0, 0, 0, 0.45);
   color: #000000;
 }
 
@@ -1097,13 +1123,13 @@
   gap: 6px;
   background: var(--admin-color-success);
   color: #FFFFFF;
-  border: 1px solid #000000;
-  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: var(--admin-btn-radius);
   padding: 7px 14px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -1116,13 +1142,13 @@
   gap: 6px;
   background: var(--admin-color-info);
   color: #FFFFFF;
-  border: 1px solid #000000;
-  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: var(--admin-btn-radius);
   padding: 7px 14px;
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -1149,7 +1175,7 @@
   padding: 8px 10px;
   font-size: 12px;
   font-family: inherit;
-  border-radius: 2px;
+  border-radius: 6px;
   outline: none;
   box-sizing: border-box;
 }
@@ -1157,12 +1183,12 @@
 .formInput:focus,
 .formSelect:focus,
 .formTextarea:focus {
-  box-shadow: 0 0 0 1px #000000;
+  box-shadow: 0 0 0 1.5px #1D1D1F;
 }
 
 .rangeSlider {
   width: 100%;
-  accent-color: #000000;
+  accent-color: #1D1D1F;
   cursor: pointer;
 }
 
@@ -1171,6 +1197,7 @@
   overflow-x: auto;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   box-shadow: var(--admin-shadow-card);
 }
 
@@ -1182,20 +1209,20 @@
 }
 
 .dataTable th {
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
   color: var(--admin-text-primary);
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 10px 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   white-space: nowrap;
 }
 
 .dataTable td {
   padding: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   color: var(--admin-text-body);
   vertical-align: middle;
 }
@@ -1209,12 +1236,12 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 3px 8px;
+  padding: 3px 9px;
   font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.4px;
-  border-radius: 2px;
+  border-radius: 6px;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
   color: var(--admin-text-primary);
@@ -1251,6 +1278,7 @@
   margin-bottom: 0;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
+  border-radius: var(--admin-radius-card);
   color: var(--admin-text-primary);
   font-size: 12.5px;
   font-weight: 700;
