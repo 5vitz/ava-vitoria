@@ -4,7 +4,37 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 25/11/2026 · Tarde)
+## 1. O que realizamos nesta sessão (Estado Atual — 25–26/11/2026 · Noite/Madrugada)
+
+*   **🧭 O ESPELHO DO FLUXO GERAL DE PROCESSOS (360°), LIMPEZA DE DADOS FICTÍCIOS ("TABULA RASA") & ROTEIRO E2E DA PEÇA ÚNICA PELOS 8 DEPARTAMENTOS (`/api/admin/workflow`, `src/lib/workflowState.ts`, `docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf` & `Vale_uma_NFe_AVA.pdf`) ✅:**
+    *   **1. Levantamento Completo das Atribuições dos 4 Sócios × 8 Departamentos (Base para o Contrato Social MEI ➔ LTDA):**
+        *   **Flávio (`01 · Jurídico & Compliance` + `02 · Financeiro, Fiscal & ERP`):** Transição MEI ➔ LTDA, INPI, Registro Blockchain (`.ots` OpenTimestamps Bitcoin) do JSON de 26 Chaves vindo do Atelier, Conta PJ, Bling ERP v3 (`NCM 6109.10.00 × cClassTrib` — LC 214/2025), emissão do PDF `"Vale uma NF-e"` na Sala de Reuniões, interlocução com o Contador (`Convidado Nível 2`), Unit Economics (DRE) e ressarcimentos pré-operacionais.
+        *   **Armando / *Genera* (`03 · Arquitetura & TI` + `04 · Produção & Fornecedores`):** Arquitetura Next.js 16 / PostgreSQL ACID, VPS Contabo (`31.220.102.2`), 23 Agentes de IA, Hub Multi-Supplier PoD (Dimona, Printful, Reserva INK, Parceria Fábrica King SP), Estoque Físico e condução da esteira fabril até a fronteira **`4. Pronto na Doca / Aguardando Coleta`**.
+        *   **Gustavo (`05 · SAC` + `06 · Marketing de Vendas`):** Torre Logística Pós-Coleta (`COLETADO` ➔ Entrega Final via GraphQL J&T/Intelipost), Concierge IA 24/7 + Cláusula de Terceirização BPO ao atingir 5 atendimentos humanos/dia (`Senha Convidado Nível 1`), Ciclo PDCA de Tráfego Pago (ROAS) guiado pelo Relatório da Diretoria (*Mais Vendido / Mais Encomendado / Menos Vendido*) e 10 Canais de Venda.
+        *   **Tripoint (`07 · Marketing de Produto` + `08 · Atelier Criativo & Mídias`):** Ponto de Partida (Fase 0 — Os 4 Pilares da Coleção: *1. Nome, 2. Tema/Tendência, 3. Estética, 4. Mensagem A·V·A*), Visual Merchandising da Vitrine Canônica (Grid 3x3 9:16), Trios 3x3 Instagram, campanha `"EU TENHO CUPOM!"`, Matriz Canônica MDV 26 Chaves e Matrizes 300 DPI.
+    *   **2. Fluxograma Executivo Oficial em PDF (Lâmina A4 — Estética 4 Níveis do Painel Admin):**
+        *   Gravado em [`docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf) e indexado em [`docs/REUNIAO/INDEX.md`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/INDEX.md).
+    *   **3. Eliminação de 100% dos Dados Fictícios ("Tabula Rasa") & Sistema Central de Arquivamento de Pedidos na Diretoria (`/admin/diretoria`):**
+        *   Removidas todas as pautas fictícias da Urna 4/4 (`AdminCockpitClient.tsx`), pautas pré-fabricadas da Sala de Reuniões (`/api/admin/boardroom/pautas`), chamados fictícios de troca do SAC (`/admin/atendimento`) e métricas fictícias de tráfego (`/admin/vendas`).
+        *   **Sistema Central de Arquivamento na Diretoria Executiva ([`/admin/diretoria`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/src/app/admin/diretoria/page.tsx)):** Separa o histórico em duas gavetas:
+            *   **`🧪 Pasta: Amostras`:** O lote real das 6 amostras da Dimona (`#755-460-927` · `R$ 472,80` · `NF-e #114273`), por já ter chegado e ser esporádico, nasce **arquivado aqui** e contabilizado como Investimento P&D no Financeiro do Flávio.
+            *   **`👤 Pasta: Clientes`:** Nasce limpa (`0 pedidos`), recebendo os pedidos reais de clientes assim que o SAC confirma a entrega final.
+        *   **Geração Automática dos 2 Relatórios Executivos na Diretoria:** Sempre que um pedido bate no Arquivo da Diretoria, o motor gera automaticamente:
+            1.  **💎 Relatório #1 (Para o Flávio · `02 · Financeiro`):** Consolidado de Receita Bruta de Clientes, Custo PoD, Simples Nacional (6%), Taxa Gateway (3,5%), Lucro Líquido Real, Despesa P&D de Amostras (`- R$ 472,80`) e vínculos com as NF-es (`#114273` e `"Vale uma NF-e"`).
+            2.  **📈 Relatório #2 (Para o Gustavo · `06 · Marketing de Vendas`):** Subsídio informacional apontando o **Produto Mais Vendido**, a **Modelagem/Cor Mais Encomendada**, o **Produto Menos Vendido** e o direcionamento automático de onde escalar ou pausar verba de tráfego pago (ROAS).
+    *   **4. Documento Oficial `"Vale uma NF-e"` (`Vale_uma_NFe_AVA.pdf`) & Esteira Conectada da Peça Única (Fase 0 a Fase 4):**
+        *   Gerado o PDF [`public/PDF/Vale_uma_NFe_AVA.pdf`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/public/PDF/Vale_uma_NFe_AVA.pdf) (espelhado em [`docs/REUNIAO/Vale_uma_NFe_AVA.pdf`](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/Vale_uma_NFe_AVA.pdf)) como equivalente da NF-e Modelo 55 (pré-integração Bling) para anexação na Sala de Reuniões.
+        *   Implantada a **Bússola Viva do Espelho do Fluxo** no `/admin` e a conexão persistente em banco PostgreSQL (`ava_unified_workflow_v1`) entre todos os departamentos:
+            *   **Fase 0 (`/admin/marketing` ➔ `Urna 4/4`):** Tripoint propõe os **4 Pilares da Coleção** (*1. Nome, 2. Tema/Tendência, 3. Estética, 4. Mensagem A·V·A*) ➔ Diretoria vota 4/4 e destrava o Atelier.
+            *   **Fase 1 (`/admin/atelier` ➔ `/admin/juridico`):** Tripoint aprova a Peça Única (`SHA-256`) ➔ Flávio registra o JSON de 26 Chaves na Blockchain (`.ots` OpenTimestamps Bitcoin).
+            *   **Fase 2 (`/admin/financeiro` ➔ `Urna 4/4` ➔ `/admin/marketing`):** Flávio calcula o Unit Economics e envia à Urna 4/4 ➔ Preço aprovado ➔ Tripoint publica a **Peça Única repetida em todos os cards da Vitrine Oficial (`/`)**.
+            *   **Fase 3 (`/admin/vendas` ➔ `/admin/financeiro` ➔ `Sala de Reuniões`):** Compra de cliente gera o Pedido Vivo `#AVA-101` ➔ Flávio anexa o **`Vale_uma_NFe_AVA.pdf`** na Sala de Reuniões (protocolado pelo Agente Porteiro) para Armando e Gustavo, liberando a Produção.
+            *   **Fase 4 (`/admin/producao` ➔ `/admin/atendimento` ➔ `/admin/diretoria`):** Armando avança até `4. Pronto na Doca` e transborda `COLETADO` ao SAC ➔ Gustavo confirma a entrega final e arquiva na Diretoria (`👤 Clientes`), disparando os **2 Relatórios Automáticos (Flávio e Gustavo)**.
+    *   **Validação Técnica:** `npx tsc --noEmit` validado com **0 erros TypeScript**.
+
+---
+
+## 1.0-AA. Histórico da Sessão Anterior (25/11/2026 · Tarde)
 
 *   **🏛️ ARQUITETURA CSS UNIFICADA EM 4 NÍVEIS & LIMPEZA DE 758 ESTILOS INLINE NO PAINEL ADMIN (`src/app/admin/admin-cockpit.module.css`) ✅:**
     *   **Eliminação da Desorganização Herdada do Transplante (`Star-Ink` ➔ `Ava-Vitoria`):** Removidos **758 blocos `style={{ ... }}` inline** que haviam sido gerados na conversão do Tailwind da `Star-Ink`, zerando estilos inline em todos os **8 Departamentos**, `AdminCockpitClient.tsx`, `AdminHeader.tsx`, `diretoria/page.tsx`, `agentes/page.tsx`, `financeiro/assinaturas/page.tsx` e modais.

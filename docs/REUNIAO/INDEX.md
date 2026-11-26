@@ -37,6 +37,10 @@
 
 6. **[05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf)**
    * **Fluxograma Executivo Oficial (1 Página A4 — Estética 4 Níveis do Painel Admin):** O Espelho 360° do Fluxo Geral de Processos da AVA Sem Limites.
-   * Mapeamento das 4 Fases e 10 Etapas operacionais integrando os **4 Sócios × 8 Departamentos** (Criação MDV 26 Chaves & Registro Blockchain Bipartite ➔ Precificação, Urna 4/4 & Vitrine Canônica ➔ Tráfego PDCA, Checkout ACID & NF-e 55 Bling ERP ➔ Produção até a Doca vs. Torre Logística Pós-Coleta SAC & Gatilho BPO).
+   * Mapeamento completo desde a **Fase 0 (Ponto de Partida: Os 4 Pilares da Coleção — Nome, Tema/Tendência, Estética e Mensagem A·V·A com votação 4/4)** passando pelas **Fases 1 a 4** (Criação MDV 26 Chaves & Registro Blockchain Bipartite ➔ Precificação, Urna 4/4 & Vitrine Canônica com a Peça Única repetida em todos os cards ➔ Compra do Cliente, Checkout ACID & Anexação do `"Vale uma NF-e"` na Sala de Reuniões ➔ Produção até a Doca vs. Torre Logística Pós-Coleta SAC & Gatilho BPO) até o **Fechamento na Diretoria (Arquivo Central `Clientes` vs. `Amostras` gerando automaticamente o Relatório #1 para o Flávio e o Relatório #2 para o Gustavo)**.
    * Quadro sintético de equilíbrio de titularidade, fechamento de pontos cegos e cláusulas estruturais para o **Contrato Social (Transição MEI ➔ LTDA)**.
+
+7. **[Vale_uma_NFe_AVA.pdf](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/Vale_uma_NFe_AVA.pdf)** *(também disponível em `/public/PDF/Vale_uma_NFe_AVA.pdf`)*
+   * **Documento Equivalente de Homologação Fiscal ("VALE UMA NF-e"):** Arquivo PDF diagramado para o teste da Fase 3 (Etapa 8), permitindo que o Financeiro (`Flávio`) o anexe na **Sala de Reuniões (`AVA Boardroom`)** endereçado à Produção (`Armando`) e ao SAC (`Gustavo`) com protocolo do Agente Porteiro do Conselho.
+
 
