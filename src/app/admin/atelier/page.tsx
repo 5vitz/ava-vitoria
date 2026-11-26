@@ -424,7 +424,7 @@ export default function AtelierPage() {
 
         {/* ABA PRINCIPAL: PROMPT TO IMAGE & MATRIZ CANÔNICA DE 26 CHAVES */}
         {activeTab === 'artworks' && (
-          <div>
+          <div className={styles.flexColStack}>
             {/* PAINEL FASE 1 (ETAPA 1): APROVAÇÃO DA PEÇA ÚNICA PARA COLEÇÃO & ENVIO AO JURÍDICO (BLOCKCHAIN) */}
             <div className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
               <div className={styles.flexRowBetween}>

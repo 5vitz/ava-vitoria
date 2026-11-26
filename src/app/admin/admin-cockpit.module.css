@@ -9,8 +9,9 @@
    ========================================================================== */
 
 .adminLayout {
-  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA */
+  /* NÍVEL 1 — FUNDO ROOT DA PÁGINA & ESPAÇAMENTO UNIFICADO ENTRE CONTAINERS */
   --admin-bg-page: #000000;
+  --admin-container-gap: 14px;
   --admin-text-primary: #000000;
   --admin-text-body: #18191B;
   --admin-text-secondary: #3F3F46;
@@ -79,13 +80,14 @@
    TOPO EM 2 LINHAS (2 CARDS CONTAINERS DISTINTOS E LIMPOS)
    ========================================================================== */
 .topHeaderWrapper {
-  padding: 14px 24px 0 24px;
+  padding: var(--admin-container-gap) 24px 0 24px;
   max-width: 1440px;
   width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--admin-container-gap);
+  box-sizing: border-box;
 }
 
 .headerRow1Card {
@@ -373,10 +375,14 @@
    ========================================================================== */
 .mainContainer {
   flex: 1;
-  padding: 28px 24px 60px 24px;
+  padding: var(--admin-container-gap) 24px 60px 24px;
   max-width: 1440px;
   margin: 0 auto;
   width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--admin-container-gap);
 }
 
 .executiveCommandStrip {
@@ -385,7 +391,7 @@
   border-left: 4px solid #000000;
   box-shadow: var(--admin-shadow-container);
   padding: 18px 24px;
-  margin-bottom: 28px;
+  margin-bottom: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -406,7 +412,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 14px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
   box-shadow: var(--admin-shadow-container);
@@ -441,28 +447,28 @@
 
 .deptsPanel,
 .decisionQueueSection {
-  margin-bottom: 28px;
+  margin-bottom: 0;
 }
 
 .moduleCard {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--admin-container-gap);
   color: var(--admin-text-primary);
 }
 
 .moduleCardSpaced {
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .moduleCardTopSpaced {
-  margin-top: 24px;
+  margin-top: 0;
 }
 
 .moduleGrid2Cols {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  gap: var(--admin-container-gap);
 }
 
 @media (min-width: 900px) {
@@ -510,7 +516,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
   background: var(--admin-surface-container);
   border: var(--admin-border-card);
   padding: 8px 12px;
@@ -1215,7 +1221,7 @@
 /* Banners de Feedback e Alertas */
 .alertBanner {
   padding: 12px 16px;
-  margin-bottom: 20px;
+  margin-bottom: 0;
   background: var(--admin-surface-card);
   border: var(--admin-border-card);
   color: var(--admin-text-primary);
@@ -1348,7 +1354,7 @@
 .flexColStack {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--admin-container-gap, 14px);
 }
 
 .flexColTight {
