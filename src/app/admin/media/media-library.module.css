@@ -23,7 +23,7 @@
 /* Barra de Controles e Filtros */
 .controlsSection {
   background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
-  border: var(--admin-border-container, 1px solid #8E8E98);
+  border: var(--admin-border-container, none);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 16px 20px;
   display: flex;

@@ -19,20 +19,20 @@
 
   /* NÍVEL 2 — BANDEJAS / CONTAINERS ARQUITETÔNICOS (.moduleCard, .headerRow1Card, .deptsPanel, .tabStripContainer) */
   --admin-surface-container: linear-gradient(180deg, #52525B 0%, #EEEEF2 100%);
-  --admin-border-container: 1px solid #8E8E98;
+  --admin-border-container: none;
   --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
 
   /* NÍVEL 3 — CARDS INTERNOS FLUTUANTES (.innerCard, .kpiCard, .deptCard, .decisionCard, .agentBadge, .dataTableWrapper) */
-  --admin-surface-card: #FFFFFF;
-  --admin-surface-card-highlight: #FEFCF5;
-  --admin-surface-card-subtle: #F4F4F6;
+  --admin-surface-card: #E4E4EA;
+  --admin-surface-card-highlight: #DADAE2;
+  --admin-surface-card-subtle: #DCDCE4;
   --admin-border-card: 1px solid #8E8E98;
   --admin-border-card-active: 2px solid #000000;
   --admin-border-card-subtle: 1px solid rgba(142, 142, 152, 0.35);
   --admin-shadow-card: 0 2px 6px rgba(0, 0, 0, 0.04);
 
   /* NÍVEL 4 — BOTÕES, ABAS E INPUTS */
-  --admin-btn-bg: #FFFFFF;
+  --admin-btn-bg: #E4E4EA;
   --admin-btn-text: #000000;
   --admin-btn-border: 1px solid #8E8E98;
   --admin-btn-hover-bg: rgba(0, 0, 0, 0.12);
@@ -43,7 +43,7 @@
   --admin-btn-active-border: 1px solid #000000;
   --admin-btn-active-blur: blur(12px);
 
-  --admin-input-bg: #FFFFFF;
+  --admin-input-bg: #E4E4EA;
   --admin-input-border: 1px solid #8E8E98;
   --admin-input-text: #000000;
 
@@ -388,7 +388,6 @@
 .executiveCommandStrip {
   background: var(--admin-surface-container);
   border: var(--admin-border-container);
-  border-left: 4px solid #000000;
   box-shadow: var(--admin-shadow-container);
   padding: 18px 24px;
   margin-bottom: 0;
@@ -518,7 +517,7 @@
   gap: 8px;
   margin-bottom: 0;
   background: var(--admin-surface-container);
-  border: var(--admin-border-card);
+  border: var(--admin-border-container);
   padding: 8px 12px;
   overflow-x: auto;
   scrollbar-width: thin;

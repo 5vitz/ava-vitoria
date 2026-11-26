@@ -20,7 +20,7 @@
   flex-wrap: wrap;
   gap: 16px;
   background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
-  border: var(--admin-border-container, 1px solid #8E8E98);
+  border: var(--admin-border-container, none);
   padding: 18px 24px;
 }
 
@@ -73,13 +73,13 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: var(--admin-btn-bg, #FFFFFF);
+  background: var(--admin-btn-bg, #E4E4EA);
   color: var(--admin-btn-text, #000000);
   font-size: 11px;
   font-weight: 700;
   padding: 8px 14px;
   border-radius: 2px;
-  border: var(--admin-btn-border, 1px solid #000000);
+  border: var(--admin-btn-border, 1px solid #8E8E98);
   cursor: pointer;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -99,8 +99,8 @@
 }
 
 .kpiCard {
-  background: var(--admin-surface-card, #FFFFFF);
-  border: var(--admin-border-card, 1px solid #000000);
+  background: var(--admin-surface-card, #E4E4EA);
+  border: var(--admin-border-card, 1px solid #8E8E98);
   padding: 16px 18px;
   box-shadow: var(--admin-shadow-card, 0 2px 6px rgba(0, 0, 0, 0.04));
   display: flex;
@@ -144,8 +144,8 @@
 }
 
 .alertCard {
-  background: var(--admin-surface-card, #FFFFFF);
-  border: var(--admin-border-card, 1px solid #000000);
+  background: var(--admin-surface-card, #E4E4EA);
+  border: var(--admin-border-card, 1px solid #8E8E98);
   padding: 16px 20px;
   box-shadow: var(--admin-shadow-card, 0 1px 4px rgba(0, 0, 0, 0.03));
 }
@@ -191,14 +191,14 @@
   gap: 6px;
   overflow-x: auto;
   padding: 8px 12px;
-  background: var(--admin-surface-container, #EEEEF2);
-  border: var(--admin-border-card, 1px solid #000000);
+  background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
+  border: var(--admin-border-container, none);
   scrollbar-width: thin;
 }
 
 .filterBtn {
-  background: var(--admin-btn-bg, #FFFFFF);
-  border: var(--admin-btn-border, 1px solid #000000);
+  background: var(--admin-btn-bg, #E4E4EA);
+  border: var(--admin-btn-border, 1px solid #8E8E98);
   color: var(--admin-btn-text, #27272A);
   font-size: 11px;
   font-weight: 600;
@@ -225,8 +225,8 @@
 
 /* Subscriptions Table */
 .tableContainer {
-  background: var(--admin-surface-card, #FFFFFF);
-  border: var(--admin-border-card, 1px solid #000000);
+  background: var(--admin-surface-card, #E4E4EA);
+  border: var(--admin-border-card, 1px solid #8E8E98);
   box-shadow: var(--admin-shadow-card, 0 2px 8px rgba(0, 0, 0, 0.04));
   overflow-x: auto;
 }
