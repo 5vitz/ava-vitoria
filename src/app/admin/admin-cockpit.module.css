@@ -18,7 +18,7 @@
   --admin-text-muted: #4B5563;
 
   /* NÍVEL 2 — BANDEJAS / CONTAINERS ARQUITETÔNICOS (.moduleCard, .headerRow1Card, .deptsPanel, .tabStripContainer) */
-  --admin-surface-container: #EEEEF2;
+  --admin-surface-container: linear-gradient(180deg, #52525B 0%, #EEEEF2 100%);
   --admin-border-container: 1px solid #8E8E98;
   --admin-shadow-container: 0 2px 8px rgba(0, 0, 0, 0.05);
 

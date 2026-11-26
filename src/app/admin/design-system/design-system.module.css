@@ -21,8 +21,8 @@
 }
 
 .introCard {
-  background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
+  border: var(--admin-border-container, 1px solid #8E8E98);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
 }
@@ -39,14 +39,14 @@
 
 .introCard p {
   font-size: 0.85rem;
-  color: #4B5563;
+  color: #18191B;
   margin: 0;
   line-height: 1.5;
 }
 
 .panelSection {
-  background-color: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
+  border: var(--admin-border-container, 1px solid #8E8E98);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   padding: 24px;
   display: flex;

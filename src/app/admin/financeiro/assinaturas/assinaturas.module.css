@@ -19,8 +19,8 @@
   margin-bottom: 0;
   flex-wrap: wrap;
   gap: 16px;
-  background: var(--admin-surface-container, #EEEEF2);
-  border: var(--admin-border-container, 1px solid rgba(0, 0, 0, 0.18));
+  background: var(--admin-surface-container, linear-gradient(180deg, #52525B 0%, #EEEEF2 100%));
+  border: var(--admin-border-container, 1px solid #8E8E98);
   padding: 18px 24px;
 }
 
