@@ -325,46 +325,44 @@ export async function POST(req: NextRequest) {
       const decomposedMatrix26: WritingMatrix26 = {
         ...DEFAULT_MATRIX_JAZZ_3D,
         '01_ontological_essence': `${charterTheme} — ${charterMessage} (Decomposto da referência "${referenceTitle || 'Stock API'}" com desvinculação autoral >= 9 chaves).`,
-        '02_esthetic_archetype': `AVA Streetwear de Luxo & Op-Art Cinético (${charterAesthetic})`,
-        '03_emotional_valence': `Vertigem óptica 3D, soberania estética e impacto imediato (${charterMessage})`,
+        '02_archetypal_symbolism': `AVA Streetwear de Luxo & Op-Art Cinético (${charterAesthetic})`,
+        '03_emotional_gravity': `Vertigem óptica 3D, soberania estética e impacto imediato (${charterMessage})`,
         '04_primary_subject': subjectFinal,
-        '05_anatomical_biomechanics':
-          'Tensão cinética em suspensão gravitacional, extensão de membros ao longo do vetor diagonal da composição com torção escapular',
-        '06_kinetic_vector': `Vetor primário detectado pelo Scanner Sobel: ${domAxis} com aceleração centrífuga para o plano frontal`,
-        '07_symbolic_attributes':
-          'Ausência de ruído figurativo facial; identidade expressa puramente pela modulação topográfica das linhas de força',
-        '08_optical_perspective_z_axis': angleFinal,
-        '09_camera_focal_geometry':
+        '05_satellite_elements':
+          'Zero objetos satélites redundantes (Estética da Subtração Pura); apenas vetores de tensão cinética',
+        '06_narrative_context': `Vetor primário detectado pelo Scanner Sobel: ${domAxis} — ${charterName}`,
+        '07_typography_and_epigraphy':
+          'Ausência de ruído tipográfico literal; identidade expressa puramente pela modulação topográfica das linhas de força',
+        '08_spatial_density_ratio': `${negSpace}% de espaço negativo absoluto medido via Scanner MDV (respiro livre da malha sem caixa de fundo)`,
+        '09_compositional_geometry': angleFinal,
+        '10_focal_anchor_point':
           'Lente virtual 28mm grande-angular anamórfica posicionada a 0.65m do centro de massa para amplificar o salto no Eixo Z',
-        '10_spatial_depth_layers':
-          '3 planos de profundidade (Foreground em hiper-escorço, Midground torso em torção, Background dissolvendo no tecido)',
-        '11_negative_space_ratio': `${negSpace}% de espaço negativo absoluto medido via Scanner MDV (respiro livre da malha sem caixa de fundo)`,
-        '12_structural_grid_topology': `Malha paramétrica 3x3 (Entropia central: ${scannerMetrics.zonal_entropy_3x3?.center_core ?? 6.5} bits vs bordas limpas)`,
-        '13_line_weight_modulation': `Traço vetorial calibrado em ${strokePx}px (hairline 1px nas bordas de fuga a 3px nas cristas de luz frontal)`,
-        '14_surface_topography_3d':
-          'Topografia de linhas de contorno paralelas (cross-contour) esculpindo o volume tridimensional sem preenchimento chapado',
-        '15_chiaroscuro_endorsement': `Contraste chiaroscuro de alto impacto (Desvio padrão de luminância: ${scannerMetrics.luminance_contrast_std ?? 58.9})`,
-        '16_optical_illusion_mechanism':
-          'Paralaxe estereoscópica por compressão de frequência de linhas e desvio de fase angular nas bordas',
-        '17_chromatic_triad_pod':
+        '11_dynamic_force_vectors': `Vetor cinético primário: ${domAxis} com aceleração centrífuga para o plano frontal`,
+        '12_lighting_source_and_angle':
+          '3 planos de profundidade (Foreground em hiper-escorço iluminado, Midground torso em torção, Background dissolvendo no tecido)',
+        '13_chiaroscuro_depth': `Contraste chiaroscuro de alto impacto (Desvio padrão de luminância: ${scannerMetrics.luminance_contrast_std ?? 58.9})`,
+        '14_chromatic_hierarchy':
           'Tríade PoD de Alta Fixação: Branco Puro (#FFFFFF), Ouro Ocre Nobre (#C29E5D) e Alpha Transparente do Tecido (#000000)',
-        '18_substrate_ground_integration':
-          'Fundo 100% vazado (knockout black / alpha channel) utilizando a própria malha penteada 30.1 da camiseta como sombra profunda',
-        '19_halftone_dithering_ physics':
-          'Zero degradê esfumaçado; transições tonais resolvidas exclusivamente por variação de espaçamento entre linhas vetoriais',
-        '20_edge_termination_bleed':
-          'Terminação em ponta seca (tapered vector ends) sem moldura retangular, integrando a arte organicamente ao tórax',
-        '21_print_matrix_resolution':
-          'Matriz Industrial 300 DPI — Dimona Silk HD Kornit (3435×4680px) & Upscale Generativo Magnific',
-        '22_ink_deposit_tactility':
-          'Camada fina de toque zero (zero-hand feel) graças aos ' +
-          `${negSpace}% de área livre de tinta na malha`,
-        '23_viewing_distance_ergonomics':
+        '15_scale_and_proportions':
           'Dupla leitura: impacto escultórico 3D a 5 metros e micro-precisão geométrica a 40 centímetros',
-        '24_negative_prompt_guardrails':
-          'NO solid background box, NO rectangular border, NO blurry gradients, NO watermarks, NO photorealistic skin clutter, NO low contrast',
-        '25_mdv_scanner_telemetry': `MDV Python Scanner: NegSpace=${negSpace}% | Stroke=${strokePx}px | Axis=${domAxis} | Dim=${scannerMetrics.dimensions || '1080x1440'}`,
-        '26_authorship_mutation_proof':
+        '16_visual_silence_level': `Silêncio visual de ${negSpace}% de malha livre de tinta (zero-hand feel e sem moldura retangular)`,
+        '17_linework_typology':
+          'Topografia de linhas de contorno paralelas (cross-contour) esculpindo o volume tridimensional sem preenchimento chapado',
+        '18_stroke_weight_and_pressure': `Traço vetorial calibrado em ${strokePx}px (hairline 1px nas bordas de fuga a 3px nas cristas de luz frontal)`,
+        '19_mass_and_fill_treatment':
+          'Fundo 100% vazado (knockout black / alpha channel) utilizando a própria malha penteada 30.1 da camiseta como sombra profunda',
+        '20_edge_definition':
+          'Terminação em ponta seca (tapered vector ends) sem moldura retangular, integrando a arte organicamente ao tórax',
+        '21_texture_and_surface_grain':
+          'Zero degradê esfumaçado; transições tonais resolvidas exclusivamente por variação de espaçamento entre linhas vetoriais',
+        '22_optical_effects':
+          'Paralaxe estereoscópica por compressão de frequência de linhas e desvio de fase angular nas bordas',
+        '23_framing_and_containment':
+          'Composição aberta flutuante no peito da camiseta — NO solid background box, NO rectangular border',
+        '24_medium_simulation':
+          'Matriz Industrial 300 DPI — Dimona Silk HD Kornit (3435×4680px) & Upscale Generativo Magnific',
+        '25_zonal_complexity_map': `MDV Python Scanner: NegSpace=${negSpace}% | Stroke=${strokePx}px | Axis=${domAxis} | CenterEntropy=${scannerMetrics.zonal_entropy_3x3?.center_core ?? 6.5} bits | Dim=${scannerMetrics.dimensions || '1080x1440'}`,
+        '26_autonomous_signature_dna':
           '9/26 chaves mutadas (Zona 1 Identidade: 5 chaves mutadas | Zona 2 Geometria/Escorço: 4 chaves mutadas | Zona 3 Física: preservada). Blindagem autoral validada.',
       };
 
