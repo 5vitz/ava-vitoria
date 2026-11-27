@@ -54,15 +54,8 @@ export default function AtelierPage() {
   const [stockLoading, setStockLoading] = useState(false);
   const [stockApiSource, setStockApiSource] = useState<string>('MAGNIFIC_LIVE_API');
   const [stockApiNotice, setStockApiNotice] = useState<string | null>(null);
-  const [selectedRefImage, setSelectedRefImage] = useState<MagnificResourceItem>({
-    id: 'AVA-REF-001',
-    title: 'Bailarina de Jazz em Salto 3D — 75° Escorço Eixo Z (Obra Inaugural)',
-    previewUrl: '/imagens/projetos/Testes/AVA-TEST-001_jazz_dancer_3d_75deg.jpg',
-    type: 'vector',
-    orientation: 'vertical',
-    author: 'AVA Atelier / MDV 26',
-    license: 'Propriedade Autoral AVA',
-  });
+  const [selectedRefImage, setSelectedRefImage] = useState<MagnificResourceItem | null>(null);
+  const [zoomedRefImage, setZoomedRefImage] = useState<MagnificResourceItem | null>(null);
   const [customRefUrlInput, setCustomRefUrlInput] = useState('');
   const [decomposingRef, setDecomposingRef] = useState(false);
   const [lastScannerMetrics, setLastScannerMetrics] = useState<any>(null);
@@ -181,12 +174,15 @@ export default function AtelierPage() {
 
   // Decompõe a Imagem de Referência NA ÍNTEGRA -> Gera o JSON de Leitura (0 alterações automáticas) e carrega no Editor Amigável
   const handleDecomposeReferenceToReadingJson = async () => {
-    const refUrl = customRefUrlInput.trim() || selectedRefImage.previewUrl;
+    const refUrl = customRefUrlInput.trim() || selectedRefImage?.previewUrl || '';
     const refTitle = customRefUrlInput.trim()
       ? 'Referência Customizada AVA'
-      : selectedRefImage.title;
+      : selectedRefImage?.title || 'Referência Magnific';
 
-    if (!refUrl) return;
+    if (!refUrl) {
+      triggerFeedback('⚠️ Selecione primeiro uma Imagem de Referência na grade acima para decompor.');
+      return;
+    }
     setDecomposingRef(true);
     try {
       const res = await fetch('/api/atelier/magnific', {
@@ -196,8 +192,8 @@ export default function AtelierPage() {
           action: 'DECOMPOSE_REFERENCE_TO_MATRIX26',
           referenceUrl: refUrl,
           referenceTitle: refTitle,
-          referenceType: selectedRefImage.type,
-          referenceAuthor: selectedRefImage.author,
+          referenceType: selectedRefImage?.type || 'photo',
+          referenceAuthor: selectedRefImage?.author || 'Magnific Creator',
         }),
       });
       const data = await res.json();
@@ -948,41 +944,59 @@ export default function AtelierPage() {
                       <div className={styles.textMutedSmall}>{stockApiNotice}</div>
                     )}
 
-                    {/* Grade Visual de Miniaturas dentro do Painel */}
+                    {/* Grade Visual de Miniaturas dentro do Painel: Clique na imagem = Amplia (Lightbox) | Clique no botão = Seleciona / Desmarca */}
                     <div className={styles.stockGalleryGrid}>
                       {stockResources.map((item) => {
                         const isChosen =
-                          !customRefUrlInput && selectedRefImage.id === item.id;
+                          !customRefUrlInput && selectedRefImage?.id === item.id;
                         return (
                           <div
                             key={item.id}
-                            onClick={() => {
-                              setSelectedRefImage(item);
-                              setCustomRefUrlInput('');
-                            }}
-                            className={`${styles.innerCardInteractive} ${styles.flexColTight} ${
+                            className={`${styles.innerCardCompact} ${styles.flexColTight} ${
                               isChosen ? styles.innerCardSelected : ''
                             }`}
                           >
-                            <img
-                              src={item.previewUrl}
-                              alt={item.title}
-                              className={styles.stockThumbImg}
-                            />
+                            <div
+                              className={styles.stockThumbWrapper}
+                              onClick={() => setZoomedRefImage(item)}
+                              title="Clique na imagem para ampliar em alta resolução"
+                            >
+                              <img
+                                src={item.previewUrl}
+                                alt={item.title}
+                                className={styles.stockThumbImg}
+                              />
+                              <span className={styles.stockThumbZoomHint}>
+                                🔍 Ampliar
+                              </span>
+                            </div>
+
                             <div className={styles.decisionTitle}>{item.title}</div>
                             <div className={styles.textMutedSmall}>
                               <strong>{item.type.toUpperCase()}</strong> · {item.author}
                             </div>
+
                             <button
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
-                                setSelectedRefImage(item);
-                                setCustomRefUrlInput('');
+                                if (isChosen) {
+                                  setSelectedRefImage(null);
+                                } else {
+                                  setSelectedRefImage(item);
+                                  setCustomRefUrlInput('');
+                                }
                               }}
                               className={isChosen ? styles.btnPrimary : styles.btnSecondary}
+                              title={
+                                isChosen
+                                  ? 'Clique novamente para desmarcar esta referência'
+                                  : 'Clique para selecionar esta imagem como referência'
+                              }
                             >
-                              {isChosen ? '✓ Referência Selecionada' : '🎯 Selecionar Referência'}
+                              {isChosen
+                                ? '✓ Referência Selecionada (Clique p/ Desmarcar)'
+                                : '🎯 Selecionar Referência'}
                             </button>
                           </div>
                         );
@@ -1001,9 +1015,30 @@ export default function AtelierPage() {
                           O sistema <strong>não altera nada sozinho</strong>: ele extrai na íntegra as 26 propriedades da imagem escolhida acima (<strong>JSON de Leitura</strong>) e abre o painel organizado no <strong>Passo 2</strong> para você editar livremente o que desejar (como o <em>Sujeito</em>, o <em>Ângulo</em> ou as <em>Cores</em>), compondo o seu <strong>JSON de Escrita</strong>.
                         </p>
                       </div>
-                      <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                        Selecionada: {customRefUrlInput ? 'URL Customizada' : selectedRefImage.title.slice(0, 32)}
-                      </span>
+                      {customRefUrlInput || selectedRefImage ? (
+                        <div className={styles.flexRowStart}>
+                          <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
+                            Selecionada:{' '}
+                            {customRefUrlInput
+                              ? 'URL Customizada'
+                              : selectedRefImage?.title.slice(0, 32)}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSelectedRefImage(null);
+                              setCustomRefUrlInput('');
+                            }}
+                            className={styles.btnSecondary}
+                          >
+                            ✕ Limpar Seleção
+                          </button>
+                        </div>
+                      ) : (
+                        <span className={`${styles.statusPill} ${styles.statusPillWarning}`}>
+                          Nenhuma referência selecionada
+                        </span>
+                      )}
                     </div>
 
                     <div className={styles.flexRowBetween}>
@@ -1011,7 +1046,9 @@ export default function AtelierPage() {
                         <button
                           type="button"
                           onClick={handleDecomposeReferenceToReadingJson}
-                          disabled={decomposingRef}
+                          disabled={
+                            decomposingRef || (!selectedRefImage && !customRefUrlInput.trim())
+                          }
                           className={styles.btnPrimary}
                         >
                           {decomposingRef
@@ -1921,6 +1958,89 @@ export default function AtelierPage() {
           agent={selectedAgentModal}
           onClose={() => setSelectedAgentModal(null)}
         />
+      )}
+
+      {/* MODAL LIGHTBOX DE AMPLIAÇÃO DA IMAGEM DE REFERÊNCIA */}
+      {zoomedRefImage && (
+        <div
+          className={styles.modalBackdrop}
+          onClick={() => setZoomedRefImage(null)}
+        >
+          <div
+            className={styles.lightboxModalWindow}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className={styles.modalHeaderGlass}>
+              <span>
+                🔍 Inspeção Ampliada: {zoomedRefImage.title}
+              </span>
+              <button
+                type="button"
+                className={styles.modalCloseBtn}
+                onClick={() => setZoomedRefImage(null)}
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className={styles.lightboxImageContainer}>
+              <img
+                src={zoomedRefImage.previewUrl}
+                alt={zoomedRefImage.title}
+                className={styles.lightboxImgLarge}
+              />
+            </div>
+
+            <div className={styles.modalBody}>
+              <div className={styles.flexRowBetween}>
+                <div>
+                  <div className={styles.decisionTitle}>{zoomedRefImage.title}</div>
+                  <div className={styles.textMutedSmall}>
+                    ID: <strong>{zoomedRefImage.id}</strong> · Formato:{' '}
+                    <strong>{zoomedRefImage.type.toUpperCase()}</strong> · Autor:{' '}
+                    <strong>{zoomedRefImage.author}</strong> · Licença:{' '}
+                    <strong>{zoomedRefImage.license}</strong>
+                  </div>
+                </div>
+
+                <div className={styles.flexRowStart}>
+                  {selectedRefImage?.id === zoomedRefImage.id ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedRefImage(null);
+                        setZoomedRefImage(null);
+                      }}
+                      className={styles.btnPrimary}
+                    >
+                      ✓ Selecionada (Clique p/ Desmarcar)
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedRefImage(zoomedRefImage);
+                        setCustomRefUrlInput('');
+                        setZoomedRefImage(null);
+                      }}
+                      className={styles.btnPrimary}
+                    >
+                      🎯 Selecionar como Imagem de Referência
+                    </button>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => setZoomedRefImage(null)}
+                    className={styles.btnSecondary}
+                  >
+                    Fechar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
