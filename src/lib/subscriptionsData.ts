@@ -210,28 +210,30 @@ export const INITIAL_SUBSCRIPTIONS: SubscriptionItem[] = [
     notes: 'Garante que nenhuma estampa enviada à fábrica apresente serrilhamento ou borrões nos tecidos nobres.',
   },
 
-  // 7. Magnific AI
+  // 7. Magnific AI / Freepik Unified API
   {
     id: 'magnific_ai',
-    serviceName: 'Magnific AI (Upscaler Generativo & Hipertexturizador)',
+    serviceName: 'Magnific / Freepik Unified API ("All Magnific in Code" · 5-em-1)',
     category: 'CRIATIVO_ATELIER',
-    categoryLabel: 'Atelier Criativo (Em Avaliação)',
-    purpose: 'Upscaling generativo até 8K e síntese de micro-texturas têxteis ultra-realistas para alta costura e estampas gigantes.',
-    monthlyCostBrl: 115.0,
-    originalCurrencyCost: '~US$ 20,00 / mês (Anual) ou US$ 39 / mês (Mensal)',
+    categoryLabel: 'Atelier Criativo & API 5-em-1',
+    purpose: 'API unificada com 20.000 créditos/mês integrada ao /admin/atelier: (1) Stock Content API (250M+ imagens de referência Freepik), (2) Image Generation API (Mystic 2.5 / Flux), (3) Upscaler API 300 DPI (3435×4680px), (4) Remoção de Fundo PNG e (5) Vídeo 9:16.',
+    monthlyCostBrl: 80.0,
+    originalCurrencyCost: 'R$ 80,00 / mês (Avulso) ou R$ 59,00 / mês (Anual)',
     billingCycle: 'MENSAL',
-    payerAccount: 'A_DEFINIR',
-    payerLabel: '⏳ Em Avaliação por Tripoint (Aprovação na Urna)',
-    status: 'EM_AVALIACAO',
-    statusLabel: 'Em Avaliação Técnica',
-    criticality: 'MEDIA',
-    impactIfUnpaid: '🟡 REDUÇÃO DE DETALHE: O processo criativo segue com Midjourney + Vectorizer.ai sem interrupção catastrófica.',
+    payerAccount: 'PESSOAL_ARMANDO',
+    payerLabel: '👤 Cartão Virtual Armando (Ressarcir após reunião c/ Tripoint)',
+    status: 'ATIVO',
+    statusLabel: 'Ativo & Integrado via API',
+    criticality: 'ALTA',
+    impactIfUnpaid: '⚠️ BLOQUEIO DA ESTEIRA TECNO-CRIATIVA: Desativa a janela de busca de Imagens de Referência (250M+ arquivos), a geração Mystic e o Upscale 300 DPI dentro do /admin/atelier.',
     dependentAgents: [
       { id: 'creative_director_atelier', name: 'Creative Director (Atelier Tripoint)' },
+      { id: 'curador_matrizes', name: 'Curador de Matrizes 300 DPI & MDV 26' },
+      { id: 'lookbook_ia', name: 'Lookbook 9:16' },
     ],
     responsiblePartner: 'Tripoint',
     supplierType: 'SOFTWARE',
-    notes: 'Ferramenta solicitada por Tripoint para avaliação. Submeter proposta de contratação na Urna 4/4 quando o sócio concluir os testes.',
+    notes: 'Chave de API (MAGNIFIC_API_KEY) ativa no .env com 20.000 créditos/mês. Substitui assinaturas separadas de Freepik, Upscaler e geradores externos.',
   },
 
   // 8. Dimona Dropsimples

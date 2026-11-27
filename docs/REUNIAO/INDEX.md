@@ -19,11 +19,11 @@
    * Checklist completo de documentos fiscais, bancários e acessos digitais que a Diretoria precisa fornecer para conectarmos o **Bling ERP** e os **10 Canais de Distribuição**.
 
 3. **[03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/03_PLANO_CUSTOS_FIXOS_ASSINATURAS_E_MEI.md)**
-   * Estrutura detalhada de custos fixos (~R$ 489,91/mês) e mapeamento das 14 ferramentas amarradas aos 23 agentes.
-   * Estratégia de validação imediata utilizando o **MEI com Inscrição Estadual ativa** para emissão de NF-e 55 no Bling ERP.
-   * Desbloqueio da Tabela de Lojista/Atacado na Dimona (custo de fábrica real de R$ 38 a R$ 58) sem taxa mensal.
-   * Levantamento de mercado do **Magnific AI** (~US$ 20/mês a US$ 39/mês) em teste pelo Tripoint.
-   * Separação de cartões (Armando bancando R$ 209,33/mês a ressarcir) e credenciais individuais dos 4 sócios.
+   * **PAUTA #1 & #2 CONSOLIDADAS (Reunião Executiva):** Premissa de equidade societária (20 anos de expertise de mercado dos sócios × estrutura tecnológica construída pelo Genera sem cobrança retroativa de desenvolvimento).
+   * **Plataforma Agêntica Unificada via OpenRouter (`openrouter.ai`):** Como 1 único pool corporativo (~US$ 25/mês = R$ 145,00/mês) dá acesso a +300 modelos de IA especializados para todos os **23 Agentes distribuídos nos 8 Departamentos (2 por sócio)**.
+   * **Matriz Democrática (Fases 0 a 4 do Espelho do Fluxo):** Mapeamento completo de quais Agentes, quais APIs e quais valores alimentam o trabalho do **Tripoint (`07` e `08`)**, **Flávio (`01` e `02`)**, **Armando (`03` e `04`)** e **Gustavo (`05` e `06`)**.
+   * **APIs Fora da OpenRouter & Caso Reserva INK:** Bling ERP v3 (R$ 89/mês no MEI c/ IE ativa), Dimona API v2 (R$ 0/mês com Tabela de Lojista B2B), Printful API (R$ 0/mês) vs. seletividade da API da Reserva INK (Plano INKrível de **R$ 799,00/mês**, mantido em Standby até contratos B2B corporativos).
+   * **Ponte direta com a Pauta #2:** Aprovação da Minuta do Contrato Social / Acordo Societário Igualitário (4/4) registrado em Blockchain (`.ots`).
 
 4. **[04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md](file:///home/artz/Documentos/Antigravity/Ava-Vitoria/docs/REUNIAO/04_DIVISAO_MARKETING_E_TERCEIRIZACAO_SAC.md)**
    * Nomenclatura enxuta e definitiva dos Departamentos `05 · SAC`, `06 · Marketing de Vendas` (Gustavo) e `07 · Marketing de Produto` (Tripoint).
