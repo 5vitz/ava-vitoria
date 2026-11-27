@@ -91,13 +91,14 @@ export async function GET(req: NextRequest) {
   if (action === 'search') {
     const term = searchParams.get('term') || 'op art geometric 3d minimalism';
     const contentType = searchParams.get('type') || 'all';
-    const limit = searchParams.get('limit') || '8';
+    const limit = searchParams.get('limit') || '24';
+    const page = searchParams.get('page') || '1';
 
     try {
       const apiUrl = new URL(`${MAGNIFIC_API_URL}/v1/resources`);
       apiUrl.searchParams.set('term', term);
       apiUrl.searchParams.set('limit', limit);
-      apiUrl.searchParams.set('page', '1');
+      apiUrl.searchParams.set('page', page);
       apiUrl.searchParams.set('order', 'relevance');
 
       if (contentType === 'vector') {
@@ -126,6 +127,9 @@ export async function GET(req: NextRequest) {
           apiStatus: response.status,
           apiNotice: `A API Magnific Stock retornou status ${response.status} (${errText.slice(0, 120)}). Exibindo acervo curado local + referência inaugural.`,
           resources: CURATED_FALLBACK_REFERENCES,
+          page: Number(page),
+          limit: Number(limit),
+          total: CURATED_FALLBACK_REFERENCES.length,
         });
       }
 
@@ -148,7 +152,10 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         success: true,
         source: 'MAGNIFIC_LIVE_API',
+        page: Number(page),
+        limit: Number(limit),
         total: json.meta?.pagination?.total || mapped.length,
+        lastPage: json.meta?.pagination?.last_page || 100,
         resources: mapped.length > 0 ? mapped : CURATED_FALLBACK_REFERENCES,
       });
     } catch (err: any) {
@@ -157,13 +164,15 @@ export async function GET(req: NextRequest) {
         source: 'FALLBACK_CURATED',
         apiNotice: `Modo Híbrido Local ativado (${err?.message || 'Erro de rede'}).`,
         resources: CURATED_FALLBACK_REFERENCES,
+        page: Number(page),
+        limit: Number(limit),
       });
     }
   }
 
   if (action === 'task_status') {
     const taskId = searchParams.get('taskId');
-    const endpointType = searchParams.get('endpointType') || 'mystic'; // 'mystic' | 'image-upscaler'
+    const endpointType = searchParams.get('endpointType') || 'mystic';
     if (!taskId) {
       return NextResponse.json({ success: false, error: 'taskId obrigatório' }, { status: 400 });
     }
@@ -189,7 +198,6 @@ export async function GET(req: NextRequest) {
 
       let savedLocalUrl: string | null = null;
 
-      // Se a tarefa concluiu e gerou URL temporária (expira em 30 min na Magnific), salvamos imediatamente na pasta local do projeto!
       if (status === 'COMPLETED' && generatedList.length > 0) {
         try {
           const remoteUrl = generatedList[0];
@@ -234,15 +242,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { action } = body;
 
-    // 1. DECOMPOR IMAGEM DE REFERÊNCIA -> SCANNER MDV PYTHON + PREENCHIMENTO AUTOMÁTICO DAS 26 CHAVES DO JSON
+    // 1. DECOMPOR IMAGEM DE REFERÊNCIA NA ÍNTEGRA -> GERA O "JSON DE LEITURA" (100% FIEL À REFERÊNCIA, ZERO MUTAÇÃO AUTOMÁTICA)
     if (action === 'DECOMPOSE_REFERENCE_TO_MATRIX26') {
-      const {
-        referenceUrl,
-        referenceTitle,
-        collectionCharter,
-        customSubjectMutation,
-        customAngleMutation,
-      } = body;
+      const { referenceUrl, referenceTitle, referenceType, referenceAuthor } = body;
 
       if (!referenceUrl) {
         return NextResponse.json(
@@ -295,93 +297,61 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      const charterName = collectionCharter?.name || 'Coleção Sem Limites';
-      const charterTheme =
-        collectionCharter?.themeTrend ||
-        'Movimento Cinético Urbano & Liberdade Escultórica em 3D (Escorço 75° Eixo Z)';
-      const charterAesthetic =
-        collectionCharter?.aesthetic ||
-        'Estética da Subtração: Espaço Negativo, Traço Fino 1px Hairline e Acento Ouro Ocre (#C29E5D)';
-      const charterMessage =
-        collectionCharter?.brandMessage ||
-        'Atitude para saltar além do óbvio, Valorização da arte autoral e Amizade sem limites.';
-
-      const subjectFinal =
-        customSubjectMutation?.trim() ||
-        `${referenceTitle || 'Figura Escultórica Cinética'} — Releitura Autoral AVA (${charterName})`;
-
-      const angleFinal =
-        customAngleMutation?.trim() ||
-        'Escorço dramático de 75 graus projetado no Eixo Z (75-degree Z-axis foreshortening), perspectiva anamórfica emergindo do peito da camiseta';
-
-      const negSpace = scannerMetrics.negative_space_percent ?? 63.8;
-      const strokePx = scannerMetrics.estimated_stroke_px ?? 1.25;
+      const cleanTitle = referenceTitle || 'Imagem de Referência';
+      const negSpace = scannerMetrics.negative_space_percent ?? 64.2;
+      const strokePx = scannerMetrics.estimated_stroke_px ?? 1.35;
       const domAxis = scannerMetrics.dominant_vector_axis ?? 'Diagonal / Kinetic 45-deg';
+      const lumStd = scannerMetrics.luminance_contrast_std ?? 61.4;
+      const dims = scannerMetrics.dimensions || '1080x1440';
+      const centerEnt = scannerMetrics.zonal_entropy_3x3?.center_core ?? 6.7;
 
-      // Monta a Matriz Canônica de 26 Chaves combinando:
-      // - Os 4 Pilares aprovados na Fase 0 (Depto 07)
-      // - A Extração Matemática dos pixels da Imagem de Referência (Zona 3 preservada)
-      // - O Subprocesso de Desvinculação Autoral (>= 9 chaves mutadas nas Zonas 1 e 2)
-      const decomposedMatrix26: WritingMatrix26 = {
+      // JSON DE LEITURA: Decomposição 100% na íntegra da Imagem de Referência (0 chaves alteradas ainda).
+      // O usuário visualizará este JSON de Leitura de forma limpa e organizada e fará suas próprias alterações para gerar o JSON de Escrita.
+      const readingMatrix26: WritingMatrix26 = {
         ...DEFAULT_MATRIX_JAZZ_3D,
-        '01_ontological_essence': `${charterTheme} — ${charterMessage} (Decomposto da referência "${referenceTitle || 'Stock API'}" com desvinculação autoral >= 9 chaves).`,
-        '02_archetypal_symbolism': `AVA Streetwear de Luxo & Op-Art Cinético (${charterAesthetic})`,
-        '03_emotional_gravity': `Vertigem óptica 3D, soberania estética e impacto imediato (${charterMessage})`,
-        '04_primary_subject': subjectFinal,
-        '05_satellite_elements':
-          'Zero objetos satélites redundantes (Estética da Subtração Pura); apenas vetores de tensão cinética',
-        '06_narrative_context': `Vetor primário detectado pelo Scanner Sobel: ${domAxis} — ${charterName}`,
-        '07_typography_and_epigraphy':
-          'Ausência de ruído tipográfico literal; identidade expressa puramente pela modulação topográfica das linhas de força',
-        '08_spatial_density_ratio': `${negSpace}% de espaço negativo absoluto medido via Scanner MDV (respiro livre da malha sem caixa de fundo)`,
-        '09_compositional_geometry': angleFinal,
-        '10_focal_anchor_point':
-          'Lente virtual 28mm grande-angular anamórfica posicionada a 0.65m do centro de massa para amplificar o salto no Eixo Z',
-        '11_dynamic_force_vectors': `Vetor cinético primário: ${domAxis} com aceleração centrífuga para o plano frontal`,
-        '12_lighting_source_and_angle':
-          '3 planos de profundidade (Foreground em hiper-escorço iluminado, Midground torso em torção, Background dissolvendo no tecido)',
-        '13_chiaroscuro_depth': `Contraste chiaroscuro de alto impacto (Desvio padrão de luminância: ${scannerMetrics.luminance_contrast_std ?? 58.9})`,
-        '14_chromatic_hierarchy':
-          'Tríade PoD de Alta Fixação: Branco Puro (#FFFFFF), Ouro Ocre Nobre (#C29E5D) e Alpha Transparente do Tecido (#000000)',
-        '15_scale_and_proportions':
-          'Dupla leitura: impacto escultórico 3D a 5 metros e micro-precisão geométrica a 40 centímetros',
-        '16_visual_silence_level': `Silêncio visual de ${negSpace}% de malha livre de tinta (zero-hand feel e sem moldura retangular)`,
-        '17_linework_typology':
-          'Topografia de linhas de contorno paralelas (cross-contour) esculpindo o volume tridimensional sem preenchimento chapado',
-        '18_stroke_weight_and_pressure': `Traço vetorial calibrado em ${strokePx}px (hairline 1px nas bordas de fuga a 3px nas cristas de luz frontal)`,
-        '19_mass_and_fill_treatment':
-          'Fundo 100% vazado (knockout black / alpha channel) utilizando a própria malha penteada 30.1 da camiseta como sombra profunda',
-        '20_edge_definition':
-          'Terminação em ponta seca (tapered vector ends) sem moldura retangular, integrando a arte organicamente ao tórax',
-        '21_texture_and_surface_grain':
-          'Zero degradê esfumaçado; transições tonais resolvidas exclusivamente por variação de espaçamento entre linhas vetoriais',
-        '22_optical_effects':
-          'Paralaxe estereoscópica por compressão de frequência de linhas e desvio de fase angular nas bordas',
-        '23_framing_and_containment':
-          'Composição aberta flutuante no peito da camiseta — NO solid background box, NO rectangular border',
-        '24_medium_simulation':
-          'Matriz Industrial 300 DPI — Dimona Silk HD Kornit (3435×4680px) & Upscale Generativo Magnific',
-        '25_zonal_complexity_map': `MDV Python Scanner: NegSpace=${negSpace}% | Stroke=${strokePx}px | Axis=${domAxis} | CenterEntropy=${scannerMetrics.zonal_entropy_3x3?.center_core ?? 6.5} bits | Dim=${scannerMetrics.dimensions || '1080x1440'}`,
-        '26_autonomous_signature_dna':
-          '9/26 chaves mutadas (Zona 1 Identidade: 5 chaves mutadas | Zona 2 Geometria/Escorço: 4 chaves mutadas | Zona 3 Física: preservada). Blindagem autoral validada.',
+        '01_ontological_essence': `Decomposição Integral da Referência: "${cleanTitle}" (Formato: ${referenceType || 'visual'} · Autor Original: ${referenceAuthor || 'Stock Reference'}).`,
+        '02_archetypal_symbolism': `Arquétipo Visual extraído da referência "${cleanTitle}" — Dinamismo, expressão corporal e síntese gráfica.`,
+        '03_emotional_gravity': `Energia cinética e impacto visual medido (Contraste de luminância: ${lumStd}).`,
+        '04_primary_subject': `${cleanTitle}`,
+        '05_satellite_elements': `Elementos secundários contidos em ${ (100 - Number(negSpace)).toFixed(1) }% de área ocupada da imagem original.`,
+        '06_narrative_context': `Cena capturada na proporção ${dims} com eixo dominante ${domAxis}.`,
+        '07_typography_and_epigraphy': 'Sem tipografia sobreposta detectada na composição de referência (foco puramente figurativo/gráfico).',
+        '08_spatial_density_ratio': `${negSpace}% de espaço negativo / fundo livre medido pelo Scanner MDV (${(100 - Number(negSpace)).toFixed(1)}% de massa ocupada pelo sujeito).`,
+        '09_compositional_geometry': `Geometria orientada pelo eixo ${domAxis} com concentração no núcleo central.`,
+        '10_focal_anchor_point': `Ponto focal ancorado no centro de massa (Entropia Zonal Central: ${centerEnt} bits).`,
+        '11_dynamic_force_vectors': `Vetor de força primário extraído via filtro Sobel: ${domAxis}.`,
+        '12_lighting_source_and_angle': 'Iluminação direcional de alto contraste destacando a silhueta e as linhas de força do sujeito.',
+        '13_chiaroscuro_depth': `Profundidade chiaroscuro com desvio padrão tonal de ${lumStd} (alto contraste figura-fundo).`,
+        '14_chromatic_hierarchy': 'Paleta original da referência pronta para mapeamento em canais serigráficos PoD.',
+        '15_scale_and_proportions': `Dimensões base analisadas: ${dims} pixels.`,
+        '16_visual_silence_level': `Índice de silêncio visual de ${negSpace}% nas zonas periféricas do grid 3x3.`,
+        '17_linework_typology': `Estrutura de contorno e definição de bordas compatível com vetorização e estamparia.`,
+        '18_stroke_weight_and_pressure': `Espessura média de traço/borda estimada pelo Scanner MDV: ${strokePx}px.`,
+        '19_mass_and_fill_treatment': 'Massa principal concentrada no núcleo com bordas livres para recorte de fundo (Alpha Channel).',
+        '20_edge_definition': `Nitidez de borda medida em ${strokePx}px sem moldura retangular fechada.`,
+        '21_texture_and_surface_grain': 'Superfície limpa de baixo ruído periférico, ideal para transferência têxtil.',
+        '22_optical_effects': `Dinâmica espacial gerada pela inclinação ${domAxis}.`,
+        '23_framing_and_containment': 'Enquadramento aberto com margens respiráveis ao redor do sujeito primário.',
+        '24_medium_simulation': 'Arquivo matriz digital pronto para compilação Prompt-to-Image e Upscale 300 DPI.',
+        '25_zonal_complexity_map': `Telemetria MDV 3x3: NegSpace=${negSpace}% | Stroke=${strokePx}px | Axis=${domAxis} | CenterEntropy=${centerEnt} bits | Dim=${dims}`,
+        '26_autonomous_signature_dna': 'JSON DE LEITURA (0/26 propriedades alteradas). Edite as propriedades abaixo (ex: Sujeito, Ângulo, Cores, Conceito) para compor o JSON DE ESCRITA autoral.',
       };
 
       return NextResponse.json({
         success: true,
         scannerMetrics,
-        mutatedKeysCount: 9,
-        writingMatrix26: decomposedMatrix26,
-        message: `✓ Imagem de Referência decomposta com sucesso! Scanner MDV extraiu ${negSpace}% de espaço negativo e traço de ${strokePx}px, preenchendo as 26 Chaves do JSON com 9 mutações autorais.`,
+        readingMatrix26,
+        message: `✓ Decomposição na Íntegra concluída! O JSON de Leitura (26 propriedades fiéis à imagem "${cleanTitle}") está pronto abaixo para você consultar e alterar livremente.`,
       });
     }
 
-    // 2. GERAR NOVA IMAGEM VIA MAGNIFIC MYSTIC API A PARTIR DO PROMPT COMPILADO DAS 26 CHAVES
+    // 2. GERAR NOVA IMAGEM VIA MAGNIFIC MYSTIC API A PARTIR DO JSON DE ESCRITA (PROMPT COMPILADO)
     if (action === 'GENERATE_MYSTIC_IMAGE') {
-      const { prompt, aspectRatio = 'classic_4_3', resolution = '2k', model = 'realism' } = body;
+      const { prompt, aspectRatio = 'traditional_3_4', resolution = '2k', model = 'realism' } = body;
 
       if (!prompt) {
         return NextResponse.json(
-          { success: false, error: 'Prompt compilado das 26 chaves é obrigatório.' },
+          { success: false, error: 'Prompt compilado do JSON de Escrita é obrigatório.' },
           { status: 400 }
         );
       }
@@ -428,7 +398,7 @@ export async function POST(req: NextRequest) {
         taskId,
         status,
         endpointType: 'mystic',
-        message: `⚡ Tarefa Mystic iniciada na Magnific API (Task ID: ${taskId})! Aguardando renderização...`,
+        message: `⚡ Geração de Imagem iniciada na Magnific Mystic API (Task ID: ${taskId})! Clique em "Atualizar Status" em alguns segundos para visualizar.`,
       });
     }
 

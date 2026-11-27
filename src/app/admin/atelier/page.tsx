@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
@@ -11,6 +11,8 @@ import {
   DEFAULT_MATRIX_JAZZ_3D,
   compilePromptFromMatrix26,
 } from '@/lib/artworks';
+import { AGENTS_DOSSIER, AgentDossier } from '../agentDossierData';
+import AgentDossierModal from '../AgentDossierModal';
 
 interface CollectionItem {
   id: string;
@@ -34,16 +36,20 @@ interface MagnificResourceItem {
 
 export default function AtelierPage() {
   const [activeTab, setActiveTab] = useState<'artworks' | 'collections' | 'media'>('artworks');
+  const [selectedAgentModal, setSelectedAgentModal] = useState<AgentDossier | null>(null);
 
   // Controle de Accordions para enxugar altura vertical
   const [openStep1Magnific, setOpenStep1Magnific] = useState(true);
   const [openStep2MatrixEditor, setOpenStep2MatrixEditor] = useState(true);
-  const [openSubKeysList, setOpenSubKeysList] = useState(false);
+  const [openAcervoList, setOpenAcervoList] = useState(false); // Recolhido por default!
   const [openStep3ApproveBlockchain, setOpenStep3ApproveBlockchain] = useState(true);
 
-  // Estado da Janela Buscadora Magnific / Freepik Stock API & Decompositor MDV
+  // Estado da Janela Buscadora Magnific / Freepik Stock API (com paginação e seletor de quantidade)
   const [stockSearchTerm, setStockSearchTerm] = useState('op art geometric 3d minimalism');
   const [stockContentType, setStockContentType] = useState('all');
+  const [stockLimit, setStockLimit] = useState<number>(24);
+  const [stockPage, setStockPage] = useState<number>(1);
+  const [stockTotal, setStockTotal] = useState<number>(0);
   const [stockResources, setStockResources] = useState<MagnificResourceItem[]>([]);
   const [stockLoading, setStockLoading] = useState(false);
   const [stockApiSource, setStockApiSource] = useState<string>('MAGNIFIC_LIVE_API');
@@ -58,14 +64,12 @@ export default function AtelierPage() {
     license: 'Propriedade Autoral AVA',
   });
   const [customRefUrlInput, setCustomRefUrlInput] = useState('');
-  const [customSubjectMutation, setCustomSubjectMutation] = useState(
-    'Bailarina de Jazz / Streetwear Cinético em Salto Gravitacional 3D'
-  );
-  const [customAngleMutation, setCustomAngleMutation] = useState(
-    'Escorço dramático de 75° projetado no Eixo Z (75-degree Z-axis foreshortening) emergindo da malha'
-  );
   const [decomposingRef, setDecomposingRef] = useState(false);
   const [lastScannerMetrics, setLastScannerMetrics] = useState<any>(null);
+
+  // JSON DE LEITURA (Decomposição 100% fiel da Imagem de Referência) vs JSON DE ESCRITA (Editado na Matriz Ativa)
+  const [readingMatrixBaseline, setReadingMatrixBaseline] = useState<WritingMatrix26 | null>(null);
+  const [readingRefTitle, setReadingRefTitle] = useState<string>('');
 
   // Estado do Gerador Mystic & Upscaler 300 DPI (Magnific API)
   const [mysticGenerating, setMysticGenerating] = useState(false);
@@ -83,7 +87,7 @@ export default function AtelierPage() {
   const [loadingArtworks, setLoadingArtworks] = useState(false);
   const [savingArtwork, setSavingArtwork] = useState(false);
   const [folderFilter, setFolderFilter] = useState<string>('Todas');
-  const [axisFilter, setAxisFilter] = useState<string>('ALL');
+  const [axisFilter, setAxisFilter] = useState<string>('I_ONTOLOGICO');
   const [feedbackMsg, setFeedbackMsg] = useState<string | null>(null);
 
   // Estado para criação de Nova Arte Matriz
@@ -113,8 +117,27 @@ export default function AtelierPage() {
 
   const triggerFeedback = (msg: string) => {
     setFeedbackMsg(msg);
-    setTimeout(() => setFeedbackMsg(null), 6500);
+    setTimeout(() => setFeedbackMsg(null), 7000);
   };
+
+  // Cálculo automático e limpo de quantas propriedades o criador alterou entre o JSON de Leitura e o JSON de Escrita
+  const modifiedKeysSet = useMemo(() => {
+    const set = new Set<keyof WritingMatrix26>();
+    if (!selectedArtwork || !readingMatrixBaseline) return set;
+    for (const meta of MATRIX_26_KEYS_METADATA) {
+      const k = meta.key;
+      const readingVal = (readingMatrixBaseline[k] || '').trim();
+      const writingVal = (selectedArtwork.writing_matrix_26?.[k] || '').trim();
+      if (readingVal !== writingVal) {
+        set.add(k);
+      }
+    }
+    return set;
+  }, [selectedArtwork, readingMatrixBaseline]);
+
+  const effectiveAlteredCount = readingMatrixBaseline
+    ? modifiedKeysSet.size
+    : selectedArtwork?.mutated_keys_count || 0;
 
   const fetchWorkflow = async () => {
     try {
@@ -128,7 +151,7 @@ export default function AtelierPage() {
     }
   };
 
-  const handleSearchMagnificStock = async (e?: React.FormEvent) => {
+  const handleSearchMagnificStock = async (targetPage = 1, targetLimit = stockLimit, e?: React.FormEvent) => {
     if (e) e.preventDefault();
     setStockLoading(true);
     setStockApiNotice(null);
@@ -137,12 +160,15 @@ export default function AtelierPage() {
         action: 'search',
         term: stockSearchTerm,
         type: stockContentType,
-        limit: '8',
+        limit: String(targetLimit),
+        page: String(targetPage),
       });
       const res = await fetch(`/api/atelier/magnific?${params.toString()}`, { cache: 'no-store' });
       const data = await res.json();
       if (data.success) {
         setStockResources(data.resources || []);
+        setStockPage(targetPage);
+        setStockTotal(data.total || data.resources?.length || 0);
         setStockApiSource(data.source || 'MAGNIFIC_LIVE_API');
         if (data.apiNotice) setStockApiNotice(data.apiNotice);
       }
@@ -153,7 +179,8 @@ export default function AtelierPage() {
     }
   };
 
-  const handleDecomposeReferenceToJson26 = async () => {
+  // Decompõe a Imagem de Referência NA ÍNTEGRA -> Gera o JSON de Leitura (0 alterações automáticas) e carrega no Editor Amigável
+  const handleDecomposeReferenceToReadingJson = async () => {
     const refUrl = customRefUrlInput.trim() || selectedRefImage.previewUrl;
     const refTitle = customRefUrlInput.trim()
       ? 'Referência Customizada AVA'
@@ -169,23 +196,27 @@ export default function AtelierPage() {
           action: 'DECOMPOSE_REFERENCE_TO_MATRIX26',
           referenceUrl: refUrl,
           referenceTitle: refTitle,
-          collectionCharter: wfState?.activeCharter || null,
-          customSubjectMutation,
-          customAngleMutation,
+          referenceType: selectedRefImage.type,
+          referenceAuthor: selectedRefImage.author,
         }),
       });
       const data = await res.json();
-      if (data.success && data.writingMatrix26) {
+      if (data.success && data.readingMatrix26) {
         setLastScannerMetrics(data.scannerMetrics);
+        setReadingMatrixBaseline(data.readingMatrix26);
+        setReadingRefTitle(refTitle);
+
         if (selectedArtwork) {
           setSelectedArtwork({
             ...selectedArtwork,
+            title: refTitle,
             preview_image_url: refUrl,
-            mutated_keys_count: data.mutatedKeysCount || 9,
-            writing_matrix_26: data.writingMatrix26,
+            mutated_keys_count: 0,
+            writing_matrix_26: { ...data.readingMatrix26 },
           });
         }
         setOpenStep2MatrixEditor(true);
+        setAxisFilter('I_ONTOLOGICO');
         triggerFeedback(data.message);
       } else {
         triggerFeedback(data.error || 'Erro ao decompor imagem de referência.');
@@ -197,7 +228,7 @@ export default function AtelierPage() {
     }
   };
 
-  const handleGenerateMysticFromPrompt = async () => {
+  const handleGenerateMysticFromWritingJson = async () => {
     if (!selectedArtwork) return;
     const prompt = compilePromptFromMatrix26(
       selectedArtwork.writing_matrix_26,
@@ -300,10 +331,12 @@ export default function AtelierPage() {
             preview_image_url: data.savedLocalUrl,
           });
           triggerFeedback(
-            `★ Imagem renderizada pela Magnific API e arquivada localmente em ${data.savedLocalUrl}!`
+            `★ Imagem gerada pelo JSON de Escrita na Magnific API e arquivada em ${data.savedLocalUrl}! Se gostou do resultado, salve e envie ao Jurídico (Flávio) no Passo 3.`
           );
         } else {
-          triggerFeedback(`Status da Tarefa Magnific (${activeMagnificTask.taskId.slice(0, 8)}): ${data.status}`);
+          triggerFeedback(
+            `Status da Tarefa Magnific (${activeMagnificTask.taskId.slice(0, 8)}): ${data.status}`
+          );
         }
       }
     } catch {
@@ -311,10 +344,34 @@ export default function AtelierPage() {
     }
   };
 
-  const handleApproveForCollectionBlockchain = async () => {
+  // Salva o JSON de Escrita no banco (recalculando o SHA-256 definitivo) e envia automaticamente para a bandeja de Blockchain do Flávio (01 · Jurídico)
+  const handleSaveWritingJsonAndSendToFlavio = async () => {
     if (!selectedArtwork) return;
     setApprovingFlow(true);
     try {
+      const updatedCount = readingMatrixBaseline
+        ? modifiedKeysSet.size
+        : selectedArtwork.mutated_keys_count;
+
+      const payloadToSave: ArtworkRecord = {
+        ...selectedArtwork,
+        mutated_keys_count: updatedCount,
+        writing_matrix_26: {
+          ...selectedArtwork.writing_matrix_26,
+          '26_autonomous_signature_dna': `JSON DE ESCRITA AUTORAL AVA (${updatedCount}/26 propriedades editadas a partir do JSON de Leitura). Obra aprovada no Atelier para registro Blockchain.`,
+        },
+      };
+
+      // 1. Persiste o JSON de Escrita no PostgreSQL e recalcula o Hash SHA-256 real
+      const saveRes = await fetch('/api/artworks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payloadToSave),
+      });
+      const saveData = await saveRes.json();
+      const savedArt: ArtworkRecord = saveData?.artwork || payloadToSave;
+
+      // 2. Envia o JSON de Escrita congelado + Hash SHA-256 para a bandeja do Flávio (Depto 01 · Jurídico & Blockchain)
       const baseCostMap: Record<string, number> = {
         'T-Shirt Prime 180g (Pele de Pêssego)': 67.9,
         'Camiseta Oversized Heavy 220g': 101.9,
@@ -323,29 +380,32 @@ export default function AtelierPage() {
       };
       const baseCost = baseCostMap[garmentModel] || 67.9;
 
-      const res = await fetch('/api/admin/workflow', {
+      const wfRes = await fetch('/api/admin/workflow', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'APPROVE_ARTWORK_FOR_COLLECTION',
-          code: selectedArtwork.code,
-          title: `${selectedArtwork.title} (${garmentModel})`,
+          code: savedArt.code,
+          title: `${savedArt.title} (${garmentModel})`,
           previewImageUrl:
-            selectedArtwork.preview_image_url ||
+            savedArt.preview_image_url ||
             '/imagens/projetos/Testes/AVA-TEST-001_jazz_dancer_3d_75deg.jpg',
-          supplier: selectedArtwork.default_supplier || 'DIMONA',
+          supplier: savedArt.default_supplier || 'DIMONA',
           garmentModel,
           garmentColor,
           garmentSize,
           baseCost,
-          sha256: selectedArtwork.coa_hash_sha256,
-          mutatedKeysCount: selectedArtwork.mutated_keys_count,
+          sha256: savedArt.coa_hash_sha256,
+          mutatedKeysCount: savedArt.mutated_keys_count,
         }),
       });
-      const data = await res.json();
-      if (data.success) {
-        setWfState(data.state);
-        triggerFeedback(data.message);
+      const wfData = await wfRes.json();
+      if (wfData.success) {
+        setWfState(wfData.state);
+        await fetchArtworks(savedArt.code);
+        triggerFeedback(
+          `✅ JSON de Escrita salvo (SHA-256: ${savedArt.coa_hash_sha256?.slice(0, 16)}...) e enviado para a bandeja do Flávio (Depto 01 · Jurídico) para Registro na Blockchain!`
+        );
       }
     } finally {
       setApprovingFlow(false);
@@ -396,7 +456,7 @@ export default function AtelierPage() {
     fetchArtworks();
     fetchCollections();
     fetchWorkflow();
-    handleSearchMagnificStock();
+    handleSearchMagnificStock(1, 24);
   }, []);
 
   const handleToggleRegistered = async (art: ArtworkRecord, e?: React.MouseEvent) => {
@@ -426,13 +486,30 @@ export default function AtelierPage() {
 
   const handleMatrixKeyChange = (key: keyof WritingMatrix26, value: string) => {
     if (!selectedArtwork) return;
+    const nextMatrix = {
+      ...selectedArtwork.writing_matrix_26,
+      [key]: value,
+    };
+    let count = selectedArtwork.mutated_keys_count;
+    if (readingMatrixBaseline) {
+      let diff = 0;
+      for (const m of MATRIX_26_KEYS_METADATA) {
+        if ((readingMatrixBaseline[m.key] || '').trim() !== (nextMatrix[m.key] || '').trim()) {
+          diff++;
+        }
+      }
+      count = diff;
+    }
     setSelectedArtwork({
       ...selectedArtwork,
-      writing_matrix_26: {
-        ...selectedArtwork.writing_matrix_26,
-        [key]: value,
-      },
+      mutated_keys_count: count,
+      writing_matrix_26: nextMatrix,
     });
+  };
+
+  const handleResetKeyToReadingValue = (key: keyof WritingMatrix26) => {
+    if (!selectedArtwork || !readingMatrixBaseline) return;
+    handleMatrixKeyChange(key, readingMatrixBaseline[key] || '');
   };
 
   const handleSaveSelectedArtwork = async () => {
@@ -442,12 +519,15 @@ export default function AtelierPage() {
       const res = await fetch('/api/artworks', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(selectedArtwork),
+        body: JSON.stringify({
+          ...selectedArtwork,
+          mutated_keys_count: effectiveAlteredCount,
+        }),
       });
       const data = await res.json();
       if (data.success) {
         triggerFeedback(
-          `★ Matriz Canônica (26 Chaves) de "${selectedArtwork.code}" salva no PostgreSQL e Hash SHA-256 recalculado!`
+          `★ JSON de Escrita (26 Chaves) de "${selectedArtwork.code}" salvo no PostgreSQL e Hash SHA-256 recalculado! (Observação: para enviar ao Jurídico/Flávio, use o botão do Passo 3 abaixo quando aprovar a imagem).`
         );
         fetchArtworks(selectedArtwork.code);
       } else {
@@ -517,7 +597,7 @@ export default function AtelierPage() {
     );
     navigator.clipboard.writeText(compiled);
     triggerFeedback(
-      `📋 Prompt to Image compilado das 26 Chaves copiado para a área de transferência!`
+      `📋 Prompt to Image do JSON de Escrita copiado para a área de transferência!`
     );
   };
 
@@ -525,12 +605,13 @@ export default function AtelierPage() {
     if (!selectedArtwork) return;
     const payload = {
       $schema: 'https://ava-vitoria.com.br/schemas/mdv_writing_matrix.v26.json',
+      matrix_type: 'WRITING_JSON_26_KEYS',
       artwork_code: selectedArtwork.code,
       title: selectedArtwork.title,
       project_folder: selectedArtwork.project_folder,
       is_registered: selectedArtwork.is_registered,
       coa_hash_sha256: selectedArtwork.coa_hash_sha256,
-      mutated_keys_count: selectedArtwork.mutated_keys_count,
+      altered_properties_count: effectiveAlteredCount,
       compiled_prompt_to_image: compilePromptFromMatrix26(
         selectedArtwork.writing_matrix_26,
         selectedArtwork.title
@@ -617,6 +698,14 @@ export default function AtelierPage() {
     ? compilePromptFromMatrix26(selectedArtwork.writing_matrix_26, selectedArtwork.title)
     : '';
 
+  // Agentes dedicados ao Depto 08 · Atelier Criativo
+  const atelierAgents = [
+    AGENTS_DOSSIER.curador_matrizes,
+    AGENTS_DOSSIER.lookbook_ia,
+    AGENTS_DOSSIER.content_creator,
+    AGENTS_DOSSIER.whimsy_injector,
+  ].filter(Boolean);
+
   return (
     <div className={styles.adminLayout}>
       <AdminHeader />
@@ -628,7 +717,7 @@ export default function AtelierPage() {
               Depto 08 · Atelier Criativo, Magnific API &amp; Matriz Canônica (26 Chaves)
             </h1>
             <p className={styles.moduleSubtitle}>
-              Sócio Titular: <strong>Tripoint</strong> · Entrada de Imagem de Referência (Magnific/Freepik Stock API) ➔ Decomposição no JSON de 26 Chaves ➔ Geração Mystic &amp; Upscale 300 DPI
+              Sócio Titular: <strong>Tripoint</strong> · 1. Decomposição Integral da Imagem de Referência (<strong>JSON de Leitura</strong>) ➔ 2. Edição Limpa de Propriedades (<strong>JSON de Escrita</strong>) ➔ 3. Geração Magnific Mystic &amp; Envio ao Jurídico (Flávio)
             </p>
           </div>
           <div className={styles.flexRowStart}>
@@ -644,6 +733,33 @@ export default function AtelierPage() {
               📄 PDF Matriz 26 Chaves ↗
             </a>
             <span className={styles.partnerOwnerBadge}>👤 Titular: Tripoint</span>
+          </div>
+        </div>
+
+        {/* Faixa de Serviço dos 4 Agentes do Atelier (Clicáveis para ver Dossiê) */}
+        <div className={styles.moduleCard}>
+          <div className={styles.flexRowBetween}>
+            <span className={styles.sectionHeading}>
+              🤖 Equipe Agêntica do Depto 08 · Atelier Criativo (Alimentada por OpenRouter + Magnific API)
+            </span>
+            <span className={styles.textMutedSmall}>
+              Clique em qualquer agente para ver seu serviço técnico no Atelier
+            </span>
+          </div>
+          <div className={styles.agentsGrid}>
+            {atelierAgents.map((ag) => (
+              <div
+                key={ag.id}
+                onClick={() => setSelectedAgentModal(ag)}
+                className={styles.agentBadge}
+              >
+                <span className={styles.agentStatusDotActive} />
+                <div className={styles.agentInfo}>
+                  <span className={styles.agentName}>{ag.name}</span>
+                  <span className={styles.agentRole}>{ag.role}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -683,7 +799,7 @@ export default function AtelierPage() {
         {activeTab === 'artworks' && (
           <div className={styles.flexColStack}>
             {/* =================================================================== */}
-            {/* ACCORDION 1 · PONTO DE PARTIDA DO ATELIER: IMAGEM DE REFERÊNCIA     */}
+            {/* ACCORDION 1 · PONTO DE PARTIDA: BUSCA & DECOMPOSIÇÃO NA ÍNTEGRA     */}
             {/* =================================================================== */}
             <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
               <div
@@ -692,16 +808,16 @@ export default function AtelierPage() {
               >
                 <div className={styles.accordionTitleGroup}>
                   <h2 className={styles.cardHeadingNoBorder}>
-                    🔍 PASSO 1 (Início do Atelier): Entrada da Imagem de Referência (Magnific / Freepik API) ➔ Decomposição no JSON de 26 Chaves
+                    🔍 PASSO 1 (Início do Atelier): Escolher Imagem de Referência (Magnific API) ➔ Decompor na Íntegra (JSON de Leitura)
                   </h2>
                   <p className={styles.textBodySmall}>
                     {wfState?.activeCharter ? (
                       <>
-                        <strong>Guiado pela Fase 0 Homologada (4/4):</strong> {wfState.activeCharter.name} · <strong>Tema:</strong> {wfState.activeCharter.themeTrend}
+                        <strong>Coleção Ativa (Fase 0):</strong> {wfState.activeCharter.name} · <strong>Tema:</strong> {wfState.activeCharter.themeTrend}
                       </>
                     ) : (
                       <>
-                        Busque uma referência no acervo de <strong>250M+ imagens da Magnific/Freepik API</strong> (ou informe uma imagem local) para o <strong>Scanner MDV Python</strong> extrair os pixels e preencher automaticamente o JSON de 26 Chaves.
+                        Navegue no acervo de <strong>250M+ imagens da Magnific/Freepik API</strong> (com paginação até 100 itens por página), selecione uma referência e extraia o <strong>JSON de Leitura 100% fiel</strong>.
                       </>
                     )}
                   </p>
@@ -732,25 +848,32 @@ export default function AtelierPage() {
 
               {openStep1Magnific && (
                 <div className={styles.accordionBody}>
-                  {/* Barra de Busca na Janela Magnific / Freepik Stock API */}
-                  <form onSubmit={handleSearchMagnificStock} className={styles.innerCard}>
+                  {/* Barra de Busca na Janela Magnific / Freepik Stock API com Paginação & Seletor de Quantidade */}
+                  <form
+                    onSubmit={(e) => handleSearchMagnificStock(1, stockLimit, e)}
+                    className={`${styles.innerCard} ${styles.flexColStack}`}
+                  >
                     <div className={styles.flexRowBetween}>
                       <div className={styles.decisionTitle}>
-                        🌐 Janela Visual: Acervo Magnific / Freepik Stock Content API (GET /v1/resources)
+                        🌐 Janela Visual: Acervo Magnific / Freepik Stock Content API (250M+ Referências)
                       </div>
-                      <span className={styles.textMutedSmall}>
-                        Chave Ativa no .env: <code>MSe933d5...41bcf</code>
-                      </span>
+                      <div className={styles.flexRowStart}>
+                        <span className={styles.textMutedSmall}>
+                          Página <strong>{stockPage}</strong> · Exibindo{' '}
+                          <strong>{stockResources.length}</strong> resultados
+                          {stockTotal > 0 ? ` (Total API: ${stockTotal.toLocaleString('pt-BR')})` : ''}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className={`${styles.autoGridSmall} ${styles.moduleCardTopSpaced}`}>
+                    <div className={styles.autoGridSmall}>
                       <div>
                         <label className={styles.formLabel}>Termo de Busca (Inglês ou Português)</label>
                         <input
                           type="text"
                           value={stockSearchTerm}
                           onChange={(e) => setStockSearchTerm(e.target.value)}
-                          placeholder="Ex: op art geometric 3d, jazz dancer vector, streetwear graphic..."
+                          placeholder="Ex: skateboard, op art geometric 3d, jazz dancer, streetwear..."
                           className={styles.formInput}
                         />
                       </div>
@@ -769,15 +892,54 @@ export default function AtelierPage() {
                         </select>
                       </div>
 
+                      <div>
+                        <label className={styles.formLabel}>Imagens por Página (Limite API)</label>
+                        <select
+                          value={stockLimit}
+                          onChange={(e) => {
+                            const newLim = Number(e.target.value);
+                            setStockLimit(newLim);
+                            handleSearchMagnificStock(1, newLim);
+                          }}
+                          className={styles.formSelect}
+                        >
+                          <option value={12}>12 Imagens por página</option>
+                          <option value={24}>24 Imagens por página (Padrão)</option>
+                          <option value={48}>48 Imagens por página</option>
+                          <option value={100}>100 Imagens por página (Máximo API)</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className={styles.flexRowBetween}>
+                      <button
+                        type="submit"
+                        disabled={stockLoading}
+                        className={styles.btnPrimary}
+                      >
+                        {stockLoading
+                          ? 'Buscando na Magnific API...'
+                          : '🔎 Buscar Imagens de Referência'}
+                      </button>
+
+                      {/* Controles de Paginação */}
                       <div className={styles.flexRowStart}>
                         <button
-                          type="submit"
-                          disabled={stockLoading}
-                          className={styles.btnPrimary}
+                          type="button"
+                          disabled={stockLoading || stockPage <= 1}
+                          onClick={() => handleSearchMagnificStock(stockPage - 1, stockLimit)}
+                          className={styles.btnSecondary}
                         >
-                          {stockLoading
-                            ? 'Buscando na Magnific API...'
-                            : '🔎 Buscar Imagens de Referência na API'}
+                          ◀ Página Anterior
+                        </button>
+                        <span className={styles.statusPill}>Página {stockPage}</span>
+                        <button
+                          type="button"
+                          disabled={stockLoading}
+                          onClick={() => handleSearchMagnificStock(stockPage + 1, stockLimit)}
+                          className={styles.btnSecondary}
+                        >
+                          Próxima Página ▶
                         </button>
                       </div>
                     </div>
@@ -787,7 +949,7 @@ export default function AtelierPage() {
                     )}
 
                     {/* Grade Visual de Miniaturas dentro do Painel */}
-                    <div className={styles.autoGridSmall}>
+                    <div className={styles.stockGalleryGrid}>
                       {stockResources.map((item) => {
                         const isChosen =
                           !customRefUrlInput && selectedRefImage.id === item.id;
@@ -805,13 +967,11 @@ export default function AtelierPage() {
                             <img
                               src={item.previewUrl}
                               alt={item.title}
-                              width={140}
-                              height={140}
-                              className={styles.innerCardCompact}
+                              className={styles.stockThumbImg}
                             />
                             <div className={styles.decisionTitle}>{item.title}</div>
                             <div className={styles.textMutedSmall}>
-                              Tipo: <strong>{item.type.toUpperCase()}</strong> · {item.author}
+                              <strong>{item.type.toUpperCase()}</strong> · {item.author}
                             </div>
                             <button
                               type="button"
@@ -822,7 +982,7 @@ export default function AtelierPage() {
                               }}
                               className={isChosen ? styles.btnPrimary : styles.btnSecondary}
                             >
-                              {isChosen ? '✓ Referência Selecionada' : '🎯 Usar como Referência'}
+                              {isChosen ? '✓ Referência Selecionada' : '🎯 Selecionar Referência'}
                             </button>
                           </div>
                         );
@@ -830,76 +990,39 @@ export default function AtelierPage() {
                     </div>
                   </form>
 
-                  {/* Painel de Decomposição Visual (Imagem Selecionada -> Scanner MDV -> 26 Chaves JSON) */}
+                  {/* Disparo Limpo da Decomposição Integral -> Gera o JSON de Leitura */}
                   <div className={`${styles.innerCard} ${styles.flexColStack}`}>
                     <div className={styles.flexRowBetween}>
                       <div>
                         <div className={styles.decisionTitle}>
-                          🧬 Motor de Decomposição Visual (MDV Python Scanner ➔ Matriz JSON de 26 Chaves)
+                          🔬 Decomposição Integral (MDV Python Scanner ➔ JSON de Leitura 100% Fiel à Referência)
                         </div>
                         <p className={styles.textBodySmall}>
-                          A imagem de referência selecionada abaixo terá seus pixels escaneados (<code>scripts/mdv_scanner.py</code>) para preservar a <strong>🟢 Zona 3 (Física Estética: % Espaço Negativo e Traço)</strong> enquanto mutamos a <strong>🔴 Zona 1 (Sujeito)</strong> e a <strong>🟡 Zona 2 (Ângulo/Escorço 3D)</strong> para garantir <strong>≥ 7 chaves mutadas (Desvinculação Autoral)</strong>.
+                          O sistema <strong>não altera nada sozinho</strong>: ele extrai na íntegra as 26 propriedades da imagem escolhida acima (<strong>JSON de Leitura</strong>) e abre o painel organizado no <strong>Passo 2</strong> para você editar livremente o que desejar (como o <em>Sujeito</em>, o <em>Ângulo</em> ou as <em>Cores</em>), compondo o seu <strong>JSON de Escrita</strong>.
                         </p>
                       </div>
                       <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                        Referência Ativa: {customRefUrlInput ? 'URL Customizada' : selectedRefImage.id}
+                        Selecionada: {customRefUrlInput ? 'URL Customizada' : selectedRefImage.title.slice(0, 32)}
                       </span>
                     </div>
 
-                    <div className={styles.autoGridSmall}>
-                      <div>
-                        <label className={styles.formLabel}>
-                          Imagem de Referência Selecionada (ou cole URL/caminho local)
-                        </label>
-                        <input
-                          type="text"
-                          value={customRefUrlInput || selectedRefImage.previewUrl}
-                          onChange={(e) => setCustomRefUrlInput(e.target.value)}
-                          placeholder="/imagens/projetos/Testes/..."
-                          className={styles.formInput}
-                        />
-                      </div>
-
-                      <div>
-                        <label className={styles.formLabel}>
-                          🔴 Mutação Zona 1 (Novo Sujeito Autoral da Obra AVA)
-                        </label>
-                        <input
-                          type="text"
-                          value={customSubjectMutation}
-                          onChange={(e) => setCustomSubjectMutation(e.target.value)}
-                          className={styles.formInput}
-                        />
-                      </div>
-
-                      <div>
-                        <label className={styles.formLabel}>
-                          🟡 Mutação Zona 2 (Novo Ângulo Óptico / Escorço 3D no Eixo Z)
-                        </label>
-                        <input
-                          type="text"
-                          value={customAngleMutation}
-                          onChange={(e) => setCustomAngleMutation(e.target.value)}
-                          className={styles.formInput}
-                        />
-                      </div>
-                    </div>
-
                     <div className={styles.flexRowBetween}>
-                      <button
-                        type="button"
-                        onClick={handleDecomposeReferenceToJson26}
-                        disabled={decomposingRef}
-                        className={styles.btnPrimary}
-                      >
-                        {decomposingRef
-                          ? '🔬 Escaneando Pixels & Decompondo 26 Chaves...'
-                          : '⚡ 1. Decompor Imagem de Referência ➔ Preencher JSON de 26 Chaves & Prompt to Image'}
-                      </button>
+                      <div className={styles.flexRowStart}>
+                        <button
+                          type="button"
+                          onClick={handleDecomposeReferenceToReadingJson}
+                          disabled={decomposingRef}
+                          className={styles.btnPrimary}
+                        >
+                          {decomposingRef
+                            ? '🔬 Extraindo Pixels & Gerando JSON de Leitura...'
+                            : '⚡ Decompor Imagem na Íntegra (Gerar JSON de Leitura no Passo 2)'}
+                        </button>
+                      </div>
 
                       {lastScannerMetrics && (
                         <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                          ✓ Scanner MDV: {lastScannerMetrics.negative_space_percent}% Espaço Negativo · Traço {lastScannerMetrics.estimated_stroke_px}px · 9/26 Chaves Mutadas
+                          ✓ Leitura MDV: {lastScannerMetrics.negative_space_percent}% Espaço Negativo · Traço {lastScannerMetrics.estimated_stroke_px}px · Eixo {lastScannerMetrics.dominant_vector_axis}
                         </span>
                       )}
                     </div>
@@ -909,7 +1032,7 @@ export default function AtelierPage() {
             </section>
 
             {/* =================================================================== */}
-            {/* ACCORDION 2 · MATRIZ CANÔNICA (26 CHAVES) & GERADOR MAGNIFIC MYSTIC */}
+            {/* ACCORDION 2 · MATRIZ ATIVA (100% LARGURA): JSON LEITURA -> ESCRITA  */}
             {/* =================================================================== */}
             <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
               <div
@@ -918,288 +1041,421 @@ export default function AtelierPage() {
               >
                 <div className={styles.accordionTitleGroup}>
                   <h2 className={styles.cardHeadingNoBorder}>
-                    🎨 PASSO 2: Matriz Canônica (JSON de 26 Chaves) ➔ Compilador Prompt to Image &amp; Geração via Magnific API
+                    🎨 PASSO 2: Editor Limpo de Propriedades (JSON de Leitura ➔ JSON de Escrita) &amp; Gerador de Imagens Magnific
                   </h2>
                   <p className={styles.textBodySmall}>
-                    Inspecione o JSON de Escrita de 26 Chaves gerado na decomposição, copie o Prompt Compilado ou dispare a geração direta no motor <strong>Magnific Mystic API</strong> e o <strong>Upscale 300 DPI</strong>.
+                    Visualize as 26 propriedades organizadas por eixo, edite os valores que desejar (ex: <strong>#04 Sujeito Primário</strong>, <strong>#09 Geometria/Ângulo</strong>, <strong>#14 Cores</strong>) e coloque o <strong>JSON de Escrita</strong> para gerar imagens na Magnific API.
                   </p>
                 </div>
 
                 <div className={styles.accordionRightGroup}>
-                  {selectedArtwork && (
-                    <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                      Obra Ativa: {selectedArtwork.code} ({selectedArtwork.mutated_keys_count}/26 mutadas)
-                    </span>
-                  )}
+                  <span
+                    className={`${styles.statusPill} ${
+                      effectiveAlteredCount >= 1
+                        ? styles.statusPillSuccess
+                        : styles.statusPillWarning
+                    }`}
+                  >
+                    ✏️ {effectiveAlteredCount} de 26 Propriedades Editadas
+                  </span>
                   <button
                     type="button"
                     className={`${styles.accordionToggleBtn} ${
                       openStep2MatrixEditor ? styles.accordionToggleBtnOpen : ''
                     }`}
                   >
-                    {openStep2MatrixEditor ? '▲ Recolher Passo 2' : '▼ Expandir Matriz 26 Chaves'}
+                    {openStep2MatrixEditor ? '▲ Recolher Passo 2' : '▼ Expandir Matriz Ativa'}
                   </button>
                 </div>
               </div>
 
               {openStep2MatrixEditor && (
                 <div className={styles.accordionBody}>
-                  <div className={styles.flexRowBetween}>
-                    <div className={styles.flexRowStart}>
-                      <span className={styles.kpiLabel}>📁 Pasta-Projeto:</span>
-                      {projectFolders.map((folder) => (
-                        <button
-                          key={folder}
-                          type="button"
-                          onClick={() => setFolderFilter(folder)}
-                          className={`${styles.executiveHeaderBtn} ${
-                            folderFilter === folder ? styles.executiveHeaderBtnActive : ''
-                          }`}
-                        >
-                          {folder}
-                        </button>
-                      ))}
-                    </div>
+                  {/* MATRIZ ATIVA EM 100% DA LARGURA (SEM DUAS COLUNAS ESPREMIDAS!) */}
+                  {selectedArtwork && (
+                    <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+                      <div className={styles.flexRowBetween}>
+                        <div>
+                          <h3 className={styles.cardHeadingNoBorder}>
+                            Matriz Ativa: {selectedArtwork.code} — {selectedArtwork.title}
+                          </h3>
+                          <p className={styles.textBodySmall}>
+                            {readingMatrixBaseline ? (
+                              <>
+                                Comparando ao vivo: <strong>JSON de Leitura</strong> (extraído de <em>&ldquo;{readingRefTitle}&rdquo;</em>) vs. <strong>JSON de Escrita</strong> ({effectiveAlteredCount} propriedades alteradas por você).
+                              </>
+                            ) : (
+                              <>
+                                Editando <strong>JSON de Escrita</strong> da obra selecionada.
+                              </>
+                            )}
+                          </p>
+                        </div>
 
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const nextNum = artworks.length + 1;
-                        setNewArtCode(`AVA-ART-${String(nextNum).padStart(3, '0')}`);
-                        setShowCreateArtModal(!showCreateArtModal);
-                      }}
-                      className={styles.btnSecondary}
-                    >
-                      {showCreateArtModal ? '✕ Fechar Cadastro' : '+ Nova Arte Matriz (26 Chaves)'}
-                    </button>
-                  </div>
-
-                  {showCreateArtModal && (
-                    <form
-                      onSubmit={handleCreateNewArtwork}
-                      className={`${styles.innerCard} ${styles.flexColStack}`}
-                    >
-                      <h3 className={styles.decisionTitle}>
-                        + Cadastrar Nova Arte Matriz na Matriz Canônica (26 Chaves)
-                      </h3>
-                      <div className={styles.autoGridSmall}>
-                        <div>
-                          <label className={styles.formLabel}>Código da Obra *</label>
-                          <input
-                            type="text"
-                            required
-                            value={newArtCode}
-                            onChange={(e) => setNewArtCode(e.target.value)}
-                            placeholder="Ex: AVA-TEST-003"
-                            className={styles.formInput}
-                          />
-                        </div>
-                        <div>
-                          <label className={styles.formLabel}>Título da Obra *</label>
-                          <input
-                            type="text"
-                            required
-                            value={newArtTitle}
-                            onChange={(e) => setNewArtTitle(e.target.value)}
-                            placeholder="Ex: Vórtice Op-Art Gravitacional"
-                            className={styles.formInput}
-                          />
-                        </div>
-                        <div>
-                          <label className={styles.formLabel}>Pasta-Projeto</label>
-                          <input
-                            type="text"
-                            value={newArtFolder}
-                            onChange={(e) => setNewArtFolder(e.target.value)}
-                            placeholder="Ex: Testes ou Coleção Sem Limites"
-                            className={styles.formInput}
-                          />
-                        </div>
-                        <div>
-                          <label className={styles.formLabel}>Fornecedor Padrão</label>
-                          <select
-                            value={newArtSupplier}
-                            onChange={(e) => setNewArtSupplier(e.target.value)}
-                            className={styles.formSelect}
+                        <div className={styles.flexRowStart}>
+                          <button
+                            type="button"
+                            onClick={handleDownloadMatrixJson}
+                            className={styles.btnSecondary}
                           >
-                            <option value="DIMONA">DIMONA (Silk HD 3435×4680)</option>
-                            <option value="RESERVA_INK">RESERVA INK (DTG 4200×4800)</option>
-                          </select>
+                            ⬇️ Baixar JSON de Escrita
+                          </button>
+                          <button
+                            type="button"
+                            onClick={handleSaveSelectedArtwork}
+                            disabled={savingArtwork}
+                            className={styles.btnPrimary}
+                          >
+                            {savingArtwork
+                              ? 'Salvando...'
+                              : '💾 Salvar Rascunho do JSON de Escrita'}
+                          </button>
                         </div>
                       </div>
 
-                      <div className={styles.moduleGrid2Cols}>
-                        <div>
-                          <label className={styles.formLabel}>
-                            Conceito Filosófico / Tese da Obra
-                          </label>
-                          <input
-                            type="text"
-                            value={newArtConcept}
-                            onChange={(e) => setNewArtConcept(e.target.value)}
-                            placeholder="Descreva a essência autoral..."
-                            className={styles.formInput}
+                      {/* Cabeçalho da Matriz Ativa: Imagem + Campos Principais */}
+                      <div className={styles.flexRowStart}>
+                        {selectedArtwork.preview_image_url && (
+                          <img
+                            src={selectedArtwork.preview_image_url}
+                            alt={selectedArtwork.title}
+                            width={120}
+                            height={120}
+                            className={styles.innerCardCompact}
                           />
-                        </div>
-                        <div>
-                          <label className={styles.formLabel}>
-                            URL da Imagem Preview (Opcional)
-                          </label>
-                          <input
-                            type="text"
-                            value={newArtPreviewUrl}
-                            onChange={(e) => setNewArtPreviewUrl(e.target.value)}
-                            placeholder="/imagens/projetos/Testes/..."
-                            className={styles.formInput}
-                          />
+                        )}
+
+                        <div className={styles.flexColStack} style={{ flex: 1, minWidth: '280px' }}>
+                          <div className={styles.autoGridSmall}>
+                            <div>
+                              <label className={styles.formLabel}>Título Autoral da Nova Obra (AVA)</label>
+                              <input
+                                type="text"
+                                value={selectedArtwork.title}
+                                onChange={(e) =>
+                                  setSelectedArtwork({
+                                    ...selectedArtwork,
+                                    title: e.target.value,
+                                  })
+                                }
+                                className={styles.formInput}
+                              />
+                            </div>
+                            <div>
+                              <label className={styles.formLabel}>Pasta-Projeto da Coleção</label>
+                              <input
+                                type="text"
+                                value={selectedArtwork.project_folder}
+                                onChange={(e) =>
+                                  setSelectedArtwork({
+                                    ...selectedArtwork,
+                                    project_folder: e.target.value,
+                                  })
+                                }
+                                className={styles.formInput}
+                              />
+                            </div>
+                            <div>
+                              <label className={styles.formLabel}>
+                                Propriedades Alteradas (Meta recomendada: ≥ 7)
+                              </label>
+                              <div className={styles.innerCardCompact}>
+                                <strong
+                                  className={
+                                    effectiveAlteredCount >= 7
+                                      ? styles.textSuccess
+                                      : styles.textPrimaryBold
+                                  }
+                                >
+                                  ✏️ {effectiveAlteredCount} / 26 propriedades alteradas
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Hash SHA-256 com word-break contido dentro do card */}
+                          <div className={styles.shaHashBar}>
+                            <strong>Hash SHA-256 do JSON de Escrita (Gerado p/ Blockchain — Enviado ao Jurídico apenas após sua aprovação no Passo 3):</strong>{' '}
+                            <code>{selectedArtwork.coa_hash_sha256}</code>
+                          </div>
                         </div>
                       </div>
 
-                      <div>
-                        <button
-                          type="submit"
-                          disabled={savingArtwork}
-                          className={styles.btnPrimary}
-                        >
-                          {savingArtwork
-                            ? 'Gravando no PostgreSQL...'
-                            : 'Gravar Obra & Inicializar 26 Chaves Canônicas'}
-                        </button>
-                      </div>
-                    </form>
-                  )}
-
-                  <div className={styles.moduleGrid2Cols}>
-                    {/* COLUNA ESQUERDA: LISTA DE ARTES MATRIZES */}
-                    <div className={styles.innerCard}>
-                      <h3 className={styles.cardHeading}>
-                        Acervo de Matrizes ({filteredArtworks.length})
-                      </h3>
-
-                      {loadingArtworks ? (
-                        <div className={styles.textMutedSmall}>
-                          Carregando matrizes do PostgreSQL...
+                      {/* =============================================================== */}
+                      {/* PAINEL ORGANIZADO DE EDIÇÃO DAS 26 PROPRIEDADES (POR EIXOS)     */}
+                      {/* =============================================================== */}
+                      <div className={`${styles.innerCardCompact} ${styles.flexColStack}`}>
+                        <div className={styles.flexRowBetween}>
+                          <div>
+                            <div className={styles.decisionTitle}>
+                              📋 Propriedades da Obra: Do JSON de Leitura para o JSON de Escrita
+                            </div>
+                            <p className={styles.textBodySmall}>
+                              Navegue pelas 4 abas temáticas abaixo para consultar os valores extraídos pelo MDV e alterar livremente os campos que formarão a nova imagem. As propriedades que você alterar ficam destacadas com borda verde.
+                            </p>
+                          </div>
                         </div>
-                      ) : (
-                        <div className={styles.flexColStack}>
-                          {filteredArtworks.map((art) => {
-                            const isSelected = selectedArtwork?.id === art.id;
+
+                        {/* Abas Limpas dos 4 Eixos Canônicos */}
+                        <div className={styles.flexRowStart}>
+                          {[
+                            {
+                              id: 'I_ONTOLOGICO',
+                              label: '1. Sujeito, Identidade & Conceito (Chaves 01 a 07)',
+                            },
+                            {
+                              id: 'II_EPISTEMOLOGICO',
+                              label: '2. Ângulo, Luz, Cores & Espaço Negativo (Chaves 08 a 16)',
+                            },
+                            {
+                              id: 'III_METODOLOGICO',
+                              label: '3. Traço, Textura & Estamparia PoD (Chaves 17 a 24)',
+                            },
+                            {
+                              id: 'IV_EXTENSAO_MDV',
+                              label: '4. Telemetria MDV & Assinatura (Chaves 25 e 26)',
+                            },
+                            {
+                              id: 'ALL',
+                              label: 'Ver Todas as 26 Chaves Juntas',
+                            },
+                          ].map((ax) => (
+                            <button
+                              key={ax.id}
+                              type="button"
+                              onClick={() => setAxisFilter(ax.id)}
+                              className={`${styles.executiveHeaderBtn} ${
+                                axisFilter === ax.id ? styles.executiveHeaderBtnActive : ''
+                              }`}
+                            >
+                              {ax.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Grid de 2 Colunas Responsivo e Limpo para Editar as Propriedades do Eixo Selecionado */}
+                        <div className={styles.matrixKeysGrid2Cols}>
+                          {filteredKeysMetadata.map((meta) => {
+                            const val = selectedArtwork.writing_matrix_26?.[meta.key] || '';
+                            const readingVal = readingMatrixBaseline?.[meta.key] || '';
+                            const isModified =
+                              readingMatrixBaseline &&
+                              readingVal.trim() !== val.trim();
+
                             return (
                               <div
-                                key={art.id}
-                                onClick={() => setSelectedArtwork(art)}
-                                className={`${styles.innerCardInteractive} ${styles.flexRowStart} ${
-                                  isSelected ? styles.innerCardSelected : ''
+                                key={meta.key}
+                                className={`${styles.innerCardCompact} ${styles.flexColTight} ${
+                                  isModified ? styles.keyCardModified : ''
                                 }`}
                               >
-                                {art.preview_image_url && (
-                                  <img
-                                    src={art.preview_image_url}
-                                    alt={art.title}
-                                    width={64}
-                                    height={64}
-                                    className={styles.innerCardCompact}
-                                  />
-                                )}
-
-                                <div className={styles.flexColTight}>
-                                  <div className={styles.flexRowBetween}>
-                                    <span className={styles.decisionTitle}>{art.title}</span>
-                                    <button
-                                      type="button"
-                                      onClick={(e) => handleToggleRegistered(art, e)}
-                                      className={`${styles.statusPill} ${
-                                        art.is_registered
-                                          ? styles.statusPillSuccess
-                                          : styles.statusPillWarning
-                                      }`}
-                                    >
-                                      {art.is_registered
-                                        ? '✓ Registrado: SIM'
-                                        : '○ Registrado: NÃO'}
-                                    </button>
-                                  </div>
-
-                                  <div className={styles.textBodySmall}>
-                                    <strong>{art.code}</strong> · Pasta:{' '}
-                                    <strong>{art.project_folder}</strong> · {art.default_supplier}
-                                  </div>
-
-                                  <div className={styles.flexRowBetween}>
-                                    <span
-                                      className={`${styles.textPrimaryBold} ${
-                                        art.mutated_keys_count >= 7
-                                          ? styles.textSuccess
-                                          : styles.textDanger
-                                      }`}
-                                    >
-                                      🧬 {art.mutated_keys_count}/26 Chaves Mutadas{' '}
-                                      {art.mutated_keys_count >= 7 ? '(✓ Blindada)' : '(⚠️ Mín. 7)'}
-                                    </span>
-                                    <span className={styles.textMutedSmall}>
-                                      SHA-256: {art.coa_hash_sha256?.slice(0, 12)}...
-                                    </span>
+                                <div className={styles.flexRowBetween}>
+                                  <span className={styles.decisionTitle}>
+                                    #{meta.number} · {meta.label}
+                                  </span>
+                                  <div className={styles.flexRowStart}>
+                                    {isModified ? (
+                                      <>
+                                        <span
+                                          className={`${styles.statusPill} ${styles.statusPillSuccess}`}
+                                        >
+                                          ✏️ Alterada no JSON de Escrita
+                                        </span>
+                                        <button
+                                          type="button"
+                                          onClick={() =>
+                                            handleResetKeyToReadingValue(meta.key)
+                                          }
+                                          className={styles.btnSecondary}
+                                          title="Restaurar valor original do JSON de Leitura"
+                                        >
+                                          ↺ Restaurar Leitura
+                                        </button>
+                                      </>
+                                    ) : (
+                                      <span className={styles.statusPill}>
+                                        Valor do JSON de Leitura
+                                      </span>
+                                    )}
                                   </div>
                                 </div>
+
+                                <div className={styles.textMutedSmall}>
+                                  {meta.description}
+                                </div>
+
+                                {isModified && readingVal && (
+                                  <div className={styles.textMutedSmall}>
+                                    <strong>Leitura Original:</strong> <em>{readingVal}</em>
+                                  </div>
+                                )}
+
+                                <textarea
+                                  rows={2}
+                                  value={val}
+                                  onChange={(e) =>
+                                    handleMatrixKeyChange(meta.key, e.target.value)
+                                  }
+                                  className={styles.formTextarea}
+                                />
                               </div>
                             );
                           })}
                         </div>
-                      )}
-                    </div>
+                      </div>
 
-                    {/* COLUNA DIREITA: COMPILADOR PROMPT TO IMAGE + DISPARO MAGNIFIC MYSTIC & UPSCALER */}
-                    {selectedArtwork && (
-                      <div className={`${styles.innerCard} ${styles.flexColStack}`}>
+                      {/* =============================================================== */}
+                      {/* MOTOR GERADOR DE IMAGEM (JSON DE ESCRITA -> MAGNIFIC MYSTIC)    */}
+                      {/* =============================================================== */}
+                      <div className={`${styles.innerCardCompact} ${styles.flexColStack}`}>
                         <div className={styles.flexRowBetween}>
-                          <h3 className={styles.cardHeadingNoBorder}>
-                            Matriz Ativa: {selectedArtwork.code}
-                          </h3>
+                          <div>
+                            <div className={styles.decisionTitle}>
+                              ⚡ Prompt to Image Compilado do JSON de Escrita ➔ Gerar Imagem na Magnific API
+                            </div>
+                            <p className={styles.textBodySmall}>
+                              Este prompt é atualizado em tempo real conforme você edita as propriedades acima. Teste a geração de imagens quantas vezes quiser até obter uma arte excelente!
+                            </p>
+                          </div>
+
                           <div className={styles.flexRowStart}>
                             <button
                               type="button"
-                              onClick={handleDownloadMatrixJson}
+                              onClick={handleCopyCompiledPrompt}
                               className={styles.btnSecondary}
                             >
-                              ⬇️ Exportar JSON (26 Chaves)
+                              📋 Copiar Prompt
                             </button>
                             <button
                               type="button"
-                              onClick={handleSaveSelectedArtwork}
-                              disabled={savingArtwork}
+                              onClick={handleGenerateMysticFromWritingJson}
+                              disabled={mysticGenerating}
                               className={styles.btnPrimary}
                             >
-                              {savingArtwork
-                                ? 'Salvando...'
-                                : '💾 Salvar Matriz & Recalcular SHA-256'}
+                              {mysticGenerating
+                                ? 'Gerando na Magnific...'
+                                : '🎨 Gerar Imagem com o JSON de Escrita (Magnific Mystic)'}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={handleUpscale300DpiMagnific}
+                              disabled={upscaling300Dpi}
+                              className={styles.btnSuccess}
+                            >
+                              {upscaling300Dpi
+                                ? 'Iniciando Upscale...'
+                                : '🔬 Upscale 300 DPI (Magnific Sparkle)'}
                             </button>
                           </div>
                         </div>
 
-                        <div className={styles.flexRowStart}>
-                          {selectedArtwork.preview_image_url && (
-                            <img
-                              src={selectedArtwork.preview_image_url}
-                              alt={selectedArtwork.title}
-                              width={110}
-                              height={110}
-                              className={styles.innerCardCompact}
-                            />
-                          )}
+                        {/* Bloco pre contido 100% dentro do card com pre-wrap */}
+                        <pre className={styles.promptPreBox}>{compiledPromptPreview}</pre>
 
-                          <div className={styles.flexColStack}>
+                        {activeMagnificTask && (
+                          <div className={styles.innerRowItem}>
+                            <div>
+                              <strong>
+                                Tarefa Magnific ({activeMagnificTask.endpointType}):
+                              </strong>{' '}
+                              <code>{activeMagnificTask.taskId}</code> · Status:{' '}
+                              <span className={styles.statusPill}>
+                                {activeMagnificTask.status}
+                              </span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={handleCheckMagnificTaskStatus}
+                              className={styles.btnPrimary}
+                            >
+                              🔄 Atualizar Status &amp; Visualizar Imagem Gerada
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* =============================================================== */}
+                  {/* SUB-ACCORDION EMBAIXO DA MATRIZ ATIVA (RECOLHIDO POR DEFAULT!)  */}
+                  {/* =============================================================== */}
+                  <div className={styles.subAccordionBox}>
+                    <div
+                      className={styles.subAccordionHeader}
+                      onClick={() => setOpenAcervoList(!openAcervoList)}
+                    >
+                      <span>
+                        🗄️ Acervo de Matrizes Salvas no Banco PostgreSQL ({filteredArtworks.length} obras) — Clique para alternar de obra ou criar nova
+                      </span>
+                      <span className={styles.accordionToggleBtn}>
+                        {openAcervoList ? '▲ Recolher Acervo' : '▼ Abrir Acervo de Matrizes'}
+                      </span>
+                    </div>
+
+                    {openAcervoList && (
+                      <div className={styles.subAccordionContent}>
+                        <div className={styles.flexRowBetween}>
+                          <div className={styles.flexRowStart}>
+                            <span className={styles.kpiLabel}>📁 Pasta-Projeto:</span>
+                            {projectFolders.map((folder) => (
+                              <button
+                                key={folder}
+                                type="button"
+                                onClick={() => setFolderFilter(folder)}
+                                className={`${styles.executiveHeaderBtn} ${
+                                  folderFilter === folder
+                                    ? styles.executiveHeaderBtnActive
+                                    : ''
+                                }`}
+                              >
+                                {folder}
+                              </button>
+                            ))}
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const nextNum = artworks.length + 1;
+                              setNewArtCode(`AVA-ART-${String(nextNum).padStart(3, '0')}`);
+                              setShowCreateArtModal(!showCreateArtModal);
+                            }}
+                            className={styles.btnSecondary}
+                          >
+                            {showCreateArtModal
+                              ? '✕ Fechar Cadastro'
+                              : '+ Cadastrar Nova Arte Matriz'}
+                          </button>
+                        </div>
+
+                        {showCreateArtModal && (
+                          <form
+                            onSubmit={handleCreateNewArtwork}
+                            className={`${styles.innerCard} ${styles.flexColStack} ${styles.moduleCardTopSpaced}`}
+                          >
+                            <h3 className={styles.decisionTitle}>
+                              + Cadastrar Nova Arte Matriz na Matriz Canônica (26 Chaves)
+                            </h3>
                             <div className={styles.autoGridSmall}>
                               <div>
-                                <label className={styles.formLabel}>Título da Obra</label>
+                                <label className={styles.formLabel}>Código da Obra *</label>
                                 <input
                                   type="text"
-                                  value={selectedArtwork.title}
-                                  onChange={(e) =>
-                                    setSelectedArtwork({
-                                      ...selectedArtwork,
-                                      title: e.target.value,
-                                    })
-                                  }
+                                  required
+                                  value={newArtCode}
+                                  onChange={(e) => setNewArtCode(e.target.value)}
+                                  placeholder="Ex: AVA-TEST-003"
+                                  className={styles.formInput}
+                                />
+                              </div>
+                              <div>
+                                <label className={styles.formLabel}>Título da Obra *</label>
+                                <input
+                                  type="text"
+                                  required
+                                  value={newArtTitle}
+                                  onChange={(e) => setNewArtTitle(e.target.value)}
+                                  placeholder="Ex: Skatista Urbano Cinético 3D"
                                   className={styles.formInput}
                                 />
                               </div>
@@ -1207,178 +1463,131 @@ export default function AtelierPage() {
                                 <label className={styles.formLabel}>Pasta-Projeto</label>
                                 <input
                                   type="text"
-                                  value={selectedArtwork.project_folder}
-                                  onChange={(e) =>
-                                    setSelectedArtwork({
-                                      ...selectedArtwork,
-                                      project_folder: e.target.value,
-                                    })
-                                  }
+                                  value={newArtFolder}
+                                  onChange={(e) => setNewArtFolder(e.target.value)}
+                                  placeholder="Ex: Testes ou Coleção Sem Limites"
                                   className={styles.formInput}
                                 />
                               </div>
                               <div>
-                                <label className={styles.formLabel}>Chaves Mutadas</label>
+                                <label className={styles.formLabel}>Fornecedor Padrão</label>
+                                <select
+                                  value={newArtSupplier}
+                                  onChange={(e) => setNewArtSupplier(e.target.value)}
+                                  className={styles.formSelect}
+                                >
+                                  <option value="DIMONA">DIMONA (Silk HD 3435×4680)</option>
+                                  <option value="RESERVA_INK">
+                                    RESERVA INK (DTG 4200×4800)
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div className={styles.moduleGrid2Cols}>
+                              <div>
+                                <label className={styles.formLabel}>
+                                  Conceito Filosófico / Tese da Obra
+                                </label>
                                 <input
-                                  type="number"
-                                  min={0}
-                                  max={26}
-                                  value={selectedArtwork.mutated_keys_count}
-                                  onChange={(e) =>
-                                    setSelectedArtwork({
-                                      ...selectedArtwork,
-                                      mutated_keys_count: Number(e.target.value),
-                                    })
-                                  }
+                                  type="text"
+                                  value={newArtConcept}
+                                  onChange={(e) => setNewArtConcept(e.target.value)}
+                                  placeholder="Descreva a essência autoral..."
+                                  className={styles.formInput}
+                                />
+                              </div>
+                              <div>
+                                <label className={styles.formLabel}>
+                                  URL da Imagem Preview (Opcional)
+                                </label>
+                                <input
+                                  type="text"
+                                  value={newArtPreviewUrl}
+                                  onChange={(e) => setNewArtPreviewUrl(e.target.value)}
+                                  placeholder="/imagens/projetos/Testes/..."
                                   className={styles.formInput}
                                 />
                               </div>
                             </div>
-                            <div className={`${styles.innerCardCompact} ${styles.innerCardSuccess} ${styles.textSuccess}`}>
-                              <strong>COA SHA-256 (JSON 26 Chaves):</strong>{' '}
-                              {selectedArtwork.coa_hash_sha256}
-                            </div>
-                          </div>
-                        </div>
 
-                        {/* COMPILADOR PROMPT TO IMAGE + BOTÕES DE EXECUÇÃO MAGNIFIC API */}
-                        <div className={`${styles.innerCardCompact} ${styles.flexColTight}`}>
-                          <div className={styles.flexRowBetween}>
-                            <span className={styles.decisionTitle}>
-                              ⚡ Prompt to Image Compilado (Síntese das 26 Chaves ➔ Magnific Mystic API)
-                            </span>
-                            <div className={styles.flexRowStart}>
+                            <div>
                               <button
-                                type="button"
-                                onClick={handleCopyCompiledPrompt}
-                                className={styles.btnSecondary}
-                              >
-                                📋 Copiar Prompt
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleGenerateMysticFromPrompt}
-                                disabled={mysticGenerating}
+                                type="submit"
+                                disabled={savingArtwork}
                                 className={styles.btnPrimary}
                               >
-                                {mysticGenerating
-                                  ? 'Disparando Mystic...'
-                                  : '🎨 Gerar Arte via Magnific Mystic API'}
-                              </button>
-                              <button
-                                type="button"
-                                onClick={handleUpscale300DpiMagnific}
-                                disabled={upscaling300Dpi}
-                                className={styles.btnSuccess}
-                              >
-                                {upscaling300Dpi
-                                  ? 'Iniciando Upscale...'
-                                  : '🔬 Upscale 300 DPI (Magnific Sparkle)'}
+                                {savingArtwork
+                                  ? 'Gravando no PostgreSQL...'
+                                  : 'Gravar Obra & Inicializar 26 Chaves Canônicas'}
                               </button>
                             </div>
+                          </form>
+                        )}
+
+                        {loadingArtworks ? (
+                          <div className={styles.textMutedSmall}>
+                            Carregando matrizes do PostgreSQL...
                           </div>
+                        ) : (
+                          <div className={`${styles.autoGridCards} ${styles.moduleCardTopSpaced}`}>
+                            {filteredArtworks.map((art) => {
+                              const isSelected = selectedArtwork?.id === art.id;
+                              return (
+                                <div
+                                  key={art.id}
+                                  onClick={() => setSelectedArtwork(art)}
+                                  className={`${styles.innerCardInteractive} ${styles.flexRowStart} ${
+                                    isSelected ? styles.innerCardSelected : ''
+                                  }`}
+                                >
+                                  {art.preview_image_url && (
+                                    <img
+                                      src={art.preview_image_url}
+                                      alt={art.title}
+                                      width={64}
+                                      height={64}
+                                      className={styles.innerCardCompact}
+                                    />
+                                  )}
 
-                          <pre className={styles.innerCardCompact}>{compiledPromptPreview}</pre>
-
-                          {activeMagnificTask && (
-                            <div className={styles.innerRowItem}>
-                              <div>
-                                <strong>
-                                  Tarefa Magnific ({activeMagnificTask.endpointType}):
-                                </strong>{' '}
-                                <code>{activeMagnificTask.taskId}</code> · Status:{' '}
-                                <span className={styles.statusPill}>
-                                  {activeMagnificTask.status}
-                                </span>
-                              </div>
-                              <button
-                                type="button"
-                                onClick={handleCheckMagnificTaskStatus}
-                                className={styles.btnPrimary}
-                              >
-                                🔄 Atualizar Status &amp; Baixar Imagem
-                              </button>
-                            </div>
-                          )}
-                        </div>
-
-                        {/* SUB-ACCORDION PARA AS 26 CAIXAS DE TEXTO DO JSON (EVITA ROLAGEM INFINITA) */}
-                        <div className={styles.subAccordionBox}>
-                          <div
-                            className={styles.subAccordionHeader}
-                            onClick={() => setOpenSubKeysList(!openSubKeysList)}
-                          >
-                            <span>
-                              🔬 Editor Detalhado das 26 Chaves Estruturais do JSON (4 Eixos Canônicos)
-                            </span>
-                            <span className={styles.accordionToggleBtn}>
-                              {openSubKeysList
-                                ? '▲ Recolher 26 Chaves'
-                                : '▼ Abrir Editor das 26 Chaves'}
-                            </span>
-                          </div>
-
-                          {openSubKeysList && (
-                            <div className={styles.subAccordionContent}>
-                              <div className={styles.flexRowStart}>
-                                {[
-                                  { id: 'ALL', label: 'Todas as 26 Chaves' },
-                                  { id: 'I_ONTOLOGICO', label: 'I. Ontológico (01–07)' },
-                                  { id: 'II_EPISTEMOLOGICO', label: 'II. Epistemológico (08–16)' },
-                                  { id: 'III_METODOLOGICO', label: 'III. Metodológico (17–24)' },
-                                  { id: 'IV_EXTENSAO_MDV', label: 'IV. Extensão MDV (25–26)' },
-                                ].map((ax) => (
-                                  <button
-                                    key={ax.id}
-                                    type="button"
-                                    onClick={() => setAxisFilter(ax.id)}
-                                    className={`${styles.executiveHeaderBtn} ${
-                                      axisFilter === ax.id ? styles.executiveHeaderBtnActive : ''
-                                    }`}
-                                  >
-                                    {ax.label}
-                                  </button>
-                                ))}
-                              </div>
-
-                              <div className={`${styles.flexColStack} ${styles.moduleCardTopSpaced}`}>
-                                {filteredKeysMetadata.map((meta) => {
-                                  const val =
-                                    selectedArtwork.writing_matrix_26?.[meta.key] || '';
-                                  return (
-                                    <div
-                                      key={meta.key}
-                                      className={`${styles.innerCardCompact} ${styles.flexColTight}`}
-                                    >
-                                      <div className={styles.flexRowBetween}>
-                                        <span className={styles.decisionTitle}>
-                                          #{meta.number} · {meta.label}{' '}
-                                          <span className={styles.textMutedSmall}>
-                                            ({meta.key})
-                                          </span>
-                                        </span>
-                                        <span className={styles.statusPill}>
-                                          {meta.mutationZoneLabel}
-                                        </span>
-                                      </div>
-                                      <div className={styles.textMutedSmall}>
-                                        {meta.description}
-                                      </div>
-                                      <textarea
-                                        rows={2}
-                                        value={val}
-                                        onChange={(e) =>
-                                          handleMatrixKeyChange(meta.key, e.target.value)
-                                        }
-                                        className={styles.formTextarea}
-                                      />
+                                  <div className={styles.flexColTight} style={{ flex: 1 }}>
+                                    <div className={styles.flexRowBetween}>
+                                      <span className={styles.decisionTitle}>{art.title}</span>
+                                      <button
+                                        type="button"
+                                        onClick={(e) => handleToggleRegistered(art, e)}
+                                        className={`${styles.statusPill} ${
+                                          art.is_registered
+                                            ? styles.statusPillSuccess
+                                            : styles.statusPillWarning
+                                        }`}
+                                      >
+                                        {art.is_registered
+                                          ? '✓ Registrado: SIM'
+                                          : '○ Registrado: NÃO'}
+                                      </button>
                                     </div>
-                                  );
-                                })}
-                              </div>
-                            </div>
-                          )}
-                        </div>
+
+                                    <div className={styles.textBodySmall}>
+                                      <strong>{art.code}</strong> · Pasta:{' '}
+                                      <strong>{art.project_folder}</strong> · {art.default_supplier}
+                                    </div>
+
+                                    <div className={styles.flexRowBetween}>
+                                      <span className={styles.textPrimaryBold}>
+                                        ✏️ {art.mutated_keys_count}/26 Propriedades Editadas
+                                      </span>
+                                      <span className={styles.textMutedSmall}>
+                                        SHA-256: {art.coa_hash_sha256?.slice(0, 12)}...
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     )}
                   </div>
@@ -1387,7 +1596,7 @@ export default function AtelierPage() {
             </section>
 
             {/* =================================================================== */}
-            {/* ACCORDION 3 · APROVAÇÃO BIPARTITE PARA COLEÇÃO -> BLOCKCHAIN (01)   */}
+            {/* ACCORDION 3 · GEROU UMA BOA? SALVAR JSON DE ESCRITA & ENVIAR AO 01  */}
             {/* =================================================================== */}
             <section className={`${styles.moduleCard} ${styles.moduleCardSpaced}`}>
               <div
@@ -1398,20 +1607,20 @@ export default function AtelierPage() {
               >
                 <div className={styles.accordionTitleGroup}>
                   <h2 className={styles.cardHeadingNoBorder}>
-                    🔐 PASSO 3 (Fechamento da Fase 1 no Atelier): Aprovar Arte p/ Coleção ➔ Enviar ao Jurídico (Flávio · Registro Blockchain)
+                    🔐 PASSO 3 (Aprovação Autoral): Gostou da Imagem Gerada? Salvar JSON de Escrita &amp; Enviar ao Jurídico (Flávio · Blockchain)
                   </h2>
                   <p className={styles.textBodySmall}>
-                    Seleciona a modelagem física (Prime 180g / Oversized 220g), congela o Hash Criptográfico <strong>SHA-256</strong> do JSON de 26 Chaves e despacha para a bandeja de Blockchain do <strong>Depto 01 · Jurídico</strong>.
+                    <strong>O envio não é automático na leitura!</strong> Somente quando você e o Tripoint aprovarem a imagem gerada pelo <strong>JSON de Escrita</strong>, clique no botão abaixo para salvar o JSON definitivo, gerar o Hash <strong>SHA-256</strong> e enviá-lo para a bandeja do <strong>Flávio (Depto 01 · Jurídico)</strong> registrar na Blockchain.
                   </p>
                 </div>
 
                 <div className={styles.accordionRightGroup}>
                   {wfState?.pilotPiece ? (
                     <span className={`${styles.statusPill} ${styles.statusPillSuccess}`}>
-                      Status: {wfState.pilotPiece.status}
+                      Enviado ao Jurídico: {wfState.pilotPiece.status}
                     </span>
                   ) : (
-                    <span className={styles.statusPill}>Aguardando Aprovação</span>
+                    <span className={styles.statusPill}>Aguardando Aprovação da Arte</span>
                   )}
 
                   <button
@@ -1422,7 +1631,7 @@ export default function AtelierPage() {
                   >
                     {openStep3ApproveBlockchain
                       ? '▲ Recolher Passo 3'
-                      : '▼ Expandir Aprovação'}
+                      : '▼ Expandir Aprovação & Envio'}
                   </button>
                 </div>
               </div>
@@ -1432,12 +1641,12 @@ export default function AtelierPage() {
                   <div className={styles.autoGridSmall}>
                     <div>
                       <label className={styles.formLabel}>
-                        Arte Matriz Selecionada (26 Chaves)
+                        Obra &amp; JSON de Escrita a ser Enviado ao Jurídico
                       </label>
                       <div className={styles.innerCardCompact}>
                         <strong className={styles.textPrimaryBold}>
                           {selectedArtwork
-                            ? `${selectedArtwork.code} — ${selectedArtwork.title}`
+                            ? `${selectedArtwork.code} — ${selectedArtwork.title} (${effectiveAlteredCount} propriedades editadas)`
                             : 'Selecione no Passo 2 acima'}
                         </strong>
                       </div>
@@ -1445,7 +1654,7 @@ export default function AtelierPage() {
 
                     <div>
                       <label className={styles.formLabel}>
-                        Modelagem da Camiseta Única (Dimona Silk HD)
+                        Modelagem da Camiseta na Coleção (Dimona Silk HD)
                       </label>
                       <select
                         value={garmentModel}
@@ -1498,26 +1707,21 @@ export default function AtelierPage() {
                     <div className={styles.flexRowStart}>
                       <button
                         type="button"
-                        onClick={handleApproveForCollectionBlockchain}
+                        onClick={handleSaveWritingJsonAndSendToFlavio}
                         disabled={approvingFlow || !selectedArtwork}
                         className={styles.btnPrimary}
                       >
-                        ✅ Aprovar Arte para Coleção (Congelar JSON 26 Chaves &amp; Enviar ao Jurídico)
+                        {approvingFlow
+                          ? 'Salvando JSON de Escrita & Enviando ao Jurídico...'
+                          : '✅ Gostei da Arte! Salvar JSON de Escrita & Enviar ao Flávio (Depto 01 · Blockchain)'}
                       </button>
 
                       {wfState?.pilotPiece && (
                         <Link href="/admin/juridico" className={styles.btnSuccess}>
-                          ⛓️ Avançar para Etapa 2: Registrar JSON na Blockchain (Depto 01 · Flávio) ➔
+                          ⛓️ Abrir Bandeja do Jurídico (Depto 01 · Flávio) p/ Registrar na Blockchain ➔
                         </Link>
                       )}
                     </div>
-
-                    {selectedArtwork?.coa_hash_sha256 && (
-                      <span className={styles.textMutedSmall}>
-                        Hash SHA-256:{' '}
-                        <code>{selectedArtwork.coa_hash_sha256.slice(0, 20)}...</code>
-                      </span>
-                    )}
                   </div>
                 </div>
               )}
@@ -1711,6 +1915,13 @@ export default function AtelierPage() {
           </div>
         )}
       </main>
+
+      {selectedAgentModal && (
+        <AgentDossierModal
+          agent={selectedAgentModal}
+          onClose={() => setSelectedAgentModal(null)}
+        />
+      )}
     </div>
   );
 }

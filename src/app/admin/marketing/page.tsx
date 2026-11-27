@@ -5,11 +5,14 @@ import Link from 'next/link';
 import AdminHeader from '../AdminHeader';
 import styles from '../admin-cockpit.module.css';
 import { WorkflowPersistentState } from '@/lib/workflowState';
+import { AGENTS_DOSSIER, AgentDossier } from '../agentDossierData';
+import AgentDossierModal from '../AgentDossierModal';
 
 export default function MarketingPage() {
   const [wfState, setWfState] = useState<WorkflowPersistentState | null>(null);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [selectedAgentModal, setSelectedAgentModal] = useState<AgentDossier | null>(null);
 
   // Controle de Accordions para enxugar altura vertical
   const [openFase0, setOpenFase0] = useState(true);
@@ -155,6 +158,12 @@ export default function MarketingPage() {
   const charter = wfState?.activeCharter;
   const pilot = wfState?.pilotPiece;
 
+  const marketingAgents = [
+    AGENTS_DOSSIER.content_creator,
+    AGENTS_DOSSIER.trios_balenciaga,
+    AGENTS_DOSSIER.vault_coupon,
+  ].filter(Boolean);
+
   return (
     <div className={styles.adminLayout}>
       <AdminHeader />
@@ -174,6 +183,33 @@ export default function MarketingPage() {
             <span className={styles.partnerOwnerBadge}>
               👤 Titular: Tripoint
             </span>
+          </div>
+        </div>
+
+        {/* Faixa de Serviço dos 3 Agentes do Depto 07 · Marketing de Produto */}
+        <div className={styles.moduleCard}>
+          <div className={styles.flexRowBetween}>
+            <span className={styles.sectionHeading}>
+              🤖 Equipe Agêntica do Depto 07 · Marketing de Produto (Alimentada por OpenRouter API)
+            </span>
+            <span className={styles.textMutedSmall}>
+              Clique em qualquer agente para ver seu serviço técnico no Marketing de Produto
+            </span>
+          </div>
+          <div className={styles.agentsGrid}>
+            {marketingAgents.map((ag) => (
+              <div
+                key={ag.id}
+                onClick={() => setSelectedAgentModal(ag)}
+                className={styles.agentBadge}
+              >
+                <span className={styles.agentStatusDotActive} />
+                <div className={styles.agentInfo}>
+                  <span className={styles.agentName}>{ag.name}</span>
+                  <span className={styles.agentRole}>{ag.role}</span>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -544,6 +580,13 @@ export default function MarketingPage() {
           )}
         </section>
       </main>
+
+      {selectedAgentModal && (
+        <AgentDossierModal
+          agent={selectedAgentModal}
+          onClose={() => setSelectedAgentModal(null)}
+        />
+      )}
     </div>
   );
 }
