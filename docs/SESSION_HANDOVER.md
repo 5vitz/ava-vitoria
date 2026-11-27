@@ -4,7 +4,36 @@ Este documento é a nossa âncora de persistência para as sessões de planejame
 
 ---
 
-## 1. O que realizamos nesta sessão (Estado Atual — 25–26/11/2026 · Noite/Madrugada)
+## 1. O que realizamos nesta sessão (Estado Atual — 26/11/2026 · Tarde/Início da Noite)
+
+*   **🍎 CALIBRAÇÃO ESTÉTICA DEFINITIVA DO PAINEL ADMIN ("APPLE PRO STUDIO & TELA DE PINTURA PRETA HALFTONE 3PX") (`src/app/admin/admin-cockpit.module.css` & módulos irmãos) ✅:**
+    *   **Nível 1 (Fundo Root — Tela de Pintura a Óleo Preta com Retícula Halftone `3px × 3px`):**
+        *   `--admin-bg-color: #101012` com `--admin-bg-halftone: radial-gradient(rgba(255, 255, 255, 0.28) 0.85px, transparent 0.85px)` em malha `3px × 3px`, aplicado exclusivamente no fundo da página (sem invadir os cards).
+        *   **Espaçamento Vertical Unificado e Ampliado (`--admin-container-gap: 24px`):** Todos os cards containers em `/admin`, `/admin/diretoria`, `/admin/agentes`, nos 8 Departamentos e telas auxiliares (`assinaturas`, `grid-manager`, `media`, `stock`, `design-system`) agora respiram com a mesma distância vertical exata controlada por 1 único token.
+    *   **Nível 2 (Bandejas Containers — Alumínio Anodizado Prata com Chanfro Sutil `4px`):**
+        *   `--admin-surface-container: linear-gradient(180deg, #ECECF0 0%, #D6D6DE 100%)`, `--admin-radius-container: 4px` e luz especular de topo (`inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 10px 28px rgba(0, 0, 0, 0.28)`).
+        *   Garante 100% de legibilidade para a Logo Preta e para todos os títulos e subtítulos em `#1D1D1F` / `#3A3A3C` em qualquer ponto do container.
+    *   **Nível 3 & 4 (Cards Internos e Botões em Porcelana Acetinada `#F5F5F8` + Transparência Ativa `:hover`):**
+        *   Eliminado o branco puro ofuscante (`#FFFFFF`), adotando Porcelana Acetinada (`#F5F5F8`) com chanfro sutil de `3px` (`--admin-radius-card: 3px`, `--admin-btn-radius: 3px`) e brilho especular superior (`inset 0 1px 0 #FFFFFF`).
+        *   Todos os botões ativos e primários (`🏛️ DIRETORIA`, `🗄️ ARQUIVO CENTRAL`, `+ PROPOR COLEÇÃO`, abas selecionadas) utilizam a transparência translúcida padronizada do estado `:hover` (`rgba(0, 0, 0, 0.14)` com texto `#000000` e borda escura).
+
+*   **🪗 SISTEMA UNIFICADO DE ACCORDIONS & LIMPEZA DA DIRETORIA EXECUTIVA (`src/app/admin/diretoria/page.tsx` & `admin-cockpit.module.css`) ✅:**
+    *   **Classes Globais de Accordion Criadas no `admin-cockpit.module.css`:** `.accordionHeaderBar`, `.accordionTitleGroup`, `.accordionRightGroup`, `.accordionToggleBtn`, `.accordionToggleBtnOpen`, `.accordionBody`, `.subAccordionBox`, `.subAccordionHeader` e `.subAccordionContent` — prontas para enxugar tabelas e seções longas em todos os departamentos com 1 único padrão.
+    *   **Remoção da Telemetria Redundante na Diretoria (`/admin/diretoria`):** Eliminado o card final de Telemetria dos Agentes da página da Diretoria, pois os Agentes já possuem sua página própria e completa em `/admin/agentes` (botão `🤖 AGENTES` no topo).
+    *   **3 Grandes Seções da Diretoria Convertidas em Accordions:**
+        1. `⚡ 1. Motor de Inteligência da Diretoria: 2 Relatórios Automáticos (Flávio & Gustavo)` (com badges de resumo no cabeçalho).
+        2. `🗄️ 2. Sistema Central de Arquivamento de Pedidos (Clientes vs. Amostras)` (nascendo recolhido, com atalhos diretos para as pastas no cabeçalho + **Sub-Accordion dedicado para a Tabela das 6 Peças Homologadas da Dimona `#755-460-927`**).
+        3. `🏛️ 3. Conselho Societário (4 Sócios · 2 Deptos cada) & Espelho do Fluxo Geral (PDF Oficial)` (nascendo recolhido).
+
+*   **🎯 PRÓXIMA TAREFA IMEDIATA (CONTINUAR EXATAMENTE DAQUI AO VOLTAR DO LANCHE):**
+    1. **Importante para economia de cota (Fast Tier):** Na abertura da próxima conversa, ler **apenas o `docs/SESSION_HANDOVER.md`** (sem ler os outros 17 arquivos de `docs/` a menos que necessário).
+    2. **Formatação em Accordions & Fluxo Tecno-Criativo `Depto 07 (Marketing de Produto)` ➔ `Depto 08 (Atelier Criativo)`:**
+       * Continuar a varredura de formatação (Accordions para enxugar altura vertical) a partir do **`Depto 07 · Marketing de Produto` (`/admin/marketing`)**, onde está a **`FASE 0 (Ponto de Partida): Carta Conceitual da Coleção — Os 4 Pilares Fundadores`** (*1. Nome, 2. Tema/Tendência, 3. Estética, 4. Mensagem A·V·A* aprovados por toda a Diretoria 4/4).
+       * **Conexão com o Início do Trabalho no `Depto 08 · Atelier Criativo` (`/admin/atelier`):** Uma vez aprovadas as definições iniciais da Coleção pela Diretoria (4/4), o ponto de partida de todo o processo tecno-criativo no Atelier é a **entrada/análise de uma Imagem de Referência** para ser decomposta em suas **propriedades mapeadas no JSON** (Decomposição Visual ➔ Desvinculação Autoral ➔ Geração do JSON de Escrita e Prompt to Image da nova obra da coleção), aproveitando também para organizar as tabelas/listas extensas do Atelier em **Accordions**.
+
+---
+
+## 1.0-AAA. Histórico da Sessão Anterior (25–26/11/2026 · Noite/Madrugada)
 
 *   **🧭 O ESPELHO DO FLUXO GERAL DE PROCESSOS (360°), LIMPEZA DE DADOS FICTÍCIOS ("TABULA RASA") & ROTEIRO E2E DA PEÇA ÚNICA PELOS 8 DEPARTAMENTOS (`/api/admin/workflow`, `src/lib/workflowState.ts`, `docs/REUNIAO/05_ESPELHO_FLUXO_GERAL_DE_PROCESSOS.pdf` & `Vale_uma_NFe_AVA.pdf`) ✅:**
     *   **1. Levantamento Completo das Atribuições dos 4 Sócios × 8 Departamentos (Base para o Contrato Social MEI ➔ LTDA):**

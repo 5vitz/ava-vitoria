@@ -13,10 +13,10 @@
 }
 
 .mediaContainer {
-  max-width: 1440px;
+  max-width: var(--admin-max-width, 100%);
   width: 100%;
   margin: 0 auto;
-  padding: var(--admin-container-gap, 24px) 24px 60px 24px;
+  padding: var(--admin-container-gap, 24px) var(--admin-side-padding, 24px) 60px var(--admin-side-padding, 24px);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

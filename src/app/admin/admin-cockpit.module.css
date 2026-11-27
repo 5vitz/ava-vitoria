@@ -15,6 +15,8 @@
   --admin-bg-size: 3px 3px;
   --admin-bg-position: 0 0;
   --admin-container-gap: 24px;
+  --admin-side-padding: 24px;
+  --admin-max-width: 100%;
   --admin-text-primary: #1D1D1F;
   --admin-text-body: #1D1D1F;
   --admin-text-secondary: #424245;
@@ -92,8 +94,8 @@
    TOPO EM 2 LINHAS (2 CARDS CONTAINERS DISTINTOS E LIMPOS)
    ========================================================================== */
 .topHeaderWrapper {
-  padding: var(--admin-container-gap) 24px 0 24px;
-  max-width: 1440px;
+  padding: var(--admin-container-gap) var(--admin-side-padding) 0 var(--admin-side-padding);
+  max-width: var(--admin-max-width);
   width: 100%;
   margin: 0 auto;
   display: flex;
@@ -394,8 +396,8 @@
    ========================================================================== */
 .mainContainer {
   flex: 1;
-  padding: var(--admin-container-gap) 24px 60px 24px;
-  max-width: 1440px;
+  padding: var(--admin-container-gap) var(--admin-side-padding) 60px var(--admin-side-padding);
+  max-width: var(--admin-max-width);
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -1527,4 +1529,62 @@
   padding: 12px;
   border-top: 1px solid rgba(0, 0, 0, 0.10);
 }
+
+/* ==========================================================================
+   RESPONSIVIDADE MOBILE (CELULAR & TABLET — EX: SAC / EMERGÊNCIA NA RUA)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .adminLayout {
+    --admin-container-gap: 14px;
+    --admin-side-padding: 12px;
+  }
+
+  .headerRow1Card {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .row1Left {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .connectedPartnersCard {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .row1RightAccount {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .headerRow2Card {
+    padding: 6px 10px;
+  }
+
+  .executiveCommandStrip,
+  .deptModuleHeader,
+  .deptsPanel,
+  .decisionQueueSection,
+  .agentsPanel,
+  .moduleCard {
+    padding: 14px 12px;
+  }
+
+  .moduleTitle {
+    font-size: 17px;
+  }
+
+  .voterGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .accordionTitleGroup {
+    min-width: 100%;
+  }
+}
+
 
